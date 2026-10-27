@@ -1,6 +1,7 @@
 ﻿using SolastaUnfinishedBusiness.Api.LanguageExtensions;
 using SolastaUnfinishedBusiness.Api.ModKit;
 using SolastaUnfinishedBusiness.Models;
+using SolastaUnfinishedBusiness.Subclasses.Builders;
 
 namespace SolastaUnfinishedBusiness.Displays;
 
@@ -14,10 +15,21 @@ internal static class ClassesDisplay
             () => UpdateContext.OpenDocumentation("Classes.md"), UI.Width(189f));
 
         UI.Label();
+        UI.Label("<color=#F0DAA0>" + Gui.Localize("Class/&InventorTitle") + ":</color>");
+        UI.Label();
+
+        var toggle = Main.Settings.InfusionsOnlyOnNonMagicalItems;
+        if (UI.Toggle(Gui.Localize("ModUi/&InfusionsOnlyOnNonMagicalItems"), ref toggle, UI.AutoWidth()))
+        {
+            Main.Settings.InfusionsOnlyOnNonMagicalItems = toggle;
+            InventorInfusions.SwitchInfusionTargetRule();
+        }
+
+        UI.Label();
         UI.Label("<color=#F0DAA0>" + Gui.Localize("Class/&BardTitle") + ":</color>");
         UI.Label();
 
-        var toggle = Main.Settings.EnableBardCounterCharm2024;
+        toggle = Main.Settings.EnableBardCounterCharm2024;
         if (UI.Toggle(Gui.Localize("ModUi/&EnableBardCounterCharm2024"), ref toggle, UI.AutoWidth()))
         {
             Main.Settings.EnableBardCounterCharm2024 = toggle;

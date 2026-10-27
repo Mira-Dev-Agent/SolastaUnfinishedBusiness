@@ -235,6 +235,7 @@ ModUi/&EnableRangerTireless2024=Enable <color=#D89555>Tireless</color> to replac
 ModUi/&EnableRangerAnyFightingStyle2024=Enable <color=#D89555>Ranger</color> to choose any fighting style <i><color=#F0DAA0>[adds Great Weapon Fighting and Protection]</color></i>
 ModUi/&EnableRelearnSpells=Enable selection of cantrips or spells already learned from other sources
 ModUi/&EnableLevelDownAction=Enable the <color=#D89555>LEVEL DOWN</color> after rest action <i><color=#F0DAA0>[undoes a hero's last level and its choices; only levels gained with Finishing Business 1.6.1.0 or later are recorded]</color></i>
+ModUi/&InfusionsOnlyOnNonMagicalItems=Artificer infusions can only be put on non-magical items <i><color=#F0DAA0>[tabletop rule; otherwise magic items can be infused too, but not a weapon a temporary spell such as Magic Weapon is enhancing]</color></i>
 ModUi/&EnableRespecAction=Enable the <color=#D89555>RESPEC</color> after rest action <i><color=#F0DAA0>[don't use RESPEC during a multiplayer session]</color></i>
 ModUi/&EnableRitualOnAllCasters2024=Enable <color=#D89555>Ritual</color> casting on all casters
 ModUi/&EnableRogueCunningStrike2024=Enable <color=#D89555>Cunning Strike</color>, <color=#D89555>Improved Cunning Strike</color>, and <color=#D89555>Devious Strike</color> at levels 5, 11 and 14 <i><color=#F0DAA0>[you let forgo 1 sneak attack dice for additional hit effects]</color></i>

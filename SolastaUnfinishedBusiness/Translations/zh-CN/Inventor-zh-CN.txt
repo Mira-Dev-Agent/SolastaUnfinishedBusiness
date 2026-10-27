@@ -7,6 +7,7 @@ Feature/&CastSpellsInventorTitle=奇械师施法
 Feature/&CraftingAffinityInventorMagicItemAdeptDescription=你已经对如何使用和制作魔法物品有了深刻的理解：\n• 你的同调上限提高 1\n• 你制作物品所需时间缩短为通常的四分之一。
 Feature/&CraftingAffinityInventorMagicItemAdeptTitle=魔法物品熟稔
 Feature/&FeatureInventorInfusionPoolDescription=你获得了将平凡物品注入特定魔法注法的能力，将其转化为魔法物品。你学习你所选择的 4 种注法。每当你在本职业中获得一个等级时，便可以将一项已学的奇械师注法替换为一项新的奇械师注法。\n每次长休后，你可以为 2 件物品进行注法。若你尝试让受注法物品的数量超过上限，最早的注法会立刻结束，然后新的注法才会生效。若你替换掉某个已知注法，该注法的效果也会随之消散。
+Feature/&FeatureInventorInfusionPoolNonMagicalDescription=你获得了将平凡物品注入特定魔法注法的能力，将其转化为魔法物品。你学习你所选择的 4 种注法。每当你在本职业中获得一个等级时，便可以将一项已学的奇械师注法替换为一项新的奇械师注法。\n每次长休后，你可以为 2 件物品进行注法。若你尝试让受注法物品的数量超过上限，最早的注法会立刻结束，然后新的注法才会生效。若你替换掉某个已知注法，该注法的效果也会随之消散。
 Feature/&FeatureInventorInfusionPoolTitle=注法
 Feature/&MagicAffinityInventorMagicItemSavantDescription=你在魔法物品上的造诣更进一步：\n• 你的同调上限再提高 1\n• 你在魔法物品同调时无视职业要求。
 Feature/&MagicAffinityInventorMagicItemSavantTitle=魔法物品专家

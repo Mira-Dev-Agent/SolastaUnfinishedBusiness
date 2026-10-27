@@ -24,6 +24,14 @@ internal static class InventorInfusions
     private const int UpgradeLevel = 10;
     private static readonly ICustomUnicityTag MagicalDamage = new CustomUnicityTag("MagicalDamage");
 
+    // Magic weapon infusions share their own tag instead of the game's "MagicalWeapon" one: a temporary effect such as
+    // Sacred Weapon no longer wipes an infusion (vanilla keeps one MagicalWeapon property per item, and only until the
+    // game is reloaded, as the tag isn't saved), while a new infusion still replaces an older one on the same item.
+    private static readonly ICustomUnicityTag InfusionUnicity = new CustomUnicityTag("Infusion");
+
+    private const string InfusionsDescription = "Feature/&FeatureInventorInfusionPoolDescription";
+    private const string InfusionsNonMagicalDescription = "Feature/&FeatureInventorInfusionPoolNonMagicalDescription";
+
     public static void Build()
     {
         #region 02 Enhance Focus
@@ -447,6 +455,13 @@ internal static class InventorInfusions
         var properties = features.Select(f =>
         {
             f.AddCustomSubFeatures(TrackItemsCarefully.Marker);
+
+            if (f is FeatureDefinitionAttackModifier { MagicalWeapon: true } &&
+                !f.HasSubFeatureOfType<ICustomUnicityTag>())
+            {
+                f.AddCustomSubFeatures(InfusionUnicity);
+            }
+
             return new FeatureUnlockByLevel(f, 0);
         });
 
@@ -540,7 +555,42 @@ internal static class InventorInfusions
             return !rulesetItem.dynamicItemProperties
                        .Select(property => EffectHelpers.GetEffectByGuid(property.sourceEffectGuid))
                        .Any(effect => effect != null && effect.SourceDefinition == rulesetEffect.SourceDefinition) &&
+                   IsAllowedInfusionTarget(rulesetItem) &&
                    base.IsValid(character, rulesetItem, rulesetEffect);
+        }
+    }
+
+    // tabletop rule (setting): only non-magical items can be infused. Otherwise magic items can be infused too, but not
+    // a weapon that a temporary effect (Magic Weapon) currently makes magical with a bonus, so bonuses don't stack.
+    private static bool IsAllowedInfusionTarget(RulesetItem item)
+    {
+        if (Main.Settings.InfusionsOnlyOnNonMagicalItems)
+        {
+            return !item.ItemDefinition.Magical && !item.IsMagicalWeapon();
+        }
+
+        return !item.dynamicItemProperties.Any(property =>
+            property.FeatureDefinition is FeatureDefinitionAttackModifier { MagicalWeapon: true } modifier &&
+            (modifier.AttackRollModifier != 0 || modifier.DamageRollModifier != 0 ||
+             modifier.AdditionalDamageDice != 0) &&
+            modifier.GetFirstSubFeatureOfType<ICustomUnicityTag>() != InfusionUnicity);
+    }
+
+    // the Infusions feature says which items can be infused under the current rule
+    internal static void SwitchInfusionTargetRule()
+    {
+        var description = Main.Settings.InfusionsOnlyOnNonMagicalItems
+            ? InfusionsNonMagicalDescription
+            : InfusionsDescription;
+
+        if (TryGetDefinition<FeatureDefinitionFeatureSet>("FeatureSetInventorInfusions", out var featureSet))
+        {
+            featureSet.GuiPresentation.description = description;
+        }
+
+        if (TryGetDefinition<FeatureDefinitionPower>("PowerInfusionPool", out var pool))
+        {
+            pool.GuiPresentation.description = description;
         }
     }
 

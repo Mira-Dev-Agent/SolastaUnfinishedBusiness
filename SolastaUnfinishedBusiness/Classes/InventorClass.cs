@@ -96,6 +96,7 @@ internal static class InventorClass
         var unlearn = BuildUnlearn();
 
         InventorInfusions.Build();
+        InventorInfusions.SwitchInfusionTargetRule();
 
         var builder = CharacterClassDefinitionBuilder
             .Create(ClassName)

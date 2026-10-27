@@ -1,3 +1,9 @@
+1.6.5.2:
+- Fixed the Artificer's magic weapon infusions (Enhance Weapon, Returning Weapon, Repeating Shot) being removed by temporary effects such as Sacred Weapon. This only happened in the same play session as the infusion, not after a reload. Infusions now use their own tag, so neither removes the other, and a new infusion still replaces an older one on the same item
+- Infusions can no longer be put on a weapon that a temporary effect such as Magic Weapon currently makes magical with a bonus, so the bonuses don't stack. Found or bought magic weapons can still be infused
+- Added Character > Classes > Artificer: "Artificer infusions can only be put on non-magical items" (tabletop rule, off by default). The Infusions feature text says which rule is active
+- Not tested in game: the infusion and Sacred Weapon interaction and both targeting rules
+
 1.6.5.1:
 - Fixed 12 errors at every startup (and the crash report they sent) from the multiplayer check running before the networking service exists
 - Mod menu search:
