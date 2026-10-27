@@ -339,6 +339,7 @@ public class Settings : UnityModManager.ModSettings
     public bool AddNewWeaponsAndRecipesToShops { get; set; }
     public bool NewWeaponsAndRecipesBaseInsteadOfPrimed { get; set; }
     public bool NewWeaponsAndRecipesSimplified { get; set; }
+    public bool CraftWithBaseInsteadOfPrimed { get; set; }
     public bool AddNewScrollsToShops { get; set; }
     public bool AddNewScrollsToTreasure { get; set; }
     public List<string> CraftingInStore { get; } = [];

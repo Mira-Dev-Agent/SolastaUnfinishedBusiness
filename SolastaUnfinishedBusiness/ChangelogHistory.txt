@@ -1,3 +1,10 @@
+1.6.10.0:
+- New setting (Gameplay > Items, Crafting & Merchants, off by default): recipes that ask for a Primed weapon or armor also accept the plain one
+  - Works for every recipe: the game's, this mod's and campaigns'
+  - Primed items are used first. Plain ones only count when they are not equipped, so a hero's own gear is never used up
+  - Ingredients are used up when crafting starts, as before; a failed crafting roll only loses that hour of progress
+- Not tested in game or in a multiplayer session
+
 1.6.9.0:
 - When the party already had a long rest today, the Long Rest button on the rest screen stays usable: it waits until the party can rest again, then rests, as one action (Gameplay > Campaigns, on by default)
   - One confirmation shows the wait and the total in-game time

@@ -36,4 +36,17 @@ public static class GameCampaignPartyPatcher
             return false;
         }
     }
+
+    //PATCH: a recipe asking for a Primed weapon or armor also takes the plain one (CraftWithBaseInsteadOfPrimed)
+    [HarmonyPatch(typeof(GameCampaignParty), nameof(GameCampaignParty.ConsumeIngredients))]
+    [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]
+    [UsedImplicitly]
+    public static class ConsumeIngredients_Patch
+    {
+        [UsedImplicitly]
+        public static void Postfix(GameCampaignParty __instance)
+        {
+            PrimedIngredientContext.ConsumeBaseFor(__instance.remainingIngredientsCount);
+        }
+    }
 }

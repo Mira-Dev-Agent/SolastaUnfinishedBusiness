@@ -319,4 +319,17 @@ public static class GameLocationCharacterManagerPatcher
             return false;
         }
     }
+
+    //PATCH: a recipe asking for a Primed weapon or armor also takes the plain one (CraftWithBaseInsteadOfPrimed)
+    [HarmonyPatch(typeof(GameLocationCharacterManager), nameof(GameLocationCharacterManager.ConsumePartyIngredients))]
+    [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]
+    [UsedImplicitly]
+    public static class ConsumePartyIngredients_Patch
+    {
+        [UsedImplicitly]
+        public static void Postfix(GameLocationCharacterManager __instance)
+        {
+            PrimedIngredientContext.ConsumeBaseFor(__instance.remainingIngredientsCount);
+        }
+    }
 }

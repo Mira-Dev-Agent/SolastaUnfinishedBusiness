@@ -346,6 +346,12 @@ internal static class CraftingAndItems
             Main.Settings.TotalCraftingTimeModifier = intValue;
         }
 
+        toggle = Main.Settings.CraftWithBaseInsteadOfPrimed;
+        if (UI.Toggle(Gui.Localize("ModUi/&CraftWithBaseInsteadOfPrimed"), ref toggle, UI.AutoWidth()))
+        {
+            Main.Settings.CraftWithBaseInsteadOfPrimed = toggle;
+        }
+
         UI.Label();
 
         toggle = Main.Settings.AddNewWeaponsAndRecipesToShops;
