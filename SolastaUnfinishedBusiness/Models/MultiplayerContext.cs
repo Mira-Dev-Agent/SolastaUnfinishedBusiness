@@ -24,6 +24,9 @@ internal static class MultiplayerContext
     private const float LowerTickBufferMaxWaitingTime = 0.05f;
     private const float TickDuration = 0.05f;
 
+    // extra time allowed for network jitter when sizing the action delay from ping
+    private const float PingJitterMarginMs = 30f;
+
     private const ulong DesyncCheckTickInterval = 100;
     private const int DesyncCheckHistory = 32;
 
@@ -69,6 +72,17 @@ internal static class MultiplayerContext
         }
 
         var maxWaitingTime = tick.waitingTimePerActor.Values.Max();
+        var pingBased = Main.Settings.MultiplayerPingBasedTickBuffer;
+        var floor = pingBased ? Mathf.Max(MinimumTickBuffer, PingTickBuffer(tick)) : MinimumTickBuffer;
+
+        // a slower connection raises the delay as soon as the reported pings need it, before anyone waits
+        if (pingBased && tick.targetTickBuffer < floor)
+        {
+            wantedTickBuffer = (byte)floor;
+            tick.counterToAllowLowerBuffer = ChecksBeforeLowerTickBuffer;
+
+            return true;
+        }
 
         if (tick.targetTickBuffer < MaxTickBuffer && maxWaitingTime >= IncreaseTickBufferWaitingTime)
         {
@@ -79,7 +93,7 @@ internal static class MultiplayerContext
             return true;
         }
 
-        if (tick.targetTickBuffer <= MinimumTickBuffer)
+        if (tick.targetTickBuffer <= floor)
         {
             return false;
         }
@@ -91,12 +105,14 @@ internal static class MultiplayerContext
             return false;
         }
 
-        var lowerTickBuffer = Mathf.Max(tick.targetTickBuffer - 1, MinimumTickBuffer);
+        var lowerTickBuffer = Mathf.Max(tick.targetTickBuffer - 1, floor);
         var tickSpread = tick.MaxTick - tick.MinTick;
         var maxPingInSeconds = tick.networkPingPerActor.Values.Max() * 0.001f;
-        // a command must reach every peer (round trip through the relay) before its scheduled tick
-        var pingFits = maxPingInSeconds > 0 &&
-                       maxPingInSeconds * 2 < (lowerTickBuffer * TickDuration) - TickDuration;
+        // a command must reach every peer (round trip through the relay) before its scheduled tick; the ping based
+        // floor already holds the delay the pings need
+        var pingFits = pingBased ||
+                       (maxPingInSeconds > 0 &&
+                        maxPingInSeconds * 2 < (lowerTickBuffer * TickDuration) - TickDuration);
 
         if (!pingFits || tickSpread >= (ulong)lowerTickBuffer)
         {
@@ -116,6 +132,42 @@ internal static class MultiplayerContext
         tick.counterToAllowLowerBuffer = ChecksBeforeLowerTickBuffer;
 
         return true;
+    }
+
+    // ticks a command needs to reach every computer before it runs: from the slowest sender through the server to
+    // the slowest receiver (half of each one's round trip), plus jitter, plus one tick for peers' ticks to spread,
+    // plus one more when commands wait for the next tick's flush
+    private static int PingTickBuffer(NetworkTick tick)
+    {
+        var pings = tick.networkPingPerActor.Values.Where(x => x > 0).OrderByDescending(x => x).ToList();
+
+        if (pings.Count == 0)
+        {
+            return MinimumTickBuffer;
+        }
+
+        var slowestPathMs = (pings[0] + (pings.Count > 1 ? pings[1] : pings[0])) / 2f;
+        var flushTicks = Main.Settings.MultiplayerFlushCommandsImmediately ? 0 : 1;
+        var ticks = Mathf.CeilToInt((slowestPathMs + PingJitterMarginMs) / (TickDuration * 1000f)) + 1 + flushTicks;
+
+        return Mathf.Clamp(ticks, MinTickBuffer, MaxTickBuffer);
+    }
+
+    internal static int CurrentTickBuffer =>
+        ServiceRepository.GetService<INetworkingService>() is NetworkingManager { tick: { } tick }
+            ? tick.currentSendTickBuffer
+            : 0;
+
+    // game commands are only sent after the game accepted the action; sending them at once instead of at the next
+    // tick's flush saves up to one tick. Same messages, same order, same scheduled tick: only the send time changes.
+    internal static void FlushCommandIfNeeded()
+    {
+        if (Main.Settings.MultiplayerFlushCommandsImmediately &&
+            PhotonNetwork.InRoom &&
+            !PhotonNetwork.OfflineMode)
+        {
+            PhotonNetwork.SendAllOutgoingCommands();
+        }
     }
 
     #endregion

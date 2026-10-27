@@ -1,3 +1,9 @@
+1.6.3.0:
+- Multiplayer: game actions are sent as soon as they are issued instead of at the next tick, saving up to 50 ms per action (toggle, on by default)
+- Multiplayer: the action delay is sized from every player's ping, raised before anyone waits when a connection is slow, and lowered for fast groups (toggle, on by default)
+- Multiplayer: each player's ping and the current action delay are shown in the Multiplayer tab and on player plates. A host setting can make them visible to the host only
+- Not tested in game or in a multiplayer session
+
 1.6.2.0:
 - Added a search box above the mod menu tabs. While it has text, every tab and sub-page is searched at once, and only the matching settings are shown under a "Tab > Section" heading. Collapsed sections open while searching and close again when the search is cleared. Credits & Diagnostics, the Bestiary and the Characters Pool are not searched
 - Remake Old Character: the pre-selected background and race are scrolled into view, and the "Character Info" heading is hidden so the hero name no longer overlaps it

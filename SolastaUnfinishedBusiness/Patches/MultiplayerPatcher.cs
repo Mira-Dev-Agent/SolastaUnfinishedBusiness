@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Linq;
+using System.Reflection;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection.Emit;
@@ -177,6 +179,27 @@ public static class MultiplayerPatcher
         }
     }
 
+    //PATCH: sends each game command as soon as it is issued instead of at the next tick (MULTIPLAYER)
+    [HarmonyPatch]
+    [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]
+    [UsedImplicitly]
+    public static class FlushCommand_Patch
+    {
+        // every command the game sends: the networking manager's implementation of the command service
+        [UsedImplicitly]
+        public static IEnumerable<MethodBase> TargetMethods()
+        {
+            return typeof(NetworkingManager).GetInterfaceMap(typeof(ICommandService)).TargetMethods
+                .Where(x => x.DeclaringType == typeof(NetworkingManager));
+        }
+
+        [UsedImplicitly]
+        public static void Postfix()
+        {
+            MultiplayerContext.FlushCommandIfNeeded();
+        }
+    }
+
     //PATCH: periodically shares the entity guid so peers can detect a desync (MULTIPLAYER)
     [HarmonyPatch(typeof(NetworkingManager), nameof(NetworkingManager.FixedUpdate))]
     [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]
@@ -187,6 +210,7 @@ public static class MultiplayerPatcher
         public static void Postfix(NetworkingManager __instance)
         {
             MultiplayerContext.SendDesyncCheckIfNeeded(__instance);
+            MultiplayerSessionContext.PublishPingIfNeeded();
         }
     }
 

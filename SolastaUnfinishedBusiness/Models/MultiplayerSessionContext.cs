@@ -24,6 +24,9 @@ internal static class MultiplayerSessionContext
     private const string VersionKey = "UbV";
     private const string SettingsKey = "UbS";
     private const string SettingsHashKey = "UbSH";
+    private const string PingKey = "UbPg";
+    private const float PingPublishInterval = 3f;
+    private const int PingPublishThresholdMs = 5;
     private const string HostSettingsName = "Host";
     private const string UseHostSettingsFlag = "UseHostSettingsOnNextLaunch.flag";
     private const string RequiresRestartMarker = "Requires Restart";
@@ -33,6 +36,8 @@ internal static class MultiplayerSessionContext
     private static Settings _localSettings;
     private static string _appliedSettingsHash;
     private static HashSet<string> _restartOnlySettings;
+    private static float _nextPingPublishTime;
+    private static int _publishedPing = -1;
 
     internal static bool IsUsingHostSettings => _localSettings != null;
     internal static bool IsUsingHostSettingsForThisLaunch { get; private set; }
@@ -120,6 +125,8 @@ internal static class MultiplayerSessionContext
 
     internal static void OnLeftRoom()
     {
+        _publishedPing = -1;
+        _nextPingPublishTime = 0;
         RestoreLocalSettings();
         HostVersion = null;
     }
@@ -217,6 +224,55 @@ internal static class MultiplayerSessionContext
 
     // player plates in the lobby and in game show each player's build when hovered; a different or missing build
     // turns the name red
+    // every player shares its ping to the server every few seconds, only when it changed noticeably
+    internal static void PublishPingIfNeeded()
+    {
+        if (!IsOnlineRoom || Time.unscaledTime < _nextPingPublishTime)
+        {
+            return;
+        }
+
+        _nextPingPublishTime = Time.unscaledTime + PingPublishInterval;
+
+        var ping = PhotonNetwork.GetPing();
+
+        if (_publishedPing >= 0 && Mathf.Abs(ping - _publishedPing) < PingPublishThresholdMs)
+        {
+            return;
+        }
+
+        _publishedPing = ping;
+        PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable { { PingKey, ping } });
+    }
+
+    // the host's setting decides who sees pings, since clients play with the host's settings
+    internal static bool CanSeePings =>
+        IsOnlineRoom && (!Main.Settings.MultiplayerPingVisibleToHostOnly || PhotonNetwork.IsMasterClient);
+
+    internal static int? GetPlayerPing(Player player)
+    {
+        if (player == null)
+        {
+            return null;
+        }
+
+        if (player.IsLocal)
+        {
+            return PhotonNetwork.GetPing();
+        }
+
+        return player.CustomProperties.TryGetValue(PingKey, out var value) && value is int ping ? ping : null;
+    }
+
+    internal static string DescribePing(Player player)
+    {
+        var ping = GetPlayerPing(player);
+
+        return ping.HasValue
+            ? Gui.Format("ModUi/&MultiplayerPing", ping.Value.ToString())
+            : Gui.Localize("ModUi/&MultiplayerNoPing");
+    }
+
     internal static void DecoratePlayerInfoGroup(PlayerInfoGroup group)
     {
         var slot = group?.playerSlot;
@@ -231,7 +287,9 @@ internal static class MultiplayerSessionContext
 
         if (group.playerImageTooltip)
         {
-            group.playerImageTooltip.Content = $"{slot.PlayerNickname}\nUB {DescribeVersion(version)}";
+            group.playerImageTooltip.Content = CanSeePings
+                ? $"{slot.PlayerNickname}\nUB {DescribeVersion(version)}\n{DescribePing(player)}"
+                : $"{slot.PlayerNickname}\nUB {DescribeVersion(version)}";
         }
 
         if (version == BuildVersion)

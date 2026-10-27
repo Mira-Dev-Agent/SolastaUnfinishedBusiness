@@ -182,6 +182,9 @@ public class Settings : UnityModManager.ModSettings
     public bool MultiplayerDeterministicStandAgainstTheTide { get; set; } = true;
     public bool MultiplayerEnableDesyncDetection { get; set; } = true;
     public bool MultiplayerEnableTickBufferTuning { get; set; } = true;
+    public bool MultiplayerFlushCommandsImmediately { get; set; } = true;
+    public bool MultiplayerPingBasedTickBuffer { get; set; } = true;
+    public bool MultiplayerPingVisibleToHostOnly { get; set; }
     public int MultiplayerInitialTickBuffer { get; set; } = MultiplayerContext.DefaultInitialTickBuffer;
     public int MultiplayerMinimumTickBuffer { get; set; } = MultiplayerContext.DefaultMinimumTickBuffer;
     public int MultiplayerSecondsBeforeLowerTickBuffer { get; set; } =

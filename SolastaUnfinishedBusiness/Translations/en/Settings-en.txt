@@ -525,3 +525,9 @@ ModUi/&MultiplayerHostSettingsThisLaunchBanner=<b><color=#E0A040>This launch use
 ModUi/&MultiplayerPlayersVersions=<color=white>Builds in this room:</color>
 ModUi/&MultiplayerNoVersion=no version reported
 ModUi/&MultiplayerHostRole= (host)
+ModUi/&MultiplayerFlushCommandsImmediately=Send each action as soon as it is issued instead of at the next tick <i><color=#F0DAA0>[saves up to 50 ms per action; same messages, only sent sooner]</color></i>
+ModUi/&MultiplayerPingBasedTickBuffer=Size the action delay from every player's ping <i><color=#F0DAA0>[raises it before anyone waits when a connection is slow, and lets fast groups go down to the minimum below]</color></i>
+ModUi/&MultiplayerPingVisibleToHostOnly=Only the host sees players' ping and the action delay <i><color=#F0DAA0>[otherwise every player sees them in this tab and on player plates]</color></i>
+ModUi/&MultiplayerCurrentDelay=<color=white>Current action delay:</color> {0} ticks ({1} ms)
+ModUi/&MultiplayerPing=ping {0} ms
+ModUi/&MultiplayerNoPing=ping not reported

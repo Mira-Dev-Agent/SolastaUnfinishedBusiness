@@ -18,6 +18,13 @@ internal static class MultiplayerDisplay
             return;
         }
 
+        if (MultiplayerSessionContext.CanSeePings)
+        {
+            var delay = MultiplayerContext.CurrentTickBuffer;
+
+            UI.Label(Gui.Format("ModUi/&MultiplayerCurrentDelay", delay.ToString(), (delay * 50).ToString()));
+        }
+
         UI.Label(Gui.Localize("ModUi/&MultiplayerPlayersVersions"));
 
         foreach (var player in PhotonNetwork.PlayerList)
@@ -25,6 +32,11 @@ internal static class MultiplayerDisplay
             var version = MultiplayerSessionContext.GetPlayerVersion(player);
             var role = player.IsMasterClient ? Gui.Localize("ModUi/&MultiplayerHostRole") : string.Empty;
             var text = $"{player.NickName}{role}: {MultiplayerSessionContext.DescribeVersion(version)}";
+
+            if (MultiplayerSessionContext.CanSeePings)
+            {
+                text += $" · {MultiplayerSessionContext.DescribePing(player)}";
+            }
 
             UI.Label(version == MultiplayerSessionContext.BuildVersion
                 ? $"    <color=#80C080>{text}</color>"
@@ -62,6 +74,18 @@ internal static class MultiplayerDisplay
         UI.Label(Gui.Localize("ModUi/&MultiplayerLagTitle"));
         UI.Label();
 
+        toggle = Main.Settings.MultiplayerFlushCommandsImmediately;
+        if (UI.Toggle(Gui.Localize("ModUi/&MultiplayerFlushCommandsImmediately"), ref toggle, UI.AutoWidth()))
+        {
+            Main.Settings.MultiplayerFlushCommandsImmediately = toggle;
+        }
+
+        toggle = Main.Settings.MultiplayerPingVisibleToHostOnly;
+        if (UI.Toggle(Gui.Localize("ModUi/&MultiplayerPingVisibleToHostOnly"), ref toggle, UI.AutoWidth()))
+        {
+            Main.Settings.MultiplayerPingVisibleToHostOnly = toggle;
+        }
+
         toggle = Main.Settings.MultiplayerEnableTickBufferTuning;
         if (UI.Toggle(Gui.Localize("ModUi/&MultiplayerEnableTickBufferTuning"), ref toggle, UI.AutoWidth()))
         {
@@ -70,6 +94,12 @@ internal static class MultiplayerDisplay
 
         if (Main.Settings.MultiplayerEnableTickBufferTuning)
         {
+            toggle = Main.Settings.MultiplayerPingBasedTickBuffer;
+            if (UI.Toggle(Gui.Localize("ModUi/&MultiplayerPingBasedTickBuffer"), ref toggle, UI.AutoWidth()))
+            {
+                Main.Settings.MultiplayerPingBasedTickBuffer = toggle;
+            }
+
             var intValue = Main.Settings.MultiplayerInitialTickBuffer;
             if (UI.Slider(Gui.Localize("ModUi/&MultiplayerInitialTickBuffer"), ref intValue,
                     MultiplayerContext.MinTickBuffer, MultiplayerContext.MaxTickBuffer,
