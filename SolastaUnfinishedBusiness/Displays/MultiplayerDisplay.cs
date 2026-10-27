@@ -146,6 +146,34 @@ internal static class MultiplayerDisplay
         }
 
         UI.Label();
+        UI.Label(Gui.Localize("ModUi/&MultiplayerTimeTitle"));
+        UI.Label();
+
+        toggle = Main.Settings.MultiplayerRequireApprovalForTimeConsumingActions;
+        if (UI.Toggle(Gui.Localize("ModUi/&MultiplayerRequireApprovalForTimeConsumingActions"), ref toggle,
+                UI.AutoWidth()))
+        {
+            Main.Settings.MultiplayerRequireApprovalForTimeConsumingActions = toggle;
+        }
+
+        if (Main.Settings.MultiplayerRequireApprovalForTimeConsumingActions)
+        {
+            toggle = Main.Settings.MultiplayerApprovalSkipActionsOfTenMinutesOrLess;
+            if (UI.Toggle(Gui.Localize("ModUi/&MultiplayerApprovalSkipActionsOfTenMinutesOrLess"), ref toggle,
+                    UI.AutoWidth()))
+            {
+                Main.Settings.MultiplayerApprovalSkipActionsOfTenMinutesOrLess = toggle;
+            }
+        }
+
+        // the same setting is also under Campaigns
+        toggle = Main.Settings.AllowShortRestWithPartySpreadOut;
+        if (UI.Toggle(Gui.Localize("ModUi/&AllowShortRestWithPartySpreadOut"), ref toggle, UI.AutoWidth()))
+        {
+            Main.Settings.AllowShortRestWithPartySpreadOut = toggle;
+        }
+
+        UI.Label();
         UI.Label(Gui.Localize("ModUi/&MultiplayerMovementTitle"));
         UI.Label();
 

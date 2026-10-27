@@ -198,6 +198,8 @@ public class Settings : UnityModManager.ModSettings
     public bool MultiplayerResolveOverlapsOnBattleStart { get; set; } = true;
     public bool MultiplayerAllowAlliesToPassThroughInCombat { get; set; } = true;
     public bool MultiplayerSpreadOverlappedCharacters { get; set; } = true;
+    public bool MultiplayerRequireApprovalForTimeConsumingActions { get; set; } = true;
+    public bool MultiplayerApprovalSkipActionsOfTenMinutesOrLess { get; set; } = true;
 
     //
     // Gameplay - Campaigns
@@ -205,6 +207,7 @@ public class Settings : UnityModManager.ModSettings
 
     public bool NoExperienceOnLevelUp { get; set; }
     public bool OverrideMinMaxLevel { get; set; }
+    public bool AllowShortRestWithPartySpreadOut { get; set; }
     public float FasterTimeModifier { get; set; } = CampaignsDisplay.DefaultFastTimeModifier;
     public int MultiplyTheExperienceGainedBy { get; set; } = 100;
     public int OverridePartySize { get; set; } = ToolsContext.GamePartySize;

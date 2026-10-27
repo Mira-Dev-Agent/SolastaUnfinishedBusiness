@@ -215,6 +215,87 @@ public static class MultiplayerPatcher
             MultiplayerContext.SendDesyncCheckIfNeeded(__instance);
             MultiplayerDesyncContext.SendFingerprintIfNeeded(__instance);
             MultiplayerSessionContext.PublishPingIfNeeded();
+            MultiplayerApprovalContext.Update();
+        }
+    }
+
+    //PATCH: asks every player to approve a spell or power that passes a minute or more of in-game time (MULTIPLAYER)
+    [HarmonyPatch(typeof(NetworkingManager), nameof(NetworkingManager.ExecuteAction))]
+    [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]
+    [UsedImplicitly]
+    public static class ExecuteAction_Patch
+    {
+        [UsedImplicitly]
+        public static bool Prefix(
+            NetworkingManager __instance,
+            CharacterActionParams characterActionParams,
+            CharacterAction.ActionExecutedHandler actionExecuted,
+            bool enqueue)
+        {
+            var seconds = MultiplayerApprovalContext.ActionSeconds(characterActionParams, out var action,
+                out var subject);
+
+            return !MultiplayerApprovalContext.MustWaitForApproval(action,
+                characterActionParams?.ActingCharacter?.Name, subject, seconds,
+                () => __instance.ExecuteAction(characterActionParams, actionExecuted, enqueue));
+        }
+    }
+
+    //PATCH: asks every player to approve learning a spell from a scroll (MULTIPLAYER)
+    [HarmonyPatch(typeof(NetworkingManager), nameof(NetworkingManager.LearnRitual))]
+    [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]
+    [UsedImplicitly]
+    public static class LearnRitual_Patch
+    {
+        [UsedImplicitly]
+        public static bool Prefix(
+            NetworkingManager __instance,
+            RulesetCharacterHero learningHero,
+            SpellDefinition ritualToLearn,
+            RulesetItem scrollToLearn,
+            int[] learnCosts)
+        {
+            return !MultiplayerApprovalContext.MustWaitForApproval(
+                MultiplayerApprovalContext.ApprovalAction.LearnSpell, learningHero.Name, ritualToLearn,
+                learningHero.ComputeScribeDurationSeconds(ritualToLearn),
+                () => __instance.LearnRitual(learningHero, ritualToLearn, scrollToLearn, learnCosts));
+        }
+    }
+
+    //PATCH: asks every player to approve scribing a scroll (MULTIPLAYER)
+    [HarmonyPatch(typeof(NetworkingManager), nameof(NetworkingManager.ScribeScroll))]
+    [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]
+    [UsedImplicitly]
+    public static class ScribeScroll_Patch
+    {
+        [UsedImplicitly]
+        public static bool Prefix(
+            NetworkingManager __instance,
+            RulesetCharacterHero scribingHero,
+            SpellDefinition spellToScribe,
+            RulesetItem scrollToScribe,
+            RulesetItem targetItem,
+            int[] scribeCosts)
+        {
+            return !MultiplayerApprovalContext.MustWaitForApproval(
+                MultiplayerApprovalContext.ApprovalAction.ScribeScroll, scribingHero.Name, spellToScribe,
+                scribingHero.ComputeScribeDurationSeconds(spellToScribe),
+                () => __instance.ScribeScroll(scribingHero, spellToScribe, scrollToScribe, targetItem, scribeCosts));
+        }
+    }
+
+    //PATCH: asks every player to approve Mark Deity (MULTIPLAYER)
+    [HarmonyPatch(typeof(NetworkingManager), nameof(NetworkingManager.MarkDeity))]
+    [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]
+    [UsedImplicitly]
+    public static class MarkDeity_Patch
+    {
+        [UsedImplicitly]
+        public static bool Prefix(NetworkingManager __instance, RulesetCharacterHero hero, RulesetItem item)
+        {
+            return !MultiplayerApprovalContext.MustWaitForApproval(
+                MultiplayerApprovalContext.ApprovalAction.MarkDeity, hero.Name, null,
+                MultiplayerApprovalContext.MarkDeitySeconds, () => __instance.MarkDeity(hero, item));
         }
     }
 
@@ -248,6 +329,7 @@ public static class MultiplayerPatcher
         public static void Postfix()
         {
             MultiplayerSessionContext.OnJoinedRoom();
+            MultiplayerApprovalContext.OnJoinedRoom();
         }
     }
 
@@ -287,6 +369,7 @@ public static class MultiplayerPatcher
         public static void Postfix()
         {
             MultiplayerSessionContext.OnLeftRoom();
+            MultiplayerApprovalContext.Reset();
         }
     }
 

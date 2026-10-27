@@ -35,6 +35,13 @@ internal static class CampaignsDisplay
             Main.Settings.OverrideMinMaxLevel = toggle;
         }
 
+        // the same setting is also under Multiplayer
+        toggle = Main.Settings.AllowShortRestWithPartySpreadOut;
+        if (UI.Toggle(Gui.Localize("ModUi/&AllowShortRestWithPartySpreadOut"), ref toggle, UI.AutoWidth()))
+        {
+            Main.Settings.AllowShortRestWithPartySpreadOut = toggle;
+        }
+
         UI.Label();
 
         var floatValue = Main.Settings.FasterTimeModifier;

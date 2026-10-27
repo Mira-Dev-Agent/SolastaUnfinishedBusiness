@@ -1,3 +1,12 @@
+1.6.7.0:
+- Multiplayer: actions that pass in-game time now wait until every other player approves them (Gameplay > Multiplayer, on by default)
+  - Covers short and long rests, learning or scribing a spell from a scroll, Mark Deity, rituals, and spells or powers that take a minute or more (Heroes' Feast counts its feast hours)
+  - The popup names who asks, what is being done and how long it takes. The asking player sees who is still to answer, and can cancel
+  - Sub-setting, on by default: rituals and actions of 10 minutes or less don't ask
+- Nobody is asked while a character is in combat or a cutscene. The asking player is told which character, and the action isn't done
+- New setting, off by default (Gameplay > Multiplayer and Gameplay > Campaigns): a short rest is allowed while the party is spread out, but not in combat, a conversation or a cutscene. The other rest rules still apply
+- Not tested in game or in a multiplayer session
+
 1.6.6.0:
 - Artificer infusions are tracked by what is active:
   - Each active infusion takes one of your slots, and a long rest gives back only the free slots
