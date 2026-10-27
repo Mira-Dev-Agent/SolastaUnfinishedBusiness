@@ -112,6 +112,31 @@ internal static class PrimedIngredientContext
             : 0;
     }
 
+    // the plain items a recipe will use up in place of missing Primed ones, as "2 × Longsword" lines
+    internal static List<string> DescribeBaseUse(RecipeDefinition recipe)
+    {
+        var lines = new List<string>();
+
+        foreach (var ingredient in recipe.Ingredients)
+        {
+            if (!TryGetBase(ingredient.ItemDefinition, out var baseItem))
+            {
+                continue;
+            }
+
+            var plain = CountBaseFor(ingredient.ItemDefinition);
+            var primed = Gui.Game.CountItemsOfTypeInParty(ingredient.ItemDefinition) - plain;
+            var used = System.Math.Min(plain, ingredient.Amount - primed);
+
+            if (used > 0)
+            {
+                lines.Add($"{used} × {baseItem.FormatTitle()}");
+            }
+        }
+
+        return lines;
+    }
+
     // after the game used up the Primed items it found, uses plain ones for what is left
     internal static void ConsumeBaseFor(Dictionary<ItemDefinition, int> remaining)
     {

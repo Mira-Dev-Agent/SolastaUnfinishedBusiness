@@ -352,6 +352,12 @@ internal static class CraftingAndItems
             Main.Settings.CraftWithBaseInsteadOfPrimed = toggle;
         }
 
+        toggle = Main.Settings.WarnBeforeCrafting;
+        if (UI.Toggle(Gui.Localize("ModUi/&WarnBeforeCrafting"), ref toggle, UI.AutoWidth()))
+        {
+            Main.Settings.WarnBeforeCrafting = toggle;
+        }
+
         UI.Label();
 
         toggle = Main.Settings.AddNewWeaponsAndRecipesToShops;

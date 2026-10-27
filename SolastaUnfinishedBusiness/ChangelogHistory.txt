@@ -1,3 +1,9 @@
+1.6.11.0:
+- New setting (Gameplay > Items, Crafting & Merchants, on by default): a warning before crafting starts
+  - It says the ingredients are used up at once, the check DC and the hours, and that failed rolls add no progress but never lose the ingredients (only aborting does)
+  - It lists any plain weapons or armor used in place of Primed ones
+- Not tested in game
+
 1.6.10.0:
 - New setting (Gameplay > Items, Crafting & Merchants, off by default): recipes that ask for a Primed weapon or armor also accept the plain one
   - Works for every recipe: the game's, this mod's and campaigns'
