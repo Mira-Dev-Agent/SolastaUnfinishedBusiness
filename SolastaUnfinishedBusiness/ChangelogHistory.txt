@@ -1,3 +1,7 @@
+1.6.1.2:
+- Level Down now shows for every hero above level 1. Without a recorded level it is disabled, and hovering over it explains why and that Respec is the only way to go lower
+- Not tested in game: the Level Down button, its tooltip and the level down itself
+
 1.6.1.1:
 - Releases are now built and published by GitHub Actions when a version tag is pushed (no gameplay changes)
 - Not tested in game: same mod code as 1.6.1.0, which is also untested in game

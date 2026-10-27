@@ -33,6 +33,9 @@ public static class AfterRestActionItemPatcher
         [UsedImplicitly]
         public static void Postfix(AfterRestActionItem __instance)
         {
+            //PATCH: level down is disabled with the reason in its tooltip when there is no recorded level to undo
+            LevelDownContext.DecorateAfterRestItem(__instance);
+
             var activity = __instance.RestActivityDefinition;
             var hero = __instance.Hero;
 

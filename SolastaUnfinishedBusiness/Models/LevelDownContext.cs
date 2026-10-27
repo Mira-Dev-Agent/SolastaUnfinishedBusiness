@@ -64,9 +64,36 @@ internal static class LevelDownContext
             : ActivityConditionDisabled;
     }
 
+    // shown above level 1; without a recorded level the button is disabled and its tooltip says why
     internal static bool IsRestActivityAvailable(RestActivityDefinition activity, RulesetCharacterHero hero)
     {
-        return activity != RestActivityLevelDown || TryGetLastRecord(hero, out _);
+        return activity != RestActivityLevelDown || hero.ClassesHistory.Count > 1;
+    }
+
+    internal static void DecorateAfterRestItem(AfterRestActionItem item)
+    {
+        var hero = item.Hero;
+
+        if (item.RestActivityDefinition != RestActivityLevelDown || hero == null || TryGetLastRecord(hero, out _))
+        {
+            return;
+        }
+
+        if (item.button)
+        {
+            item.button.interactable = false;
+        }
+
+        if (item.GuiTooltip)
+        {
+            item.GuiTooltip.Content = UnavailableDescription(hero);
+        }
+    }
+
+    private static string UnavailableDescription(RulesetCharacterHero hero)
+    {
+        return Gui.Format("Message/&LevelDownUnavailableDescription",
+            hero.Name, hero.ClassesHistory.Count.ToString());
     }
 
     #region Recording
@@ -221,7 +248,7 @@ internal static class LevelDownContext
                 Gui.GuiService.ShowMessage(
                     MessageModal.Severity.Informative1,
                     "Message/&LevelDownTitle",
-                    Gui.Format("Message/&LevelDownUnavailableDescription", hero?.Name ?? string.Empty),
+                    hero == null ? string.Empty : UnavailableDescription(hero),
                     "Message/&MessageOkTitle", string.Empty,
                     null, null);
 
