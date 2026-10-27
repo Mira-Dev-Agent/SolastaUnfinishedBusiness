@@ -78,6 +78,12 @@ internal static class MultiplayerDisplay
             Main.Settings.MultiplayerDeterministicStandAgainstTheTide = toggle;
         }
 
+        toggle = Main.Settings.MultiplayerDeterministicHitCounting;
+        if (UI.Toggle(Gui.Localize("ModUi/&MultiplayerDeterministicHitCounting"), ref toggle, UI.AutoWidth()))
+        {
+            Main.Settings.MultiplayerDeterministicHitCounting = toggle;
+        }
+
         toggle = Main.Settings.MultiplayerEnableDesyncDetection;
         if (UI.Toggle(Gui.Localize("ModUi/&MultiplayerEnableDesyncDetection"), ref toggle, UI.AutoWidth()))
         {

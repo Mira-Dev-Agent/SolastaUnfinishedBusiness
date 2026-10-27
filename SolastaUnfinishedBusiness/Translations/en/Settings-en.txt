@@ -553,3 +553,4 @@ ModUi/&MultiplayerShowFpsOverlay=Show a small overlay in the top-left corner dur
 ModUi/&MultiplayerFps={0} FPS
 ModUi/&MultiplayerNoFps=FPS not reported
 ModUi/&MultiplayerFpsHostSeesAllOthersOwn=Host sees everyone, others their own
+ModUi/&MultiplayerDeterministicHitCounting=Count hit reactions once per game tick instead of once per drawn frame <i><color=#F0DAA0>[fixes a desync when a player's frame takes longer than 50 ms (under 20 FPS or a stutter) while a target is hit twice in a row; multiplayer games only]</color></i>

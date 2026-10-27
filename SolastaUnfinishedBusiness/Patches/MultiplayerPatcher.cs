@@ -509,4 +509,40 @@ public static class MultiplayerPatcher
                 new CodeInstruction(OpCodes.Call, myRangeMethod));
         }
     }
+
+    //PATCH: counts a hit reaction once per lockstep tick instead of once per rendered frame, so a computer whose frame
+    //takes longer than a tick counts the same hits as the others (MULTIPLAYER)
+    [HarmonyPatch]
+    [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]
+    [UsedImplicitly]
+    public static class CharacterDamageReceivedAsync_Patch
+    {
+        private static int FrameCount()
+        {
+            return Global.IsMultiplayer &&
+                   Main.Settings.MultiplayerDeterministicHitCounting &&
+                   ServiceRepository.GetService<INetworkingService>() is NetworkingManager networking
+                ? (int)networking.tick.LocalTick
+                : UnityEngine.Time.frameCount;
+        }
+
+        [UsedImplicitly]
+        public static MethodBase TargetMethod()
+        {
+            return AccessTools.EnumeratorMoveNext(
+                AccessTools.Method(typeof(GameLocationActionManager), "CharacterDamageReceivedAsync"));
+        }
+
+        [UsedImplicitly]
+        public static IEnumerable<CodeInstruction> Transpiler([NotNull] IEnumerable<CodeInstruction> instructions)
+        {
+            var frameCountMethod = typeof(UnityEngine.Time).GetProperty(nameof(UnityEngine.Time.frameCount))!
+                .GetGetMethod();
+            var myFrameCountMethod = new Func<int>(FrameCount).Method;
+
+            return instructions.ReplaceCalls(frameCountMethod,
+                "GameLocationActionManager.CharacterDamageReceivedAsync",
+                new CodeInstruction(OpCodes.Call, myFrameCountMethod));
+        }
+    }
 }
