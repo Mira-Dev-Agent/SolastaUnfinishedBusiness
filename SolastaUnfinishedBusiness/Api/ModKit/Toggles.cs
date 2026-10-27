@@ -101,7 +101,11 @@ internal static partial class UI
                 var labelSize = labelStyle.CalcSize(label);
 
                 x = rightAlign ? stateRect.x - stateSize.x - 5 : stateRect.xMax + 5;
-                Rect labelRect = new(x, rect.y, labelSize.x, labelSize.y);
+
+                // a wrapped label fills the rest of the row
+                Rect labelRect = labelStyle.wordWrap
+                    ? new Rect(x, rect.y, rect.xMax - x, rect.height)
+                    : new Rect(x, rect.y, labelSize.x, labelSize.y);
 
                 stateStyle.Draw(stateRect, state, controlID);
                 labelStyle.Draw(labelRect, label, controlID);
@@ -134,9 +138,51 @@ internal static partial class UI
 
         lStyle.padding = padding;
 
+        //PATCH: a label wider than the mod window wraps onto more lines instead of running off screen
+        var maxWidth = MaxToggleWidth();
+
+        if (lStyle.CalcSize(label).x > maxWidth)
+        {
+            lStyle.wordWrap = true;
+            lStyle.fixedHeight = 0;
+            lStyle.stretchWidth = true;
+
+            var wrappedRect = GUILayoutUtility.GetRect(label, lStyle, GUILayout.ExpandWidth(true),
+                GUILayout.MaxWidth(maxWidth), GUILayout.MinHeight(stateSize.y - 2));
+
+            return Toggle(wrappedRect, label, value, isEmpty, on, off, stateStyle,
+                new GUIStyle(labelStyle) { wordWrap = true });
+        }
+
         var rect = GUILayoutUtility.GetRect(label, lStyle, options);
 
         return Toggle(rect, label, value, isEmpty, on, off, stateStyle, labelStyle);
+    }
+
+    private static System.Reflection.FieldInfo _windowSizeField;
+
+    // the mod window's width less its margins and scroll bar, or the screen's when the window can't be read
+    private static float MaxToggleWidth()
+    {
+        const float Margins = 80f;
+
+        try
+        {
+            _windowSizeField ??= typeof(UnityModManagerNet.UnityModManager.UI).GetField("mWindowSize",
+                System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+
+            if (_windowSizeField?.GetValue(UnityModManagerNet.UnityModManager.UI.Instance) is Vector2 size &&
+                size.x > Margins * 2)
+            {
+                return size.x - Margins;
+            }
+        }
+        catch
+        {
+            // the window size is private to the mod manager; fall back to the screen
+        }
+
+        return Screen.width - (Margins * 2);
     }
 
     // Disclosure Toggles

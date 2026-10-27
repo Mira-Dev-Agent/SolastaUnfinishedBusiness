@@ -1,3 +1,7 @@
+1.6.13.2:
+- Mod menu: a setting whose text is wider than the mod window now wraps onto more lines instead of running off screen
+- Not tested in game
+
 1.6.13.1:
 - Rebuild of 1.6.13.0, whose release build failed: the multiplayer hit-counting fix now finds its game method in a way the release build supports. Same changes as 1.6.13.0
 - Not tested in game or in a multiplayer session
