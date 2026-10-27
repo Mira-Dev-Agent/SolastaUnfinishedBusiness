@@ -6,6 +6,15 @@ namespace SolastaUnfinishedBusiness.Displays;
 
 internal static class MultiplayerDisplay
 {
+    // in MultiplayerFpsContext.Visibility order
+    private static string[] FpsVisibilityChoices =>
+    [
+        Gui.Localize("ModUi/&MultiplayerFpsHostSeesAll"),
+        Gui.Localize("ModUi/&MultiplayerFpsAllSeeAll"),
+        Gui.Localize("ModUi/&MultiplayerFpsOwnOnly"),
+        Gui.Localize("ModUi/&MultiplayerFpsHostSeesAllOthersOwn")
+    ];
+
     // this build, and in a room the build of every player (missing ones say so); differences are red
     private static void DisplayVersions()
     {
@@ -36,6 +45,11 @@ internal static class MultiplayerDisplay
             if (MultiplayerSessionContext.CanSeePings)
             {
                 text += $" · {MultiplayerSessionContext.DescribePing(player)}";
+            }
+
+            if (MultiplayerFpsContext.CanSee(player))
+            {
+                text += $" · {MultiplayerFpsContext.DescribeFps(player)}";
             }
 
             UI.Label(version == MultiplayerSessionContext.BuildVersion
@@ -105,6 +119,21 @@ internal static class MultiplayerDisplay
         if (UI.Toggle(Gui.Localize("ModUi/&MultiplayerPingVisibleToHostOnly"), ref toggle, UI.AutoWidth()))
         {
             Main.Settings.MultiplayerPingVisibleToHostOnly = toggle;
+        }
+
+        UI.Label(Gui.Localize("ModUi/&MultiplayerFpsVisibility"));
+
+        var visibility = Main.Settings.MultiplayerFpsVisibility;
+        if (UI.SelectionGrid(ref visibility, FpsVisibilityChoices, FpsVisibilityChoices.Length,
+                FpsVisibilityChoices.Length, UI.Width(900f)))
+        {
+            Main.Settings.MultiplayerFpsVisibility = visibility;
+        }
+
+        toggle = Main.Settings.MultiplayerShowFpsOverlay;
+        if (UI.Toggle(Gui.Localize("ModUi/&MultiplayerShowFpsOverlay"), ref toggle, UI.AutoWidth()))
+        {
+            Main.Settings.MultiplayerShowFpsOverlay = toggle;
         }
 
         toggle = Main.Settings.MultiplayerEnableTickBufferTuning;

@@ -1,3 +1,10 @@
+1.6.12.0:
+- Multiplayer: every player's frame rate (FPS) is measured over 3 seconds and shared, like the ping (Gameplay > Multiplayer)
+  - New setting for who sees it: only the host sees everyone; the host sees everyone and the others their own; everyone sees everyone (default); or each player sees only their own
+  - Shown in the Multiplayer tab, on player plate tooltips, and in a new top-left overlay during a session (on by default), which also shows the pings you may see
+  - Rates below 58 FPS show in red
+- Not tested in game or in a multiplayer session
+
 1.6.11.0:
 - New setting (Gameplay > Items, Crafting & Merchants, on by default): a warning before crafting starts
   - It says the ingredients are used up at once, the check DC and the hours, and that failed rolls add no progress but never lose the ingredients (only aborting does)

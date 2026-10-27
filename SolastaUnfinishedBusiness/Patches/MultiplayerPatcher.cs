@@ -215,6 +215,7 @@ public static class MultiplayerPatcher
             MultiplayerContext.SendDesyncCheckIfNeeded(__instance);
             MultiplayerDesyncContext.SendFingerprintIfNeeded(__instance);
             MultiplayerSessionContext.PublishPingIfNeeded();
+            MultiplayerFpsContext.MeasureAndPublishIfNeeded();
             MultiplayerApprovalContext.Update();
         }
     }

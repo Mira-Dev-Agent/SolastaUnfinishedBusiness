@@ -190,6 +190,8 @@ public class Settings : UnityModManager.ModSettings
     public bool MultiplayerFlushCommandsImmediately { get; set; } = true;
     public bool MultiplayerPingBasedTickBuffer { get; set; } = true;
     public bool MultiplayerPingVisibleToHostOnly { get; set; }
+    public int MultiplayerFpsVisibility { get; set; } = (int)MultiplayerFpsContext.Visibility.AllSeeAll;
+    public bool MultiplayerShowFpsOverlay { get; set; } = true;
     public int MultiplayerInitialTickBuffer { get; set; } = MultiplayerContext.DefaultInitialTickBuffer;
     public int MultiplayerMinimumTickBuffer { get; set; } = MultiplayerContext.DefaultMinimumTickBuffer;
     public int MultiplayerSecondsBeforeLowerTickBuffer { get; set; } =

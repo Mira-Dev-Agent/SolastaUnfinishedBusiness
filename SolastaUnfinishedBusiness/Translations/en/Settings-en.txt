@@ -545,3 +545,11 @@ ModUi/&MultiplayerAllowPlayersToStartRests=Let every player start a short or lon
 ModUi/&CombineWaitWithLongRest=When the party already had a long rest today, the Long Rest button waits until it can rest again, then rests <i><color=#F0DAA0>[one confirmation with the total time, and one approval in multiplayer, also for campfires; every other rest rule still applies]</color></i>
 ModUi/&CraftWithBaseInsteadOfPrimed=Recipes that ask for a Primed weapon or armor also accept the plain one <i><color=#F0DAA0>[every recipe, the game's, this mod's and campaigns'; Primed items are used first; plain ones only count when they are not equipped, so your own gear is never used up]</color></i>
 ModUi/&WarnBeforeCrafting=Warn before crafting starts that the ingredients are used up at once and that crafting rolls can fail <i><color=#F0DAA0>[also lists any plain weapons or armor used in place of Primed ones]</color></i>
+ModUi/&MultiplayerFpsVisibility=<color=white>Who sees players' frame rates (FPS)</color> <i><color=#F0DAA0>[shown in this tab, on player plates and in the overlay; below 58 FPS shows red]</color></i>
+ModUi/&MultiplayerFpsHostSeesAll=Only the host sees everyone
+ModUi/&MultiplayerFpsAllSeeAll=Everyone sees everyone
+ModUi/&MultiplayerFpsOwnOnly=Each player sees their own
+ModUi/&MultiplayerShowFpsOverlay=Show a small overlay in the top-left corner during a multiplayer session with the frame rates and pings you may see
+ModUi/&MultiplayerFps={0} FPS
+ModUi/&MultiplayerNoFps=FPS not reported
+ModUi/&MultiplayerFpsHostSeesAllOthersOwn=Host sees everyone, others their own

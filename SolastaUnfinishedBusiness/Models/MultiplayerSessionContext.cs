@@ -127,6 +127,7 @@ internal static class MultiplayerSessionContext
     {
         _publishedPing = -1;
         _nextPingPublishTime = 0;
+        MultiplayerFpsContext.Reset();
         RestoreLocalSettings();
         HostVersion = null;
     }
@@ -287,9 +288,19 @@ internal static class MultiplayerSessionContext
 
         if (group.playerImageTooltip)
         {
-            group.playerImageTooltip.Content = CanSeePings
-                ? $"{slot.PlayerNickname}\nUB {DescribeVersion(version)}\n{DescribePing(player)}"
-                : $"{slot.PlayerNickname}\nUB {DescribeVersion(version)}";
+            var content = $"{slot.PlayerNickname}\nUB {DescribeVersion(version)}";
+
+            if (CanSeePings)
+            {
+                content += $"\n{DescribePing(player)}";
+            }
+
+            if (MultiplayerFpsContext.CanSee(player))
+            {
+                content += $"\n{MultiplayerFpsContext.DescribeFps(player)}";
+            }
+
+            group.playerImageTooltip.Content = content;
         }
 
         if (version == BuildVersion)
