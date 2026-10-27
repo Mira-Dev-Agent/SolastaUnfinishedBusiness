@@ -1,3 +1,14 @@
+1.6.0.0:
+- Renamed the mod to Finishing Business (display name only; the mod id, folder and settings are unchanged)
+- Added Gameplay > Multiplayer settings: tick buffer tuning for less client lag, desync detection, synced Stand Against the Tide, cell overlap out of combat with safe-cell resolution at battle start, ally pass-through in combat
+- Fixed multiplayer desyncs from Wild Magic, the SHIFT slot choice and reaction timestamps
+- Fixed cutscenes with 5 or 6 heroes: no hero speaks for two roles in a row, and heroes 5 and 6 get their own positions
+- Mod builds are shown in the room list, on player plates and in the Multiplayer tab, with a warning on Ready or Start when builds differ
+- Clients use the host's mod settings without overwriting their own Settings.xml; the mod menu is read-only for clients
+- New settings are added to an existing Settings.xml without changing other values
+- The startup error popup names its cause; unloadable characters are moved aside with Delete, Keep or Remake (pre-filled character creation)
+- Fixed Magic Initiate hiding higher-level spells from the spell bar
+
 1.5.97.127:
 - Fixed subraces not getting names, build half-elf names dynamically, added many names (PR by Silvergriffon)
 - Added option to allows pickpocketing of allies (PR by Silvergriffon)
