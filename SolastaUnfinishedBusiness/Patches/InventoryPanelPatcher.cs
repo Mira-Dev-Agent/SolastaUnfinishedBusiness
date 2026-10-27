@@ -53,6 +53,19 @@ public static class InventoryPanelPatcher
         }
     }
 
+    //PATCH: picking an item for a power (as infusing does) also asks which infusion it replaces when every slot is taken
+    [HarmonyPatch(typeof(InventoryPanel), nameof(InventoryPanel.ChangeInteractionMode))]
+    [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]
+    [UsedImplicitly]
+    public static class ChangeInteractionMode_Patch
+    {
+        [UsedImplicitly]
+        public static void Prefix(ref InventoryPanel.ItemSelectedHandler itemSelected)
+        {
+            itemSelected = InfusionTrackingContext.WrapItemSelected(itemSelected);
+        }
+    }
+
     //PATCH: Enable Inventory Filtering and Sorting
     [HarmonyPatch(typeof(InventoryPanel), nameof(InventoryPanel.Unbind))]
     [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]

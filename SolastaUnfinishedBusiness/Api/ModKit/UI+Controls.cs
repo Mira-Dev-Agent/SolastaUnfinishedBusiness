@@ -204,6 +204,12 @@ internal static partial class UI
         Action enterAction,
         params GUILayoutOption[] options)
     {
+        //PATCH: an unlabeled text field only shows in a search after a matching label
+        if (SearchHidesUntitled())
+        {
+            return;
+        }
+
         if (name != null)
         {
             GUI.SetNextControlName(name);

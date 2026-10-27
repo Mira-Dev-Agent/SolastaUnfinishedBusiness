@@ -1,3 +1,14 @@
+1.6.14.0:
+- Fixes from the 1.6.12.0 in-game test:
+  - Artificer: in the infusion list (Active Infusions, Change Infusions, the replace question), Next now shows the next infusion instead of closing
+  - Artificer: infusing an item while every slot is taken now asks which infusion it replaces (the item picker didn't pass through the check)
+  - Artificer: heroes who took Infusions before 1.6.6.0 now get the Active Infusions power
+  - Mod menu search: typing the first letter no longer throws a layout error
+  - Mod menu search: a section the search opened is closed again afterwards whatever its setting is called (it missed the weapon mastery customization section)
+  - Mod menu search: the settings profile name field no longer shows in unrelated results
+- Multiplayer FPS: amber below 45 FPS and red below 30, instead of red below 58. The default is now "Host sees everyone, others their own" (a saved choice is kept). The four choices show in two rows so none is cut off
+- Not tested in game or in a multiplayer session
+
 1.6.13.2:
 - Mod menu: a setting whose text is wider than the mod window now wraps onto more lines instead of running off screen
 - Not tested in game

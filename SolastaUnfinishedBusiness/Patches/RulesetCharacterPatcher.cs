@@ -2474,6 +2474,9 @@ public static class RulesetCharacterPatcher
             //PATCH: support for 2024 Smite spells
             Tabletop2024Context.UpdatePaladinSmite(hero);
 
+            //PATCH: Artificers made before Active Infusions existed get the power
+            InfusionTrackingContext.GrantActiveInfusionsIfMissing(hero);
+
             //PATCH: fix scenarios where hero doesn't have an instance of a usable power
             var featureDefinitionPowers = hero.ActiveFeatures
                 .SelectMany(k => k.Value)

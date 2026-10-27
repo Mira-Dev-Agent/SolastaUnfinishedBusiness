@@ -34,6 +34,17 @@ internal static partial class UI
                     x.Name.StartsWith("Display"))
         .ToArray();
 
+    // every on/off setting: a section a search opens is found by which of these turn on in that frame, whatever its
+    // name, and is closed again when the search ends
+    private static readonly PropertyInfo[] BoolSettings = typeof(Settings)
+        .GetProperties(BindingFlags.Instance | BindingFlags.Public)
+        .Where(x => x.PropertyType == typeof(bool) && x.CanRead && x.CanWrite)
+        .ToArray();
+
+    private static readonly HashSet<PropertyInfo> SettingsOpenedBySearch = [];
+    private static Dictionary<PropertyInfo, bool> _boolSettingsAtFrameStart;
+    private static bool _sectionForcedOpen;
+
     private static Dictionary<PropertyInfo, bool> _sectionStatesBeforeSearch;
     private static Dictionary<PropertyInfo, Dictionary<string, bool>> _sectionDictionariesBeforeSearch;
     private static string _pendingSearchHeader;
@@ -49,6 +60,14 @@ internal static partial class UI
 
     internal static void SearchBox()
     {
+        // the text typed last frame applies from this frame's Layout pass, before anything is drawn, so the Clear
+        // button and every searched control are the same in all of the frame's passes
+        if (Event.current.type == EventType.Layout)
+        {
+            TrackSettingsOpenedBySearch();
+            SetSearchText(_searchInput);
+        }
+
         AlwaysEnabled(() =>
         {
             using (HorizontalScope())
@@ -67,11 +86,6 @@ internal static partial class UI
             }
         });
 
-        if (Event.current.type == EventType.Layout)
-        {
-            SetSearchText(_searchInput);
-        }
-
         SearchMatchCount = 0;
         _pendingSearchHeader = null;
         _searchShowsUntitled = false;
@@ -81,6 +95,7 @@ internal static partial class UI
     // ends any search, putting every section back as it was; used before saving and when the menu closes
     internal static void EndSearch()
     {
+        TrackSettingsOpenedBySearch();
         _searchInput = string.Empty;
         SetSearchText(string.Empty);
     }
@@ -93,6 +108,9 @@ internal static partial class UI
 
         if (!wasSearching && IsSearching)
         {
+            SettingsOpenedBySearch.Clear();
+            _sectionForcedOpen = false;
+            _boolSettingsAtFrameStart = ReadBoolSettings();
             _sectionStatesBeforeSearch = SectionStateProperties
                 .ToDictionary(x => x, x => (bool)x.GetValue(Main.Settings));
             _sectionDictionariesBeforeSearch = SectionStateDictionaries
@@ -122,9 +140,52 @@ internal static partial class UI
                 }
             }
 
+            foreach (var setting in SettingsOpenedBySearch)
+            {
+                setting.SetValue(Main.Settings, false);
+            }
+
+            SettingsOpenedBySearch.Clear();
+            _boolSettingsAtFrameStart = null;
             _sectionStatesBeforeSearch = null;
             _sectionDictionariesBeforeSearch = null;
         }
+    }
+
+    internal static void NoteSectionForcedOpen()
+    {
+        _sectionForcedOpen = true;
+    }
+
+    private static Dictionary<PropertyInfo, bool> ReadBoolSettings()
+    {
+        return BoolSettings.ToDictionary(x => x, x => (bool)x.GetValue(Main.Settings));
+    }
+
+    // a frame that forced a section open: the settings that turned on in it are that section's (a click on a real
+    // setting in the very same frame would be counted too, which is unlikely as sections open on the first frame)
+    private static void TrackSettingsOpenedBySearch()
+    {
+        if (!IsSearching || _boolSettingsAtFrameStart == null)
+        {
+            return;
+        }
+
+        if (_sectionForcedOpen)
+        {
+            foreach (var setting in BoolSettings)
+            {
+                if (!_boolSettingsAtFrameStart[setting] && (bool)setting.GetValue(Main.Settings) &&
+                    !_sectionStatesBeforeSearch.ContainsKey(setting))
+                {
+                    SettingsOpenedBySearch.Add(setting);
+                }
+            }
+
+            _sectionForcedOpen = false;
+        }
+
+        _boolSettingsAtFrameStart = ReadBoolSettings();
     }
 
     internal static void SearchResultsFooter()

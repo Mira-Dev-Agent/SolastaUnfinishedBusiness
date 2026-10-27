@@ -76,6 +76,33 @@ internal static class InfusionTrackingContext
             .RegisterFunctor(ChangeInfusionsName, new FunctorChangeInfusions());
     }
 
+    // a feature set's members are copied into a hero when the level is taken, so heroes who took the infusions
+    // before this power existed get it here, under the same tag as the infusions
+    internal static void GrantActiveInfusionsIfMissing(RulesetCharacterHero hero)
+    {
+        if (!PowerActiveInfusions || hero.UsablePowers.Any(x => x.PowerDefinition == PowerActiveInfusions))
+        {
+            return;
+        }
+
+        var tag = hero.ActiveFeatures
+            .FirstOrDefault(x => x.Value.Any(feature =>
+                feature == InventorClass.InfusionPool || feature.Name == "FeatureSetInventorInfusions"))
+            .Key;
+
+        if (tag == null)
+        {
+            return;
+        }
+
+        if (!hero.ActiveFeatures[tag].Contains(PowerActiveInfusions))
+        {
+            hero.ActiveFeatures[tag].Add(PowerActiveInfusions);
+        }
+
+        hero.UsablePowers.Add(new RulesetUsablePower(PowerActiveInfusions, null, InventorClass.Class));
+    }
+
     internal static bool IsRestActivityAvailable(RestActivityDefinition activity, RulesetCharacterHero hero)
     {
         return activity != RestActivityChangeInfusions || GetActiveInfusions(hero).Count > 0;
@@ -339,9 +366,9 @@ internal static class InfusionTrackingContext
         {
             if (infusions.Count == 0)
             {
-                Gui.GuiService.ShowMessage(MessageModal.Severity.Informative1, title,
+                NextFrame(() => Gui.GuiService.ShowMessage(MessageModal.Severity.Informative1, title,
                     Gui.Localize("Message/&InfusionNoneActive"), "Message/&MessageOkTitle", string.Empty,
-                    null, null);
+                    null, null));
             }
 
             return;
@@ -350,7 +377,8 @@ internal static class InfusionTrackingContext
         var infusion = infusions[index];
         var max = character.GetMaxUsesForPool(InventorClass.InfusionPool);
 
-        Gui.GuiService.ShowMessage(MessageModal.Severity.Informative1, title,
+        // the message modal closes after its button handler runs, so the next message opens a frame later
+        NextFrame(() => Gui.GuiService.ShowMessage(MessageModal.Severity.Informative1, title,
             Gui.Format("Message/&InfusionListEntry",
                 (index + 1).ToString(), infusions.Count.ToString(), infusions.Count.ToString(), max.ToString(),
                 DescribeInfusion(infusion)),
@@ -360,7 +388,26 @@ internal static class InfusionTrackingContext
                 ended.Add(infusion.Guid);
                 ShowInfusions(character, title, acceptTitle, onAccept, ended, index);
             }),
-            () => ShowInfusions(character, title, acceptTitle, onAccept, ended, index + 1));
+            () => ShowInfusions(character, title, acceptTitle, onAccept, ended, index + 1)));
+    }
+
+    private static void NextFrame(System.Action action)
+    {
+        if (Gui.GuiService is MonoBehaviour behaviour && behaviour)
+        {
+            behaviour.StartCoroutine(RunNextFrame(action));
+        }
+        else
+        {
+            action();
+        }
+    }
+
+    private static IEnumerator RunNextFrame(System.Action action)
+    {
+        yield return null;
+
+        action();
     }
 
     // Active Infusions power: look at every infusion and end any of them
@@ -394,7 +441,7 @@ internal static class InfusionTrackingContext
             return;
         }
 
-        Gui.GuiService.ShowMessage(MessageModal.Severity.Attention2, "Message/&InfusionEndTitle",
+        NextFrame(() => Gui.GuiService.ShowMessage(MessageModal.Severity.Attention2, "Message/&InfusionEndTitle",
             Gui.Format("Message/&InfusionEndUntilLongRest", DescribeInfusion(infusion)),
             "Message/&InfusionEnd", "Message/&MessageCancelTitle",
             () =>
@@ -402,7 +449,7 @@ internal static class InfusionTrackingContext
                 RequestEndInfusion(character, infusion, false);
                 next();
             },
-            null);
+            null));
     }
 
     // Change Infusions at the end of a long rest: end any number of infusions, each slot comes back at once
@@ -427,12 +474,12 @@ internal static class InfusionTrackingContext
     // when none is chosen
     internal static InventoryPanel.ItemSelectedHandler WrapItemSelected(InventoryPanel.ItemSelectedHandler selected)
     {
-        if (selected == null)
+        if (selected == null || selected.Method == _wrapperMethod)
         {
-            return null;
+            return selected;
         }
 
-        return (character, item, slot, actionParams) =>
+        InventoryPanel.ItemSelectedHandler wrapper = (character, item, slot, actionParams) =>
         {
             var ruleset = character?.RulesetCharacter;
             var power = (actionParams?.RulesetEffect as RulesetEffectPower)?.PowerDefinition;
@@ -452,7 +499,14 @@ internal static class InfusionTrackingContext
                     selected(character, item, slot, actionParams);
                 });
         };
+
+        _wrapperMethod = wrapper.Method;
+
+        return wrapper;
     }
+
+    // every wrapper runs the same lambda, so a handler already wrapped is recognised by its method
+    private static System.Reflection.MethodInfo _wrapperMethod;
 
     #endregion
 }

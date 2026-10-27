@@ -127,6 +127,11 @@ internal static partial class UI
         {
             var opened = !value;
 
+            if (opened)
+            {
+                NoteSectionForcedOpen();
+            }
+
             value = true;
             Label(title.Bold());
             If(value, actions);
@@ -329,6 +334,11 @@ internal static partial class UI
         if (IsSearching && _searchBypassDepth == 0)
         {
             var opened = !value;
+
+            if (opened)
+            {
+                NoteSectionForcedOpen();
+            }
 
             value = true;
             Label(title.Bold());

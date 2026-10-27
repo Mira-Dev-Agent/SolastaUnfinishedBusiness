@@ -130,8 +130,7 @@ internal static class MultiplayerDisplay
         UI.Label(Gui.Localize("ModUi/&MultiplayerFpsVisibility"));
 
         var visibility = Main.Settings.MultiplayerFpsVisibility;
-        if (UI.SelectionGrid(ref visibility, FpsVisibilityChoices, FpsVisibilityChoices.Length,
-                FpsVisibilityChoices.Length, UI.Width(900f)))
+        if (UI.SelectionGrid(ref visibility, FpsVisibilityChoices, 2, UI.Width(700f)))
         {
             Main.Settings.MultiplayerFpsVisibility = visibility;
         }

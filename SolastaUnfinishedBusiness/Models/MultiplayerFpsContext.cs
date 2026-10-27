@@ -23,8 +23,10 @@ internal static class MultiplayerFpsContext
     private const string FpsKey = "UbFps";
     private const float MeasureInterval = 3f;
     private const int PublishThreshold = 2;
-    // the frame rate at which animations stay in step with the 20 ticks per second (3 frames a tick)
-    private const int SteadyFps = 60;
+    // a 3-second average hides short stutters: below 30 some frames already near one 50 ms tick, so red; 30 to 44
+    // has little margin, so amber
+    private const int AmberBelowFps = 45;
+    private const int RedBelowFps = 30;
 
     private static float _measureStartTime = -1f;
     private static int _measureStartFrame;
@@ -112,7 +114,7 @@ internal static class MultiplayerFpsContext
         return player.CustomProperties.TryGetValue(FpsKey, out var value) && value is int fps ? fps : null;
     }
 
-    // "58 FPS", red below the steady rate
+    // "58 FPS", amber when it has little margin and red when frames get close to a tick
     internal static string DescribeFps(Player player)
     {
         var fps = GetPlayerFps(player);
@@ -124,7 +126,11 @@ internal static class MultiplayerFpsContext
 
         var text = Gui.Format("ModUi/&MultiplayerFps", fps.Value.ToString());
 
-        return fps.Value < SteadyFps - PublishThreshold ? $"<color=#E06060>{text}</color>" : text;
+        return fps.Value < RedBelowFps
+            ? $"<color=#E06060>{text}</color>"
+            : fps.Value < AmberBelowFps
+                ? $"<color=#E0A040>{text}</color>"
+                : text;
     }
 
     private static void EnsureOverlay()
