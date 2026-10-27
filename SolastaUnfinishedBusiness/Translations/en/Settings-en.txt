@@ -503,7 +503,7 @@ ModUi/&MultiplayerMenu=Multiplayer
 ModUi/&MultiplayerDescription=Fixes and changes for multiplayer. Every player must use the same mod build and the same settings, as the game runs the same simulation on every computer.
 ModUi/&MultiplayerAlwaysOnFixes=<color=#F0DAA0>Always applied:</color> Wild Magic random target uses the synced dice, the SHIFT choice of warlock or regular slots is sent to every computer with the cast, reaction or conversion, reaction timestamps are not stored in multiplayer, each hero gets one role per conversation, a hero never says two lines in a row for different roles, and heroes 5 and 6 get their own cutscene placement.
 ModUi/&MultiplayerDesyncTitle=<color=#F0DAA0>Desync:</color>
-ModUi/&MultiplayerDeterministicStandAgainstTheTide=Use the synced dice to pick the <color=#D89555>Stand Against the Tide</color> redirect target
+ModUi/&MultiplayerDeterministicStandAgainstTheTide=Use the synced dice to pick the <color=#D89555>Stand Against the Tide</color> redirect target <i><color=#F0DAA0>[multiplayer games only]</color></i>
 ModUi/&MultiplayerEnableDesyncDetection=Detect desyncs and show an alert so the party can reload <i><color=#F0DAA0>[compares the entity counter between computers every 5 seconds]</color></i>
 ModUi/&MultiplayerLagTitle=<color=#F0DAA0>Action delay:</color>
 ModUi/&MultiplayerEnableTickBufferTuning=Tune the action delay <i><color=#F0DAA0>[every action is delayed by this many 50 ms ticks so it reaches every computer in time]</color></i>

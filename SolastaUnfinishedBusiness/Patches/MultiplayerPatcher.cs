@@ -218,7 +218,7 @@ public static class MultiplayerPatcher
     {
         private static int Range(int min, int max)
         {
-            return Main.Settings.MultiplayerDeterministicStandAgainstTheTide
+            return Global.IsMultiplayer && Main.Settings.MultiplayerDeterministicStandAgainstTheTide
                 ? DeterministicRandom.Range(min, max)
                 : UnityEngine.Random.Range(min, max);
         }
