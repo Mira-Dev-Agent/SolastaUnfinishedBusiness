@@ -1,3 +1,14 @@
+1.6.5.1:
+- Fixed 12 errors at every startup (and the crash report they sent) from the multiplayer check running before the networking service exists
+- Mod menu search:
+  - Fixed the errors when pressing Clear, typing one letter at a time and closing the menu after a search
+  - Sections opened by a search are put back exactly as they were when the search ends, when saving and when the menu closes
+  - Controls without a label (grids, fields, bare sliders) now only show next to a matching label, or when one of their own texts matches
+- Fixed Pact of the Tome cantrips staying after the invocation is swapped out, and the same for any invocation that grants a spell pool directly
+- After a level down, the after-rest screen redraws its hit dice and other modules
+- Fixed the spell tag name of the Aegis, Iridescent, Peregrination, Retinue and Verdant Touched feats showing as a raw term, in every language
+- Not tested in game: all of the above
+
 1.6.5.0:
 - Multiplayer: characters sharing a cell are drawn slightly apart so each one can be pointed at and clicked: two side by side, three in a triangle, more in a ring that widens with their number. Visual only, so it cannot cause a desync. They ease back to the center when they move (toggle, on by default)
 - Not tested in game or in a multiplayer session

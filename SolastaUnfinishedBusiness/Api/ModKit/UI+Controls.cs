@@ -152,6 +152,11 @@ internal static partial class UI
     [UsedImplicitly]
     public static string TextField(ref string text, string name = null, params GUILayoutOption[] options)
     {
+        if (SearchHidesUntitled())
+        {
+            return text;
+        }
+
         if (name != null) { GUI.SetNextControlName(name); }
 
         text = GL.TextField(text, options.AddDefaults());
@@ -161,6 +166,11 @@ internal static partial class UI
     [UsedImplicitly]
     public static int IntTextField(ref int value, string name = null, params GUILayoutOption[] options)
     {
+        if (SearchHidesUntitled())
+        {
+            return value;
+        }
+
         var text = $"{value}";
         TextField(ref text, name, options);
         _ = int.TryParse(text, out value);
@@ -170,6 +180,11 @@ internal static partial class UI
     [UsedImplicitly]
     public static float FloatTextField(ref float value, string name = null, params GUILayoutOption[] options)
     {
+        if (SearchHidesUntitled())
+        {
+            return value;
+        }
+
         var text = $"{value}";
         TextField(ref text, name, options);
         if (float.TryParse(text, out var val))
@@ -265,6 +280,11 @@ internal static partial class UI
     [UsedImplicitly]
     public static bool Button(string title, ref bool pressed, params GUILayoutOption[] options)
     {
+        if (SearchHides(title))
+        {
+            return false;
+        }
+
         if (GL.Button(title, options.AddDefaults())) { pressed = true; }
 
         return pressed;
@@ -273,6 +293,11 @@ internal static partial class UI
     [UsedImplicitly]
     public static bool Button(string title, ref bool pressed, GUIStyle style, params GUILayoutOption[] options)
     {
+        if (SearchHides(title))
+        {
+            return false;
+        }
+
         if (GL.Button(title, style, options.AddDefaults())) { pressed = true; }
 
         return pressed;
@@ -351,6 +376,11 @@ internal static partial class UI
     [UsedImplicitly]
     public static bool ValueAdjuster(ref int value, int increment = 1, int min = 0, int max = int.MaxValue)
     {
+        if (SearchHidesUntitled())
+        {
+            return false;
+        }
+
         var v = value;
         if (v > min)
         {
@@ -539,6 +569,11 @@ internal static partial class UI
     public static bool Slider(ref float value, float min, float max, float defaultValue = 1.0f, int decimals = 0,
         string units = "", params GUILayoutOption[] options)
     {
+        if (SearchHidesUntitled())
+        {
+            return false;
+        }
+
         value = Math.Max(min, Math.Min(max, value)); // clamp it
         var newValue = (float)Math.Round(GL.HorizontalSlider(value, min, max, Width(200f)), decimals);
         using (HorizontalScope(options))

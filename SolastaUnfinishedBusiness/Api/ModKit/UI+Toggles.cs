@@ -121,20 +121,17 @@ internal static partial class UI
     [UsedImplicitly]
     public static bool DisclosureToggle(string title, ref bool value, float width = 175, params Action[] actions)
     {
-        //PATCH: sections open while searching and close again afterwards; their header only shows when it matches
-        if (SearchOpensOrRestoresSection(title, ref value))
-        {
-            If(value, actions);
-
-            return true;
-        }
-
+        //PATCH: sections are open while searching (their state is put back when the search ends); the header only
+        //shows when it matches
         if (IsSearching && _searchBypassDepth == 0)
         {
+            var opened = !value;
+
+            value = true;
             Label(title.Bold());
             If(value, actions);
 
-            return false;
+            return opened;
         }
 
         var disclosed = value;
@@ -327,20 +324,17 @@ internal static partial class UI
     [UsedImplicitly]
     public static bool DisclosureToggle(string title, ref bool value, params Action[] actions)
     {
-        //PATCH: sections open while searching and close again afterwards; their header only shows when it matches
-        if (SearchOpensOrRestoresSection(title, ref value))
-        {
-            If(value, actions);
-
-            return true;
-        }
-
+        //PATCH: sections are open while searching (their state is put back when the search ends); the header only
+        //shows when it matches
         if (IsSearching && _searchBypassDepth == 0)
         {
+            var opened = !value;
+
+            value = true;
             Label(title.Bold());
             If(value, actions);
 
-            return false;
+            return opened;
         }
 
         var disclosed = value;

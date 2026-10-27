@@ -9,7 +9,7 @@ internal static class Global
     // true if in a multiplayer game to prevent
     // SFX, default party, alternate voting system, multi-heroes reaction order, PCG random, formation, encounters
     internal static bool IsMultiplayer =>
-        IsSettingUpMultiplayer || ServiceRepository.GetService<INetworkingService>().IsMultiplayerGame;
+        IsSettingUpMultiplayer || ServiceRepository.GetService<INetworkingService>() is { IsMultiplayerGame: true };
 
     // true if on multiplayer setup screen to prevent default party
     internal static bool IsSettingUpMultiplayer { get; set; }

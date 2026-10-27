@@ -17,18 +17,33 @@ internal static partial class UI
     [UsedImplicitly]
     public static void Toolbar(ref int value, string[] texts, params GUILayoutOption[] options)
     {
+        if (SearchHidesUntitled(texts))
+        {
+            return;
+        }
+
         value = GL.Toolbar(value, texts, options);
     }
 
     [UsedImplicitly]
     public static void Toolbar(ref int value, string[] texts, GUIStyle style, params GUILayoutOption[] options)
     {
+        if (SearchHidesUntitled(texts))
+        {
+            return;
+        }
+
         value = GL.Toolbar(value, texts, style, options);
     }
 
     [UsedImplicitly]
     public static bool SelectionGrid(ref int selected, string[] texts, int xCols, params GUILayoutOption[] options)
     {
+        if (SearchHidesUntitled(texts))
+        {
+            return false;
+        }
+
         if (xCols <= 0)
         {
             xCols = texts.Length;
@@ -54,18 +69,38 @@ internal static partial class UI
     public static bool SelectionGrid(string title, ref int selected, string[] texts, int xCols,
         params GUILayoutOption[] options)
     {
-        using (HorizontalScope())
+        if (SearchHides(title))
         {
-            Label(title.Cyan(), Width(300f));
-            Space(25f);
-            return SelectionGrid(ref selected, texts, xCols, options);
+            return false;
         }
+
+        var changed = false;
+        var value = selected;
+
+        WithoutSearch(() =>
+        {
+            using (HorizontalScope())
+            {
+                Label(title.Cyan(), Width(300f));
+                Space(25f);
+                changed = SelectionGrid(ref value, texts, xCols, options);
+            }
+        });
+
+        selected = value;
+
+        return changed;
     }
 
     [UsedImplicitly]
     public static bool SelectionGrid(ref int selected, string[] texts, int xCols, GUIStyle style,
         params GUILayoutOption[] options)
     {
+        if (SearchHidesUntitled(texts))
+        {
+            return false;
+        }
+
         if (xCols <= 0)
         {
             xCols = texts.Length;
@@ -90,6 +125,11 @@ internal static partial class UI
     [UsedImplicitly]
     public static bool SelectionGrid<T>(ref int selected, T[] items, int xCols, params GUILayoutOption[] options)
     {
+        if (SearchHidesUntitled(items.Select(x => $"{x}").ToArray()))
+        {
+            return false;
+        }
+
         if (xCols <= 0)
         {
             xCols = items.Length;
@@ -115,6 +155,11 @@ internal static partial class UI
     public static bool SelectionGrid<T>(ref int selected, T[] items, int xCols, GUIStyle style,
         params GUILayoutOption[] options)
     {
+        if (SearchHidesUntitled(items.Select(x => $"{x}").ToArray()))
+        {
+            return false;
+        }
+
         if (xCols <= 0)
         {
             xCols = items.Length;
@@ -140,6 +185,11 @@ internal static partial class UI
     public static bool SelectionGrid(ref int selected, [NotNull] string[] texts, int xCols, int maxColsIfNarrow = 4,
         params GUILayoutOption[] options)
     {
+        if (SearchHidesUntitled(texts))
+        {
+            return false;
+        }
+
         if (xCols <= 0)
         {
             xCols = texts.Length;

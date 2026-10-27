@@ -234,6 +234,22 @@ internal static class LevelDownContext
         {
             restModal.Refresh();
         }
+
+        // the after-rest modules (hit dice and others) are bound when the panel opens, so they are bound again
+        var restAfterPanel = UnityEngine.Object.FindObjectOfType<RestAfterPanel>();
+
+        if (!restAfterPanel || !restAfterPanel.Visible)
+        {
+            return;
+        }
+
+        foreach (var module in restAfterPanel.RestModules.Where(x => x && x.gameObject.activeSelf))
+        {
+            module.Bind(restAfterPanel.PerformedRestType, RestDefinitions.RestStage.AfterRest,
+                restAfterPanel.RestModuleRefreshed);
+        }
+
+        restAfterPanel.RefreshNow();
     }
 
     internal sealed class FunctorLevelDown : Functor

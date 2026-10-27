@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using SolastaUnfinishedBusiness.Api.LanguageExtensions;
 using UnityEngine;
@@ -8,18 +10,38 @@ using GL = UnityEngine.GUILayout;
 namespace SolastaUnfinishedBusiness.Api.ModKit;
 
 // Menu search: while there is search text every searchable page is drawn, and each titled control only appears when
-// its text matches, under a "Tab › Section" heading. Collapsed sections are opened while searching and closed again
-// once the search is cleared.
+// its text matches, under a "Tab › Section" heading. Controls without a title (grids, fields, bare sliders) only
+// appear next to a matching label, or when one of their own texts matches. Collapsed sections are opened while
+// searching; every section's state is remembered when the search starts and put back when it ends.
+//
+// IMGUI draws each frame in several passes that must contain the same controls, so the search text, and everything
+// derived from it, only changes at the start of a frame (the Layout pass).
 internal static partial class UI
 {
     private static readonly Regex RichTextTags = new("<[^>]+>", RegexOptions.Compiled);
     private static readonly List<string> SearchPath = [];
-    private static readonly Dictionary<string, int> SearchOpenedSections = new();
+
+    // collapsed or expanded sections are stored in the settings' Display... switches
+    private static readonly PropertyInfo[] SectionStateProperties = typeof(Settings)
+        .GetProperties(BindingFlags.Instance | BindingFlags.Public)
+        .Where(x => x.PropertyType == typeof(bool) && x.CanRead && x.CanWrite && x.Name.StartsWith("Display"))
+        .ToArray();
+
+    // per class and per spell list sections are stored in Display... dictionaries
+    private static readonly PropertyInfo[] SectionStateDictionaries = typeof(Settings)
+        .GetProperties(BindingFlags.Instance | BindingFlags.Public)
+        .Where(x => typeof(IDictionary<string, bool>).IsAssignableFrom(x.PropertyType) && x.CanRead &&
+                    x.Name.StartsWith("Display"))
+        .ToArray();
+
+    private static Dictionary<PropertyInfo, bool> _sectionStatesBeforeSearch;
+    private static Dictionary<PropertyInfo, Dictionary<string, bool>> _sectionDictionariesBeforeSearch;
     private static string _pendingSearchHeader;
     private static string _searchInput = string.Empty;
     private static int _searchBypassDepth;
+    private static bool _searchShowsUntitled;
 
-    internal static string SearchText { get; set; } = string.Empty;
+    internal static string SearchText { get; private set; } = string.Empty;
 
     internal static bool IsSearching => !string.IsNullOrWhiteSpace(SearchText);
 
@@ -36,8 +58,8 @@ internal static partial class UI
                 _searchInput = GL.TextField(_searchInput ?? string.Empty, GL.Width(350f));
                 Space(10f);
 
-                if (!string.IsNullOrWhiteSpace(_searchInput) &&
-                    GL.Button(Gui.Localize("ModUi/&SearchClear"), GL.ExpandWidth(false)))
+                // shown from the frame's search text, so every pass of the frame has the same controls
+                if (IsSearching && GL.Button(Gui.Localize("ModUi/&SearchClear"), GL.ExpandWidth(false)))
                 {
                     _searchInput = string.Empty;
                     GUI.FocusControl(null);
@@ -45,16 +67,64 @@ internal static partial class UI
             }
         });
 
-        // IMGUI draws a frame in several passes that must contain the same controls, so the typed text only
-        // takes effect at the start of a frame
         if (Event.current.type == EventType.Layout)
         {
-            SearchText = _searchInput ?? string.Empty;
+            SetSearchText(_searchInput);
         }
 
         SearchMatchCount = 0;
         _pendingSearchHeader = null;
+        _searchShowsUntitled = false;
         SearchPath.Clear();
+    }
+
+    // ends any search, putting every section back as it was; used before saving and when the menu closes
+    internal static void EndSearch()
+    {
+        _searchInput = string.Empty;
+        SetSearchText(string.Empty);
+    }
+
+    private static void SetSearchText(string text)
+    {
+        var wasSearching = IsSearching;
+
+        SearchText = text ?? string.Empty;
+
+        if (!wasSearching && IsSearching)
+        {
+            _sectionStatesBeforeSearch = SectionStateProperties
+                .ToDictionary(x => x, x => (bool)x.GetValue(Main.Settings));
+            _sectionDictionariesBeforeSearch = SectionStateDictionaries
+                .Where(x => x.GetValue(Main.Settings) is IDictionary<string, bool>)
+                .ToDictionary(x => x,
+                    x => new Dictionary<string, bool>((IDictionary<string, bool>)x.GetValue(Main.Settings)));
+        }
+        else if (wasSearching && !IsSearching && _sectionStatesBeforeSearch != null)
+        {
+            foreach (var state in _sectionStatesBeforeSearch)
+            {
+                state.Key.SetValue(Main.Settings, state.Value);
+            }
+
+            foreach (var states in _sectionDictionariesBeforeSearch ?? [])
+            {
+                if (states.Key.GetValue(Main.Settings) is not IDictionary<string, bool> current)
+                {
+                    continue;
+                }
+
+                current.Clear();
+
+                foreach (var state in states.Value)
+                {
+                    current[state.Key] = state.Value;
+                }
+            }
+
+            _sectionStatesBeforeSearch = null;
+            _sectionDictionariesBeforeSearch = null;
+        }
     }
 
     internal static void SearchResultsFooter()
@@ -70,6 +140,7 @@ internal static partial class UI
     {
         SearchPath.Add(RichTextTags.Replace(name ?? string.Empty, string.Empty));
         _pendingSearchHeader = string.Join(" › ", SearchPath);
+        _searchShowsUntitled = false;
 
         try
         {
@@ -79,6 +150,7 @@ internal static partial class UI
         {
             SearchPath.RemoveAt(SearchPath.Count - 1);
             _pendingSearchHeader = null;
+            _searchShowsUntitled = false;
         }
     }
 
@@ -101,21 +173,55 @@ internal static partial class UI
             return false;
         }
 
+        // an empty title (spacers, unlabeled parts) neither matches nor ends the current match
+        if (texts.All(string.IsNullOrEmpty))
+        {
+            return !_searchShowsUntitled;
+        }
+
         if (!Array.Exists(texts, SearchMatches))
+        {
+            _searchShowsUntitled = false;
+
+            return true;
+        }
+
+        CountSearchMatch();
+        _searchShowsUntitled = true;
+
+        return false;
+    }
+
+    // controls without a title show only after a matching label, or when one of their own texts matches
+    private static bool SearchHidesUntitled(params string[] ownTexts)
+    {
+        if (!IsSearching || _searchBypassDepth > 0 || _searchShowsUntitled)
+        {
+            return false;
+        }
+
+        if (ownTexts == null || !Array.Exists(ownTexts, SearchMatches))
         {
             return true;
         }
 
-        SearchMatchCount++;
-
-        if (_pendingSearchHeader != null)
-        {
-            Space(10f);
-            GL.Label(_pendingSearchHeader.Orange().Bold());
-            _pendingSearchHeader = null;
-        }
+        CountSearchMatch();
 
         return false;
+    }
+
+    private static void CountSearchMatch()
+    {
+        SearchMatchCount++;
+
+        if (_pendingSearchHeader == null)
+        {
+            return;
+        }
+
+        Space(10f);
+        GL.Label(_pendingSearchHeader.Orange().Bold());
+        _pendingSearchHeader = null;
     }
 
     // the parts of a matched control (its label, its reset button, ...) are drawn without being searched again
@@ -131,43 +237,5 @@ internal static partial class UI
         {
             _searchBypassDepth--;
         }
-    }
-
-    // a collapsed section is opened while searching (value becomes true and the caller saves it), and closed again
-    // the first time it is drawn after the search is cleared
-    private static bool SearchOpensOrRestoresSection(string title, ref bool value)
-    {
-        var key = title ?? string.Empty;
-
-        if (IsSearching)
-        {
-            if (value || _searchBypassDepth > 0)
-            {
-                return false;
-            }
-
-            SearchOpenedSections[key] = SearchOpenedSections.TryGetValue(key, out var opened) ? opened + 1 : 1;
-            value = true;
-
-            return true;
-        }
-
-        if (!value || !SearchOpenedSections.TryGetValue(key, out var count))
-        {
-            return false;
-        }
-
-        if (count <= 1)
-        {
-            SearchOpenedSections.Remove(key);
-        }
-        else
-        {
-            SearchOpenedSections[key] = count - 1;
-        }
-
-        value = false;
-
-        return true;
     }
 }

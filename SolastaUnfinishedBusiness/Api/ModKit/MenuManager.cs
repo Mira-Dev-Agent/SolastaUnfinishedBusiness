@@ -86,6 +86,7 @@ internal sealed class MenuManager : INotifyPropertyChanged
         _bottomPages.Sort(Comparison);
 
         modEntry.OnGUI += OnGUI;
+        modEntry.OnHideGUI += _ => UI.EndSearch();
 
         return;
 

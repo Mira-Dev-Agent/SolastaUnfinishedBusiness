@@ -1493,6 +1493,31 @@ public static class RulesetCharacterHeroPatcher
         }
     }
 
+    //BUGFIX: an unlearned invocation that grants a spell pool directly (Pact of the Tome) loses the spells it granted
+    [HarmonyPatch(typeof(RulesetCharacterHero), nameof(RulesetCharacterHero.UnlearnInvocations))]
+    [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]
+    [UsedImplicitly]
+    public static class UnlearnInvocations_Patch
+    {
+        [UsedImplicitly]
+        public static void Prefix(RulesetCharacterHero __instance, List<InvocationDefinition> invocations)
+        {
+            // vanilla only clears the extra spells of pools inside a feature set
+            foreach (var tag in invocations
+                         .Select(x => x.GrantedFeature)
+                         .OfType<FeatureDefinitionPointPool>()
+                         .Select(x => x.ExtraSpellsTag)
+                         .Where(x => !string.IsNullOrEmpty(x))
+                         .Distinct())
+            {
+                foreach (var repertoire in __instance.SpellRepertoires)
+                {
+                    repertoire.ExtraSpellsByTag.Remove(tag);
+                }
+            }
+        }
+    }
+
     //PATCH: saves, loads and shares the record of each level-up, used to level down
     [HarmonyPatch(typeof(RulesetCharacterHero), nameof(RulesetCharacterHero.SerializeElements))]
     [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]

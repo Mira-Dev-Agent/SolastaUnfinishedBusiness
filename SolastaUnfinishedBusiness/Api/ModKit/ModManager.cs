@@ -24,6 +24,9 @@ internal sealed class ModManager<TCore, TSettings>
 
     private void HandleSaveGUI(UnityModManager.ModEntry modEntry)
     {
+        //PATCH: a search in progress ends first, so sections it opened are saved as they were before it
+        UI.EndSearch();
+
         //PATCH: while playing with the host's settings, only this computer's own settings are ever saved (MULTIPLAYER)
         var settings = MultiplayerSessionContext.SettingsToSave as TSettings ?? Settings;
 
