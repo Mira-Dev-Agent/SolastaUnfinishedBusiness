@@ -54,6 +54,7 @@ internal static class BootContext
         CustomItemsContext.Load();
         PowerBundleContext.Load();
         ToolsContext.Load();
+        LevelDownContext.Load();
         CharacterExportContext.Load();
         DungeonMakerContext.Load();
         CampaignsContext.Load();

@@ -139,6 +139,13 @@ internal static class RulesDisplay
             ToolsContext.SwitchRespec();
         }
 
+        toggle = Main.Settings.EnableLevelDownAction;
+        if (UI.Toggle(Gui.Localize("ModUi/&EnableLevelDownAction"), ref toggle, UI.AutoWidth()))
+        {
+            Main.Settings.EnableLevelDownAction = toggle;
+            LevelDownContext.SwitchLevelDown();
+        }
+
         toggle = Main.Settings.EnableUnarmedMainAttackAction;
         if (UI.Toggle(Gui.Localize(Gui.Localize("ModUi/&EnableUnarmedMainAttackAction")), ref toggle,
                 UI.AutoWidth()))

@@ -1,3 +1,9 @@
+1.6.1.0:
+- Added Level Down after rest action (Rules, on by default): undoes a hero's last level and everything chosen or gained for it, so the level can be taken again. Experience is kept. Only levels gained with 1.6.1.0 or later are recorded
+- Every level-up is now recorded in the hero (saves, character files and multiplayer); in multiplayer the level down runs on every computer at the same moment
+- Fixed invocations swapped out on level-up keeping the fighting styles, feats and other custom features they granted
+- Fixed subclass custom level-up features being registered under the class tag instead of the subclass tag
+
 1.6.0.0:
 - Renamed the mod to Finishing Business (display name only; the mod id, folder and settings are unchanged)
 - Added Gameplay > Multiplayer settings: tick buffer tuning for less client lag, desync detection, synced Stand Against the Tide, cell overlap out of combat with safe-cell resolution at battle start, ally pass-through in combat

@@ -227,6 +227,9 @@ public static class CharacterBuildingManagerPatcher
         [UsedImplicitly]
         public static void Prefix([NotNull] RulesetCharacterHero hero, ref bool force)
         {
+            //PATCH: remembers the hero as it is before this level, to record what the level-up changes
+            LevelDownContext.TakeSnapshot(hero);
+
             //PATCH: forces no experience on level up setting
             if (Main.Settings.NoExperienceOnLevelUp)
             {
@@ -348,6 +351,9 @@ public static class CharacterBuildingManagerPatcher
 
             //PATCH: unregisters the hero leveling up
             LevelUpHelper.UnregisterHero(hero);
+
+            //PATCH: records what this level-up changed so it can be undone later (must stay last)
+            LevelDownContext.RecordLevelUp(hero);
         }
 
         private static void GrantCantripFromCustomAcquiredPool(RulesetCharacterHero hero, string name)

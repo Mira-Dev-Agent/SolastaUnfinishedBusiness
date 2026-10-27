@@ -811,6 +811,15 @@ internal static class LevelUpHelper
             }
         }
 
+        //BUGFIX: invocations swapped out at this level lose their custom features (fighting styles, feats, ...)
+        foreach (var kvp in buildingData.UnlearnedInvocations)
+        {
+            foreach (var invocation in kvp.Value.Where(x => x.grantedFeature))
+            {
+                RecursiveRemoveCustomFeatures(hero, kvp.Key, [invocation.grantedFeature]);
+            }
+        }
+
         foreach (var kvp in buildingData.LevelupTrainedInvocations)
         {
             foreach (var invocation in kvp.Value)
@@ -835,7 +844,7 @@ internal static class LevelUpHelper
 
         if (hero.ActiveFeatures.TryGetValue(subclassTag, out var subclassFeatures))
         {
-            RecursiveGrantCustomFeatures(hero, classTag, subclassFeatures);
+            RecursiveGrantCustomFeatures(hero, subclassTag, subclassFeatures);
         }
     }
 

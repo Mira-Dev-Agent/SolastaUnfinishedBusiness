@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection.Emit;
@@ -159,6 +160,20 @@ public static class MultiplayerPatcher
         public static void Prefix(RulesetCharacter character, ref int slotLevel)
         {
             slotLevel = MultiplayerContext.DecodeShiftKeyState(slotLevel, GameLocationCharacter.GetFromActor(character));
+        }
+    }
+
+    //PATCH: runs a level down sent through the class level command at the same tick on every computer
+    [HarmonyPatch(typeof(NetworkingManager), nameof(NetworkingManager.AssignClassLevelAsync))]
+    [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]
+    [UsedImplicitly]
+    public static class AssignClassLevelAsync_Patch
+    {
+        [UsedImplicitly]
+        public static bool Prefix(
+            NetworkingManager __instance, long heroGuid, string classDefinitionName, ref IEnumerator __result)
+        {
+            return !LevelDownContext.TryHandleLevelDownCommand(__instance, heroGuid, classDefinitionName, ref __result);
         }
     }
 

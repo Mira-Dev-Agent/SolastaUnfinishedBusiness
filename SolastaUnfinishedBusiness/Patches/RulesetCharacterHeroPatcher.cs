@@ -1493,6 +1493,19 @@ public static class RulesetCharacterHeroPatcher
         }
     }
 
+    //PATCH: saves, loads and shares the record of each level-up, used to level down
+    [HarmonyPatch(typeof(RulesetCharacterHero), nameof(RulesetCharacterHero.SerializeElements))]
+    [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]
+    [UsedImplicitly]
+    public static class SerializeElements_Patch
+    {
+        [UsedImplicitly]
+        public static void Postfix(RulesetCharacterHero __instance, IElementsSerializer serializer)
+        {
+            LevelDownContext.SerializeHistory(__instance, serializer);
+        }
+    }
+
     [HarmonyPatch(typeof(RulesetCharacterHero), nameof(RulesetCharacterHero.EnumerateAfterRestActions))]
     [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]
     [UsedImplicitly]
@@ -1514,6 +1527,11 @@ public static class RulesetCharacterHeroPatcher
                 }
 
                 if (!Level20Context.WizardSignatureSpells.IsRestActivityAvailable(activity, __instance))
+                {
+                    return true;
+                }
+
+                if (!LevelDownContext.IsRestActivityAvailable(activity, __instance))
                 {
                     return true;
                 }
