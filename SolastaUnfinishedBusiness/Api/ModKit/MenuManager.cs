@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using SolastaUnfinishedBusiness.Api.LanguageExtensions;
+using SolastaUnfinishedBusiness.Models;
 using UnityEngine;
 using UnityModManagerNet;
 
@@ -118,6 +119,16 @@ internal sealed class MenuManager : INotifyPropertyChanged
             UI.UserHasHitReturn = e.keyCode == KeyCode.Return;
             UI.FocusedControlName = GUI.GetNameOfFocusedControl();
 
+            //PATCH: a multiplayer client sees the host's settings read-only; tabs and sections still open (MULTIPLAYER)
+            if (MultiplayerSessionContext.IsUsingHostSettings)
+            {
+                GUILayout.Label(MultiplayerSessionContext.IsUsingHostSettingsForThisLaunch
+                    ? Gui.Localize("ModUi/&MultiplayerHostSettingsThisLaunchBanner")
+                    : Gui.Localize("ModUi/&MultiplayerHostSettingsBanner"));
+                GUILayout.Space(10f);
+                GUI.enabled = false;
+            }
+
             if (_topPages.Count > 0)
             {
                 foreach (var page in _topPages)
@@ -165,6 +176,10 @@ internal sealed class MenuManager : INotifyPropertyChanged
         catch (Exception e)
         {
             _caughtException = e;
+        }
+        finally
+        {
+            GUI.enabled = true;
         }
     }
 }

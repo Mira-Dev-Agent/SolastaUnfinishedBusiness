@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection.Emit;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 using HarmonyLib;
 using JetBrains.Annotations;
 using SolastaUnfinishedBusiness.Api.Helpers;
+using Photon.Realtime;
 using SolastaUnfinishedBusiness.Models;
 using TA;
 
@@ -190,6 +192,123 @@ public static class MultiplayerPatcher
             MultiplayerContext.CheckCurEntityGuidByTick(localTick, incomingGuid);
 
             return false;
+        }
+    }
+
+    //PATCH: shares the mod build and the host's settings when entering a room (MULTIPLAYER)
+    [HarmonyPatch(typeof(NetworkingManager), nameof(NetworkingManager.OnJoinedRoom))]
+    [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]
+    [UsedImplicitly]
+    public static class OnJoinedRoom_Patch
+    {
+        [UsedImplicitly]
+        public static void Postfix()
+        {
+            MultiplayerSessionContext.OnJoinedRoom();
+        }
+    }
+
+    //PATCH: picks up the host's build and settings when they change (MULTIPLAYER)
+    [HarmonyPatch(typeof(NetworkingManager), nameof(NetworkingManager.OnRoomPropertiesUpdate))]
+    [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]
+    [UsedImplicitly]
+    public static class OnRoomPropertiesUpdate_Patch
+    {
+        [UsedImplicitly]
+        public static void Postfix(Hashtable propertiesThatChanged)
+        {
+            MultiplayerSessionContext.OnRoomPropertiesUpdate(propertiesThatChanged);
+        }
+    }
+
+    //PATCH: a computer that becomes host uses and shares its own settings (MULTIPLAYER)
+    [HarmonyPatch(typeof(NetworkingManager), nameof(NetworkingManager.OnMasterClientSwitched))]
+    [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]
+    [UsedImplicitly]
+    public static class OnMasterClientSwitched_Patch
+    {
+        [UsedImplicitly]
+        public static void Postfix(Player newMasterClient)
+        {
+            MultiplayerSessionContext.OnMasterClientSwitched(newMasterClient);
+        }
+    }
+
+    //PATCH: goes back to this computer's own settings after leaving a room (MULTIPLAYER)
+    [HarmonyPatch(typeof(NetworkingManager), nameof(NetworkingManager.OnLeftRoom))]
+    [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]
+    [UsedImplicitly]
+    public static class OnLeftRoom_Patch
+    {
+        [UsedImplicitly]
+        public static void Postfix()
+        {
+            MultiplayerSessionContext.OnLeftRoom();
+        }
+    }
+
+    //PATCH: shows the host's mod build in the room list (MULTIPLAYER)
+    [HarmonyPatch(typeof(NetworkingManager), nameof(NetworkingManager.ConvertRoomInfo))]
+    [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]
+    [UsedImplicitly]
+    public static class ConvertRoomInfo_Patch
+    {
+        [UsedImplicitly]
+        public static void Postfix(RoomInfo roomInfo, ref NetworkingDefinitions.RoomInfo __result)
+        {
+            MultiplayerSessionContext.DecorateRoomInfo(roomInfo, ref __result);
+        }
+    }
+
+    //PATCH: player plates show each player's mod build when hovered, in the lobby and in game (MULTIPLAYER)
+    [HarmonyPatch(typeof(PlayerInfoGroup), nameof(PlayerInfoGroup.Bind))]
+    [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]
+    [UsedImplicitly]
+    public static class PlayerInfoGroupBind_Patch
+    {
+        [UsedImplicitly]
+        public static void Postfix(PlayerInfoGroup __instance)
+        {
+            MultiplayerSessionContext.DecoratePlayerInfoGroup(__instance);
+        }
+    }
+
+    //PATCH: refreshes the shown build when a player's properties arrive or change (MULTIPLAYER)
+    [HarmonyPatch(typeof(PlayerInfoGroup), nameof(PlayerInfoGroup.OnPlayerPropertyUpdated))]
+    [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]
+    [UsedImplicitly]
+    public static class PlayerInfoGroupOnPlayerPropertyUpdated_Patch
+    {
+        [UsedImplicitly]
+        public static void Postfix(PlayerInfoGroup __instance)
+        {
+            MultiplayerSessionContext.DecoratePlayerInfoGroup(__instance);
+        }
+    }
+
+    //PATCH: warns about different or missing builds when a player readies up in the lobby (MULTIPLAYER)
+    [HarmonyPatch(typeof(NewAdventurePanel), nameof(NewAdventurePanel.OnReadyCb))]
+    [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]
+    [UsedImplicitly]
+    public static class NewAdventurePanelOnReadyCb_Patch
+    {
+        [UsedImplicitly]
+        public static void Prefix()
+        {
+            MultiplayerSessionContext.WarnAboutVersionsIfNeeded();
+        }
+    }
+
+    //PATCH: warns about different or missing builds when the host starts or loads the game (MULTIPLAYER)
+    [HarmonyPatch(typeof(NewAdventurePanel), nameof(NewAdventurePanel.OnStartGameCb))]
+    [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]
+    [UsedImplicitly]
+    public static class NewAdventurePanelOnStartGameCb_Patch
+    {
+        [UsedImplicitly]
+        public static void Prefix()
+        {
+            MultiplayerSessionContext.WarnAboutVersionsIfNeeded();
         }
     }
 

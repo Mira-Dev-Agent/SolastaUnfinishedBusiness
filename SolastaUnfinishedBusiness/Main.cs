@@ -28,6 +28,14 @@ internal static class Main
     internal static string SettingsFilename { get; private set; } = string.Empty;
     internal static Settings Settings => Mod.Settings;
 
+    internal static string ModVersion => ModEntry?.Info?.Version ?? string.Empty;
+
+    // swaps the settings the mod reads; used to play with the host's settings as a multiplayer client
+    internal static void UseSettings(Settings settings)
+    {
+        Mod.Settings = settings;
+    }
+
     [Conditional("DEBUG")]
     internal static void Log(string msg, bool console = false)
     {
@@ -108,6 +116,7 @@ internal static class Main
             Mod = new ModManager<Core, Settings>();
             Mod.Enable(modEntry, assembly);
             AddMissingSettingsToFile(modEntry);
+            MultiplayerSessionContext.UseHostSettingsForThisLaunchIfRequested();
 
             modEntry.OnShowGUI = _ =>
             {

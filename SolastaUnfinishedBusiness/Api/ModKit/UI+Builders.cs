@@ -102,6 +102,23 @@ internal static partial class UI
         }
     }
 
+    // navigation stays usable while the rest of the menu is read-only (host settings in multiplayer)
+    internal static void AlwaysEnabled(Action draw)
+    {
+        var enabled = GUI.enabled;
+
+        GUI.enabled = true;
+
+        try
+        {
+            draw();
+        }
+        finally
+        {
+            GUI.enabled = enabled;
+        }
+    }
+
     public static void TabBar(ref int selected, Action header = null, params NamedAction[] actions)
     {
         if (selected >= actions.Length)
@@ -113,8 +130,11 @@ internal static partial class UI
         var titles = actions.Select((a, i) =>
             i == sel ? a.Name.Orange().Bold() : a.Name);
         var enumerable = titles as string[] ?? titles.ToArray();
+        var newSelected = selected;
 
-        SelectionGrid(ref selected, enumerable.ToArray(), enumerable.Length, 6, ExpandWidth(true));
+        AlwaysEnabled(() =>
+            SelectionGrid(ref newSelected, enumerable.ToArray(), enumerable.Length, 6, ExpandWidth(true)));
+        selected = newSelected;
         GL.BeginVertical("box");
         header?.Invoke();
         actions[selected].Action();
@@ -137,7 +157,11 @@ internal static partial class UI
         {
             using (VerticalScope())
             {
-                SelectionGrid(ref selected, enumerable.ToArray(), 0, SubmenuButtonStyle, AutoWidth());
+                var newSelected = selected;
+
+                AlwaysEnabled(() =>
+                    SelectionGrid(ref newSelected, enumerable.ToArray(), 0, SubmenuButtonStyle, AutoWidth()));
+                selected = newSelected;
                 if (div)
                 {
                     DivLast(20);

@@ -514,3 +514,10 @@ ModUi/&MultiplayerMovementTitle=<color=#F0DAA0>Movement</color> <i><color=#F0DAA
 ModUi/&MultiplayerAllowCharactersToOverlapOutOfCombat=Allow characters to share cells out of combat, so the party moves through crawl spaces and doorways together
 ModUi/&MultiplayerResolveOverlapsOnBattleStart=When a battle starts, move characters sharing a cell to the closest safe cell <i><color=#F0DAA0>[free, not harmful, and not seen by enemies if sneaking]</color></i>
 ModUi/&MultiplayerAllowAlliesToPassThroughInCombat=Allow allies to move through each other in combat while both are moving
+ModUi/&MultiplayerBuildInfo=<color=white>This build:</color> {0}
+ModUi/&MultiplayerNoHost=Not in a multiplayer room.
+ModUi/&MultiplayerHostSettingsBanner=<b><color=#E0A040>These are the HOST's settings for this multiplayer session. They are read-only here and your own Settings.xml is unchanged.</color></b>
+ModUi/&MultiplayerHostSettingsThisLaunchBanner=<b><color=#E0A040>This launch uses the HOST's settings (Settings/Host.xml). They are read-only here and your own Settings.xml is unchanged; the next launch uses your own settings again.</color></b>
+ModUi/&MultiplayerPlayersVersions=<color=white>Builds in this room:</color>
+ModUi/&MultiplayerNoVersion=no version reported
+ModUi/&MultiplayerHostRole= (host)

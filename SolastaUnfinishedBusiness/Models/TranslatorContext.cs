@@ -267,6 +267,17 @@ internal static class TranslatorContext
         }
     }
 
+    // English mod terms whose text contains the given marker, e.g. "Requires Restart" on settings labels
+    internal static HashSet<string> GetEnglishTermsContaining(string marker)
+    {
+        return
+        [
+            .. GetTermsDict(English, IsModTerm)
+                .Where(x => x.Value.IndexOf(marker, StringComparison.OrdinalIgnoreCase) >= 0)
+                .Select(x => x.Key)
+        ];
+    }
+
     private static Dictionary<string, string> GetTermsDict(
         string languageCode,
         Func<string, string, bool> validate)

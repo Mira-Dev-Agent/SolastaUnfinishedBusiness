@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using HarmonyLib;
 using JetBrains.Annotations;
+using SolastaUnfinishedBusiness.Models;
 using UnityModManagerNet;
 
 namespace SolastaUnfinishedBusiness.Api.ModKit;
@@ -23,7 +24,11 @@ internal sealed class ModManager<TCore, TSettings>
 
     private void HandleSaveGUI(UnityModManager.ModEntry modEntry)
     {
-        UnityModManager.ModSettings.Save(Settings, modEntry);
+        //PATCH: while playing with the host's settings, only this computer's own settings are ever saved (MULTIPLAYER)
+        var settings = MultiplayerSessionContext.SettingsToSave as TSettings ?? Settings;
+
+        UnityModManager.ModSettings.Save(settings, modEntry);
+        MultiplayerSessionContext.SettingsSaved();
     }
 
     #endregion

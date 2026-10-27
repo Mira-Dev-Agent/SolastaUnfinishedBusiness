@@ -111,7 +111,12 @@ internal static partial class UI
     [UsedImplicitly]
     public static bool DisclosureToggle(string title, ref bool value, float width = 175, params Action[] actions)
     {
-        var changed = TogglePrivate(title, ref value, false, true, width);
+        var disclosed = value;
+        var changed = false;
+
+        //PATCH: section toggles stay usable while the menu is read-only (MULTIPLAYER)
+        AlwaysEnabled(() => changed = TogglePrivate(title, ref disclosed, false, true, width));
+        value = disclosed;
 
         If(value, actions);
 
@@ -267,7 +272,12 @@ internal static partial class UI
 #if false
     public static bool DisclosureToggle(string title, ref bool value, float width = 175, params Action[] actions)
     {
-        var changed = TogglePrivate(title, ref value, false, true, width);
+        var disclosed = value;
+        var changed = false;
+
+        //PATCH: section toggles stay usable while the menu is read-only (MULTIPLAYER)
+        AlwaysEnabled(() => changed = TogglePrivate(title, ref disclosed, false, true, width));
+        value = disclosed;
         If(value, actions);
         return changed;
     }
@@ -277,7 +287,12 @@ internal static partial class UI
     [UsedImplicitly]
     public static bool DisclosureToggle(string title, ref bool value, params Action[] actions)
     {
-        var changed = TogglePrivate(title, ref value, false, true, 175);
+        var disclosed = value;
+        var changed = false;
+
+        //PATCH: section toggles stay usable while the menu is read-only (MULTIPLAYER)
+        AlwaysEnabled(() => changed = TogglePrivate(title, ref disclosed, false, true, 175));
+        value = disclosed;
         If(value, actions);
         return changed;
     }

@@ -1,3 +1,4 @@
+using Photon.Pun;
 using SolastaUnfinishedBusiness.Api.ModKit;
 using SolastaUnfinishedBusiness.Models;
 
@@ -5,10 +6,38 @@ namespace SolastaUnfinishedBusiness.Displays;
 
 internal static class MultiplayerDisplay
 {
+    // this build, and in a room the build of every player (missing ones say so); differences are red
+    private static void DisplayVersions()
+    {
+        UI.Label(Gui.Format("ModUi/&MultiplayerBuildInfo", MultiplayerSessionContext.BuildVersion));
+
+        if (!PhotonNetwork.InRoom || PhotonNetwork.OfflineMode)
+        {
+            UI.Label(Gui.Localize("ModUi/&MultiplayerNoHost"));
+
+            return;
+        }
+
+        UI.Label(Gui.Localize("ModUi/&MultiplayerPlayersVersions"));
+
+        foreach (var player in PhotonNetwork.PlayerList)
+        {
+            var version = MultiplayerSessionContext.GetPlayerVersion(player);
+            var role = player.IsMasterClient ? Gui.Localize("ModUi/&MultiplayerHostRole") : string.Empty;
+            var text = $"{player.NickName}{role}: {MultiplayerSessionContext.DescribeVersion(version)}";
+
+            UI.Label(version == MultiplayerSessionContext.BuildVersion
+                ? $"    <color=#80C080>{text}</color>"
+                : $"    <color=#E06060>{text}</color>");
+        }
+    }
+
     internal static void DisplayMultiplayer()
     {
         UI.Label();
         UI.Label(Gui.Localize("ModUi/&MultiplayerDescription"));
+        UI.Label();
+        DisplayVersions();
         UI.Label();
         UI.Label(Gui.Localize("ModUi/&MultiplayerAlwaysOnFixes"));
         UI.Label();
