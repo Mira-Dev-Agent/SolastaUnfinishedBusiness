@@ -31,6 +31,10 @@ internal static class InventorInfusions
 
     private const string InfusionsDescription = "Feature/&FeatureInventorInfusionPoolDescription";
     private const string InfusionsNonMagicalDescription = "Feature/&FeatureInventorInfusionPoolNonMagicalDescription";
+    private const string InfusionsRestDescription = "Feature/&FeatureInventorInfusionPoolRestDescription";
+
+    private const string InfusionsNonMagicalRestDescription =
+        "Feature/&FeatureInventorInfusionPoolNonMagicalRestDescription";
 
     public static void Build()
     {
@@ -579,9 +583,14 @@ internal static class InventorInfusions
     // the Infusions feature says which items can be infused under the current rule
     internal static void SwitchInfusionTargetRule()
     {
-        var description = Main.Settings.InfusionsOnlyOnNonMagicalItems
-            ? InfusionsNonMagicalDescription
-            : InfusionsDescription;
+        var description = (Main.Settings.InfusionsOnlyOnNonMagicalItems,
+                Main.Settings.InfusionSlotsReturnOnLongRestOnly) switch
+            {
+                (true, true) => InfusionsNonMagicalRestDescription,
+                (true, false) => InfusionsNonMagicalDescription,
+                (false, true) => InfusionsRestDescription,
+                _ => InfusionsDescription
+            };
 
         if (TryGetDefinition<FeatureDefinitionFeatureSet>("FeatureSetInventorInfusions", out var featureSet))
         {

@@ -1762,6 +1762,9 @@ public static class RulesetCharacterPatcher
                 PowerBundle.RechargeLinkedPowers(__instance, restType);
             }
 
+            //PATCH: a long rest gives back free infusion slots only, active infusions keep theirs
+            InfusionTrackingContext.OnRest(__instance, restType, simulate);
+
             // The player isn't recharging the shared pool features, just the pool.
             // Hide the features that use the pool from the UI.
             foreach (var feature in __instance.RecoveredFeatures
@@ -2419,6 +2422,29 @@ public static class RulesetCharacterPatcher
         {
             return !CharacterActionExtensions
                 .ShouldKeepConcentrationOnPowerUseOrSpend(__instance); // abort if should keep
+        }
+
+        //PATCH: an ended infusion frees its slot (at once, or at the next long rest with the tabletop setting)
+        [UsedImplicitly]
+        public static void Postfix(RulesetCharacter __instance, RulesetEffectPower activePower, bool __runOriginal)
+        {
+            if (__runOriginal)
+            {
+                InfusionTrackingContext.OnPowerTerminated(__instance, activePower);
+            }
+        }
+    }
+
+    //PATCH: with every infusion slot taken, infusing stays possible by replacing an infusion
+    [HarmonyPatch(typeof(RulesetCharacter), nameof(RulesetCharacter.GetRemainingUsesOfPower))]
+    [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]
+    [UsedImplicitly]
+    public static class GetRemainingUsesOfPower_Patch
+    {
+        [UsedImplicitly]
+        public static void Postfix(RulesetCharacter __instance, RulesetUsablePower usablePower, ref int __result)
+        {
+            InfusionTrackingContext.AllowReplacingWhenFull(__instance, usablePower, ref __result);
         }
     }
 

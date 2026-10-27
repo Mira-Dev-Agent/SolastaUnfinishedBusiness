@@ -25,6 +25,13 @@ internal static class ClassesDisplay
             InventorInfusions.SwitchInfusionTargetRule();
         }
 
+        toggle = Main.Settings.InfusionSlotsReturnOnLongRestOnly;
+        if (UI.Toggle(Gui.Localize("ModUi/&InfusionSlotsReturnOnLongRestOnly"), ref toggle, UI.AutoWidth()))
+        {
+            Main.Settings.InfusionSlotsReturnOnLongRestOnly = toggle;
+            InventorInfusions.SwitchInfusionTargetRule();
+        }
+
         UI.Label();
         UI.Label("<color=#F0DAA0>" + Gui.Localize("Class/&BardTitle") + ":</color>");
         UI.Label();

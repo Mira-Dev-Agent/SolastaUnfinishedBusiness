@@ -1561,6 +1561,11 @@ public static class RulesetCharacterHeroPatcher
                     return true;
                 }
 
+                if (!InfusionTrackingContext.IsRestActivityAvailable(activity, __instance))
+                {
+                    return true;
+                }
+
                 if (activity.functor != PowerBundleContext.UseCustomRestPowerFunctorName)
                 {
                     return false;

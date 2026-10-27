@@ -74,6 +74,7 @@ internal static class BootContext
 
         // Classes may rely on spells and powers being in the DB before they can properly load.
         ClassesContext.Load();
+        InfusionTrackingContext.Load();
 
         // Subclasses may rely on spells and powers being in the DB before they can properly load.
         SubclassesContext.Load();

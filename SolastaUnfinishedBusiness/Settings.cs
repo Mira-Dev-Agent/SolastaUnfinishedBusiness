@@ -108,6 +108,7 @@ public class Settings : UnityModManager.ModSettings
     public bool EnableRespecAction { get; set; }
     public bool EnableLevelDownAction { get; set; } = true;
     [Tag(Type = TagType.T2014)] public bool InfusionsOnlyOnNonMagicalItems { get; set; }
+    [Tag(Type = TagType.T2014)] public bool InfusionSlotsReturnOnLongRestOnly { get; set; }
     [Tag(Type = TagType.T2014)] public bool EnableUnarmedMainAttackAction { get; set; }
     public bool EnableUnlimitedInventoryActions { get; set; }
     [Tag(Type = TagType.T2014)] public bool UseOfficialAdvantageDisadvantageRules { get; set; }

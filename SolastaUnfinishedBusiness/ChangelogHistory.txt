@@ -1,3 +1,15 @@
+1.6.6.0:
+- Artificer infusions are tracked by what is active:
+  - Each active infusion takes one of your slots, and a long rest gives back only the free slots
+  - Ending an infusion frees its slot at once
+  - A new tabletop setting (Character > Classes > Artificer, off by default) makes it free only at the next long rest. It asks before you end one
+- When every slot is used, choosing an item to infuse asks which infusion to replace, instead of silently ending the oldest
+- New Active Infusions power: lists each infusion, the item that bears it and who carries it (main hand, off hand, worn, backpack, or not with the party), and can end any of them
+- New Change Infusions action at the end of a long rest: end any number of infusions, each slot is free at once
+- The Infusions feature text is rewritten from the 2014 rules and describes the active settings
+- Existing Artificers: until their next long rest, extra uses left from before are still used as before
+- Not tested in game or in a multiplayer session
+
 1.6.5.2:
 - Fixed the Artificer's magic weapon infusions (Enhance Weapon, Returning Weapon, Repeating Shot) being removed by temporary effects such as Sacred Weapon. This only happened in the same play session as the infusion, not after a reload. Infusions now use their own tag, so neither removes the other, and a new infusion still replaces an older one on the same item
 - Infusions can no longer be put on a weapon that a temporary effect such as Magic Weapon currently makes magical with a bonus, so the bonuses don't stack. Found or bought magic weapons can still be infused

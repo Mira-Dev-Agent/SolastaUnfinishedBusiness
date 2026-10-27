@@ -44,6 +44,13 @@ public static class InventoryPanelPatcher
                 InventoryManagementContext.BindInventory(__instance.MainContainerPanel);
             }
         }
+
+        //PATCH: choosing an item to infuse with every infusion slot taken asks which infusion it replaces
+        [UsedImplicitly]
+        public static void Postfix(InventoryPanel __instance)
+        {
+            __instance.ItemSelected = InfusionTrackingContext.WrapItemSelected(__instance.ItemSelected);
+        }
     }
 
     //PATCH: Enable Inventory Filtering and Sorting

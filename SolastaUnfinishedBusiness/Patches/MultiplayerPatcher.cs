@@ -176,7 +176,9 @@ public static class MultiplayerPatcher
         public static bool Prefix(
             NetworkingManager __instance, long heroGuid, string classDefinitionName, ref IEnumerator __result)
         {
-            return !LevelDownContext.TryHandleLevelDownCommand(__instance, heroGuid, classDefinitionName, ref __result);
+            return !LevelDownContext.TryHandleLevelDownCommand(__instance, heroGuid, classDefinitionName, ref __result) &&
+                   !InfusionTrackingContext.TryHandleEndInfusionCommand(
+                       __instance, heroGuid, classDefinitionName, ref __result);
         }
     }
 

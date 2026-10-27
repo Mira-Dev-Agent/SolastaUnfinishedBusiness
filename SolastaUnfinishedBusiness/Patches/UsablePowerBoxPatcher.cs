@@ -2,6 +2,7 @@
 using HarmonyLib;
 using JetBrains.Annotations;
 using SolastaUnfinishedBusiness.Behaviors.Specific;
+using SolastaUnfinishedBusiness.Models;
 using UnityEngine.UI;
 using static RuleDefinitions;
 
@@ -18,6 +19,12 @@ public static class UsablePowerBoxPatcher
         [UsedImplicitly]
         public static bool Prefix(UsablePowerBox __instance)
         {
+            //PATCH: Active Infusions opens the infusion list on this computer instead of using a power
+            if (!InfusionTrackingContext.PowerBoxActivated(__instance))
+            {
+                return false;
+            }
+
             //PATCH: used by Power Bundles feature
             //if the activated power is a bundle, this tries to replace activation with sub-spell selector and
             //then activates bundled power according to selected subspell.
