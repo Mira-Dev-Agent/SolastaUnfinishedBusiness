@@ -76,6 +76,9 @@ internal static class Main
     {
         ModEntry = modEntry;
 
+        // before the game boots, so character pool load failures are captured
+        ErrorDiagnosticsContext.StartListening();
+
         var now = DateTime.Now;
         var assembly = Assembly.GetExecutingAssembly();
 

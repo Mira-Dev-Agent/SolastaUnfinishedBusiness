@@ -63,9 +63,19 @@ public static class TacticalAdventuresApplicationPatcher
             if (type != LogType.Exception || Gui.GuiService == null)
                 return true;
 
+            //PATCH: characters the game cannot load are moved aside after the pool is read and reported then
+            if (ErrorDiagnosticsContext.IsCharacterLoadException(logString))
+            {
+                return false;
+            }
+
+            //PATCH: name the detected cause, only falling back to the generic warning when nothing was found
             var log = Path.GetFullPath(Path.Combine(TacticalAdventuresApplication.GameDirectory, "Player.log"));
+            var description = ErrorDiagnosticsContext.DescribeException(logString, stackTrace, log) ??
+                              Gui.Format("Message/&ModErrorWarningDescription", log);
+
             Gui.GuiService.ShowMessage(MessageModal.Severity.Serious3, Gui.Localize("Message/&ModErrorWarningTitle"),
-                Gui.Format("Message/&ModErrorWarningDescription", log),
+                description,
                 "Message/&ModErrorWarningShowLogs", "Screen/&CloseTitle", OpenLogsFolder, null);
             Application.logMessageReceived -= __instance.HandleLogModException;
 

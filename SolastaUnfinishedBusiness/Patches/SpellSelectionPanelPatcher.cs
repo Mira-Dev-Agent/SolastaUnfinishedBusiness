@@ -65,9 +65,27 @@ public static class SpellSelectionPanelPatcher
 
         private static List<RulesetSpellRepertoire> GetRepertoires(RulesetCharacter character)
         {
-            return character.SpellRepertoires
+            var repertoires = character.SpellRepertoires
                 .Where(r => !r.SpellCastingFeature.GuiPresentation.Hidden)
                 .ToList();
+
+            //PATCH: the vanilla single line offering shows the levels that don't fit on a line from the last
+            //repertoire only. Feats like Magic Initiate add a repertoire after the class one, which hid the class's
+            //higher spell levels (e.g. a level 5 wizard lost level 3 spells). Keep the repertoire with the highest
+            //spell level last and everything else in its original order.
+            var highest = repertoires
+                .OrderByDescending(r =>
+                    r.SpellCastingFeature.SpellCastingOrigin is not FeatureDefinitionCastSpell.CastingOrigin.Race)
+                .ThenByDescending(r => Math.Max(r.MaxSpellLevelOfSpellCastingLevel, r.GetMaxExtraSpellLevel()))
+                .FirstOrDefault();
+
+            if (highest != null && repertoires[repertoires.Count - 1] != highest)
+            {
+                repertoires.Remove(highest);
+                repertoires.Add(highest);
+            }
+
+            return repertoires;
         }
     }
 

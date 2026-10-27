@@ -25,6 +25,9 @@ public static class CharactersPanelPatcher
         [UsedImplicitly]
         public static void Postfix(CharactersPanel __instance, float __state)
         {
+            //PATCH: offers to remake characters kept in the Unloadable folder
+            CharacterRemakeContext.RefreshRemakeButton(__instance);
+
             if (Global.LastLevelUpHeroName == null)
             {
                 return;
