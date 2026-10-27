@@ -126,6 +126,23 @@ internal static partial class UI
             selected = 0;
         }
 
+        //PATCH: while searching, every searchable tab is drawn at once and only the matching settings show
+        if (IsSearching)
+        {
+            GL.BeginVertical("box");
+            header?.Invoke();
+
+            foreach (var action in actions.Where(x => x.Searchable))
+            {
+                SearchSection(action.Name, action.Action);
+            }
+
+            SearchResultsFooter();
+            GL.EndVertical();
+
+            return;
+        }
+
         var sel = selected;
         var titles = actions.Select((a, i) =>
             i == sel ? a.Name.Orange().Bold() : a.Name);
@@ -146,6 +163,19 @@ internal static partial class UI
         if (selected >= actions.Length)
         {
             selected = 0;
+        }
+
+        //PATCH: while searching, every searchable sub-page is drawn, labelled with its place in the menu
+        if (IsSearching)
+        {
+            header?.Invoke();
+
+            foreach (var action in actions.Where(x => x.Searchable))
+            {
+                SearchSection(action.Name, action.Action);
+            }
+
+            return;
         }
 
         var sel = selected;

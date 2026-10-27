@@ -570,8 +570,8 @@ internal sealed class EncountersViewer : IMenuSelectablePage
     {
         ModUi.DisplaySubMenu(ref _encountersSelectedPane, Name,
             new NamedAction(Gui.Localize("ModUi/&GeneralMenu"), DisplayEncountersGeneral),
-            new NamedAction(Gui.Localize("ModUi/&Bestiary"), DisplayBestiary),
-            new NamedAction(Gui.Localize("ModUi/&CharactersPool"), DisplayNpcs));
+            new NamedAction(Gui.Localize("ModUi/&Bestiary"), DisplayBestiary, searchable: false),
+            new NamedAction(Gui.Localize("ModUi/&CharactersPool"), DisplayNpcs, searchable: false));
     }
 }
 

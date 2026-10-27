@@ -37,6 +37,11 @@ internal static partial class UI
     [UsedImplicitly]
     public static void Label(string title = "", params GUILayoutOption[] options)
     {
+        if (SearchHides(title))
+        {
+            return;
+        }
+
         // var content = tooltip == null ? new GUIContent(title) : new GUIContent(title, tooltip);
         GL.Label(title, options.AddDefaults());
     }
@@ -44,6 +49,11 @@ internal static partial class UI
     [UsedImplicitly]
     public static void Label(string title, GUIStyle style, params GUILayoutOption[] options)
     {
+        if (SearchHides(title))
+        {
+            return;
+        }
+
         // var content = tooltip == null ? new GUIContent(title) : new GUIContent(title, tooltip);
         //  if (options.Length == 0) { options = new GUILayoutOption[] { GL.Width(150f) }; }
         GL.Label(title, style, options.AddDefaults());
@@ -52,6 +62,11 @@ internal static partial class UI
     [UsedImplicitly]
     public static void Label(GUIContent content, params GUILayoutOption[] options)
     {
+        if (SearchHides(content?.text, content?.tooltip))
+        {
+            return;
+        }
+
         // var content = tooltip == null ? new GUIContent(title) : new GUIContent(title, tooltip);
         //  if (options.Length == 0) { options = new GUILayoutOption[] { GL.Width(150f) }; }
         GL.Label(content, options);
@@ -60,13 +75,21 @@ internal static partial class UI
     [UsedImplicitly]
     public static void DescriptiveLabel(string title, string description, params GUILayoutOption[] options)
     {
-        options = options.AddDefaults(Width(300f));
-        using (HorizontalScope())
+        if (SearchHides(title, description))
         {
-            Label(title, options);
-            Space(25f);
-            Label(description);
+            return;
         }
+
+        options = options.AddDefaults(Width(300f));
+        WithoutSearch(() =>
+        {
+            using (HorizontalScope())
+            {
+                Label(title, options);
+                Space(25f);
+                Label(description);
+            }
+        });
     }
 
     [UsedImplicitly]
@@ -260,6 +283,11 @@ internal static partial class UI
     [UsedImplicitly]
     public static bool ActionButton(string title, Action action, params GUILayoutOption[] options)
     {
+        if (SearchHides(title))
+        {
+            return false;
+        }
+
         if (!GL.Button(title, options.AddDefaults()))
         {
             return false;
@@ -273,6 +301,11 @@ internal static partial class UI
     [UsedImplicitly]
     public static bool ActionButton(string title, Action action, GUIStyle style, params GUILayoutOption[] options)
     {
+        if (SearchHides(title))
+        {
+            return false;
+        }
+
         if (!GL.Button(title, style, options.AddDefaults()))
         {
             return false;
@@ -370,12 +403,24 @@ internal static partial class UI
     public static bool ValueAdjuster(string title, ref int value, int increment = 1, int min = 0,
         int max = int.MaxValue, params GUILayoutOption[] options)
     {
-        bool changed;
-        using (HorizontalScope(options))
+        if (SearchHides(title))
         {
-            Label(title);
-            changed = ValueAdjuster(ref value, increment, min, max);
+            return false;
         }
+
+        var changed = false;
+        var adjusted = value;
+
+        WithoutSearch(() =>
+        {
+            using (HorizontalScope(options))
+            {
+                Label(title);
+                changed = ValueAdjuster(ref adjusted, increment, min, max);
+            }
+        });
+
+        value = adjusted;
 
         return changed;
     }
@@ -383,6 +428,26 @@ internal static partial class UI
     [UsedImplicitly]
     public static bool ValueAdjuster(string title, Func<int> get, Action<int> set, int increment = 1, int min = 0,
         int max = int.MaxValue)
+    {
+        if (SearchHides(title))
+        {
+            return false;
+        }
+
+        _searchBypassDepth++;
+
+        try
+        {
+            return ValueAdjusterWithWidth(title, get, set, increment, min, max);
+        }
+        finally
+        {
+            _searchBypassDepth--;
+        }
+    }
+
+    private static bool ValueAdjusterWithWidth(string title, Func<int> get, Action<int> set, int increment, int min,
+        int max)
     {
         bool changed;
         using (HorizontalScope(Width(400f)))
@@ -403,6 +468,26 @@ internal static partial class UI
     [UsedImplicitly]
     public static bool ValueAdjuster(string title, Func<int> get, Action<int> set, int increment = 1, int min = 0,
         int max = int.MaxValue, params GUILayoutOption[] options)
+    {
+        if (SearchHides(title))
+        {
+            return false;
+        }
+
+        _searchBypassDepth++;
+
+        try
+        {
+            return ValueAdjusterWithOptions(title, get, set, increment, min, max, options);
+        }
+        finally
+        {
+            _searchBypassDepth--;
+        }
+    }
+
+    private static bool ValueAdjusterWithOptions(string title, Func<int> get, Action<int> set, int increment,
+        int min, int max, GUILayoutOption[] options)
     {
         bool changed;
         using (HorizontalScope())
@@ -477,6 +562,26 @@ internal static partial class UI
     [UsedImplicitly]
     public static bool Slider(string title, ref float value, float min, float max, float defaultValue = 1.0f,
         int decimals = 0, string units = "", params GUILayoutOption[] options)
+    {
+        if (SearchHides(title))
+        {
+            return false;
+        }
+
+        _searchBypassDepth++;
+
+        try
+        {
+            return TitledSlider(title, ref value, min, max, defaultValue, decimals, units, options);
+        }
+        finally
+        {
+            _searchBypassDepth--;
+        }
+    }
+
+    private static bool TitledSlider(string title, ref float value, float min, float max, float defaultValue,
+        int decimals, string units, GUILayoutOption[] options)
     {
         value = Math.Max(min, Math.Min(max, value)); // clamp it
         float newValue;

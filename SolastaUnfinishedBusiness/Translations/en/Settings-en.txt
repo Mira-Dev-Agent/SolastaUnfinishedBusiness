@@ -184,6 +184,9 @@ ModUi/&EnableMonkStunningStrike2024=Swap <color=#D89555>Stunning Strike</color> 
 ModUi/&EnableMonkSuperiorDefense2024=Enable <color=#D89555>Superior Defense</color> to replace <color=#D89555>Empty Body</color> at level 18 <i><color=#F0DAA0>[resistance to damage]</color></i>
 ModUi/&EnableMonkUncannyMetabolism2024=Enable <color=#D89555>Uncanny Metabolism</color> at level 2 <i><color=#F0DAA0>[recover Ki and HP on initiative roll]</color></i>
 ModUi/&EnableMulticlass=Enable <color=#D89555>multiclass</color> <b><i><color=#C04040E0>[Requires Restart]</color></i></b>
+ModUi/&SearchClear=Clear
+ModUi/&SearchNoResults=No settings match "{0}".
+ModUi/&SearchSettings=Search settings:
 ModUI/&SwapShineCantrip=Enable Shine DC 15
 ModUi/&EnableOneDndBarkskinSpell=Enable <color=#D89555>Barkskin</color> 5e 2024 spell version <i><color=#F0DAA0>[bonus action, no concentration, AC set to 17]</color></i>
 ModUi/&EnableOneDndBladeWardCantrip=Enable <color=#D89555>Blade Ward</color> cantrip 5e 2024 version <i><color=#F0DAA0>[1 minute concentration, attackers subtract 1d4 from attack rolls]</color></i>

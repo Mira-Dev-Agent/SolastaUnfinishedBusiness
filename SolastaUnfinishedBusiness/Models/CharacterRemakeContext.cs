@@ -314,7 +314,46 @@ internal static class CharacterRemakeContext
 
             panel.Refresh();
             panel.CommonData.CharacterPlate.RefreshNameAndRace();
+
+            // the pre-filled name is drawn where the "Character Info" heading is, as respec does
+            panel.CommonData.CharacterInfoLabel.gameObject.SetActive(false);
+            parent.StartCoroutine(WaitAndDo(0.05f,
+                () => ScrollIntoView(panel.racesTableSW, panel.racesTable, raceIndex)));
         }));
+    }
+
+    // pre-selected tiles can be far down a grid, so the grid is scrolled to show them
+    private static void ScrollIntoView(ScrollRect scrollRect, Transform table, int index)
+    {
+        if (!scrollRect || !scrollRect.content || !table || index < 0 || index >= table.childCount)
+        {
+            return;
+        }
+
+        Canvas.ForceUpdateCanvases();
+
+        var viewport = scrollRect.viewport ? scrollRect.viewport : (RectTransform)scrollRect.transform;
+        var content = new Vector3[4];
+        var view = new Vector3[4];
+        var tile = new Vector3[4];
+
+        // corners: 0 bottom-left, 1 top-left
+        scrollRect.content.GetWorldCorners(content);
+        viewport.GetWorldCorners(view);
+        ((RectTransform)table.GetChild(index)).GetWorldCorners(tile);
+
+        var contentHeight = content[1].y - content[0].y;
+        var viewHeight = view[1].y - view[0].y;
+
+        if (contentHeight <= viewHeight)
+        {
+            return;
+        }
+
+        var tileCenterFromTop = content[1].y - ((tile[0].y + tile[1].y) / 2);
+        var position = 1 - ((tileCenterFromTop - (viewHeight / 2)) / (contentHeight - viewHeight));
+
+        scrollRect.verticalNormalizedPosition = Mathf.Clamp01(position);
     }
 
     private static void BackgroundStageEntered(MonoBehaviour parent, CharacterStageBackgroundSelectionPanel panel)
@@ -339,6 +378,8 @@ internal static class CharacterRemakeContext
                 {
                     panel.selectedBackground = index;
                     panel.Refresh();
+                    parent.StartCoroutine(WaitAndDo(0.05f,
+                        () => ScrollIntoView(panel.backgroundsTableSW, panel.backgroundsTable, index)));
                 }
             }
 

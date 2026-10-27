@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using SolastaUnfinishedBusiness.Api.LanguageExtensions;
+using SolastaUnfinishedBusiness.Displays;
 using SolastaUnfinishedBusiness.Models;
 using UnityEngine;
 using UnityModManagerNet;
@@ -150,9 +151,14 @@ internal sealed class MenuManager : INotifyPropertyChanged
                     //GUILayout.Space(10f);
                 }
 
+                //PATCH: a search box above the tabs finds any setting by its text
+                UI.SearchBox();
+                GUILayout.Space(5f);
+
                 var tabIndex = SelectedTab;
                 UI.TabBar(ref tabIndex, null,
-                    _selectablePages.Select(page => new NamedAction(page.Name, () => page.OnGUI(modEntry)))
+                    _selectablePages.Select(page => new NamedAction(page.Name, () => page.OnGUI(modEntry),
+                            searchable: page is not CreditsAndDiagnosticsViewer))
                         .ToArray());
                 TabIndex = tabIndex;
             }

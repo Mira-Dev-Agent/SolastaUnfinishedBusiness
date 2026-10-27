@@ -5,11 +5,14 @@ using JetBrains.Annotations;
 
 namespace SolastaUnfinishedBusiness.Api.ModKit;
 
-public class NamedAction(string name, Action action, Func<bool> canPerform = null)
+public class NamedAction(string name, Action action, Func<bool> canPerform = null, bool searchable = true)
 {
     [UsedImplicitly] public string Name { [UsedImplicitly] get; } = name;
     [UsedImplicitly] public Action Action { [UsedImplicitly] get; } = action;
     [UsedImplicitly] public Func<bool> CanPerform { [UsedImplicitly] get; } = canPerform ?? (() => true);
+
+    // pages left out of the menu search (long lists, diagnostics)
+    [UsedImplicitly] public bool Searchable { [UsedImplicitly] get; } = searchable;
 }
 
 public class NamedAction<T>(string name, Action<T> action, Func<T, bool> canPerform = null)

@@ -50,6 +50,11 @@ internal static partial class UI
         float width = 0,
         params GUILayoutOption[] options)
     {
+        if (SearchHides(title))
+        {
+            return false;
+        }
+
         options = options.AddDefaults();
 
         if (width == 0 && !disclosureStyle)
@@ -96,6 +101,11 @@ internal static partial class UI
     [UsedImplicitly]
     public static bool Toggle(string title, ref bool value, params GUILayoutOption[] options)
     {
+        if (SearchHides(title))
+        {
+            return false;
+        }
+
         options = options.AddDefaults();
 
         if (!CheckBox(title, value, false, ToggleStyle, options))
@@ -111,6 +121,22 @@ internal static partial class UI
     [UsedImplicitly]
     public static bool DisclosureToggle(string title, ref bool value, float width = 175, params Action[] actions)
     {
+        //PATCH: sections open while searching and close again afterwards; their header only shows when it matches
+        if (SearchOpensOrRestoresSection(title, ref value))
+        {
+            If(value, actions);
+
+            return true;
+        }
+
+        if (IsSearching && _searchBypassDepth == 0)
+        {
+            Label(title.Bold());
+            If(value, actions);
+
+            return false;
+        }
+
         var disclosed = value;
         var changed = false;
 
@@ -127,10 +153,19 @@ internal static partial class UI
     public static void ToggleButton(ref ToggleState toggle, string title, Action<ToggleState> applyToChildren,
         params GUILayoutOption[] options)
     {
+        if (SearchHides(title))
+        {
+            return;
+        }
+
         var isOn = toggle.IsOn();
         var isEmpty = toggle == ToggleState.None;
         var state = toggle;
-        if (TogglePrivate("", ref isOn, isEmpty, true, 0, options))
+        var flipped = false;
+
+        WithoutSearch(() => flipped = TogglePrivate("", ref isOn, isEmpty, true, 0, options));
+
+        if (flipped)
         {
             state = state.Flip();
         }
@@ -148,14 +183,14 @@ internal static partial class UI
                 ToggleState.Off => "≫",
                 _ => ""
             };
-            ActionButton(deepTitle, () =>
+            WithoutSearch(() => ActionButton(deepTitle, () =>
             {
                 state = state.Flip();
                 applyToChildren(state);
-            }, ToggleStyle, Width(35f));
+            }, ToggleStyle, Width(35f)));
         }
 
-        Label(title, ToggleStyle);
+        WithoutSearch(() => Label(title, ToggleStyle));
         toggle = state;
     }
 
@@ -163,6 +198,11 @@ internal static partial class UI
     public static bool Toggle(string title, ref bool value, string on, string off, float width = 0,
         GUIStyle stateStyle = null, GUIStyle labelStyle = null, params GUILayoutOption[] options)
     {
+        if (SearchHides(title))
+        {
+            return false;
+        }
+
         stateStyle ??= GUI.skin.box;
 
         labelStyle ??= GUI.skin.box;
@@ -287,6 +327,22 @@ internal static partial class UI
     [UsedImplicitly]
     public static bool DisclosureToggle(string title, ref bool value, params Action[] actions)
     {
+        //PATCH: sections open while searching and close again afterwards; their header only shows when it matches
+        if (SearchOpensOrRestoresSection(title, ref value))
+        {
+            If(value, actions);
+
+            return true;
+        }
+
+        if (IsSearching && _searchBypassDepth == 0)
+        {
+            Label(title.Bold());
+            If(value, actions);
+
+            return false;
+        }
+
         var disclosed = value;
         var changed = false;
 

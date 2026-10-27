@@ -1,3 +1,8 @@
+1.6.2.0:
+- Added a search box above the mod menu tabs. While it has text, every tab and sub-page is searched at once, and only the matching settings are shown under a "Tab > Section" heading. Collapsed sections open while searching and close again when the search is cleared. Credits & Diagnostics, the Bestiary and the Characters Pool are not searched
+- Remake Old Character: the pre-selected background and race are scrolled into view, and the "Character Info" heading is hidden so the hero name no longer overlaps it
+- Not tested in game: the search box and the Remake scrolling
+
 1.6.1.5:
 - Filled empty tooltips: all 121 conditions found without a description (spells, feats, races, subclasses and 2024 rules) now describe their effect, many reusing the mod's or the game's existing feature texts
 - Weapon Master and Way of Blade weapon choices, the Elemental Bane damage choices, the Militia Skills background feature, the Eldritch Cannons and the Create Bonfire, Faithful Hound and Sickening Radiance effects now have descriptions

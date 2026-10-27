@@ -27,6 +27,11 @@ internal static partial class UI
     [UsedImplicitly]
     public static void Div(float indent = 0, float height = 0, float width = 0)
     {
+        if (IsSearching && _searchBypassDepth == 0)
+        {
+            return;
+        }
+
         Div(FillColor, indent, height, width);
     }
 
