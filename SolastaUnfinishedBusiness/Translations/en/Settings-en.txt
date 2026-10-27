@@ -510,7 +510,7 @@ ModUi/&MultiplayerEnableTickBufferTuning=Tune the action delay <i><color=#F0DAA0
 ModUi/&MultiplayerInitialTickBuffer=<color=white>Initial action delay in ticks</color> <i><color=#F0DAA0>[game default 6]</color></i>
 ModUi/&MultiplayerMinimumTickBuffer=<color=white>Minimum action delay in ticks</color> <i><color=#F0DAA0>[game default 4, only used when every ping allows it]</color></i>
 ModUi/&MultiplayerSecondsBeforeLowerTickBuffer=<color=white>Seconds without waiting before lowering the delay</color> <i><color=#F0DAA0>[game default 10]</color></i>
-ModUi/&MultiplayerMovementTitle=<color=#F0DAA0>Movement:</color>
+ModUi/&MultiplayerMovementTitle=<color=#F0DAA0>Movement</color> <i><color=#F0DAA0>[multiplayer games only, single player keeps the game rules]</color></i><color=#F0DAA0>:</color>
 ModUi/&MultiplayerAllowCharactersToOverlapOutOfCombat=Allow characters to share cells out of combat, so the party moves through crawl spaces and doorways together
 ModUi/&MultiplayerResolveOverlapsOnBattleStart=When a battle starts, move characters sharing a cell to the closest safe cell <i><color=#F0DAA0>[free, not harmful, and not seen by enemies if sneaking]</color></i>
 ModUi/&MultiplayerAllowAlliesToPassThroughInCombat=Allow allies to move through each other in combat while both are moving

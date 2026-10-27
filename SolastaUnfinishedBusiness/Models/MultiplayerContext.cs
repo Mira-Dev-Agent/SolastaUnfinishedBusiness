@@ -299,11 +299,11 @@ internal static class MultiplayerContext
             : [];
     }
 
-    // out of combat any non-hostile characters may share cells, so the party no longer queues behind each other
-    // in crawl spaces and doorways. In combat only allies that are themselves moving, and only if enabled.
+    // multiplayer only: out of combat any non-hostile characters may share cells, so the party no longer queues
+    // behind each other in crawl spaces and doorways. In combat only allies that are themselves moving, if enabled.
     internal static bool CanIgnoreOccupantsAt(GameLocationCharacter mover, int3 position)
     {
-        if (mover == null)
+        if (mover == null || !Global.IsMultiplayer)
         {
             return false;
         }
@@ -328,13 +328,14 @@ internal static class MultiplayerContext
                    x.RulesetCharacter is { IsDeadOrDyingOrUnconscious: false });
     }
 
-    // when a battle starts with characters sharing a cell, every one except the occupant with the lowest guid steps
+    // multiplayer only: when a battle starts with characters sharing a cell, every one except the occupant with the lowest guid steps
     // to the closest safe cell: free, not dangerous, and not perceived by any enemy if the character is sneaking.
     // This runs on every peer from the same game state at the same point of the simulation, which is how lockstep
     // keeps it identical everywhere (the host's result and every client's result are the same by construction).
     internal static void ResolveOverlapOnBattleStart(GameLocationCharacter character)
     {
-        if (!Main.Settings.MultiplayerResolveOverlapsOnBattleStart ||
+        if (!Global.IsMultiplayer ||
+            !Main.Settings.MultiplayerResolveOverlapsOnBattleStart ||
             character?.RulesetCharacter is not { IsDeadOrUnconscious: false })
         {
             return;
