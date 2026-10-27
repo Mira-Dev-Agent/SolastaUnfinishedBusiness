@@ -1,5 +1,6 @@
 # Builds the mod and publishes a GitHub release whenever a version tag is pushed (e.g. `git push origin 1.6.1.1`).
 # The tag must match Info.json's Version; the release notes are that version's entry in ChangelogHistory.txt.
+# A failed release can be re-run by hand from the Actions tab by choosing the version tag as the ref.
 
 name: .NET
 
@@ -7,6 +8,7 @@ on:
   push:
       tags:
         - '*'
+  workflow_dispatch:
 env:
   SolastaInstallDir: ../SolastaFiles
 permissions:
