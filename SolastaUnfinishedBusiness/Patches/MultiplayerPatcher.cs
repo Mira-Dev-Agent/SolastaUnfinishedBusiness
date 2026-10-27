@@ -53,7 +53,7 @@ public static class MultiplayerPatcher
         }
     }
 
-    //PATCH: forgets desync checks from a previous location (MULTIPLAYER)
+    //PATCH: forgets desync checks and pending key states from a previous location (MULTIPLAYER)
     [HarmonyPatch(typeof(NetworkTick), nameof(NetworkTick.ResetTick))]
     [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]
     [UsedImplicitly]
@@ -63,6 +63,100 @@ public static class MultiplayerPatcher
         public static void Postfix()
         {
             MultiplayerContext.ResetDesyncDetection();
+            MultiplayerContext.ClearLocalShiftKeyState();
+        }
+    }
+
+    //PATCH: sends the SHIFT key state with cast commands (MULTIPLAYER)
+    [HarmonyPatch(typeof(CharacterActionParams), nameof(CharacterActionParams.SerializeElements))]
+    [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]
+    [UsedImplicitly]
+    public static class CharacterActionParamsSerializeElements_Patch
+    {
+        [UsedImplicitly]
+        public static void Postfix(CharacterActionParams __instance, IElementsSerializer serializer)
+        {
+            MultiplayerContext.SerializeShiftKeyState(__instance, serializer);
+        }
+    }
+
+    //PATCH: applies the received SHIFT key state when a cast executes, on every computer (MULTIPLAYER)
+    [HarmonyPatch(typeof(LocalCommandManager), nameof(LocalCommandManager.ExecuteAction))]
+    [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]
+    [UsedImplicitly]
+    public static class LocalExecuteAction_Patch
+    {
+        [UsedImplicitly]
+        public static void Prefix(CharacterActionParams characterActionParams)
+        {
+            MultiplayerContext.ApplyShiftKeyState(characterActionParams);
+        }
+    }
+
+    //PATCH: applies the received SHIFT key state when an instant cast executes, on every computer (MULTIPLAYER)
+    [HarmonyPatch(typeof(LocalCommandManager), nameof(LocalCommandManager.ExecuteInstantSingleAction))]
+    [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]
+    [UsedImplicitly]
+    public static class LocalExecuteInstantSingleAction_Patch
+    {
+        [UsedImplicitly]
+        public static void Prefix(CharacterActionParams characterActionParams)
+        {
+            MultiplayerContext.ApplyShiftKeyState(characterActionParams);
+        }
+    }
+
+    //PATCH: sends the SHIFT key state with reaction answers (MULTIPLAYER)
+    [HarmonyPatch(typeof(NetworkingManager), nameof(NetworkingManager.ProcessReactionRequest))]
+    [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]
+    [UsedImplicitly]
+    public static class SendProcessReactionRequest_Patch
+    {
+        [UsedImplicitly]
+        public static void Prefix(ReactionRequest reactionRequest, ref int subOption)
+        {
+            subOption = MultiplayerContext.EncodeShiftKeyState(subOption, reactionRequest?.Character);
+        }
+    }
+
+    //PATCH: applies the received SHIFT key state before the reaction is handled, on every computer (MULTIPLAYER)
+    [HarmonyPatch(typeof(LocalCommandManager), nameof(LocalCommandManager.ProcessReactionRequest))]
+    [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]
+    [UsedImplicitly]
+    public static class LocalProcessReactionRequest_Patch
+    {
+        [HarmonyPriority(Priority.First)]
+        [UsedImplicitly]
+        public static void Prefix(ReactionRequest reactionRequest, ref int subOption)
+        {
+            subOption = MultiplayerContext.DecodeShiftKeyState(subOption, reactionRequest?.Character);
+        }
+    }
+
+    //PATCH: sends the SHIFT key state with slot to sorcery points conversions (MULTIPLAYER)
+    [HarmonyPatch(typeof(NetworkingManager), nameof(NetworkingManager.CreateSorceryPoints))]
+    [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]
+    [UsedImplicitly]
+    public static class SendCreateSorceryPoints_Patch
+    {
+        [UsedImplicitly]
+        public static void Prefix(RulesetCharacter character, ref int slotLevel)
+        {
+            slotLevel = MultiplayerContext.EncodeShiftKeyState(slotLevel, GameLocationCharacter.GetFromActor(character));
+        }
+    }
+
+    //PATCH: applies the received SHIFT key state before the conversion spends a slot, on every computer (MULTIPLAYER)
+    [HarmonyPatch(typeof(LocalCommandManager), nameof(LocalCommandManager.CreateSorceryPoints))]
+    [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]
+    [UsedImplicitly]
+    public static class LocalCreateSorceryPoints_Patch
+    {
+        [HarmonyPriority(Priority.First)]
+        [UsedImplicitly]
+        public static void Prefix(RulesetCharacter character, ref int slotLevel)
+        {
+            slotLevel = MultiplayerContext.DecodeShiftKeyState(slotLevel, GameLocationCharacter.GetFromActor(character));
         }
     }
 

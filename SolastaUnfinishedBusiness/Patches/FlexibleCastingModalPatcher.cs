@@ -14,8 +14,9 @@ public static class FlexibleCastingModalPatcher
     [UsedImplicitly]
     public static class OnConvertCb_Patch
     {
+        //PATCH: must run before the convert command is sent so the key state travels with it (MULTIPLAYER)
         [UsedImplicitly]
-        public static void Postfix(FlexibleCastingModal __instance)
+        public static void Prefix(FlexibleCastingModal __instance)
         {
             if (__instance.selectedSlotLevel < 0 || __instance.createSlotMode)
             {

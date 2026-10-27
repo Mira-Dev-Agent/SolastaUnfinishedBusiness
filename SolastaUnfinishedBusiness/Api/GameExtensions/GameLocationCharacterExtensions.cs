@@ -425,9 +425,20 @@ public static class GameLocationCharacterExtensions
 
     internal static void RegisterShiftState(this GameLocationCharacter character)
     {
-        //PATCH: the key state only exists on the clicking peer, so in multiplayer use the default (MULTIPLAYER)
-        var isShiftPressed = Global.IsShiftPressed && !Global.IsMultiplayer;
+        //PATCH: the key state only exists on the clicking computer, so in multiplayer it travels with the command and
+        //every computer applies it when the command executes (MULTIPLAYER)
+        if (Global.IsMultiplayer)
+        {
+            MultiplayerContext.RegisterLocalShiftKeyState(character, Global.IsShiftPressed);
 
+            return;
+        }
+
+        character.SetShiftState(Global.IsShiftPressed);
+    }
+
+    internal static void SetShiftState(this GameLocationCharacter character, bool isShiftPressed)
+    {
         character.SetSpecialFeatureUses(ShiftKeyState, isShiftPressed ? 1 : 0);
     }
 

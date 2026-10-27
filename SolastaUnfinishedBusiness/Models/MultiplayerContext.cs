@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Photon.Pun;
+using SolastaUnfinishedBusiness.Api.GameExtensions;
 using TA;
 using UnityEngine;
 
@@ -181,6 +183,106 @@ internal static class MultiplayerContext
         EntityGuidByTick.Clear();
         _lastDesyncCheckTickSent = ulong.MaxValue;
         _desyncReported = false;
+    }
+
+    #endregion
+
+    #region Shift Key State
+
+    // SHIFT on a spell, reaction or slot conversion picks which slot pool a multiclass warlock spends. The key is only
+    // pressed on one computer, so in multiplayer the choice travels inside the command and every computer applies it
+    // when the command executes:
+    // - cast: an extra element at the end of CharacterActionParams, only on the networking serializers (not saves)
+    // - reaction: a flag added to subOption
+    // - slot to sorcery points conversion: a flag added to slotLevel
+    private const string ShiftKeyStateElement = "UbShiftKeyState";
+    private const int ShiftKeyStateFlag = 1 << 20;
+
+    private static readonly Dictionary<GameLocationCharacter, bool> LocalShiftKeyState = [];
+    private static readonly ConditionalWeakTable<CharacterActionParams, object> ReceivedShiftKeyState = new();
+    private static readonly object ShiftKeyPressed = new();
+
+    // the local key state is kept off the character so game state stays identical on every computer
+    internal static void RegisterLocalShiftKeyState(GameLocationCharacter character, bool isShiftPressed)
+    {
+        LocalShiftKeyState[character] = isShiftPressed;
+    }
+
+    private static bool GetLocalShiftKeyState(GameLocationCharacter character)
+    {
+        return character != null && LocalShiftKeyState.TryGetValue(character, out var value) && value;
+    }
+
+    internal static void ClearLocalShiftKeyState()
+    {
+        LocalShiftKeyState.Clear();
+    }
+
+    private static bool IsNetworkingSerializer(IElementsSerializer serializer)
+    {
+        return ServiceRepository.GetService<INetworkingService>() is NetworkingManager networkingManager &&
+               (ReferenceEquals(serializer, networkingManager.reader) ||
+                ReferenceEquals(serializer, networkingManager.writer));
+    }
+
+    // always written by the networking serializers, so the binary layout is the same on every computer
+    internal static void SerializeShiftKeyState(CharacterActionParams actionParams, IElementsSerializer serializer)
+    {
+        if (!IsNetworkingSerializer(serializer))
+        {
+            return;
+        }
+
+        if (serializer.Mode == Serializer.SerializationMode.Write)
+        {
+            serializer.SerializeElement(ShiftKeyStateElement,
+                Global.IsMultiplayer &&
+                actionParams.RulesetEffect is RulesetEffectSpell &&
+                GetLocalShiftKeyState(actionParams.ActingCharacter));
+
+            return;
+        }
+
+        var isShiftPressed = serializer.SerializeElement(ShiftKeyStateElement, false);
+
+        ReceivedShiftKeyState.Remove(actionParams);
+
+        if (isShiftPressed)
+        {
+            ReceivedShiftKeyState.Add(actionParams, ShiftKeyPressed);
+        }
+    }
+
+    internal static void ApplyShiftKeyState(CharacterActionParams actionParams)
+    {
+        if (!Global.IsMultiplayer ||
+            actionParams?.ActingCharacter == null ||
+            actionParams.RulesetEffect is not RulesetEffectSpell)
+        {
+            return;
+        }
+
+        actionParams.ActingCharacter.SetShiftState(ReceivedShiftKeyState.TryGetValue(actionParams, out _));
+    }
+
+    internal static int EncodeShiftKeyState(int value, GameLocationCharacter character)
+    {
+        return Global.IsMultiplayer && GetLocalShiftKeyState(character) ? value + ShiftKeyStateFlag : value;
+    }
+
+    internal static int DecodeShiftKeyState(int value, GameLocationCharacter character)
+    {
+        if (!Global.IsMultiplayer)
+        {
+            return value;
+        }
+
+        // values are small (slot levels, sub options, -1), so anything above half the flag carries it
+        var isShiftPressed = value >= ShiftKeyStateFlag / 2;
+
+        character?.SetShiftState(isShiftPressed);
+
+        return isShiftPressed ? value - ShiftKeyStateFlag : value;
     }
 
     #endregion
