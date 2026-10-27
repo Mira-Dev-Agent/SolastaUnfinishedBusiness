@@ -48,8 +48,31 @@ internal static class CharacterRemakeContext
         var parent = template.transform.parent;
         var existing = parent.Find(RemakeButtonName);
         var button = existing ? existing.GetComponent<Button>() : CreateRemakeButton(panel, template);
+        var active = GetKeptCharacterFiles().Count > 0;
 
-        button.gameObject.SetActive(GetKeptCharacterFiles().Count > 0);
+        button.gameObject.SetActive(active);
+
+        if (!active)
+        {
+            return;
+        }
+
+        // the copy starts with New Character's label and tooltip, and the panel may set them again when shown
+        var label = button.GetComponentInChildren<GuiLabel>(true);
+
+        if (label)
+        {
+            label.Text = "Screen/&RemakeOldCharacterTitle";
+        }
+
+        var tooltip = button.GetComponentInChildren<GuiTooltip>(true);
+
+        if (tooltip)
+        {
+            tooltip.Content = "Screen/&RemakeOldCharacterDescription";
+        }
+
+        PlaceBelow(button.GetComponent<RectTransform>(), template.GetComponent<RectTransform>());
     }
 
     private static Button CreateRemakeButton(CharactersPanel panel, Button template)
@@ -63,21 +86,35 @@ internal static class CharacterRemakeContext
         button.onClick = new Button.ButtonClickedEvent();
         button.onClick.AddListener(() => OfferRemake(panel, 0));
 
-        var label = copy.GetComponentInChildren<GuiLabel>();
-
-        if (label)
-        {
-            label.Text = "Screen/&RemakeOldCharacterTitle";
-        }
-
-        var tooltip = copy.GetComponentInChildren<GuiTooltip>();
-
-        if (tooltip)
-        {
-            tooltip.Content = "Screen/&RemakeOldCharacterDescription";
-        }
-
         return button;
+    }
+
+    // the panel's buttons sit at fixed positions in one row, so a copy would cover New Character exactly;
+    // it goes on its own row below New Character instead, outside any layout group
+    private static void PlaceBelow(RectTransform rect, RectTransform template)
+    {
+        if (!rect || !template)
+        {
+            return;
+        }
+
+        var hasLayoutGroup = rect.parent && rect.parent.GetComponent<LayoutGroup>();
+
+        if (hasLayoutGroup)
+        {
+            var layoutElement = rect.GetComponent<LayoutElement>() ?? rect.gameObject.AddComponent<LayoutElement>();
+
+            layoutElement.ignoreLayout = true;
+        }
+
+        rect.anchorMin = template.anchorMin;
+        rect.anchorMax = template.anchorMax;
+        rect.pivot = template.pivot;
+        rect.sizeDelta = template.sizeDelta;
+        rect.anchoredPosition = template.anchoredPosition + new Vector2(0, -(template.rect.height + 12));
+
+        Main.Info($"Remake button placed at {rect.anchoredPosition} below New Character at " +
+                  $"{template.anchoredPosition}, size {template.rect.size}, layout group: {hasLayoutGroup}");
     }
 
     private static List<string> GetKeptCharacterFiles()

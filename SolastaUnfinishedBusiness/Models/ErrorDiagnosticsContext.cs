@@ -172,16 +172,26 @@ internal static class ErrorDiagnosticsContext
 
         var content = Gui.Format("Message/&ModUnloadableCharactersDescription",
             string.Join("\n", MovedCharacters),
-            Path.Combine(CharactersDirectory, UnloadableFolderName));
+            Path.GetFullPath(Path.Combine(CharactersDirectory, UnloadableFolderName)));
 
         var files = MovedCharacterFiles.ToList();
 
         MovedCharacters.Clear();
         MovedCharacterFiles.Clear();
 
-        // closing the message keeps the files, deleting needs the explicit button
+        // Keep is the main (confirm) button. Escape or closing the message also runs the cancel handler, so the
+        // cancel-style Delete only asks again: files are deleted only from that second message's confirm button.
         Gui.GuiService.ShowMessage(MessageModal.Severity.Attention2,
             "Message/&ModUnloadableCharactersTitle", content,
+            "Message/&ModUnloadableCharactersKeep", "Message/&ModUnloadableCharactersDelete",
+            null, () => ConfirmDeleteFiles(files));
+    }
+
+    private static void ConfirmDeleteFiles(List<string> files)
+    {
+        Gui.GuiService.ShowMessage(MessageModal.Severity.Serious3,
+            "Message/&ModUnloadableCharactersTitle",
+            Gui.Format("Message/&ModUnloadableCharactersDeleteConfirm", files.Count.ToString()),
             "Message/&ModUnloadableCharactersDelete", "Message/&ModUnloadableCharactersKeep",
             () => DeleteFiles(files), null);
     }

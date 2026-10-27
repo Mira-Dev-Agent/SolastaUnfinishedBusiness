@@ -1,3 +1,8 @@
+1.6.1.4:
+- Fixed the Remake Old Character button being hidden exactly on top of New Character: it now has its own row below New Character, with its own label and tooltip
+- Characters Moved popup: Keep is now the main button and Delete uses the cancel style. Delete asks for confirmation before deleting, so pressing Escape never deletes. The folder path is shown with consistent slashes
+- Not tested in game: the Remake button position, Remake itself, the new popup buttons and Level Down
+
 1.6.1.3:
 - The release workflow can also be re-run by hand on a version tag (no gameplay changes)
 - Not tested in game: same mod code as 1.6.1.2, which is also untested in game

@@ -670,6 +670,7 @@ Message/&ModErrorUnknownReason=unknown reason, see Player.log
 Message/&ModUnloadableCharactersTitle=Characters Moved
 Message/&ModUnloadableCharactersDescription=These characters could not be loaded because they use content that is no longer in the game or the mod (usually heroes made with an older mod version):\n\n{0}\n\nThey were moved to <b>{1}</b>. <b>Delete</b> removes them permanently. <b>Keep</b> leaves them there so you can remake them from the Characters menu with their name, look, voice, portrait, race and background.
 Message/&ModUnloadableCharactersDelete=Delete
+Message/&ModUnloadableCharactersDeleteConfirm=Permanently delete {0} character file(s)? This cannot be undone.
 Message/&ModUnloadableCharactersKeep=Keep
 Screen/&RemakeOldCharacterTitle=Remake Old Character
 Screen/&RemakeOldCharacterDescription=Start a new character filled in with the name, look, voice, portrait, race and background of a character that can no longer be loaded.
