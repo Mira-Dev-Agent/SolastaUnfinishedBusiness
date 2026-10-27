@@ -4,3 +4,4 @@ Feature/&PowerShadarKaiTeleportDescription=En tant qu'action bonus, vous pouvez 
 Feature/&PowerShadarKaiTeleportTitle=Bénédiction de la Reine des Corbeaux
 Race/&RaceShadarKaiDescription=Les Shadar-kai sont les elfes de Shadowfell, attirés dans ce royaume terrifiant par la Reine des Corbeaux. Au fil des siècles, certains d'entre eux ont continué à la servir, tandis que d'autres se sont aventurés dans le Plan Matériel pour forger leur propre destin.
 Race/&RaceShadarKaiTitle=Shadar-Kai
+Condition/&ConditionShadarKaiTeleportDescription=Résistance à tous les dégâts.

@@ -494,3 +494,63 @@ ModUi/&WeaponMasterySystemCustomizeResetAllWarning=将把所有武器精通属�
 ModUi/&WeaponMasterySystemCustomizeToggle=自定义武器精通属性
 ModUi/&WideScreenBattleUI=启用宽屏战斗 UI<i><color=#F0DAA0>（适用于宽高比大于 16:9 的分辨率）</color></i>
 ModUi/&WildSurgeDieRollThreshold=<color=white>设置<color=#D89555>术士狂野魔法</color>几率骰子阈值：</color>\n<i><color=#F0DAA0>[如果掷出的骰子小于或等于阈值，则触发狂野魔法浪涌]</color></i>
+ModUi/&AddOriginFeatsToAutoLearn= + 将起源专长加入自动学习
+ModUi/&AllMagicThrownReturn=所有魔法投掷武器都会回到投掷者手中 <b><i><color=#C04040E0>[关闭需要重启]</color></i></b>
+ModUi/&AllowShortRestWithPartySpreadOut=允许在队伍分散时进行短休 <i><color=#F0DAA0>[改变队伍必须在10格内的游戏规则；不能在战斗、对话或过场动画中，其他休息规则（附近有敌人、不安全区域、食物）仍然适用。也位于 游戏玩法 > 多人游戏 和 游戏玩法 > 战役]</color></i>
+ModUi/&CombineWaitWithLongRest=队伍今天已长休过时，长休按钮会等待到可以再次休息，然后休息 <i><color=#F0DAA0>[一次显示总时长的确认，多人游戏中一次批准，营火处也是；其他休息规则仍然适用]</color></i>
+ModUi/&CraftWithBaseInsteadOfPrimed=需要预备武器或护甲的配方也接受普通版本 <i><color=#F0DAA0>[所有配方，包括游戏、本模组和战役的；优先使用预备物品；普通物品只在未装备时计入，因此你自己的装备绝不会被消耗]</color></i>
+ModUi/&EnableBackgroundAbilityScoreIncreases=属性提升来自背景而非种族 <i><color=#F0DAA0>[与“灵活种族”不兼容，它将被关闭]</color></i>
+ModUi/&EnableBackgroundBonusFeats=启用背景奖励专长 <i><color=#F0DAA0>[与“灵活背景”不兼容，它将被关闭]</color></i>
+ModUi/&EnableLevelDownAction=启用休息后的<color=#D89555>降级</color>行动 <i><color=#F0DAA0>[撤销英雄的最后一个等级及其选择；只记录使用Finishing Business 1.6.1.0或更新版本获得的等级]</color></i>
+ModUi/&InfusionSlotsReturnOnLongRestOnly=结束灌注只在下一次长休时空出其槽位 <i><color=#F0DAA0>[桌面规则；否则槽位立即空出。替换灌注或在长休后使用更换灌注总是立即空出槽位]</color></i>
+ModUi/&InfusionsOnlyOnNonMagicalItems=奇械师的灌注只能用于非魔法物品 <i><color=#F0DAA0>[桌面规则；否则也可以灌注魔法物品，但不能灌注正被魔化武器等临时法术强化的武器]</color></i>
+ModUi/&MultiplayerAllowAlliesToPassThroughInCombat=允许战斗中正在移动的盟友互相穿过
+ModUi/&MultiplayerAllowCharactersToOverlapOutOfCombat=允许角色在战斗外共享格子，让队伍一起穿过狭窄通道和门
+ModUi/&MultiplayerAllowPlayersToStartRests=允许每位玩家在休息界面开始短休或长休，而不只是主机 <i><color=#F0DAA0>[主机仍为所有人执行休息；营火和由剧情触发的休息遵循游戏规则]</color></i>
+ModUi/&MultiplayerAlwaysOnFixes=<color=#F0DAA0>始终生效：</color>狂野魔法的随机目标使用同步骰子，SHIFT选择的邪术师法术位或普通法术位会随施法、反应或转换发送到每台电脑，多人游戏中不保存反应时间戳，每位英雄在每次对话中获得一个角色，英雄绝不会连续为不同角色说两句台词，第5和第6位英雄在过场动画中有自己的站位。
+ModUi/&MultiplayerApprovalSkipActionsOfTenMinutesOrLess=10分钟或更短的仪式和行动不询问 <i><color=#F0DAA0>[仪式、1分钟和10分钟的施法、神祇标记]</color></i>
+ModUi/&MultiplayerBuildInfo=<color=white>当前版本：</color>{0}
+ModUi/&MultiplayerCurrentDelay=<color=white>当前行动延迟：</color>{0}帧刻（{1}毫秒）
+ModUi/&MultiplayerDescription=多人游戏的修复和改动。每位玩家必须使用相同的模组版本和相同的设置，因为游戏在每台电脑上运行相同的模拟。
+ModUi/&MultiplayerDesyncTitle=<color=#F0DAA0>不同步：</color>
+ModUi/&MultiplayerDeterministicHitCounting=按每个游戏帧刻而非每个绘制帧计算受击反应 <i><color=#F0DAA0>[修复某位玩家的一帧超过50毫秒（低于20 FPS或卡顿）且目标连续两次被击中时的不同步；仅限多人游戏]</color></i>
+ModUi/&MultiplayerDeterministicStandAgainstTheTide=使用同步骰子选择<color=#D89555>Stand Against the Tide</color>的转移目标 <i><color=#F0DAA0>[仅限多人游戏]</color></i>
+ModUi/&MultiplayerEnableDesyncDetection=检测不同步并显示提醒，以便队伍重新加载 <i><color=#F0DAA0>[每5秒比较各电脑之间的实体计数器]</color></i>
+ModUi/&MultiplayerEnableStateFingerprint=每5秒还比较每个角色的生命值、位置、状态、法术位和骰子序列，并指出哪个角色不同 <i><color=#F0DAA0>[只在没有任何东西移动或行动时检查]</color></i>
+ModUi/&MultiplayerEnableTickBufferTuning=调整行动延迟 <i><color=#F0DAA0>[每个行动延迟这么多个50毫秒帧刻，以便及时到达每台电脑]</color></i>
+ModUi/&MultiplayerFlushCommandsImmediately=下达行动后立即发送，而不是等到下一帧刻 <i><color=#F0DAA0>[每个行动最多节省50毫秒；消息相同，只是更早发送]</color></i>
+ModUi/&MultiplayerFps={0} FPS
+ModUi/&MultiplayerFpsAllSeeAll=所有人可见所有人
+ModUi/&MultiplayerFpsHostSeesAll=仅主机可见所有人
+ModUi/&MultiplayerFpsHostSeesAllOthersOwn=主机可见所有人，其他人只见自己
+ModUi/&MultiplayerFpsOwnOnly=每位玩家只见自己
+ModUi/&MultiplayerFpsVisibility=<color=white>谁能看到玩家的帧率（FPS）</color> <i><color=#F0DAA0>[显示在此标签页、玩家名牌和叠加层中；低于45 FPS为琥珀色，低于30为红色]</color></i>
+ModUi/&MultiplayerHostRole=（主机）
+ModUi/&MultiplayerHostSettingsBanner=<b><color=#E0A040>这是本次多人游戏会话的主机设置。这里为只读，你自己的Settings.xml不会改变。</color></b>
+ModUi/&MultiplayerHostSettingsThisLaunchBanner=<b><color=#E0A040>本次启动使用主机的设置（Settings/Host.xml）。这里为只读，你自己的Settings.xml不会改变；下次启动会再次使用你自己的设置。</color></b>
+ModUi/&MultiplayerInitialTickBuffer=<color=white>初始行动延迟（帧刻）</color> <i><color=#F0DAA0>[游戏默认6]</color></i>
+ModUi/&MultiplayerLagTitle=<color=#F0DAA0>行动延迟：</color>
+ModUi/&MultiplayerMenu=多人游戏
+ModUi/&MultiplayerMinimumTickBuffer=<color=white>最小行动延迟（帧刻）</color> <i><color=#F0DAA0>[游戏默认4，只在所有人的延迟都允许时使用]</color></i>
+ModUi/&MultiplayerMovementTitle=<color=#F0DAA0>移动</color> <i><color=#F0DAA0>[仅限多人游戏，单人游戏保持游戏规则]</color></i><color=#F0DAA0>:</color>
+ModUi/&MultiplayerNoFps=未报告FPS
+ModUi/&MultiplayerNoHost=不在多人游戏房间中。
+ModUi/&MultiplayerNoPing=未报告延迟
+ModUi/&MultiplayerNoVersion=未报告版本
+ModUi/&MultiplayerOfferHostResync=当不同步无法修正时，为主机提供一键重新同步 <i><color=#F0DAA0>[主机快速存档并重新加载；客户端会进入同一个存档]</color></i>
+ModUi/&MultiplayerPing=延迟{0}毫秒
+ModUi/&MultiplayerPingBasedTickBuffer=根据每位玩家的延迟设定行动延迟 <i><color=#F0DAA0>[连接较慢时会在任何人等待前提高延迟，并让快速的队伍降到下方的最小值]</color></i>
+ModUi/&MultiplayerPingVisibleToHostOnly=只有主机能看到玩家的延迟和行动延迟 <i><color=#F0DAA0>[否则每位玩家都会在此标签页和玩家名牌上看到]</color></i>
+ModUi/&MultiplayerPlayersVersions=<color=white>此房间中的版本：</color>
+ModUi/&MultiplayerQuickCorrectDesync=战斗外允许主机在不重新加载的情况下修正每台电脑上的小差异（生命值、位置、法术位、骰子） <i><color=#F0DAA0>[状态差异或缺少角色仍需重新同步]</color></i>
+ModUi/&MultiplayerRequireApprovalForTimeConsumingActions=让每位玩家批准会经过游戏时间的行动：短休和长休、从卷轴学习或抄写法术、神祇标记、仪式，以及需要一分钟或更长时间的法术或能力 <i><color=#F0DAA0>[弹窗会说明要做什么以及需要多久；角色处于战斗或过场动画时不会询问任何人，发起的玩家会被告知是哪个角色]</color></i>
+ModUi/&MultiplayerResolveOverlapsOnBattleStart=战斗开始时，将共享格子的角色移到最近的安全格子 <i><color=#F0DAA0>[免费、无伤害，潜行时不会被敌人发现。没有敌人看到的格子里若只有一名潜行者则由其保留；否则由最先创建的角色保留]</color></i>
+ModUi/&MultiplayerSecondsBeforeLowerTickBuffer=<color=white>无需等待多少秒后降低延迟</color> <i><color=#F0DAA0>[游戏默认10]</color></i>
+ModUi/&MultiplayerShowFpsOverlay=多人游戏会话期间，在左上角显示一个小叠加层，列出你能看到的帧率和延迟
+ModUi/&MultiplayerSpreadOverlappedCharacters=将共享格子的角色稍微分开绘制，以便每个都能被指向 <i><color=#F0DAA0>[仅视觉效果：两个并排，三个呈三角形，更多则围成更大的环；移动时回到中心]</color></i>
+ModUi/&MultiplayerTimeTitle=<color=#F0DAA0>时间与休息：</color>
+ModUi/&PickPocketNonHostiles=也为许多非敌对NPC添加可扒窃的战利品 <i><color=#F0DAA0>[失败会影响声望]</color></i>
+ModUi/&SearchClear=清除
+ModUi/&SearchNoResults=没有与“{0}”匹配的设置。
+ModUi/&SearchSettings=搜索设置：
+ModUi/&WarnBeforeCrafting=开始制作前警告材料会立即消耗且制作检定可能失败 <i><color=#F0DAA0>[也会列出代替预备物品使用的普通武器或护甲]</color></i>

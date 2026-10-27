@@ -108,3 +108,5 @@ Reaction/&SpendPowerTidesOfChaosSaveReactTitle=Gezeiten des Chaos
 Reaction/&SpendPowerTidesOfChaosSaveTitle=Gezeiten des Chaos
 Subclass/&SorcerousWildMagicDescription=Ihre angeborene Magie entspringt den wilden Kräften des Chaos, die der Ordnung der Schöpfung zugrunde liegen. Sie könnten irgendeiner Form roher Magie ausgesetzt gewesen sein, vielleicht durch ein Planarportal, das nach Limbo, in die Elementarebenen oder in das mysteriöse Ferne Reich führte. Vielleicht wurden Sie von einem mächtigen Feenwesen gesegnet oder von einem Dämon gezeichnet. Oder Ihre Magie könnte ein Zufall Ihrer Geburt sein, ohne erkennbare Ursache oder Grund. Wie auch immer es dazu kam, diese chaotische Magie brodelt in Ihnen und wartet auf ein Ventil.
 Subclass/&SorcerousWildMagicTitle=Wilde Magie
+Condition/&ConditionSorcerousWildMagicLightningStrikeDescription=Bevor Ihr Zug endet, können Sie als freie Aktion bis zu drei Kreaturen Ihrer Wahl im Umkreis von 30 Fuß 4W10 Blitzschaden zufügen.
+Condition/&ConditionSorcerousWildMagicPiercingVulnerabilityDescription=Anfälligkeit für Stichschaden.

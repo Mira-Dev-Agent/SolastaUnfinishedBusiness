@@ -18,3 +18,4 @@ Reaction/&UseBarrierOfStoneReactTitle=Barrera de piedra
 Reaction/&UseBarrierOfStoneTitle=Barrera de piedra
 Subclass/&PatronMountainDescription=Has hecho un pacto con una antigua entidad primigenia que habita en la cima de las montañas más altas de Solasta. Estas entidades añoran una época más sencilla en la que los mortales las dejaban sumidas en su largo letargo sobre las nubes, sin construir ciudades ni excavar minas. Sus brujos desdeñan las herramientas de la civilización e invocan la fuerza de la montaña para proteger a sus compañeros y abatir a sus enemigos.
 Subclass/&PatronMountainTitle=La montaña
+Condition/&ConditionPatronMountainClingingStrengthDescription=La velocidad aumenta 10 pies, y puedes moverte por paredes y techos como con Trepar cual arácnido.

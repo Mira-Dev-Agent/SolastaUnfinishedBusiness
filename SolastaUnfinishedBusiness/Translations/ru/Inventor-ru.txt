@@ -57,3 +57,5 @@ Stage/&SubclassSelectionStageInventorInnovationHeader=Выберите обла�
 Stage/&SubclassSelectionStageInventorInnovationTitle=Область исследования
 Subclass/&InventorInnovationDescription=Выберите область исследования, на которой хотите сосредоточиться.
 Subclass/&InventorInnovationTitle=Область исследования
+Feature/&PowerInventorActiveInfusionsDescription=Посмотрите свои активные инфузии, на каком предмете каждая и у кого он, и завершите любую из них.
+Feature/&PowerInventorActiveInfusionsTitle=Активные инфузии

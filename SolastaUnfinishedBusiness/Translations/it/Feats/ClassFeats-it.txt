@@ -67,3 +67,4 @@ Reaction/&ReactionAttackExploiterDescription={0} è stato colpito da un attacco.
 Reaction/&ReactionAttackExploiterReactDescription=Usa la tua reazione per attaccare.
 Reaction/&ReactionAttackExploiterReactTitle=Attacco
 Reaction/&ReactionAttackExploiterTitle=Impresa
+Condition/&ConditionFeatCallForChargeDescription=La velocità aumenta di 15 piedi; vantaggio al prossimo tiro per colpire.

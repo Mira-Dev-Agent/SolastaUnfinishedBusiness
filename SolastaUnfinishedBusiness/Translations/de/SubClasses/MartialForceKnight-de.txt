@@ -40,3 +40,4 @@ Reaction/&UseKineticBarrierTitle=Kinetische Barriere
 Subclass/&MartialForceKnightDescription=Psi-Krieger sind disziplinierte Krieger, die eine breite Palette psychokinetischer Fähigkeiten nutzen, um im Kampf die Oberhand zu gewinnen. Sie können sich problemlos an jede Situation anpassen, ihre Macht mit Psi-Angriffen verstärken oder Verbündeten mit mental geschaffenen Barrieren und telekinetischer Bewegung helfen.
 Subclass/&MartialForceKnightTitle=Psi-Krieger
 Tooltip/&ForcePoweredStrikeDieDescription=Ihr Force Powered Strike-Würfel ist eine {0} und Sie haben {1} verbleibende Verwendungen.
+Condition/&ConditionMartialForceKnightForceBulwarkDescription=Durch halbe Deckung geschützt.

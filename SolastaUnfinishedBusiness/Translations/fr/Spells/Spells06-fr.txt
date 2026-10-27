@@ -30,3 +30,6 @@ Spell/&ScatterDescription=L'air tremble autour de cinq créatures de votre choix
 Spell/&ScatterTitle=Dispersion
 Spell/&ShelterFromEnergyDescription=Choisissez l'un des types de dégâts suivants : acide, froid, feu, foudre, nécrotique, radiant ou tonnerre, puis choisissez jusqu'à six créatures consentantes que vous pouvez voir à portée. Pendant 1 heure, les cibles ont une résistance à ce type de dégâts. Lorsque vous lancez ce sort en utilisant un emplacement de sort de niveau 7 ou supérieur, vous pouvez cibler jusqu'à une créature consentante supplémentaire pour chaque niveau d'emplacement au-dessus du niveau 6.
 Spell/&ShelterFromEnergyTitle=Abri contre l'énergie
+Condition/&ConditionFizbanPlatinumShieldDescription=Abri partiel ; résistance aux dégâts d'acide, de froid, de feu, de foudre et de poison. Un jet de sauvegarde de Dextérité contre un effet qui inflige la moitié des dégâts en cas de réussite n'inflige aucun dégât en cas de réussite et la moitié en cas d'échec.
+Condition/&ConditionRingOfBladesDescription=Vous pouvez utiliser une action bonus pour lancer une de vos lames restantes sur une créature située à 60 pieds ou moins.
+Condition/&ConditionShelterFromEnergyDescription=Résistance aux dégâts de {0}.

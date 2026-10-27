@@ -17,3 +17,6 @@ Spell/&RescueTheDyingDescription=只需一个词，你就能将正能量召唤�
 Spell/&RescueTheDyingTitle=唤生术
 Spell/&ReverseGravityDescription=该法术以施法距离内一点为中心，创造一个半径 50 尺、高 100 尺柱状的重力反转区域。
 Spell/&ReverseGravityTitle=反转重力
+Condition/&ConditionCrownOfStarsDescription=你可以用一个附赠动作将剩余的一颗星光射向120英尺内的一个生物。
+Condition/&ConditionDraconicTransformationDescription=飞行速度60英尺，盲视30英尺。你可以用一个附赠动作在60英尺锥形区域内呼出闪耀的能量：6d8力场伤害，敏捷豁免检定成功则减半。
+Condition/&ConditionRescueTheDyingDescription=对所有伤害具有抗性。

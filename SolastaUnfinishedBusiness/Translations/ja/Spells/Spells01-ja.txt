@@ -134,3 +134,6 @@ Spell/&WitchBoltTitle=ウィッチボルト
 Spell/&WrathfulSmiteDescription=対象は攻撃により 1d6 の追加壊死ダメージを受け、呪文が終了するまで、知恵セーヴィング スローに成功するか、恐怖状態になる必要があります。各ターンの終了時に、恐怖状態の対象はセーヴィング スローを繰り返し、成功すると自分自身への呪文を終了します。ダメージは、呪文スロット レベルが 1 を超えるごとに 1d6 ずつ増加します。
 Spell/&WrathfulSmiteTitle=怒りのスマイト
 Tooltip/&TagDamagePureTitle=カオスダメージ
+Condition/&ConditionChaosBoltLeapDescription=カオス・ボルトは跳躍できる：フリー・アクションを使って別のクリーチャーを狙い、攻撃とダメージを新たにロールする。
+Condition/&ConditionThunderousSmiteDescription=次の近接武器の命中が追加で2d6の雷鳴ダメージを与え、目標は【筋力】セーヴィング・スローに成功しなければ10フィート押しやられ伏せ状態になる。
+Condition/&ConditionVoidGraspDescription=リアクションを取れない。

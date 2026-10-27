@@ -18,3 +18,4 @@ Reaction/&CustomReactionShadowyDodgeReactTitle=Ausgeben
 Reaction/&CustomReactionShadowyDodgeTitle=Schattenhaftes Ausweichen
 Subclass/&RangerGloomStalkerDescription=Gloom Stalker sind an den dunkelsten Orten zu Hause: tief unter der Erde, in düsteren Gassen, in Urwäldern und überall dort, wo das Licht sonst schwach wird. Die meisten Menschen betreten solche Orte mit Furcht, aber ein Gloom Stalker wagt sich mutig in die Dunkelheit und versucht, Bedrohungen aus dem Hinterhalt zu entwischen, bevor sie die weite Welt erreichen können. Solche Ranger findet man oft im Unterreich, aber sie gehen überall hin, wo das Böse im Schatten lauert.
 Subclass/&RangerGloomStalkerTitle=Düsternispirscher
+Condition/&ConditionRangerGloomStalkerDreadAmbusherDescription=Gehgeschwindigkeit bis zum Ende des Zuges um 10 Fuß erhöht.

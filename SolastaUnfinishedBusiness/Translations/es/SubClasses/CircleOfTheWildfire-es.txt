@@ -33,3 +33,6 @@ Reaction/&UseCauterizingFlamesHealReactTitle=Llamas cauterizantes: sanar
 Reaction/&UseCauterizingFlamesHealTitle=Llamas cauterizantes: sanar
 Subclass/&CircleOfTheWildfireDescription=Los druidas dentro del Círculo de Incendios Forestales entienden que la destrucción es a veces el precursor de la creación, como cuando un incendio forestal promueve el crecimiento posterior. Estos druidas se vinculan con un espíritu primordial que alberga poder tanto destructivo como creativo, lo que les permite crear llamas controladas que queman una cosa pero dan vida a otra.
 Subclass/&CircleOfTheWildfireTitle=Círculo del fuego salvaje
+Condition/&ConditionCircleOfTheWildfireSpiritAttackRollDescription=Suma el bonificador de ataque de conjuros de su invocador a las tiradas de ataque.
+Condition/&ConditionCircleOfTheWildfireSpiritDamageRollDescription=Suma el bonificador por competencia de su invocador a las tiradas de daño.
+Condition/&ConditionCircleOfTheWildfireSpiritHitPointsDescription=Gana 5 puntos de golpe adicionales por cada nivel de druida de su invocador.

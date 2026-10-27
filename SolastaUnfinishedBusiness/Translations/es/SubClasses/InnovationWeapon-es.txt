@@ -30,3 +30,5 @@ Screen/&InventorWeaponsmithSpellDescription=Este hechizo de Herrero de batalla s
 Screen/&InventorWeaponsmithSpellTitle=Herrero de batalla
 Subclass/&InnovationWeaponDescription=Los herreros de batalla centran sus estudios en las armas mágicas y cómo utilizarlas de forma efectiva.
 Subclass/&InnovationWeaponTitle=Herrero de batalla
+Condition/&ConditionInnovationWeaponSummonSteelDefenderProficiencyBonusDescription=Suma el bonificador por competencia de su creador a las tiradas de daño.
+Condition/&ConditionInnovationWeaponSummonSteelDefenderSpellAttackDescription=Suma el bonificador de ataque de conjuros de su creador a las tiradas de ataque.

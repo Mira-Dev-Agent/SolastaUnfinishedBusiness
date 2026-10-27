@@ -191,3 +191,7 @@ Reaction/&WarcasterAttackTitle=Attaque
 Tag/&InitiateCantripSpecialTagTitle=Initier des tours de passe-passe
 Tag/&InitiateSpellSpecialTagTitle=Lancer des sorts
 Tag/&SniperCantripSpecialTagTitle=Tours de passe-passe du tireur d'élite
+Condition/&ConditionFeatAcrobatDescription=Le terrain difficile ne coûte pas de mouvement supplémentaire.
+Condition/&ConditionFeatDungeonDelverDescription=Résistance aux dégâts infligés par ce piège.
+Condition/&ConditionFeatMageSlayerDescription=Désavantage aux jets de sauvegarde pour maintenir la concentration.
+Feature/&CustomInvocationFeatWeaponMasterDescription=Vous obtenez la maîtrise de ce type d'arme.

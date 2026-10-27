@@ -1,3 +1,8 @@
+1.6.15.0:
+- Character sheet: clicking a feature in the race, class or background list opens its full details in a panel that stays open until closed: the description, the option chosen, what a feature set includes, a power's uses left, and the level it needs
+- Translations: the 238 texts added by Finishing Business and the missing upstream ones (settings, multiplayer, infusions, level down, remake, crafting, rests, conditions and items) are now in German, Spanish, French, Italian, Japanese, Korean, Brazilian Portuguese, Russian and Simplified Chinese. They were machine-written by Claude and may need a native speaker's review
+- Not tested in game
+
 1.6.14.0:
 - Fixes from the 1.6.12.0 in-game test:
   - Artificer: in the infusion list (Active Infusions, Change Infusions, the replace question), Next now shows the next infusion instead of closing

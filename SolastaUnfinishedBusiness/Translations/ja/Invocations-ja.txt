@@ -107,3 +107,4 @@ Reaction/&UseTombOfFrostDescription=自分自身を氷の中に埋め、ウォ�
 Reaction/&UseTombOfFrostReactDescription=ダメージを軽減します。
 Reaction/&UseTombOfFrostReactTitle=レヴィストゥスの墓
 Reaction/&UseTombOfFrostTitle=レヴィストゥスの墓
+Condition/&ConditionInvocationTombOfFrostDescription=移動、アクション、リアクションができない；火ダメージに脆弱。

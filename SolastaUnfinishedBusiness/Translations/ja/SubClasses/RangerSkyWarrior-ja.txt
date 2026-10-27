@@ -22,3 +22,4 @@ Reaction/&UseGhostlyHowlReactTitle=幽霊のような遠吠え
 Reaction/&UseGhostlyHowlTitle=幽霊のような遠吠え
 Subclass/&RangerSkyWarriorDescription=スカイウォリアーは、蜃気楼と幽霊だけが生息する不毛の風吹きさらしの風景の残存する力に感動してきました。彼らはブレードとシールドのエレガントな操作と幻想魔法を組み合わせて戦闘で成功します。
 Subclass/&RangerSkyWarriorTitle=空の戦士
+Condition/&ConditionRangerSkyWarriorGiftOfTheWindDescription=移動速度が10フィート増加し、近接武器攻撃で命中させたクリーチャーはあなたに機会攻撃を行えない。盾を持たなくなると終了する。

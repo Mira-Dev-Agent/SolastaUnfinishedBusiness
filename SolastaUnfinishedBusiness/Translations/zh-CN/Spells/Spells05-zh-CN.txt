@@ -50,3 +50,5 @@ Spell/&SynapticStaticDescription=你选择范围内的一点，并让灵能在�
 Spell/&SynapticStaticTitle=突触静止
 Spell/&TelekinesisDescription=你可以尝试移动巨型或更小的生物。用你的施法属性进行一次属性检定，并与该生物的力量检定进行对抗。如果你赢得对抗，你可以将生物向任意方向移动 30 尺，但不能超出该法术的范围。直到你的下一个回合结束之前，该生物都会被你的心灵遥控抓握束缚。在随后的回合中，你可以使用你的动作来尝试通过重复对抗来维持对生物的心灵控制，或者瞄准一个新生物，结束对先前受影响的生物的束缚效果。
 Spell/&TelekinesisTitle=心灵遥控
+Condition/&ConditionCircleOfMagicalNegationDescription=对抗魔法的豁免检定具有优势。对于成功时造成一半伤害的法术或魔法效果，豁免成功时改为不受伤害。
+Condition/&ConditionEmpoweredKnowledgeDescription=此技能获得专精：使用该技能的属性检定享受双倍熟练加值。

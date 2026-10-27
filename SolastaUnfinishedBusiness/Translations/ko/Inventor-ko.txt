@@ -57,3 +57,5 @@ Stage/&SubclassSelectionStageInventorInnovationHeader=연구 분야 선택
 Stage/&SubclassSelectionStageInventorInnovationTitle=연구 분야
 Subclass/&InventorInnovationDescription=집중할 연구 분야를 선택하세요.
 Subclass/&InventorInnovationTitle=연구 분야
+Feature/&PowerInventorActiveInfusionsDescription=활성화된 주입, 각 주입이 걸린 아이템과 그 소지자를 확인하고, 원하는 주입을 끝냅니다.
+Feature/&PowerInventorActiveInfusionsTitle=활성 주입

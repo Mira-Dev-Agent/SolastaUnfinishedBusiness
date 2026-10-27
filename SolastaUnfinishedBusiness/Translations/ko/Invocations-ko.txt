@@ -107,3 +107,4 @@ Reaction/&UseTombOfFrostDescription=당신은 얼음 속에 갇힐 수 있고 �
 Reaction/&UseTombOfFrostReactDescription=피해를 줄입니다.
 Reaction/&UseTombOfFrostReactTitle=레비스토의 무덤
 Reaction/&UseTombOfFrostTitle=레비스토의 무덤
+Condition/&ConditionInvocationTombOfFrostDescription=이동하거나 행동, 반응을 할 수 없습니다. 화염 피해에 취약합니다.

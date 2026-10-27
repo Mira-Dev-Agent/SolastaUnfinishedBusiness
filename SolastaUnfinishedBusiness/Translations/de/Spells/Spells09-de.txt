@@ -27,3 +27,4 @@ Spell/&TimeStopDescription=Du stoppst kurzzeitig den Zeitfluss für alle außer 
 Spell/&TimeStopTitle=Zeitstopp
 Spell/&WeirdDescription=Sie versuchen, in den Köpfen anderer illusorische Ängste zu erzeugen. Jede Kreatur Ihrer Wahl in einer Kugel mit einem Radius von 30 Fuß, deren Mittelpunkt ein Punkt innerhalb der Reichweite ist, macht einen Weisheitsrettungswurf. Bei einem misslungenen Rettungswurf erleidet das Ziel 10d10 psychischen Schaden und ist für die Dauer des Rettungswurfs verängstigt. Bei einem erfolgreichen Rettungswurf erleidet das Ziel nur halb so viel Schaden. Ein verängstigtes Ziel macht am Ende jedes seiner Züge einen Weisheitsrettungswurf. Bei einem misslungenen Rettungswurf erleidet es 5d10 psychischen Schaden. Bei einem erfolgreichen Rettungswurf endet der Zauber für das Ziel.
 Spell/&WeirdTitle=Seltsam
+Condition/&ConditionInvulnerabilityDescription=Immunität gegen jeglichen Schaden.

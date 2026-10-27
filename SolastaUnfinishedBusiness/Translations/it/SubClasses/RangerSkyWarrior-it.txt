@@ -22,3 +22,4 @@ Reaction/&UseGhostlyHowlReactTitle=Urlo spettrale
 Reaction/&UseGhostlyHowlTitle=Urlo spettrale
 Subclass/&RangerSkyWarriorDescription=Gli Sky Warriors sono stati toccati dal potere persistente di paesaggi aridi e spazzati dal vento, abitati solo da miraggi e fantasmi. Combinano eleganti manovre di lama e scudo con la magia dell'illusione per prosperare in combattimento.
 Subclass/&RangerSkyWarriorTitle=Guerriero del cielo
+Condition/&ConditionRangerSkyWarriorGiftOfTheWindDescription=La velocità aumenta di 10 piedi, e le creature che colpisci con un attacco con arma da mischia non possono compiere attacchi di opportunità contro di te. Termina se non indossi più uno scudo.

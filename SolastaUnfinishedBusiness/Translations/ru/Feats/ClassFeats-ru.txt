@@ -67,3 +67,4 @@ Reaction/&ReactionAttackExploiterDescription={0} был атакован. Реа
 Reaction/&ReactionAttackExploiterReactDescription=Используйте реакцию для атаки.
 Reaction/&ReactionAttackExploiterReactTitle=Атака
 Reaction/&ReactionAttackExploiterTitle=Оппортунист
+Condition/&ConditionFeatCallForChargeDescription=Скорость увеличена на 15 футов; преимущество на следующий бросок атаки.

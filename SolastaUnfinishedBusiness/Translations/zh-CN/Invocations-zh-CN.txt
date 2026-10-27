@@ -107,3 +107,4 @@ Reaction/&UseTombOfFrostDescription=你可以将自己封入寒冰之中，每�
 Reaction/&UseTombOfFrostReactDescription=减少本次伤害。
 Reaction/&UseTombOfFrostReactTitle=莱维斯图斯之墓
 Reaction/&UseTombOfFrostTitle=莱维斯图斯之墓
+Condition/&ConditionInvocationTombOfFrostDescription=无法移动、执行动作或反应；易受火焰伤害。

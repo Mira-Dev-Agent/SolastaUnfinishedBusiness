@@ -30,3 +30,5 @@ Screen/&InventorWeaponsmithSpellDescription=Questo incantesimo del Fabbro da Bat
 Screen/&InventorWeaponsmithSpellTitle=Battaglia Smith
 Subclass/&InnovationWeaponDescription=I fabbri da battaglia concentrano i loro studi sulle armi magiche e su come usarle in modo efficace.
 Subclass/&InnovationWeaponTitle=Battaglia Smith
+Condition/&ConditionInnovationWeaponSummonSteelDefenderProficiencyBonusDescription=Aggiunge il bonus di competenza del suo creatore ai tiri per i danni.
+Condition/&ConditionInnovationWeaponSummonSteelDefenderSpellAttackDescription=Aggiunge il bonus di attacco con incantesimi del suo creatore ai tiri per colpire.

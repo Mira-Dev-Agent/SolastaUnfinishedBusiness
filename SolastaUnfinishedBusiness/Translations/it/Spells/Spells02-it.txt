@@ -65,3 +65,5 @@ Spell/&SpellWebTitle=Web
 Spell/&SubSpellDragonsBreathSpellDescription=Infonde al bersaglio il respiro {0}.
 Spell/&WitherAndBloomDescription=Invochi sia la morte che la vita su una sfera di 10 piedi di raggio centrata su un alleato. Ogni nemico in quell'area deve effettuare un tiro salvezza su Costituzione, subendo 2d6 danni necrotici se fallisce il tiro salvezza, o la metà dei danni se lo supera. Inoltre, il bersaglio spende e tira uno dei suoi Dadi Vita non spesi e recupera un numero di punti ferita pari al tiro più il tuo modificatore di abilità di lancio di incantesimi. Quando lanci questo incantesimo usando uno slot incantesimo di 3° livello o superiore, il danno aumenta di 1d6 per ogni slot sopra il 2°, e il numero di Dadi Vita che possono essere spesi e aggiunti al tiro di guarigione aumenta di uno per ogni slot sopra il 2°.
 Spell/&WitherAndBloomTitle=Appassire e fiorire
+Condition/&ConditionBorrowedKnowledgeDescription=Competenza in questa abilità.
+Condition/&ConditionKineticJauntDescription=La velocità di camminata aumenta di 10 piedi; il movimento non provoca attacchi di opportunità; può attraversare lo spazio di qualsiasi creatura.

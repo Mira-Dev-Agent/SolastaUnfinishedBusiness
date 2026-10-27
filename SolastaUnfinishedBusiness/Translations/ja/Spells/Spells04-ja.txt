@@ -70,3 +70,6 @@ Spell/&TreeForestGuardianDescription=肌が皮っぽくなり、髪から葉が�
 Spell/&TreeForestGuardianTitle=野生の木
 Spell/&VitriolicSphereDescription=範囲内の場所を指差すと、輝く 1 フィートのエメラルド酸の球がそこに流れ、半径 20 フィートで爆発します。そのエリア内のすべてのクリーチャーは敏捷性セーヴィング スローを実行する必要があります。セーヴィングに失敗すると、クリーチャーは 10d4 の酸ダメージを受け、次のターンの終了時に 5d4 の酸ダメージを受けます。セーヴィングに成功すると、クリーチャーは次のターンの終了時に最初のダメージの半分を受け、ダメージを受けません。この呪文を 5 レベル以上の呪文スロットを使用して発動すると、最初のダメージは 4 レベルを超える各スロット レベルごとに 2d4 増加します。
 Spell/&VitriolicSphereTitle=毒舌球
+Condition/&ConditionPsionicBlastDescription=術者の次のターン終了時まで移動速度が半分になる。
+Condition/&ConditionSynapticStaticDescription=攻撃ロールと能力値判定から1d6を引く。各ターン終了時に【知力】セーヴィング・スローを再度行い、成功すると効果が終了する。
+Spell/&ElementalBaneSubSpellDescription=目標は【耐久力】セーヴィング・スローに成功しなければならない。失敗すると、各ターンに初めて{0}ダメージを受けたとき、追加で2d6の{0}ダメージを受け、呪文が終わるまで{0}ダメージへの抵抗を失う。

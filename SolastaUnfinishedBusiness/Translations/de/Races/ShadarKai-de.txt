@@ -4,3 +4,4 @@ Feature/&PowerShadarKaiTeleportDescription=Als Bonusaktion können Sie sich auf 
 Feature/&PowerShadarKaiTeleportTitle=Segen der Rabenkönigin
 Race/&RaceShadarKaiDescription=Shadar-kai sind die Elfen von Shadowfell, die ursprünglich von der Rabenkönigin in dieses schreckliche Reich gezogen wurden. Im Laufe der Jahrhunderte haben einige von ihnen ihr weiterhin gedient, während andere sich in die materielle Ebene gewagt haben, um ihr eigenes Schicksal zu schmieden.
 Race/&RaceShadarKaiTitle=Shadar-Kai
+Condition/&ConditionShadarKaiTeleportDescription=Resistenz gegen jeglichen Schaden.

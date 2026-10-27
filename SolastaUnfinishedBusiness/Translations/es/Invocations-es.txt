@@ -107,3 +107,4 @@ Reaction/&UseTombOfFrostDescription=Puedes sepultarte en hielo, ganar 10 puntos 
 Reaction/&UseTombOfFrostReactDescription=Reducir el daño.
 Reaction/&UseTombOfFrostReactTitle=Tumba de Levistus
 Reaction/&UseTombOfFrostTitle=Tumba de Levistus
+Condition/&ConditionInvocationTombOfFrostDescription=No puede moverse ni realizar acciones o reacciones; vulnerable al daño de fuego.

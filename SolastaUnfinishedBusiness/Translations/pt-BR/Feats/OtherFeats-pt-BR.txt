@@ -191,3 +191,7 @@ Reaction/&WarcasterAttackTitle=Ataque
 Tag/&InitiateCantripSpecialTagTitle=Iniciar truques
 Tag/&InitiateSpellSpecialTagTitle=Iniciar feitiços
 Tag/&SniperCantripSpecialTagTitle=Truques de Sniper
+Condition/&ConditionFeatAcrobatDescription=Terreno difícil não custa movimento extra.
+Condition/&ConditionFeatDungeonDelverDescription=Resistência ao dano causado por esta armadilha.
+Condition/&ConditionFeatMageSlayerDescription=Desvantagem em testes de resistência para manter a concentração.
+Feature/&CustomInvocationFeatWeaponMasterDescription=Você ganha proficiência com este tipo de arma.

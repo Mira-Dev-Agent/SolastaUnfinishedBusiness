@@ -27,3 +27,4 @@ Spell/&TimeStopDescription=你短暂地停止了所有人的时间流动，除�
 Spell/&TimeStopTitle=时间停止
 Spell/&WeirdDescription=你试图在他人心中制造虚幻的恐惧。你选择的每个生物在以范围内的一点为中心的 30 英尺半径范围内进行一次感知豁免检定。如果豁免失败，目标将受到 10d10 心灵伤害，并在持续时间内处于恐惧状态。如果豁免成功，目标将只受到一半的伤害。恐惧目标在其每个回合结束时进行一次感知豁免检定。如果豁免失败，目标将受到 5d10 心灵伤害。如果豁免成功，法术将在该目标上结束。
 Spell/&WeirdTitle=怪影杀手
+Condition/&ConditionInvulnerabilityDescription=对所有伤害免疫。

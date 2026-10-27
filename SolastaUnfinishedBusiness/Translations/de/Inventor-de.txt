@@ -57,3 +57,5 @@ Stage/&SubclassSelectionStageInventorInnovationHeader=Studienfach auswählen
 Stage/&SubclassSelectionStageInventorInnovationTitle=Forschungsbereich
 Subclass/&InventorInnovationDescription=Wählen Sie das Studienfach aus, auf das Sie sich konzentrieren möchten.
 Subclass/&InventorInnovationTitle=Forschungsbereich
+Feature/&PowerInventorActiveInfusionsDescription=Zeigt Ihre aktiven Infusionen, welcher Gegenstand jede trägt und wer ihn trägt, und beendet beliebige davon.
+Feature/&PowerInventorActiveInfusionsTitle=Aktive Infusionen

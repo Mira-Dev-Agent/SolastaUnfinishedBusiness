@@ -4,3 +4,4 @@ Feature/&PowerShadarKaiTeleportDescription=ボーナス アクションとして
 Feature/&PowerShadarKaiTeleportTitle=レイヴンクイーンの祝福
 Race/&RaceShadarKaiDescription=シャダルカイはシャドウフェルのエルフであり、元々はレイヴンの女王によってその恐ろしい領域に引き寄せられました。何世紀にもわたって、彼女たちの中には彼女に仕え続けた者もいれば、自らの運命を切り開くために物質界に足を踏み入れた者もいる。
 Race/&RaceShadarKaiTitle=シャダルカイ
+Condition/&ConditionShadarKaiTeleportDescription=すべてのダメージに抵抗を持つ。

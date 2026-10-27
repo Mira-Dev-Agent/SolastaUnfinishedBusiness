@@ -22,3 +22,4 @@ Reaction/&CustomReactionEvasiveFootworkReactTitle=Difendere
 Reaction/&CustomReactionEvasiveFootworkTitle=Gioco di gambe evasivo
 Subclass/&CollegeOfEleganceDescription=Il College of Elegance è la casa dei bardi che hanno padroneggiato l'arte del movimento corporeo. Vedono una bellezza squisita nel ballare e nell'esprimersi attraverso gesti ipnotizzanti, indossando abiti appariscenti e spesso cercando di essere al centro dell'attenzione. In combattimento, questi bardi intrecciano passi eleganti senza soluzione di continuità nelle manovre di battaglia, abbinandoli a un'arma di loro scelta e creando uno spettacolo indimenticabile per amici e nemici.
 Subclass/&CollegeOfEleganceTitle=Collegio dell'Eleganza
+Condition/&ConditionCollegeOfEleganceAmazingDisplayDescription=Non può usare reazioni; la velocità è ridotta a 0.

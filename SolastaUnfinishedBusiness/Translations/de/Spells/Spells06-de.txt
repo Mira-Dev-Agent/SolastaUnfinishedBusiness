@@ -30,3 +30,6 @@ Spell/&ScatterDescription=Die Luft zittert um bis zu fünf Kreaturen deiner Wahl
 Spell/&ScatterTitle=Streuen
 Spell/&ShelterFromEnergyDescription=Wähle eine der folgenden Schadensarten: Säure, Kälte, Feuer, Blitz, Nekrotik, Strahlung oder Donner und wähle dann bis zu sechs willige Kreaturen aus, die du in Reichweite sehen kannst. Ziele sind 1 Stunde lang gegen diese Schadensart resistent. Wenn du diesen Zauber mit einem Zauberplatz der 7. Stufe oder höher wirkst, kannst du für jeden Platzlevel über der 6. bis zu eine weitere willige Kreatur als Ziel wählen.
 Spell/&ShelterFromEnergyTitle=Schutz vor Energie
+Condition/&ConditionFizbanPlatinumShieldDescription=Halbe Deckung; Resistenz gegen Säure-, Kälte-, Feuer-, Blitz- und Giftschaden. Ein Geschicklichkeitsrettungswurf gegen einen Effekt, der bei Erfolg halben Schaden verursacht, verursacht bei Erfolg keinen und bei Fehlschlag halben Schaden.
+Condition/&ConditionRingOfBladesDescription=Sie können eine Bonusaktion nutzen, um eine Ihrer verbleibenden Klingen auf eine Kreatur im Umkreis von 60 Fuß zu werfen.
+Condition/&ConditionShelterFromEnergyDescription=Resistenz gegen {0}-Schaden.

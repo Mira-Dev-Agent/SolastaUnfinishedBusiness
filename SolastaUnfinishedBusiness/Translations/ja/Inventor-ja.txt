@@ -57,3 +57,5 @@ Stage/&SubclassSelectionStageInventorInnovationHeader=研究分野を選択し�
 Stage/&SubclassSelectionStageInventorInnovationTitle=研究分野
 Subclass/&InventorInnovationDescription=焦点を当てる研究分野を選択します。
 Subclass/&InventorInnovationTitle=研究分野
+Feature/&PowerInventorActiveInfusionsDescription=有効なインフュージョン、それぞれが付与されたアイテムとその持ち主を確認し、任意のものを終了する。
+Feature/&PowerInventorActiveInfusionsTitle=有効なインフュージョン

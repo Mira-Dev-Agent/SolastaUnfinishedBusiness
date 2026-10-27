@@ -761,3 +761,6 @@ Message/&CraftingStartWarningTitle=Start crafting?
 Message/&CraftingStartWarningDescription=Crafting <b>{0}</b> uses up all its ingredients now.\n\nEach crafting hour rolls a check against DC <b>{1}</b>. A failed roll adds no progress, so it can take longer than <b>{2}</b> hours. Failed rolls never lose the ingredients, but aborting the crafting does.
 Message/&CraftingStartWarningPlainItems=These plain items are used in place of missing Primed ones:\n{0}
 Message/&CraftingStartWarningAccept=Start crafting
+Message/&FeatureDetailsChosen=Chosen: {0}
+Message/&FeatureDetailsIncludes=Includes:
+Message/&FeatureDetailsUses=<b>Uses left:</b> {0} of {1}

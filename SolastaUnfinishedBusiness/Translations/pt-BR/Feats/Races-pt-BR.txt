@@ -93,3 +93,4 @@ Reaction/&UsePowerFeatFlamesOfPhlegethosReactDescription=Você pode acender suas
 Reaction/&UsePowerFeatFlamesOfPhlegethosReactTitle=Chamas de Phlegethos
 Reaction/&UsePowerFeatFlamesOfPhlegethosTitle=Chamas de Phlegethos
 Tag/&WoodElfMagicCantripSpecialTagTitle=Truques mágicos dos elfos da floresta
+Condition/&ConditionDragonWingsDescription=Deslocamento de voo de 60 pés.

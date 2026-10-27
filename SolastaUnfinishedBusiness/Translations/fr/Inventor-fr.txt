@@ -57,3 +57,5 @@ Stage/&SubclassSelectionStageInventorInnovationHeader=Sélectionnez le domaine d
 Stage/&SubclassSelectionStageInventorInnovationTitle=Domaine d'études
 Subclass/&InventorInnovationDescription=Sélectionnez le domaine d'études sur lequel vous concentrer.
 Subclass/&InventorInnovationTitle=Domaine d'études
+Feature/&PowerInventorActiveInfusionsDescription=Voyez vos infusions actives, l'objet qui porte chacune et qui le transporte, et mettez fin à n'importe laquelle.
+Feature/&PowerInventorActiveInfusionsTitle=Infusions actives

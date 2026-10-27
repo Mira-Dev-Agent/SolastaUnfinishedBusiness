@@ -107,3 +107,4 @@ Reaction/&UseTombOfFrostDescription=Вы можете покрыть себя л
 Reaction/&UseTombOfFrostReactDescription=Уменьшить урон.
 Reaction/&UseTombOfFrostReactTitle=Гробница Левистуса
 Reaction/&UseTombOfFrostTitle=Гробница Левистуса
+Condition/&ConditionInvocationTombOfFrostDescription=Не может перемещаться, совершать действия и реакции; уязвимость к урону огнём.

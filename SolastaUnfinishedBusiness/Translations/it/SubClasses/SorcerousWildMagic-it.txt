@@ -108,3 +108,5 @@ Reaction/&SpendPowerTidesOfChaosSaveReactTitle=Maree del Caos
 Reaction/&SpendPowerTidesOfChaosSaveTitle=Maree del Caos
 Subclass/&SorcerousWildMagicDescription=La tua magia innata deriva dalle forze selvagge del caos che sono alla base dell'ordine della creazione. Potresti aver sopportato l'esposizione a qualche forma di magia grezza, forse attraverso un portale planare che conduce al Limbo, ai Piani Elementali o al misterioso Reame Lontano. Forse sei stato benedetto da una potente creatura fatata o marchiato da un demone. Oppure la tua magia potrebbe essere un colpo di fortuna della tua nascita, senza causa o ragione apparente. Tuttavia, come è successo, questa magia caotica ribolle dentro di te, in attesa di una via di fuga.
 Subclass/&SorcerousWildMagicTitle=Magia selvaggia
+Condition/&ConditionSorcerousWildMagicLightningStrikeDescription=Prima che il tuo turno finisca, puoi infliggere 4d10 danni da fulmine fino a tre creature a tua scelta entro 30 piedi come azione gratuita.
+Condition/&ConditionSorcerousWildMagicPiercingVulnerabilityDescription=Vulnerabilità ai danni perforanti.

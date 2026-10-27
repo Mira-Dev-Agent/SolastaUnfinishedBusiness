@@ -40,3 +40,4 @@ Reaction/&UseKineticBarrierTitle=Кинетический барьер
 Subclass/&MartialForceKnightDescription=Пси-воины - дисциплинированные воины, использующие широкий спектр психокинетических способностей, чтобы получить преимущество в бою. Они могут легко приспособиться к любой ситуации, усилить свою мощь с помощью атак, наполненных пси-энергией, или поддержать союзников с помощью барьеров, создаваемых силой мысли, и телекинетических передвижений.
 Subclass/&MartialForceKnightTitle=Пси-воин
 Tooltip/&ForcePoweredStrikeDieDescription=Ваша кость Исполненного силы удара - {0}, и у вас осталось {1} использований.
+Condition/&ConditionMartialForceKnightForceBulwarkDescription=Защищён укрытием на половину.

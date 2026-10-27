@@ -17,3 +17,6 @@ Spell/&RescueTheDyingDescription=Словом вы призываете поло
 Spell/&RescueTheDyingTitle=Спасение умирающих
 Spell/&ReverseGravityDescription=Это заклинание обращает гравитацию в цилиндре с радиусом 50 футов и высотой 100 футов с центром на точке в пределах дистанции.
 Spell/&ReverseGravityTitle=Изменение тяготения
+Condition/&ConditionCrownOfStarsDescription=Бонусным действием вы можете послать одну из оставшихся искр в существо в пределах 120 футов.
+Condition/&ConditionDraconicTransformationDescription=Скорость полёта 60 футов и слепое зрение 30 футов. Бонусным действием вы можете выдохнуть мерцающую энергию 60-футовым конусом: 6к8 урона силовым полем, спасбросок Ловкости для половины урона.
+Condition/&ConditionRescueTheDyingDescription=Сопротивление всему урону.

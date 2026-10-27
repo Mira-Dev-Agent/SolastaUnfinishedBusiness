@@ -40,3 +40,4 @@ Reaction/&UseKineticBarrierTitle=Barrière cinétique
 Subclass/&MartialForceKnightDescription=Les guerriers psi sont des guerriers disciplinés qui utilisent un large éventail de capacités psychokinétiques pour prendre le dessus au combat. Ils peuvent facilement s'adapter à n'importe quelle situation, augmenter leur puissance avec des attaques imprégnées de psi ou aider leurs alliés avec des barrières créées mentalement et des mouvements télékinétiques.
 Subclass/&MartialForceKnightTitle=Guerrier Psi
 Tooltip/&ForcePoweredStrikeDieDescription=Votre dé de Frappe propulsée par la Force est un {0} et il vous reste {1} utilisations.
+Condition/&ConditionMartialForceKnightForceBulwarkDescription=Protégé par un abri partiel.

@@ -40,3 +40,4 @@ Reaction/&UseKineticBarrierTitle=Barrera cinética
 Subclass/&MartialForceKnightDescription=Los guerreros psi son guerreros disciplinados que utilizan una amplia gama de habilidades psicoquinéticas para obtener ventaja en la batalla. Pueden adaptarse fácilmente a cualquier situación, aumentar su poder con ataques infundidos con psi o ayudar a sus aliados con barreras creadas mentalmente y movimientos telequinéticos.
 Subclass/&MartialForceKnightTitle=Guerrero psi
 Tooltip/&ForcePoweredStrikeDieDescription=Tu dado de Golpe potenciado por la Fuerza es un {0} y te quedan {1} usos.
+Condition/&ConditionMartialForceKnightForceBulwarkDescription=Protegido por cobertura media.

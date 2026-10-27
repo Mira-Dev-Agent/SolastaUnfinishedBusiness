@@ -93,3 +93,4 @@ Reaction/&UsePowerFeatFlamesOfPhlegethosReactDescription=Puoi accendere le tue F
 Reaction/&UsePowerFeatFlamesOfPhlegethosReactTitle=Fiamme di Flegeto
 Reaction/&UsePowerFeatFlamesOfPhlegethosTitle=Fiamme di Flegeto
 Tag/&WoodElfMagicCantripSpecialTagTitle=Trucchetti magici degli elfi dei boschi
+Condition/&ConditionDragonWingsDescription=Velocità di volo di 60 piedi.

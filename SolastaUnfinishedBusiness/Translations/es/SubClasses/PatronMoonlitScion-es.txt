@@ -24,3 +24,5 @@ Reaction/&UseMoonlightGuiseReactTitle=Disfraz de luz de luna
 Reaction/&UseMoonlightGuiseTitle=Disfraz de luz de luna
 Subclass/&PatronMoonlitScionDescription=Tu patrón es un espíritu de la luna, una entidad que encarna la naturaleza cíclica de la luz y la oscuridad. Estos espíritus buscan mantener el poder de la luna sobre el cielo nocturno mientras mantienen a raya a los poderes profanos que acechan a la oscuridad y encargan a sus brujos que hagan lo mismo, otorgándoles el control sobre los poderes de la luna y sus efectos.
 Subclass/&PatronMoonlitScionTitle=La luz de la luna
+Condition/&ConditionMoonlitScionLunarChillEnemyDescription=Obstaculizado hasta el final del siguiente turno del brujo.
+Condition/&ConditionMoonlitScionLunarRadianceEnemyDescription=-1 a la CA.

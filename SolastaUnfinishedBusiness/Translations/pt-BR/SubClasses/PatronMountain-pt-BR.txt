@@ -18,3 +18,4 @@ Reaction/&UseBarrierOfStoneReactTitle=Barreira de Pedra
 Reaction/&UseBarrierOfStoneTitle=Barreira de Pedra
 Subclass/&PatronMountainDescription=Você fez um pacto com uma antiga entidade primordial que habita no topo das montanhas mais altas de Solasta. Tais entidades anseiam por uma época mais simples, quando os mortais os deixassem em seu longo sono acima das nuvens, sem erguer cidades e sem escavar minas. Seus feiticeiros desprezam as ferramentas da civilização, invocando a força da montanha para proteger seus companheiros e derrotar seus inimigos.
 Subclass/&PatronMountainTitle=A montanha
+Condition/&ConditionPatronMountainClingingStrengthDescription=O deslocamento aumenta em 10 pés, e você pode se mover em paredes e tetos como com Patas de Aranha.

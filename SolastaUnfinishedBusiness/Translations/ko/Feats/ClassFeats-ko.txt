@@ -67,3 +67,4 @@ Reaction/&ReactionAttackExploiterDescription={0}이(가) 공격을 받았습니�
 Reaction/&ReactionAttackExploiterReactDescription=반응을 이용해 공격하세요.
 Reaction/&ReactionAttackExploiterReactTitle=공격
 Reaction/&ReactionAttackExploiterTitle=악용하다
+Condition/&ConditionFeatCallForChargeDescription=이동 속도가 15피트 증가합니다. 다음 명중 굴림에 이점을 얻습니다.

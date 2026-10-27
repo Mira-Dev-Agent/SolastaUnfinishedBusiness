@@ -147,3 +147,5 @@ Feat/&FeatGroupWeaponMasterTitle=Мастер оружия
 Feat/&FeatGroupWeaponMasteryDescription=Вы знаете как пользоваться множеством видов оружия и получаете следующие преимущества:\n• Увеличьте значение Силы или Ловкости на 1 при максимуме 20.\n• Тренировки с оружием позволяют вам использовать умение мастерства одного вида простого или воинского оружия по вашему выбору.
 Feat/&FeatGroupWeaponMasteryTitle=Оружейное мастерство
 Feature/&MartialChampionSuperiorCriticalDescription=Ваши атаки оружием вызывают критическое попадание при бросках 18, 19 и 20.
+Feat/&FeatGroupOriginDescription=Черты, доступные через умения предыстории.
+Feat/&FeatGroupOriginTitle=Черты происхождения

@@ -57,3 +57,5 @@ Stage/&SubclassSelectionStageInventorInnovationHeader=Seleccione el campo de est
 Stage/&SubclassSelectionStageInventorInnovationTitle=Campo de estudio
 Subclass/&InventorInnovationDescription=Seleccione el campo de estudio en el que desea centrarse.
 Subclass/&InventorInnovationTitle=Campo de estudio
+Feature/&PowerInventorActiveInfusionsDescription=Mira tus infusiones activas, qué objeto lleva cada una y quién lo porta, y termina cualquiera de ellas.
+Feature/&PowerInventorActiveInfusionsTitle=Infusiones activas

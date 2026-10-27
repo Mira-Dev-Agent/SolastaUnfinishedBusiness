@@ -18,3 +18,4 @@ Reaction/&UseBarrierOfStoneReactTitle=돌의 장벽
 Reaction/&UseBarrierOfStoneTitle=돌의 장벽
 Subclass/&PatronMountainDescription=당신은 솔라스타의 가장 높은 산 꼭대기에 사는 고대 원시 존재와 계약을 맺었습니다. 그러한 존재들은 필멸자들이 그들을 구름 위의 긴 잠에 내버려두고 도시를 건설하지도 않고 광산을 파지도 않는 단순한 시대를 갈망합니다. 그들의 흑마법사는 문명의 도구를 경멸하며 산의 힘을 이용해 동료들을 보호하고 적을 쓰러뜨립니다.
 Subclass/&PatronMountainTitle=산
+Condition/&ConditionPatronMountainClingingStrengthDescription=이동 속도가 10피트 증가하고, 거미 오르기처럼 벽과 천장을 이동할 수 있습니다.

@@ -67,3 +67,4 @@ Reaction/&ReactionAttackExploiterDescription={0} 遭到攻击。您可以做出�
 Reaction/&ReactionAttackExploiterReactDescription=使用你的反应攻击。
 Reaction/&ReactionAttackExploiterReactTitle=攻击
 Reaction/&ReactionAttackExploiterTitle=伺机而动
+Condition/&ConditionFeatCallForChargeDescription=速度提高15英尺；下一次攻击检定具有优势。

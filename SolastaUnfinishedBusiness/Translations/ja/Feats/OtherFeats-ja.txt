@@ -191,3 +191,7 @@ Reaction/&WarcasterAttackTitle=攻撃
 Tag/&InitiateCantripSpecialTagTitle=キャントリップを開始する
 Tag/&InitiateSpellSpecialTagTitle=呪文を唱える
 Tag/&SniperCantripSpecialTagTitle=スナイパーキャントリップ
+Condition/&ConditionFeatAcrobatDescription=移動困難地形で余分な移動を消費しない。
+Condition/&ConditionFeatDungeonDelverDescription=この罠によるダメージに抵抗を持つ。
+Condition/&ConditionFeatMageSlayerDescription=精神集中を維持するためのセーヴィング・スローに不利。
+Feature/&CustomInvocationFeatWeaponMasterDescription=この種類の武器に習熟する。

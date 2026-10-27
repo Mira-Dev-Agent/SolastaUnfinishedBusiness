@@ -191,3 +191,7 @@ Reaction/&WarcasterAttackTitle=공격
 Tag/&InitiateCantripSpecialTagTitle=캔트립 시작
 Tag/&InitiateSpellSpecialTagTitle=주문 시작
 Tag/&SniperCantripSpecialTagTitle=스나이퍼 캔트립
+Condition/&ConditionFeatAcrobatDescription=험지에서 추가 이동력을 소모하지 않습니다.
+Condition/&ConditionFeatDungeonDelverDescription=이 함정이 주는 피해에 저항합니다.
+Condition/&ConditionFeatMageSlayerDescription=집중을 유지하기 위한 내성 굴림에 불리점을 받습니다.
+Feature/&CustomInvocationFeatWeaponMasterDescription=이 무기 종류에 숙련을 얻습니다.

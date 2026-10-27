@@ -18,3 +18,4 @@ Reaction/&UseBarrierOfStoneReactTitle=岩石屏障
 Reaction/&UseBarrierOfStoneTitle=岩石屏障
 Subclass/&PatronMountainDescription=你已经与居住在索拉斯塔最高山脉顶上的一个古老的原始存在签订了契约。这些存在渴望一个更淳朴的时代，届时凡人让它们在云层之上长眠，不再建造城市，不再开采矿石。他们的邪术师蔑视文明的工具，召唤山脉的力量来保护他们的同伴并击倒他们的敌人。
 Subclass/&PatronMountainTitle=山岭
+Condition/&ConditionPatronMountainClingingStrengthDescription=速度提高10英尺，并且你可以像蛛行术一样在墙壁和天花板上移动。

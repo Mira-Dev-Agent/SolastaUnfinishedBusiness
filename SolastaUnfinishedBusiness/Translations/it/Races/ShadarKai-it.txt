@@ -4,3 +4,4 @@ Feature/&PowerShadarKaiTeleportDescription=Come azione bonus, puoi teletrasporta
 Feature/&PowerShadarKaiTeleportTitle=Benedizione della Regina Corvo
 Race/&RaceShadarKaiDescription=Gli Shadar-kai sono gli elfi dello Shadowfell, originariamente attratti in quel regno terrificante dalla Regina Corvo. Nel corso dei secoli, alcuni di loro hanno continuato a servirla, mentre altri si sono avventurati nel Piano Materiale per forgiare i propri destini.
 Race/&RaceShadarKaiTitle=Shadar-Kai
+Condition/&ConditionShadarKaiTeleportDescription=Resistenza a tutti i danni.

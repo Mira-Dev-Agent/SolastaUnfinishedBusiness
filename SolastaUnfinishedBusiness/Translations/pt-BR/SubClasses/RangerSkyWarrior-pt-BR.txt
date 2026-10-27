@@ -22,3 +22,4 @@ Reaction/&UseGhostlyHowlReactTitle=Uivo Fantasmagórico
 Reaction/&UseGhostlyHowlTitle=Uivo Fantasmagórico
 Subclass/&RangerSkyWarriorDescription=Os Guerreiros Celestiais foram tocados pelo poder persistente de paisagens áridas varridas pelo vento, habitadas por nada além de miragens e fantasmas. Eles combinam manobras elegantes de lâmina e escudo com magia de ilusão para prosperar em combate.
 Subclass/&RangerSkyWarriorTitle=Guerreiro do céu
+Condition/&ConditionRangerSkyWarriorGiftOfTheWindDescription=O deslocamento aumenta em 10 pés, e criaturas que você acerta com um ataque de arma corpo a corpo não podem fazer ataques de oportunidade contra você. Termina se você deixar de usar um escudo.

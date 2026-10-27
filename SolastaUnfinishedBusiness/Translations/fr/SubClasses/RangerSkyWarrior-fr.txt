@@ -22,3 +22,4 @@ Reaction/&UseGhostlyHowlReactTitle=Hurlement fantomatique
 Reaction/&UseGhostlyHowlTitle=Hurlement fantomatique
 Subclass/&RangerSkyWarriorDescription=Les Guerriers du Ciel ont été touchés par le pouvoir persistant des paysages désertiques balayés par le vent, habités uniquement par des mirages et des fantômes. Ils combinent les manœuvres élégantes de la lame et du bouclier avec la magie de l'illusion pour réussir au combat.
 Subclass/&RangerSkyWarriorTitle=Guerrier du Ciel
+Condition/&ConditionRangerSkyWarriorGiftOfTheWindDescription=Vitesse augmentée de 10 pieds, et les créatures que vous touchez avec une attaque d'arme de corps à corps ne peuvent pas effectuer d'attaques d'opportunité contre vous. Prend fin si vous ne portez plus de bouclier.

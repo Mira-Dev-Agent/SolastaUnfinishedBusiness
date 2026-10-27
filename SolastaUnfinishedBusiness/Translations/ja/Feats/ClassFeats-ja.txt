@@ -67,3 +67,4 @@ Reaction/&ReactionAttackExploiterDescription={0} が攻撃を受けました。�
 Reaction/&ReactionAttackExploiterReactDescription=反応を利用して攻撃します。
 Reaction/&ReactionAttackExploiterReactTitle=攻撃
 Reaction/&ReactionAttackExploiterTitle=悪用する
+Condition/&ConditionFeatCallForChargeDescription=移動速度が15フィート増加；次の攻撃ロールに有利。

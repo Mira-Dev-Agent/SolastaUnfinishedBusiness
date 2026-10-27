@@ -30,3 +30,5 @@ Screen/&InventorWeaponsmithSpellDescription=此战地匠师法术始终被视为
 Screen/&InventorWeaponsmithSpellTitle=战地匠师
 Subclass/&InnovationWeaponDescription=战地匠师的研究重点是魔法武器以及如何有效地使用它们。
 Subclass/&InnovationWeaponTitle=战地匠师
+Condition/&ConditionInnovationWeaponSummonSteelDefenderProficiencyBonusDescription=将其创造者的熟练加值加到伤害骰上。
+Condition/&ConditionInnovationWeaponSummonSteelDefenderSpellAttackDescription=将其创造者的法术攻击加值加到攻击检定上。

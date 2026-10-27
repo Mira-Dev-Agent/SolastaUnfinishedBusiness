@@ -67,3 +67,4 @@ Reaction/&ReactionAttackExploiterDescription={0} a été touché par une attaque
 Reaction/&ReactionAttackExploiterReactDescription=Utilisez votre réaction pour attaquer.
 Reaction/&ReactionAttackExploiterReactTitle=Attaque
 Reaction/&ReactionAttackExploiterTitle=Exploiter
+Condition/&ConditionFeatCallForChargeDescription=Vitesse augmentée de 15 pieds ; avantage au prochain jet d'attaque.

@@ -10,3 +10,4 @@ Feature/&InvocationPoolWayOfBladePathOfTheBladeDescription=Вы можете в�
 Feature/&InvocationPoolWayOfBladePathOfTheBladeTitle=Путь Кэнсэя
 Subclass/&WayOfBladeDescription=Монахи, следующие пути кэнсэя, беспрестанно улучшают свои навыки владения оружием, достигая того, что оружие становится продолжением их тела. Основанная на мастерстве боя мечом, традиция расширилась и включает в себя множество разнообразного оружия.
 Subclass/&WayOfBladeTitle=Путь Кэнсэя
+Feature/&CustomInvocationMonkWeaponSpecializationDescription=Этот вид оружия становится для вас монашеским: вы получаете владение им, оно получает свойство «фехтовальное» и может использовать вашу кость урона боевых искусств.

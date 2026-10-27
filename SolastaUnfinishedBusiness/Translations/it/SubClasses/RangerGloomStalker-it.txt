@@ -18,3 +18,4 @@ Reaction/&CustomReactionShadowyDodgeReactTitle=Trascorrere
 Reaction/&CustomReactionShadowyDodgeTitle=Schivata ombrosa
 Subclass/&RangerGloomStalkerDescription=I cacciatori dell'oscurità sono di casa nei luoghi più oscuri: nelle profondità della terra, nei vicoli tetri, nelle foreste primordiali e ovunque la luce si affievolisca. La maggior parte delle persone entra in questi luoghi con trepidazione, ma un tetro cacciatore si avventura coraggiosamente nell'oscurità, cercando di tendere un'imboscata alle minacce prima che possano raggiungere il mondo più vasto. Questi ranger si trovano spesso nel Sottosuolo, ma vanno ovunque dove il male si nasconde nell'ombra.
 Subclass/&RangerGloomStalkerTitle=Stalker della tristezza
+Condition/&ConditionRangerGloomStalkerDreadAmbusherDescription=La velocità di camminata aumenta di 10 piedi fino alla fine del turno.

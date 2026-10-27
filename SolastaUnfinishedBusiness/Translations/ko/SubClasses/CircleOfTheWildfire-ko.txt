@@ -33,3 +33,6 @@ Reaction/&UseCauterizingFlamesHealReactTitle=소작 화염: 치유
 Reaction/&UseCauterizingFlamesHealTitle=소작 화염: 치유
 Subclass/&CircleOfTheWildfireDescription=Wildfire Circle 내의 드루이드는 산불이 나중에 성장을 촉진하는 경우와 같이 파괴가 때때로 창조의 전조라는 것을 이해합니다. 이 드루이드는 파괴적인 힘과 창조적인 힘을 모두 품은 원시 정신과 결속되어 한 가지를 불태우고 다른 것에 생명을 주는 통제된 불꽃을 만들 수 있습니다.
 Subclass/&CircleOfTheWildfireTitle=들불의 원
+Condition/&ConditionCircleOfTheWildfireSpiritAttackRollDescription=소환자의 주문 명중 보너스를 명중 굴림에 더합니다.
+Condition/&ConditionCircleOfTheWildfireSpiritDamageRollDescription=소환자의 숙련 보너스를 피해 굴림에 더합니다.
+Condition/&ConditionCircleOfTheWildfireSpiritHitPointsDescription=소환자의 드루이드 레벨당 추가 HP 5를 얻습니다.

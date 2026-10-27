@@ -93,3 +93,4 @@ Reaction/&UsePowerFeatFlamesOfPhlegethosReactDescription=Вы можете за�
 Reaction/&UsePowerFeatFlamesOfPhlegethosReactTitle=Пламя Флегетоса
 Reaction/&UsePowerFeatFlamesOfPhlegethosTitle=Пламя Флегетоса
 Tag/&WoodElfMagicCantripSpecialTagTitle=Заговоры лесных эльфов
+Condition/&ConditionDragonWingsDescription=Скорость полёта 60 футов.

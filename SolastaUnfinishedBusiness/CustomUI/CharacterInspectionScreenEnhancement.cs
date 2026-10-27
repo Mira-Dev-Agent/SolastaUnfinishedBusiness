@@ -220,6 +220,7 @@ internal static class CharacterInspectionScreenEnhancement
 
             var tooltip = child.GetComponent<GuiTooltip>();
             var provider = new CustomTooltipProvider(feature.FeatureDefinition, null);
+            FeatureDefinition chosen = null;
 
             if (feature.FeatureDefinition is FeatureDefinitionPower)
             {
@@ -230,6 +231,8 @@ internal static class CharacterInspectionScreenEnhancement
             }
             else if (TryFindChoiceFeature(panel, feature.FeatureDefinition, out var choiceFeature))
             {
+                chosen = choiceFeature;
+
                 label.Text = Gui.Format("{1} ({0})", feature.FeatureDefinition.FormatTitle(),
                     choiceFeature.FormatTitle());
 
@@ -253,12 +256,18 @@ internal static class CharacterInspectionScreenEnhancement
             tooltip.Context = panel.InspectedCharacter?.RulesetCharacter;
             tooltip.AnchorMode = tooltipAnchorMode;
 
+            var levelRequirement = noLevel
+                ? string.Empty
+                : Gui.Format(insufficientLevelFormat, feature.Level.ToString());
+
             if (!noLevel)
             {
-                var levelRequirement = Gui.Format(insufficientLevelFormat, feature.Level.ToString());
-
                 provider.SetPrerequisites(levelRequirement);
             }
+
+            //PATCH: clicking a feature opens its full details in a panel that stays open
+            FeatureDetailsPanel.Bind(child.gameObject, feature.FeatureDefinition, chosen,
+                panel.InspectedCharacter?.RulesetCharacter, levelRequirement);
 
             ++index;
         }

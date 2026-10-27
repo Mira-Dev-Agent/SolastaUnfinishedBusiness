@@ -22,3 +22,4 @@ Reaction/&CustomReactionEvasiveFootworkReactTitle=Défendre
 Reaction/&CustomReactionEvasiveFootworkTitle=Jeu de jambes évasif
 Subclass/&CollegeOfEleganceDescription=Le Collège de l'Élégance est le foyer des bardes qui maîtrisent l'art du mouvement corporel. Ils voient une beauté exquise dans la danse et s'expriment à travers des gestes fascinants, portent des tenues tape-à-l'œil et cherchent souvent à être le centre de l'attention. Au combat, ces bardes intègrent des pas élégants dans des manœuvres de combat, les associant à une arme de choix et créant un spectacle inoubliable pour leurs amis et leurs ennemis.
 Subclass/&CollegeOfEleganceTitle=Collège de l'élégance
+Condition/&ConditionCollegeOfEleganceAmazingDisplayDescription=Ne peut pas utiliser de réactions ; vitesse réduite à 0.

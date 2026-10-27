@@ -93,3 +93,4 @@ Reaction/&UsePowerFeatFlamesOfPhlegethosReactDescription=Puedes encender tus Lla
 Reaction/&UsePowerFeatFlamesOfPhlegethosReactTitle=Llamas de Flegethos
 Reaction/&UsePowerFeatFlamesOfPhlegethosTitle=Llamas de Flegethos
 Tag/&WoodElfMagicCantripSpecialTagTitle=Trucos de magia de los elfos del bosque
+Condition/&ConditionDragonWingsDescription=Velocidad de vuelo de 60 pies.

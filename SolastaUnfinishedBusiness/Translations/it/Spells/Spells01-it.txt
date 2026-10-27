@@ -134,3 +134,6 @@ Spell/&WitchBoltTitle=Fulmine della strega
 Spell/&WrathfulSmiteDescription=Il bersaglio subisce 1d6 danni necrotici extra dall'attacco e deve superare un tiro salvezza su Saggezza o avere la condizione Spaventato finché l'incantesimo non termina. Alla fine di ogni suo turno, il bersaglio Spaventato ripete il tiro salvezza, terminando l'incantesimo su se stesso in caso di successo. Il danno aumenta di 1d6 per ogni livello di slot incantesimo superiore a 1.
 Spell/&WrathfulSmiteTitle=Colpo Iracondo
 Tooltip/&TagDamagePureTitle=Danno caotico
+Condition/&ConditionChaosBoltLeapDescription=Il dardo del caos può balzare: usa la tua azione gratuita per bersagliare un'altra creatura con un nuovo tiro per colpire e per i danni.
+Condition/&ConditionThunderousSmiteDescription=Il tuo prossimo colpo con un'arma da mischia infligge 2d6 danni da tuono extra, e il bersaglio deve superare un tiro salvezza su Forza o viene spinto via di 10 piedi e reso prono.
+Condition/&ConditionVoidGraspDescription=Non può compiere reazioni.

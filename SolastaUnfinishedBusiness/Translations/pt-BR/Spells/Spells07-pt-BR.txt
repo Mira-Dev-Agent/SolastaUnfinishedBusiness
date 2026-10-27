@@ -17,3 +17,6 @@ Spell/&RescueTheDyingDescription=Com uma palavra, você invoca energia positiva 
 Spell/&RescueTheDyingTitle=Resgatar os Moribundos
 Spell/&ReverseGravityDescription=Este feitiço inverte a gravidade em um cilindro de 15 metros de raio e 30 metros de altura, centrado em um ponto dentro do alcance.
 Spell/&ReverseGravityTitle=Gravidade Reversa
+Condition/&ConditionCrownOfStarsDescription=Você pode usar uma ação bônus para enviar uma das suas centelhas restantes contra uma criatura a até 120 pés.
+Condition/&ConditionDraconicTransformationDescription=Deslocamento de voo de 60 pés e percepção às cegas de 30 pés. Como ação bônus, você pode exalar energia cintilante em um cone de 60 pés: 6d8 de dano de energia, teste de resistência de Destreza para metade.
+Condition/&ConditionRescueTheDyingDescription=Resistência a todo dano.

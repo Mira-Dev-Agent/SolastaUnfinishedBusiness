@@ -10,3 +10,4 @@ Feature/&InvocationPoolWayOfBladePathOfTheBladeDescription=你可以选择两种
 Feature/&InvocationPoolWayOfBladePathOfTheBladeTitle=剑道
 Subclass/&WayOfBladeDescription=剑道僧侣们对武器进行不懈的训练，直到武器成为身体的延伸。剑道传统以剑术为基础，现已扩展到包括许多不同的武器。
 Subclass/&WayOfBladeTitle=剑道
+Feature/&CustomInvocationMonkWeaponSpecializationDescription=此类武器对你而言成为武僧武器：你获得其熟练，它具有灵巧属性，并可使用你的武艺伤害骰。

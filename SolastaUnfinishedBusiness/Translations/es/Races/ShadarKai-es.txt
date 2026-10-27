@@ -4,3 +4,4 @@ Feature/&PowerShadarKaiTeleportDescription=Como acción adicional, puedes teletr
 Feature/&PowerShadarKaiTeleportTitle=Bendición de la Reina Cuervo
 Race/&RaceShadarKaiDescription=Los shadar-kai son los elfos del Páramo Sombrío, que en un principio fueron atraídos a ese reino aterrador por la Reina Cuervo. A lo largo de los siglos, algunos de ellos han seguido sirviéndole, mientras que otros se han aventurado en el Plano Material para forjar sus propios destinos.
 Race/&RaceShadarKaiTitle=Shadar Kai
+Condition/&ConditionShadarKaiTeleportDescription=Resistencia a todo el daño.

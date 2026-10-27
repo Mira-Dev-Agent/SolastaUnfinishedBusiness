@@ -108,3 +108,5 @@ Reaction/&SpendPowerTidesOfChaosSaveReactTitle=Marés do Caos
 Reaction/&SpendPowerTidesOfChaosSaveTitle=Marés do Caos
 Subclass/&SorcerousWildMagicDescription=Sua magia inata vem das forças selvagens do caos que fundamentam a ordem da criação. Você pode ter sofrido exposição a alguma forma de magia bruta, talvez através de um portal planar que leva ao Limbo, aos Planos Elementais ou ao misterioso Reino Distante. Talvez você tenha sido abençoado por uma poderosa criatura feérica ou marcado por um demônio. Ou sua magia pode ser um acaso do seu nascimento, sem causa ou razão aparente. No entanto, aconteceu, essa magia caótica agita-se dentro de você, esperando por qualquer saída.
 Subclass/&SorcerousWildMagicTitle=Magia Selvagem
+Condition/&ConditionSorcerousWildMagicLightningStrikeDescription=Antes do fim do seu turno, você pode causar 4d10 de dano elétrico a até três criaturas à sua escolha a até 30 pés como ação livre.
+Condition/&ConditionSorcerousWildMagicPiercingVulnerabilityDescription=Vulnerabilidade a dano perfurante.

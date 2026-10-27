@@ -10,3 +10,4 @@ Feature/&InvocationPoolWayOfBladePathOfTheBladeDescription=Puoi scegliere due ti
 Feature/&InvocationPoolWayOfBladePathOfTheBladeTitle=Sentiero della Lama
 Subclass/&WayOfBladeDescription=I monaci della Via della Lama si allenano senza sosta con le loro armi, al punto che l'arma diventa come un'estensione del corpo. Fondata sulla padronanza del combattimento con la spada, la tradizione si è espansa fino a includere molte armi diverse.
 Subclass/&WayOfBladeTitle=Via della Lama
+Feature/&CustomInvocationMonkWeaponSpecializationDescription=Questo tipo di arma diventa per te un'arma da monaco: ne ottieni la competenza, ha la proprietà accurata e può usare il tuo dado di danno delle Arti marziali.

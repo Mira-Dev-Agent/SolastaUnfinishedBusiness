@@ -10,3 +10,4 @@ Feature/&InvocationPoolWayOfBladePathOfTheBladeDescription=Puedes elegir dos tip
 Feature/&InvocationPoolWayOfBladePathOfTheBladeTitle=Camino de la espada
 Subclass/&WayOfBladeDescription=Los monjes del Camino de la Espada entrenan incansablemente con sus armas, hasta el punto de que estas se convierten en una extensión del cuerpo. La tradición, que se basa en el dominio de la lucha con espada, se ha expandido para incluir muchas armas diferentes.
 Subclass/&WayOfBladeTitle=Camino de la Espada
+Feature/&CustomInvocationMonkWeaponSpecializationDescription=Este tipo de arma se convierte para ti en un arma de monje: obtienes competencia con ella, tiene la propiedad sutil y puede usar tu dado de daño de Artes marciales.

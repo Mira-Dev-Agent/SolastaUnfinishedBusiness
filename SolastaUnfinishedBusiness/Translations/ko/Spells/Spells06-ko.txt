@@ -30,3 +30,6 @@ Spell/&ScatterDescription=범위 내에서 볼 수 있는 최대 5개의 생물�
 Spell/&ScatterTitle=흩어지게하다
 Spell/&ShelterFromEnergyDescription=산성, 냉기, 불, 번개, 괴사, 복사, 천둥 등 피해 유형 중 하나를 선택한 다음 범위 내에서 볼 수 있는 의지가 있는 생물을 최대 6개까지 선택하세요. 1시간 동안 대상은 해당 피해 유형에 대한 저항력을 갖습니다. 7레벨 이상의 주문 슬롯을 사용하여 이 주문을 시전할 때, 6레벨 이상의 각 슬롯 레벨에 대해 최대 한 명의 의지가 있는 생물을 추가로 목표로 삼을 수 있습니다.
 Spell/&ShelterFromEnergyTitle=에너지로부터의 대피소
+Condition/&ConditionFizbanPlatinumShieldDescription=절반 엄폐. 산성, 냉기, 화염, 번개, 독 피해에 저항합니다. 성공 시 절반 피해를 주는 효과에 대한 민첩 내성 굴림은 성공하면 피해가 없고 실패하면 절반 피해를 받습니다.
+Condition/&ConditionRingOfBladesDescription=보너스 행동으로 남은 칼날 하나를 60피트 이내의 생물에게 던질 수 있습니다.
+Condition/&ConditionShelterFromEnergyDescription={0} 피해에 저항합니다.

@@ -22,3 +22,4 @@ Reaction/&UseGhostlyHowlReactTitle=Geisterhaftes Heulen
 Reaction/&UseGhostlyHowlTitle=Geisterhaftes Heulen
 Subclass/&RangerSkyWarriorDescription=Himmelskrieger wurden von der anhaltenden Kraft karger, windgepeitschter Landschaften berührt, die nur von Fata Morganas und Geistern bewohnt werden. Sie kombinieren elegante Manöver mit Klinge und Schild mit Illusionsmagie, um im Kampf zu bestehen.
 Subclass/&RangerSkyWarriorTitle=Himmelskrieger
+Condition/&ConditionRangerSkyWarriorGiftOfTheWindDescription=Bewegungsrate um 10 Fuß erhöht, und Kreaturen, die Sie mit einem Nahkampfwaffenangriff treffen, können keine Gelegenheitsangriffe gegen Sie ausführen. Endet, wenn Sie keinen Schild mehr tragen.

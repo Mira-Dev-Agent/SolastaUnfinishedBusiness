@@ -494,3 +494,63 @@ ModUi/&WeaponMasterySystemCustomizeResetAllWarning=Ripristinerà tutte le propri
 ModUi/&WeaponMasterySystemCustomizeToggle=Personalizza le proprietà della padronanza delle armi
 ModUi/&WideScreenBattleUI=Abilita l'interfaccia utente della battaglia su schermo ampio <i><color=#F0DAA0>(per risoluzioni con proporzioni superiori a 16:9)</color></i>
 ModUi/&WildSurgeDieRollThreshold=<color=white>Imposta la soglia di probabilità di dado <color=#D89555>Magia selvaggia dello stregone</color>:</color>\n<i><color=#F0DAA0>[L'ondata selvaggia si innesca se i tiri sono inferiori o uguali alla soglia]</color></i>
+ModUi/&AddOriginFeatsToAutoLearn= + Aggiungi i talenti di origine all'apprendimento automatico
+ModUi/&AllMagicThrownReturn=Tutte le armi da lancio magiche tornano a chi le lancia <b><i><color=#C04040E0>[Riavvio richiesto per rimuovere]</color></i></b>
+ModUi/&AllowShortRestWithPartySpreadOut=Consenti un riposo breve quando il gruppo è sparpagliato <i><color=#F0DAA0>[cambia la regola del gioco per cui il gruppo deve stare entro 10 caselle; non in combattimento, in una conversazione o in una scena, e le altre regole di riposo (nemici vicini, aree non sicure, cibo) valgono ancora. Anche in Gameplay > Multigiocatore e Gameplay > Campagne]</color></i>
+ModUi/&CombineWaitWithLongRest=Quando il gruppo ha già fatto un riposo lungo oggi, il pulsante Riposo lungo attende finché non può riposare di nuovo, poi riposa <i><color=#F0DAA0>[una conferma con il tempo totale e un'approvazione in multigiocatore, anche ai falò; tutte le altre regole di riposo valgono ancora]</color></i>
+ModUi/&CraftWithBaseInsteadOfPrimed=Le ricette che chiedono un'arma o armatura preparata accettano anche quella comune <i><color=#F0DAA0>[ogni ricetta, del gioco, di questa mod e delle campagne; gli oggetti preparati vengono usati per primi; quelli comuni contano solo se non equipaggiati, così il tuo equipaggiamento non viene mai consumato]</color></i>
+ModUi/&EnableBackgroundAbilityScoreIncreases=Gli aumenti di caratteristica vengono dal background invece che dalla razza <i><color=#F0DAA0>[Razze flessibili è incompatibile e verrà disattivato]</color></i>
+ModUi/&EnableBackgroundBonusFeats=Attiva i talenti bonus del background <i><color=#F0DAA0>[Background flessibili è incompatibile e verrà disattivato]</color></i>
+ModUi/&EnableLevelDownAction=Attiva l'azione <color=#D89555>SCENDI DI LIVELLO</color> dopo il riposo <i><color=#F0DAA0>[annulla l'ultimo livello di un eroe e le sue scelte; vengono registrati solo i livelli ottenuti con Finishing Business 1.6.1.0 o successivo]</color></i>
+ModUi/&InfusionSlotsReturnOnLongRestOnly=Terminare un'infusione libera il suo slot solo al prossimo riposo lungo <i><color=#F0DAA0>[regola da tavolo; altrimenti lo slot si libera subito. Sostituire un'infusione o usare Cambia infusioni dopo un riposo lungo lo libera sempre subito]</color></i>
+ModUi/&InfusionsOnlyOnNonMagicalItems=Le infusioni dell'artefice possono essere applicate solo a oggetti non magici <i><color=#F0DAA0>[regola da tavolo; altrimenti si possono infondere anche oggetti magici, ma non un'arma potenziata da un incantesimo temporaneo come Arma magica]</color></i>
+ModUi/&MultiplayerAllowAlliesToPassThroughInCombat=Consenti agli alleati di attraversarsi in combattimento mentre entrambi si muovono
+ModUi/&MultiplayerAllowCharactersToOverlapOutOfCombat=Consenti ai personaggi di condividere le caselle fuori dal combattimento, così il gruppo passa insieme da cunicoli e porte
+ModUi/&MultiplayerAllowPlayersToStartRests=Consenti a ogni giocatore di iniziare un riposo breve o lungo dalla schermata di riposo, non solo all'host <i><color=#F0DAA0>[l'host applica comunque il riposo per tutti; i falò e i riposi avviati dalla storia seguono le regole del gioco]</color></i>
+ModUi/&MultiplayerAlwaysOnFixes=<color=#F0DAA0>Sempre applicato:</color> il bersaglio casuale della Magia selvaggia usa i dadi sincronizzati, la scelta con MAIUSC tra slot da warlock o normali viene inviata a ogni computer con l'incantesimo, la reazione o la conversione, gli orari delle reazioni non vengono salvati in multigiocatore, ogni eroe riceve un ruolo per conversazione, un eroe non dice mai due battute di fila per ruoli diversi, e gli eroi 5 e 6 hanno la propria posizione nelle scene.
+ModUi/&MultiplayerApprovalSkipActionsOfTenMinutesOrLess=Non chiedere per rituali e azioni di 10 minuti o meno <i><color=#F0DAA0>[rituali, lanci da 1 e 10 minuti, marchio della divinità]</color></i>
+ModUi/&MultiplayerBuildInfo=<color=white>Questa build:</color> {0}
+ModUi/&MultiplayerCurrentDelay=<color=white>Ritardo d'azione attuale:</color> {0} tick ({1} ms)
+ModUi/&MultiplayerDescription=Correzioni e modifiche per il multigiocatore. Ogni giocatore deve usare la stessa build della mod e le stesse impostazioni, perché il gioco esegue la stessa simulazione su ogni computer.
+ModUi/&MultiplayerDesyncTitle=<color=#F0DAA0>Desincronizzazione:</color>
+ModUi/&MultiplayerDeterministicHitCounting=Conta le reazioni ai colpi una volta per tick di gioco invece che una volta per fotogramma disegnato <i><color=#F0DAA0>[corregge una desincronizzazione quando un fotogramma di un giocatore dura più di 50 ms (sotto i 20 FPS o uno scatto) mentre un bersaglio viene colpito due volte di seguito; solo partite multigiocatore]</color></i>
+ModUi/&MultiplayerDeterministicStandAgainstTheTide=Usa i dadi sincronizzati per scegliere il bersaglio di reindirizzamento di <color=#D89555>Stand Against the Tide</color> <i><color=#F0DAA0>[solo partite multigiocatore]</color></i>
+ModUi/&MultiplayerEnableDesyncDetection=Rileva le desincronizzazioni e mostra un avviso perché il gruppo possa ricaricare <i><color=#F0DAA0>[confronta il contatore delle entità tra i computer ogni 5 secondi]</color></i>
+ModUi/&MultiplayerEnableStateFingerprint=Confronta anche ogni 5 secondi PF, posizione, condizioni, slot incantesimo di ogni personaggio e la sequenza dei dadi, e indica quale personaggio differisce <i><color=#F0DAA0>[controllato solo quando nulla si muove o agisce]</color></i>
+ModUi/&MultiplayerEnableTickBufferTuning=Regola il ritardo d'azione <i><color=#F0DAA0>[ogni azione viene ritardata di questo numero di tick da 50 ms perché arrivi in tempo a ogni computer]</color></i>
+ModUi/&MultiplayerFlushCommandsImmediately=Invia ogni azione appena viene data invece che al tick successivo <i><color=#F0DAA0>[risparmia fino a 50 ms per azione; stessi messaggi, solo inviati prima]</color></i>
+ModUi/&MultiplayerFps={0} FPS
+ModUi/&MultiplayerFpsAllSeeAll=Tutti vedono tutti
+ModUi/&MultiplayerFpsHostSeesAll=Solo l'host vede tutti
+ModUi/&MultiplayerFpsHostSeesAllOthersOwn=L'host vede tutti, gli altri i propri
+ModUi/&MultiplayerFpsOwnOnly=Ogni giocatore vede i propri
+ModUi/&MultiplayerFpsVisibility=<color=white>Chi vede i fotogrammi al secondo (FPS) dei giocatori</color> <i><color=#F0DAA0>[mostrati in questa scheda, sulle targhette dei giocatori e nella sovrapposizione; ambra sotto 45 FPS, rosso sotto 30]</color></i>
+ModUi/&MultiplayerHostRole= (host)
+ModUi/&MultiplayerHostSettingsBanner=<b><color=#E0A040>Queste sono le impostazioni dell'HOST per questa sessione multigiocatore. Qui sono in sola lettura e il tuo Settings.xml non viene modificato.</color></b>
+ModUi/&MultiplayerHostSettingsThisLaunchBanner=<b><color=#E0A040>Questo avvio usa le impostazioni dell'HOST (Settings/Host.xml). Qui sono in sola lettura e il tuo Settings.xml non viene modificato; il prossimo avvio usa di nuovo le tue impostazioni.</color></b>
+ModUi/&MultiplayerInitialTickBuffer=<color=white>Ritardo d'azione iniziale in tick</color> <i><color=#F0DAA0>[predefinito del gioco 6]</color></i>
+ModUi/&MultiplayerLagTitle=<color=#F0DAA0>Ritardo d'azione:</color>
+ModUi/&MultiplayerMenu=Multigiocatore
+ModUi/&MultiplayerMinimumTickBuffer=<color=white>Ritardo d'azione minimo in tick</color> <i><color=#F0DAA0>[predefinito del gioco 4, usato solo quando ogni ping lo consente]</color></i>
+ModUi/&MultiplayerMovementTitle=<color=#F0DAA0>Movimento</color> <i><color=#F0DAA0>[solo partite multigiocatore, il giocatore singolo mantiene le regole del gioco]</color></i><color=#F0DAA0>:</color>
+ModUi/&MultiplayerNoFps=FPS non comunicati
+ModUi/&MultiplayerNoHost=Non in una stanza multigiocatore.
+ModUi/&MultiplayerNoPing=ping non comunicato
+ModUi/&MultiplayerNoVersion=nessuna versione comunicata
+ModUi/&MultiplayerOfferHostResync=Offri all'host una risincronizzazione con un clic quando una desincronizzazione non può essere corretta <i><color=#F0DAA0>[l'host salva rapidamente e ricarica; i client vengono riportati nello stesso salvataggio]</color></i>
+ModUi/&MultiplayerPing=ping {0} ms
+ModUi/&MultiplayerPingBasedTickBuffer=Dimensiona il ritardo d'azione in base al ping di ogni giocatore <i><color=#F0DAA0>[lo aumenta prima che qualcuno aspetti quando una connessione è lenta, e lascia scendere i gruppi veloci fino al minimo qui sotto]</color></i>
+ModUi/&MultiplayerPingVisibleToHostOnly=Solo l'host vede il ping dei giocatori e il ritardo d'azione <i><color=#F0DAA0>[altrimenti ogni giocatore li vede in questa scheda e sulle targhette dei giocatori]</color></i>
+ModUi/&MultiplayerPlayersVersions=<color=white>Build in questa stanza:</color>
+ModUi/&MultiplayerQuickCorrectDesync=Fuori dal combattimento, lascia che l'host corregga piccole differenze (PF, posizione, slot incantesimo, dadi) su ogni computer senza ricaricare <i><color=#F0DAA0>[condizioni o personaggi mancanti richiedono comunque una risincronizzazione]</color></i>
+ModUi/&MultiplayerRequireApprovalForTimeConsumingActions=Chiedi a ogni giocatore di approvare le azioni che fanno passare tempo di gioco: riposi brevi e lunghi, imparare o scrivere incantesimi da pergamene, marchio della divinità, rituali, e incantesimi o poteri che richiedono un minuto o più <i><color=#F0DAA0>[la finestra dice cosa viene fatto e per quanto tempo; nessuno viene interpellato mentre un personaggio è in combattimento o in una scena, e al giocatore che ha chiesto viene detto quale personaggio]</color></i>
+ModUi/&MultiplayerResolveOverlapsOnBattleStart=All'inizio di un combattimento, sposta i personaggi che condividono una casella nella casella sicura più vicina <i><color=#F0DAA0>[gratuito, innocuo e non visto dai nemici se furtivo. Un furtivo solo in una casella che nessun nemico vede la mantiene; altrimenti la mantiene il personaggio creato per primo]</color></i>
+ModUi/&MultiplayerSecondsBeforeLowerTickBuffer=<color=white>Secondi senza attese prima di ridurre il ritardo</color> <i><color=#F0DAA0>[predefinito del gioco 10]</color></i>
+ModUi/&MultiplayerShowFpsOverlay=Mostra in alto a sinistra, durante una sessione multigiocatore, una piccola sovrapposizione con i fotogrammi al secondo e i ping che puoi vedere
+ModUi/&MultiplayerSpreadOverlappedCharacters=Disegna leggermente distanziati i personaggi che condividono una casella così da poter indicare ciascuno <i><color=#F0DAA0>[solo visivo: due affiancati, tre a triangolo, di più in un anello più ampio; tornano al centro quando si muovono]</color></i>
+ModUi/&MultiplayerTimeTitle=<color=#F0DAA0>Tempo e riposi:</color>
+ModUi/&PickPocketNonHostiles=Aggiungi bottino da borseggiare anche a molti PNG non ostili <i><color=#F0DAA0>[un fallimento influisce sulla reputazione]</color></i>
+ModUi/&SearchClear=Cancella
+ModUi/&SearchNoResults=Nessuna impostazione corrisponde a "{0}".
+ModUi/&SearchSettings=Cerca impostazioni:
+ModUi/&WarnBeforeCrafting=Avvisa all'inizio della creazione che gli ingredienti vengono consumati subito e che i tiri di creazione possono fallire <i><color=#F0DAA0>[elenca anche le armi o armature comuni usate al posto di quelle preparate]</color></i>

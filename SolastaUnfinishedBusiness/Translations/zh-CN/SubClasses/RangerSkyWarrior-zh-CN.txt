@@ -22,3 +22,4 @@ Reaction/&UseGhostlyHowlReactTitle=幽灵嚎叫
 Reaction/&UseGhostlyHowlTitle=幽灵嚎叫
 Subclass/&RangerSkyWarriorDescription=天之勇士们被狂风吹拂的贫瘠土地上挥之不去的力量所触及，那里除了幻影和幽灵之外什么也没有。他们将优雅的剑刃和盾牌战技与幻术魔法结合起来，在战斗中茁壮成长。
 Subclass/&RangerSkyWarriorTitle=天之勇士
+Condition/&ConditionRangerSkyWarriorGiftOfTheWindDescription=速度提高10英尺，被你以近战武器攻击命中的生物无法对你进行借机攻击。不再持盾时结束。

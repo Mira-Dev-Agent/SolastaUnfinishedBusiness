@@ -22,3 +22,4 @@ Reaction/&CustomReactionEvasiveFootworkReactTitle=Defender
 Reaction/&CustomReactionEvasiveFootworkTitle=Juego de pies evasivo
 Subclass/&CollegeOfEleganceDescription=El Colegio de la Elegancia es el hogar de los bardos que dominan el arte del movimiento corporal. Ven una belleza exquisita en el baile y en la expresión personal a través de gestos hipnóticos, vistiendo atuendos llamativos y, a menudo, buscando ser el centro de atención. En combate, estos bardos combinan a la perfección pasos elegantes con maniobras de batalla, combinándolos con un arma de su elección y creando un espectáculo inolvidable para amigos y enemigos por igual.
 Subclass/&CollegeOfEleganceTitle=Colegio de Elegancia
+Condition/&ConditionCollegeOfEleganceAmazingDisplayDescription=No puede usar reacciones; la velocidad se reduce a 0.

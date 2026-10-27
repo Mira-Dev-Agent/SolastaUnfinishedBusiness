@@ -22,3 +22,4 @@ Reaction/&UseGhostlyHowlReactTitle=Призрачный вой
 Reaction/&UseGhostlyHowlTitle=Призрачный вой
 Subclass/&RangerSkyWarriorDescription=Воинов неба коснулась затянувшая их сила бесплодных ветреных ландшафтов, населенных лишь миражами и призраками. Они сочетают изящные манёвры клинком и щитом с магией иллюзий, что позволяет им добиваться успеха в бою.
 Subclass/&RangerSkyWarriorTitle=Небесный воин
+Condition/&ConditionRangerSkyWarriorGiftOfTheWindDescription=Скорость увеличена на 10 футов, а существа, по которым вы попали атакой оружием ближнего боя, не могут совершать по вам атаки при возможности. Заканчивается, если вы больше не носите щит.

@@ -134,3 +134,6 @@ Spell/&WitchBoltTitle=Boulon de sorcière
 Spell/&WrathfulSmiteDescription=La cible subit 1d6 dégâts nécrotiques supplémentaires suite à l'attaque, et elle doit réussir un jet de sauvegarde de Sagesse ou avoir la condition Effrayée jusqu'à ce que le sort se termine. À la fin de chacun de ses tours, la cible Effrayée répète le jet de sauvegarde, mettant fin au sort sur elle-même en cas de réussite. Les dégâts augmentent de 1d6 pour chaque niveau d'emplacement de sort au-dessus de 1.
 Spell/&WrathfulSmiteTitle=Coup de colère
 Tooltip/&TagDamagePureTitle=Dégâts chaotiques
+Condition/&ConditionChaosBoltLeapDescription=L'éclair de chaos peut rebondir : utilisez votre action libre pour cibler une autre créature avec un nouveau jet d'attaque et de dégâts.
+Condition/&ConditionThunderousSmiteDescription=Votre prochain coup réussi avec une arme de corps à corps inflige 2d6 dégâts de tonnerre supplémentaires, et la cible doit réussir un jet de sauvegarde de Force ou être repoussée de 10 pieds et jetée à terre.
+Condition/&ConditionVoidGraspDescription=Ne peut pas effectuer de réactions.

@@ -22,3 +22,4 @@ Reaction/&CustomReactionEvasiveFootworkReactTitle=지키다
 Reaction/&CustomReactionEvasiveFootworkTitle=회피적인 발놀림
 Subclass/&CollegeOfEleganceDescription=우아함의 대학은 신체 동작의 예술을 통달한 음유시인의 본거지입니다. 그들은 춤에서 절묘한 아름다움을 보고, 매혹적인 몸짓을 통해 자신을 표현하고, 화려한 의상을 입고, 종종 관심의 중심이 되려고 합니다. 전투에서 이 음유시인은 우아한 발걸음을 전투 기동에 매끄럽게 결합하고 선택한 무기와 짝을 이루어 친구와 적 모두에게 잊을 수 없는 광경을 선사합니다.
 Subclass/&CollegeOfEleganceTitle=엘레강스 칼리지
+Condition/&ConditionCollegeOfEleganceAmazingDisplayDescription=반응을 사용할 수 없습니다. 이동 속도가 0이 됩니다.

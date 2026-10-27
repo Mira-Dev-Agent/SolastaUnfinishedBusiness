@@ -134,3 +134,6 @@ Spell/&WitchBoltTitle=巫术箭
 Spell/&WrathfulSmiteDescription=目标在攻击中会受到额外的 1d6 点暗蚀伤害，并且必须成功进行感知豁免检定，否则会处于恐惧状态，直到法术结束。在每个回合结束时，恐惧目标都会重复豁免，成功则结束自身受到的法术。法术位等级每高于 1 级，伤害增加 1d6。
 Spell/&WrathfulSmiteTitle=激愤斩
 Tooltip/&TagDamagePureTitle=混乱伤害
+Condition/&ConditionChaosBoltLeapDescription=混乱箭可以跳跃：使用你的自由动作，以新的攻击和伤害检定瞄准另一个生物。
+Condition/&ConditionThunderousSmiteDescription=你的下一次近战武器命中额外造成2d6雷鸣伤害，目标必须通过力量豁免检定，否则被推开10英尺并倒地。
+Condition/&ConditionVoidGraspDescription=无法执行反应。

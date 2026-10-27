@@ -30,3 +30,6 @@ Spell/&ScatterDescription=L'aria trema attorno a un massimo di cinque creature a
 Spell/&ScatterTitle=Disperdere
 Spell/&ShelterFromEnergyDescription=Scegli uno dei seguenti tipi di danno: acido, freddo, fuoco, fulmine, necrotico, radiante o tuono, quindi scegli fino a sei creature consenzienti che puoi vedere entro il raggio d'azione. Per 1 ora, i bersagli hanno resistenza a quel tipo di danno. Quando lanci questo incantesimo usando uno slot incantesimo di 7° livello o superiore, puoi prendere di mira fino a un'ulteriore creatura consenziente per ogni livello di slot superiore al 6°.
 Spell/&ShelterFromEnergyTitle=Rifugio dall'energia
+Condition/&ConditionFizbanPlatinumShieldDescription=Copertura parziale; resistenza ai danni da acido, freddo, fuoco, fulmine e veleno. Un tiro salvezza su Destrezza contro un effetto che infligge metà danni in caso di successo non infligge danni in caso di successo e metà danni in caso di fallimento.
+Condition/&ConditionRingOfBladesDescription=Puoi usare un'azione bonus per scagliare una delle lame rimaste contro una creatura entro 60 piedi.
+Condition/&ConditionShelterFromEnergyDescription=Resistenza ai danni da {0}.

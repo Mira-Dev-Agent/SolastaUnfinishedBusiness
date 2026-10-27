@@ -494,3 +494,63 @@ ModUi/&WeaponMasterySystemCustomizeResetAllWarning=すべての武器の習得�
 ModUi/&WeaponMasterySystemCustomizeToggle=武器の習得プロパティをカスタマイズします
 ModUi/&WideScreenBattleUI=ワイド スクリーン バトル UI を有効にする <i><color=#F0DAA0>(アスペクト比が 16:9 を超える解像度の場合)</color></i>
 ModUi/&WildSurgeDieRollThreshold=<color=white><color=#D89555>ソーサラー ワイルド マジック</color> の確率ダイスしきい値を設定します:</color>\n<i><color=#F0DAA0>[ロールがしきい値以下であればワイルド サージが発動します]</color></i>
+ModUi/&AddOriginFeatsToAutoLearn= + 出自特技を自動習得に追加
+ModUi/&AllMagicThrownReturn=すべての魔法の投擲武器が投げた者の手に戻る <b><i><color=#C04040E0>[解除には再起動が必要]</color></i></b>
+ModUi/&AllowShortRestWithPartySpreadOut=パーティーが散らばっていても小休憩を許可 <i><color=#F0DAA0>[パーティーが10マス以内にいなければならないゲームのルールを変更。戦闘中、会話中、カットシーン中は不可で、その他の休憩ルール（近くの敵、危険な場所、食料）は引き続き適用。ゲームプレイ > マルチプレイ と ゲームプレイ > キャンペーン にもあり]</color></i>
+ModUi/&CombineWaitWithLongRest=パーティーが今日すでに大休憩を取っている場合、大休憩ボタンは再び休憩できるまで待ってから休憩する <i><color=#F0DAA0>[合計時間を示す確認が1回、マルチプレイでは承認が1回、キャンプファイアでも同様。その他の休憩ルールは引き続き適用]</color></i>
+ModUi/&CraftWithBaseInsteadOfPrimed=プライムドの武器や防具を必要とするレシピで通常品も使える <i><color=#F0DAA0>[ゲーム、このMOD、キャンペーンのすべてのレシピ。プライムド品が先に使われ、通常品は装備していない場合のみ数えるので、自分の装備が消費されることはない]</color></i>
+ModUi/&EnableBackgroundAbilityScoreIncreases=能力値の上昇を種族ではなく背景から得る <i><color=#F0DAA0>[柔軟な種族とは両立せず、オフになる]</color></i>
+ModUi/&EnableBackgroundBonusFeats=背景のボーナス特技を有効化 <i><color=#F0DAA0>[柔軟な背景とは両立せず、オフになる]</color></i>
+ModUi/&EnableLevelDownAction=休憩後の<color=#D89555>レベルダウン</color>アクションを有効化 <i><color=#F0DAA0>[英雄の最後のレベルとその選択を取り消す。Finishing Business 1.6.1.0以降で得たレベルのみ記録される]</color></i>
+ModUi/&InfusionSlotsReturnOnLongRestOnly=インフュージョンを終了してもスロットは次の大休憩まで空かない <i><color=#F0DAA0>[テーブルトークのルール。オフならスロットはすぐに空く。インフュージョンの置き換えや大休憩後のインフュージョンの変更では常にすぐ空く]</color></i>
+ModUi/&InfusionsOnlyOnNonMagicalItems=アーティフィサーのインフュージョンは非魔法のアイテムにのみ付与できる <i><color=#F0DAA0>[テーブルトークのルール。オフなら魔法のアイテムにも付与できるが、マジック・ウェポンなどの一時的な呪文で強化中の武器には付与できない]</color></i>
+ModUi/&MultiplayerAllowAlliesToPassThroughInCombat=戦闘中、双方が移動中なら味方同士がすり抜けられるようにする
+ModUi/&MultiplayerAllowCharactersToOverlapOutOfCombat=戦闘外ではキャラクターが同じマスに入れるようにし、パーティーが狭い通路や扉を一緒に通れるようにする
+ModUi/&MultiplayerAllowPlayersToStartRests=ホストだけでなく全プレイヤーが休憩画面から小休憩・大休憩を始められるようにする <i><color=#F0DAA0>[休憩は引き続きホストが全員に適用。キャンプファイアやストーリーで始まる休憩はゲームのルールに従う]</color></i>
+ModUi/&MultiplayerAlwaysOnFixes=<color=#F0DAA0>常に適用：</color>ワイルド・マジックのランダムな対象は同期ダイスを使う、ウォーロックのスロットか通常のスロットかのSHIFT選択は呪文・リアクション・変換とともに各コンピューターへ送られる、マルチプレイではリアクションのタイムスタンプを保存しない、各英雄は会話ごとに1つの役を得る、英雄が異なる役のセリフを2回続けて話すことはない、英雄5と6はカットシーンで専用の位置を得る。
+ModUi/&MultiplayerApprovalSkipActionsOfTenMinutesOrLess=10分以下の儀式と行動では承認を求めない <i><color=#F0DAA0>[儀式、1分と10分の発動、神の聖印]</color></i>
+ModUi/&MultiplayerBuildInfo=<color=white>このビルド：</color>{0}
+ModUi/&MultiplayerCurrentDelay=<color=white>現在の行動遅延：</color>{0}ティック（{1}ミリ秒）
+ModUi/&MultiplayerDescription=マルチプレイ用の修正と変更。ゲームは各コンピューターで同じシミュレーションを実行するため、全プレイヤーが同じMODビルドと同じ設定を使う必要がある。
+ModUi/&MultiplayerDesyncTitle=<color=#F0DAA0>同期ずれ：</color>
+ModUi/&MultiplayerDeterministicHitCounting=被弾リアクションを描画フレームごとではなくゲームのティックごとに1回数える <i><color=#F0DAA0>[標的が2回連続で命中を受ける間に、あるプレイヤーの1フレームが50ミリ秒を超える（20 FPS未満やカクつき）と起こる同期ずれを修正。マルチプレイのみ]</color></i>
+ModUi/&MultiplayerDeterministicStandAgainstTheTide=<color=#D89555>Stand Against the Tide</color>のリダイレクト先を同期ダイスで選ぶ <i><color=#F0DAA0>[マルチプレイのみ]</color></i>
+ModUi/&MultiplayerEnableDesyncDetection=同期ずれを検出して警告を表示し、パーティーがロードし直せるようにする <i><color=#F0DAA0>[5秒ごとにコンピューター間でエンティティカウンターを比較]</color></i>
+ModUi/&MultiplayerEnableStateFingerprint=さらに5秒ごとに各キャラクターのHP、位置、状態、呪文スロットとダイス列を比較し、どのキャラクターが異なるか表示する <i><color=#F0DAA0>[何も移動・行動していないときのみ確認]</color></i>
+ModUi/&MultiplayerEnableTickBufferTuning=行動遅延を調整 <i><color=#F0DAA0>[各行動はこの数の50ミリ秒ティックだけ遅らされ、すべてのコンピューターに間に合うように届く]</color></i>
+ModUi/&MultiplayerFlushCommandsImmediately=各行動を次のティックではなく出した直後に送る <i><color=#F0DAA0>[行動ごとに最大50ミリ秒短縮。メッセージは同じで、早く送るだけ]</color></i>
+ModUi/&MultiplayerFps={0} FPS
+ModUi/&MultiplayerFpsAllSeeAll=全員が全員を見られる
+ModUi/&MultiplayerFpsHostSeesAll=ホストだけが全員を見られる
+ModUi/&MultiplayerFpsHostSeesAllOthersOwn=ホストは全員、他は自分のみ
+ModUi/&MultiplayerFpsOwnOnly=各プレイヤーは自分のみ
+ModUi/&MultiplayerFpsVisibility=<color=white>プレイヤーのフレームレート（FPS）を見られる人</color> <i><color=#F0DAA0>[このタブ、プレイヤープレート、オーバーレイに表示。45 FPS未満で琥珀色、30未満で赤]</color></i>
+ModUi/&MultiplayerHostRole=（ホスト）
+ModUi/&MultiplayerHostSettingsBanner=<b><color=#E0A040>これはこのマルチプレイセッションのホストの設定です。ここでは読み取り専用で、あなた自身のSettings.xmlは変更されません。</color></b>
+ModUi/&MultiplayerHostSettingsThisLaunchBanner=<b><color=#E0A040>この起動ではホストの設定（Settings/Host.xml）を使っています。ここでは読み取り専用で、あなた自身のSettings.xmlは変更されません。次回の起動では再びあなたの設定を使います。</color></b>
+ModUi/&MultiplayerInitialTickBuffer=<color=white>初期の行動遅延（ティック）</color> <i><color=#F0DAA0>[ゲームの既定値6]</color></i>
+ModUi/&MultiplayerLagTitle=<color=#F0DAA0>行動遅延：</color>
+ModUi/&MultiplayerMenu=マルチプレイ
+ModUi/&MultiplayerMinimumTickBuffer=<color=white>最小の行動遅延（ティック）</color> <i><color=#F0DAA0>[ゲームの既定値4、全員のpingが許す場合のみ使用]</color></i>
+ModUi/&MultiplayerMovementTitle=<color=#F0DAA0>移動</color> <i><color=#F0DAA0>[マルチプレイのみ、シングルプレイはゲームのルールのまま]</color></i><color=#F0DAA0>:</color>
+ModUi/&MultiplayerNoFps=FPS未報告
+ModUi/&MultiplayerNoHost=マルチプレイのルームにいません。
+ModUi/&MultiplayerNoPing=ping未報告
+ModUi/&MultiplayerNoVersion=バージョン未報告
+ModUi/&MultiplayerOfferHostResync=同期ずれを修正できない場合、ホストにワンクリックの再同期を提案する <i><color=#F0DAA0>[ホストがクイックセーブしてロードし直し、クライアントも同じセーブに戻る]</color></i>
+ModUi/&MultiplayerPing=ping {0}ミリ秒
+ModUi/&MultiplayerPingBasedTickBuffer=各プレイヤーのpingから行動遅延を決める <i><color=#F0DAA0>[回線が遅いときは誰かが待つ前に引き上げ、速いグループは下の最小値まで下げられる]</color></i>
+ModUi/&MultiplayerPingVisibleToHostOnly=プレイヤーのpingと行動遅延はホストだけが見られる <i><color=#F0DAA0>[オフなら全プレイヤーがこのタブとプレイヤープレートで見られる]</color></i>
+ModUi/&MultiplayerPlayersVersions=<color=white>このルームのビルド：</color>
+ModUi/&MultiplayerQuickCorrectDesync=戦闘外では、ホストが各コンピューターの小さな違い（HP、位置、呪文スロット、ダイス）をロードし直さずに修正できる <i><color=#F0DAA0>[状態の違いやいないキャラクターには再同期が必要]</color></i>
+ModUi/&MultiplayerRequireApprovalForTimeConsumingActions=ゲーム内時間が経過する行動は全プレイヤーに承認を求める：小休憩と大休憩、巻物からの呪文の習得や筆写、神の聖印、儀式、1分以上かかる呪文や能力 <i><color=#F0DAA0>[ポップアップで何をどれだけの時間行うかを表示。キャラクターが戦闘中やカットシーン中は誰にも尋ねず、求めたプレイヤーにどのキャラクターかを伝える]</color></i>
+ModUi/&MultiplayerResolveOverlapsOnBattleStart=戦闘開始時、同じマスにいるキャラクターを最寄りの安全なマスへ移動する <i><color=#F0DAA0>[無償・無害で、忍び足中なら敵に気づかれない。どの敵からも見えないマスに忍び足のキャラクターが1人だけならそのマスに残り、それ以外は最初に作られたキャラクターが残る]</color></i>
+ModUi/&MultiplayerSecondsBeforeLowerTickBuffer=<color=white>遅延を下げるまでの待ちのない秒数</color> <i><color=#F0DAA0>[ゲームの既定値10]</color></i>
+ModUi/&MultiplayerShowFpsOverlay=マルチプレイ中、左上に見られるフレームレートとpingを表示する小さなオーバーレイを出す
+ModUi/&MultiplayerSpreadOverlappedCharacters=同じマスにいるキャラクターを少し離して描き、それぞれを指せるようにする <i><color=#F0DAA0>[見た目のみ：2人は横並び、3人は三角形、それ以上はより広い輪。移動すると中央に戻る]</color></i>
+ModUi/&MultiplayerTimeTitle=<color=#F0DAA0>時間と休憩：</color>
+ModUi/&PickPocketNonHostiles=多くの非敵対NPCにもスリ用の戦利品を追加 <i><color=#F0DAA0>[失敗すると評判に影響する]</color></i>
+ModUi/&SearchClear=クリア
+ModUi/&SearchNoResults=「{0}」に一致する設定はありません。
+ModUi/&SearchSettings=設定を検索：
+ModUi/&WarnBeforeCrafting=製作開始時に、素材がすぐに消費されることと製作の判定が失敗しうることを警告する <i><color=#F0DAA0>[プライムド品の代わりに使われる通常の武器や防具も一覧表示]</color></i>

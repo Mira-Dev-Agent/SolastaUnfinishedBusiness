@@ -134,3 +134,6 @@ Spell/&WitchBoltTitle=Hexenbolzen
 Spell/&WrathfulSmiteDescription=Das Ziel erleidet durch den Angriff zusätzlich 1W6 nekrotischen Schaden und muss einen Weisheitsrettungswurf bestehen oder sich im Zustand „Verängstigt“ befinden, bis der Zauber endet. Am Ende jeder seiner Runden wiederholt das verängstigte Ziel den Rettungswurf und beendet den Zauber bei Erfolg auf sich selbst. Der Schaden erhöht sich um 1W6 für jede Zauberplatzstufe über 1.
 Spell/&WrathfulSmiteTitle=Zorniger Schlag
 Tooltip/&TagDamagePureTitle=Chaotischer Schaden
+Condition/&ConditionChaosBoltLeapDescription=Der Chaosblitz kann überspringen: Nutzen Sie Ihre freie Aktion, um eine andere Kreatur mit einem neuen Angriffs- und Schadenswurf anzuvisieren.
+Condition/&ConditionThunderousSmiteDescription=Ihr nächster Nahkampfwaffentreffer verursacht zusätzlich 2W6 Schallschaden, und das Ziel muss einen Stärkerettungswurf bestehen, sonst wird es 10 Fuß weggestoßen und umgeworfen.
+Condition/&ConditionVoidGraspDescription=Kann keine Reaktionen ausführen.

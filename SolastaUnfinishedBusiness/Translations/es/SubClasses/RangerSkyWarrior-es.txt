@@ -22,3 +22,4 @@ Reaction/&UseGhostlyHowlReactTitle=Aullido fantasmal
 Reaction/&UseGhostlyHowlTitle=Aullido fantasmal
 Subclass/&RangerSkyWarriorDescription=Los guerreros del cielo se han sentido conmovidos por el poder persistente de los paisajes áridos y azotados por el viento, habitados únicamente por espejismos y fantasmas. Combinan elegantes maniobras de espada y escudo con magia de ilusión para prosperar en el combate.
 Subclass/&RangerSkyWarriorTitle=Guerrero del cielo
+Condition/&ConditionRangerSkyWarriorGiftOfTheWindDescription=La velocidad aumenta 10 pies, y las criaturas que golpeas con un ataque con arma cuerpo a cuerpo no pueden hacerte ataques de oportunidad. Termina si dejas de llevar un escudo.

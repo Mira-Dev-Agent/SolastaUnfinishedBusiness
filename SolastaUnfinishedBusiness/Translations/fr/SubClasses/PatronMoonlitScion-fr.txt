@@ -24,3 +24,5 @@ Reaction/&UseMoonlightGuiseReactTitle=Déguisement au clair de lune
 Reaction/&UseMoonlightGuiseTitle=Déguisement au clair de lune
 Subclass/&PatronMoonlitScionDescription=Votre patron est un esprit de la lune, une entité qui incarne la nature cyclique de la lumière et des ténèbres. Ces esprits cherchent à maintenir le pouvoir de la lune sur le ciel nocturne tout en tenant à distance les pouvoirs profanes qui traquent les ténèbres et en chargent leurs sorciers, leur accordant ainsi le contrôle sur les pouvoirs de la lune et ses effets.
 Subclass/&PatronMoonlitScionTitle=Le clair de lune
+Condition/&ConditionMoonlitScionLunarChillEnemyDescription=Entravé jusqu'à la fin du prochain tour de l'occultiste.
+Condition/&ConditionMoonlitScionLunarRadianceEnemyDescription=-1 à la CA.

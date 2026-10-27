@@ -11,3 +11,5 @@ Spell/&MindBlankDescription=在法术结束之前，你接触的一个自愿生�
 Spell/&MindBlankTitle=心灵屏障
 Spell/&SoulExpulsionDescription=你用魔法力量摧毁敌人的灵魂，使其散发出超凡的光芒。选择一个你能在范围内看到的生物，该生物必须进行魅力豁免检定。如果豁免检定失败，目标将受到 11d8 点暗蚀伤害并被击晕，直到你的下一回合开始。如果豁免检定成功，目标将受到一半伤害并且不会被击晕。除目标外，每个在目标 60 英尺范围内的敌人都必须进行感知豁免检定。如果豁免检定失败，生物将受到 7d8 点光耀伤害，并且在你的下一回合结束前攻击检定处于劣势。如果豁免检定成功，生物将受到一半伤害，而不会受到其他伤害。当此法术以不死生物为目标时，此法术将忽略对暗蚀伤害的任何抵抗或免疫，并且目标在豁免检定中处于劣势。当你使用 9 级法术位施放此法术时，暗蚀伤害和光耀伤害都会增加 2d8。
 Spell/&SoulExpulsionTitle=灵魂驱逐
+Condition/&ConditionSoulExpulsionCombatAffinityDescription=攻击检定具有劣势。
+Condition/&ConditionSoulExpulsionSavingThrowAffinityDescription=魅力豁免检定具有劣势；忽略对暗蚀伤害的抗性或免疫。

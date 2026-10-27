@@ -147,3 +147,5 @@ Feat/&FeatGroupWeaponMasterTitle=Maître d'armes
 Feat/&FeatGroupWeaponMasteryDescription=Vous avez pratiqué intensivement avec une variété d'armes, obtenant les avantages suivants :\n• Augmentez votre Force ou votre Dextérité de 1, jusqu'à un maximum de 20.\n• Votre entraînement avec les armes vous permet d'utiliser la propriété de maîtrise d'un type d'arme simple ou martiale de votre choix.
 Feat/&FeatGroupWeaponMasteryTitle=Maîtrise des armes
 Feature/&MartialChampionSuperiorCriticalDescription=Vos attaques d'armes infligent un coup critique sur un résultat de 18, 19 ou 20.
+Feat/&FeatGroupOriginDescription=Dons disponibles via les aptitudes d'historique.
+Feat/&FeatGroupOriginTitle=Dons d'origine

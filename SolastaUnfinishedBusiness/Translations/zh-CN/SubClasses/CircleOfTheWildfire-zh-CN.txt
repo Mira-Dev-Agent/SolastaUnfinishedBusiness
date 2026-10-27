@@ -33,3 +33,6 @@ Reaction/&UseCauterizingFlamesHealReactTitle=灼烧火焰：治疗
 Reaction/&UseCauterizingFlamesHealTitle=灼烧火焰：治疗
 Subclass/&CircleOfTheWildfireDescription=野火之环内的德鲁伊明白，毁灭有时是创造的先兆，例如森林大火会促进后来的生长。这些德鲁伊与一种兼具破坏力和创造力的原始精神紧密相连，这使得德鲁伊能够创造出可控的火焰，烧毁一物，却赋予另一物生命。
 Subclass/&CircleOfTheWildfireTitle=野火之圈
+Condition/&ConditionCircleOfTheWildfireSpiritAttackRollDescription=将其召唤者的法术攻击加值加到攻击检定上。
+Condition/&ConditionCircleOfTheWildfireSpiritDamageRollDescription=将其召唤者的熟练加值加到伤害骰上。
+Condition/&ConditionCircleOfTheWildfireSpiritHitPointsDescription=其召唤者每有一个德鲁伊等级，获得5点额外生命值。

@@ -191,3 +191,7 @@ Reaction/&WarcasterAttackTitle=Attacco
 Tag/&InitiateCantripSpecialTagTitle=Inizia Trucchetti
 Tag/&InitiateSpellSpecialTagTitle=Avviare incantesimi
 Tag/&SniperCantripSpecialTagTitle=Trucchetti da cecchino
+Condition/&ConditionFeatAcrobatDescription=Il terreno difficile non costa movimento extra.
+Condition/&ConditionFeatDungeonDelverDescription=Resistenza ai danni inflitti da questa trappola.
+Condition/&ConditionFeatMageSlayerDescription=Svantaggio ai tiri salvezza per mantenere la concentrazione.
+Feature/&CustomInvocationFeatWeaponMasterDescription=Ottieni competenza con questo tipo di arma.

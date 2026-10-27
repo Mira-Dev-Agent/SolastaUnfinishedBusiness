@@ -22,3 +22,4 @@ Reaction/&UseGhostlyHowlReactTitle=유령의 울부짖음
 Reaction/&UseGhostlyHowlTitle=유령의 울부짖음
 Subclass/&RangerSkyWarriorDescription=스카이 워리어들은 신기루와 유령만이 살고 있는 황량한 바람이 휘몰아치는 풍경의 지속적인 힘에 감동받았습니다. 그들은 칼날과 방패의 우아한 조작과 환영 마법을 결합하여 전투에서 성공합니다.
 Subclass/&RangerSkyWarriorTitle=스카이워리어
+Condition/&ConditionRangerSkyWarriorGiftOfTheWindDescription=이동 속도가 10피트 증가하고, 근접 무기 공격으로 맞힌 생물은 당신에게 기회 공격을 할 수 없습니다. 더 이상 방패를 들지 않으면 끝납니다.

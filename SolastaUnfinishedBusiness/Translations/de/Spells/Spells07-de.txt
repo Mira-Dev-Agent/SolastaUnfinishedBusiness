@@ -17,3 +17,6 @@ Spell/&RescueTheDyingDescription=Mit einem Wort rufst du positive Energie in den
 Spell/&RescueTheDyingTitle=Rettet die Sterbenden
 Spell/&ReverseGravityDescription=Dieser Zauber kehrt die Schwerkraft in einem Zylinder mit einem Radius von 50 Fuß und einer Höhe von 100 Fuß um, dessen Zentrum auf einen Punkt innerhalb der Reichweite gerichtet ist.
 Spell/&ReverseGravityTitle=Umgekehrte Schwerkraft
+Condition/&ConditionCrownOfStarsDescription=Sie können eine Bonusaktion nutzen, um eines Ihrer verbleibenden Lichtpünktchen auf eine Kreatur im Umkreis von 120 Fuß zu schicken.
+Condition/&ConditionDraconicTransformationDescription=Fluggeschwindigkeit von 60 Fuß und Blindsicht von 30 Fuß. Als Bonusaktion können Sie schimmernde Energie in einem Kegel von 60 Fuß ausatmen: 6W8 Energieschaden, Geschicklichkeitsrettungswurf für die Hälfte.
+Condition/&ConditionRescueTheDyingDescription=Resistenz gegen jeglichen Schaden.

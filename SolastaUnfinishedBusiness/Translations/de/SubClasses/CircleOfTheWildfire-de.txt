@@ -33,3 +33,6 @@ Reaction/&UseCauterizingFlamesHealReactTitle=Kauterisierende Flammen: Heilen
 Reaction/&UseCauterizingFlamesHealTitle=Kauterisierende Flammen: Heilen
 Subclass/&CircleOfTheWildfireDescription=Druiden im Circle of Wildfire wissen, dass Zerstörung manchmal der Vorbote von Schöpfung ist, etwa wenn ein Waldbrand späteres Wachstum fördert. Diese Druiden verbinden sich mit einem Urgeist, der sowohl zerstörerische als auch schöpferische Kraft in sich trägt. Dadurch können die Druiden kontrollierte Flammen erzeugen, die eine Sache verbrennen, aber einer anderen Sache Leben geben.
 Subclass/&CircleOfTheWildfireTitle=Kreis des Lauffeuers
+Condition/&ConditionCircleOfTheWildfireSpiritAttackRollDescription=Addiert den Zauberangriffsbonus seines Beschwörers zu Angriffswürfen.
+Condition/&ConditionCircleOfTheWildfireSpiritDamageRollDescription=Addiert den Übungsbonus seines Beschwörers zu Schadenswürfen.
+Condition/&ConditionCircleOfTheWildfireSpiritHitPointsDescription=Erhält 5 zusätzliche Trefferpunkte pro Druidenstufe seines Beschwörers.

@@ -30,3 +30,5 @@ Screen/&InventorWeaponsmithSpellDescription=Это заклинание Боев
 Screen/&InventorWeaponsmithSpellTitle=Боевой кузнец
 Subclass/&InnovationWeaponDescription=Боевые кузнецы уделяют особое внимание изучению магического оружия и эффективному его использованию.
 Subclass/&InnovationWeaponTitle=Боевой кузнец
+Condition/&ConditionInnovationWeaponSummonSteelDefenderProficiencyBonusDescription=Добавляет бонус мастерства своего создателя к броскам урона.
+Condition/&ConditionInnovationWeaponSummonSteelDefenderSpellAttackDescription=Добавляет бонус атаки заклинаниями своего создателя к броскам атаки.

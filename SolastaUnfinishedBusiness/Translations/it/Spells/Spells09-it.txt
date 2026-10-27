@@ -27,3 +27,4 @@ Spell/&TimeStopDescription=Interrompi brevemente il flusso del tempo per tutti t
 Spell/&TimeStopTitle=Tempo fermo
 Spell/&WeirdDescription=Cerchi di creare terrori illusori nelle menti degli altri. Ogni creatura di tua scelta in una Sfera di 30 piedi di raggio centrata su un punto entro gittata effettua un tiro salvezza su Saggezza. Se fallisce il tiro salvezza, un bersaglio subisce 10d10 danni psichici e ha la condizione Spaventato per la durata. Se supera il tiro salvezza, un bersaglio subisce solo la metà dei danni. Un bersaglio Spaventato effettua un tiro salvezza su Saggezza alla fine di ogni suo turno. Se fallisce il tiro salvezza, subisce 5d10 danni psichici. Se supera il tiro salvezza, l'incantesimo termina su quel bersaglio.
 Spell/&WeirdTitle=Strano
+Condition/&ConditionInvulnerabilityDescription=Immunità a tutti i danni.

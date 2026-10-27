@@ -18,3 +18,4 @@ Reaction/&CustomReactionShadowyDodgeReactTitle=花费
 Reaction/&CustomReactionShadowyDodgeTitle=幽影回避
 Subclass/&RangerGloomStalkerDescription=幽域追踪者栖息在最黑暗的地方：地底深处、阴暗的小巷、原始森林以及任何光线暗淡的地方。大多数人进入这些地方都会感到惶恐不安，但幽域追踪者却大胆地冒险进入黑暗，试图在威胁到达更广阔的世界之前对其进行伏击。这样的游侠经常出现在幽暗地域中，但他们会去任何邪恶潜伏在阴影中的地方。
 Subclass/&RangerGloomStalkerTitle=幽域追踪者
+Condition/&ConditionRangerGloomStalkerDreadAmbusherDescription=步行速度提高10英尺，直到回合结束。

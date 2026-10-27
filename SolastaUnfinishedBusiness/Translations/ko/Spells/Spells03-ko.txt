@@ -85,3 +85,6 @@ Spell/&VitalityTransferDescription=당신은 다른 생물의 부상을 치료�
 Spell/&VitalityTransferTitle=생명 전이
 Spell/&WinterBreathDescription=차가운 바람을 일으켜 적들을 냉각시키고 쓰러뜨립니다.
 Spell/&WinterBreathTitle=겨울의 숨결
+Condition/&ConditionAdderFangsDescription=공격과 능력 판정에 불리점을 받습니다. 이동 속도가 절반이 됩니다.
+Condition/&ConditionAshardalonStrideDescription=이동 속도가 {0}피트 증가하고 이동이 기회 공격을 유발하지 않습니다. 당신이 5피트 이내로 지나간 생물은 턴당 한 번 화염 피해를 받습니다.
+Condition/&ConditionIntellectFortressDescription=정신 피해에 저항합니다. 지능, 지혜, 매력 내성 굴림에 이점을 얻습니다.

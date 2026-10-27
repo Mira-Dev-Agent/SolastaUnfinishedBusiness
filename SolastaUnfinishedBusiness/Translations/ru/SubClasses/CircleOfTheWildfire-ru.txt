@@ -33,3 +33,6 @@ Reaction/&UseCauterizingFlamesHealReactTitle=Прижигающее пламя: 
 Reaction/&UseCauterizingFlamesHealTitle=Прижигающее пламя: Исцеление
 Subclass/&CircleOfTheWildfireDescription=Друиды круга дикого огня понимают, что разрушение иногда является предшественником созидания, например, когда лесной пожар способствует последующему росту. Эти друиды связаны с первобытным духом, который питает как разрушительную, так и созидательную силу, позволяя друидам создавать контролируемое пламя, которое сжигает одно, но даёт жизнь другому.
 Subclass/&CircleOfTheWildfireTitle=Круг дикого огня
+Condition/&ConditionCircleOfTheWildfireSpiritAttackRollDescription=Добавляет бонус атаки заклинаниями своего призывателя к броскам атаки.
+Condition/&ConditionCircleOfTheWildfireSpiritDamageRollDescription=Добавляет бонус мастерства своего призывателя к броскам урона.
+Condition/&ConditionCircleOfTheWildfireSpiritHitPointsDescription=Получает 5 дополнительных хитов за каждый уровень друида своего призывателя.

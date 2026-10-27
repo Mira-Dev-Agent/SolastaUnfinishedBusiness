@@ -17,3 +17,6 @@ Spell/&RescueTheDyingDescription=Con una palabra, invocas energía positiva en e
 Spell/&RescueTheDyingTitle=Rescatar a los moribundos
 Spell/&ReverseGravityDescription=Este hechizo invierte la gravedad en un cilindro de 50 pies de radio y 100 pies de alto centrado en un punto dentro del alcance.
 Spell/&ReverseGravityTitle=Gravedad inversa
+Condition/&ConditionCrownOfStarsDescription=Puedes usar una acción adicional para enviar una de tus motas restantes a una criatura situada a 120 pies o menos.
+Condition/&ConditionDraconicTransformationDescription=Velocidad de vuelo de 60 pies y vista ciega de 30 pies. Como acción adicional, puedes exhalar energía reluciente en un cono de 60 pies: 6d8 de daño de fuerza, tirada de salvación de Destreza para la mitad.
+Condition/&ConditionRescueTheDyingDescription=Resistencia a todo el daño.

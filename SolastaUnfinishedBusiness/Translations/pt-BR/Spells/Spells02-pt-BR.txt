@@ -65,3 +65,5 @@ Spell/&SpellWebTitle=Web
 Spell/&SubSpellDragonsBreathSpellDescription=Imbuir o alvo com {0} sopro.
 Spell/&WitherAndBloomDescription=Você invoca tanto a morte quanto a vida sobre uma esfera de 10 pés de raio centrada em um aliado. Cada inimigo naquela área deve fazer um teste de resistência de Constituição, sofrendo 2d6 de dano necrótico em uma falha, ou metade do dano em um sucesso. Além disso, o alvo gasta e rola um de seus Dados de Vida não gastos e recupera um número de pontos de vida igual ao teste mais seu modificador de habilidade de conjuração. Quando você conjura esta magia usando um espaço de magia de 3º nível ou superior, o dano aumenta em 1d6 para cada espaço acima de 2º, e o número de Dados de Vida que podem ser gastos e adicionados à jogada de cura aumenta em um para cada espaço acima de 2º.
 Spell/&WitherAndBloomTitle=Murchar e florescer
+Condition/&ConditionBorrowedKnowledgeDescription=Proficiência nesta perícia.
+Condition/&ConditionKineticJauntDescription=O deslocamento a pé aumenta em 10 pés; o movimento não provoca ataques de oportunidade; pode atravessar o espaço de qualquer criatura.

@@ -4,3 +4,4 @@ Feature/&PowerShadarKaiTeleportDescription=Бонусным действием �
 Feature/&PowerShadarKaiTeleportTitle=Благословение Королевы воронов
 Race/&RaceShadarKaiDescription=Шадар-каи - эльфы Царства Теней, изначально увлечённые в это ужасное царство Королевой Воронов. На протяжении веков некоторые из них продолжали служить ей, в то время как иные отважились отправиться на Материальный план, чтобы вершить свои собственные судьбы.
 Race/&RaceShadarKaiTitle=Шадар-кай
+Condition/&ConditionShadarKaiTeleportDescription=Сопротивление всему урону.

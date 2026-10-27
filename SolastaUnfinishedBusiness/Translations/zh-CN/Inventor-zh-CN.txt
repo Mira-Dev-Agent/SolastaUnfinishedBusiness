@@ -57,3 +57,5 @@ Stage/&SubclassSelectionStageInventorInnovationHeader=选择研究领域
 Stage/&SubclassSelectionStageInventorInnovationTitle=研究领域
 Subclass/&InventorInnovationDescription=选择你要专精的研究领域。
 Subclass/&InventorInnovationTitle=研究领域
+Feature/&PowerInventorActiveInfusionsDescription=查看你生效中的灌注、每个灌注所在的物品及其携带者，并可结束其中任意一个。
+Feature/&PowerInventorActiveInfusionsTitle=生效中的灌注

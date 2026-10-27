@@ -67,3 +67,4 @@ Reaction/&ReactionAttackExploiterDescription={0} fue alcanzado por un ataque. Pu
 Reaction/&ReactionAttackExploiterReactDescription=Utilice su reacción para atacar.
 Reaction/&ReactionAttackExploiterReactTitle=Ataque
 Reaction/&ReactionAttackExploiterTitle=Explotar
+Condition/&ConditionFeatCallForChargeDescription=La velocidad aumenta 15 pies; ventaja en la siguiente tirada de ataque.

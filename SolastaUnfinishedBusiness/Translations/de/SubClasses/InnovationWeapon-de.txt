@@ -30,3 +30,5 @@ Screen/&InventorWeaponsmithSpellDescription=Dieser Battle Smith-Zauber gilt imme
 Screen/&InventorWeaponsmithSpellTitle=Schlacht um Smith
 Subclass/&InnovationWeaponDescription=Battle Smiths konzentrieren ihre Studien auf magische Waffen und deren effektiven Einsatz.
 Subclass/&InnovationWeaponTitle=Schlacht um Smith
+Condition/&ConditionInnovationWeaponSummonSteelDefenderProficiencyBonusDescription=Addiert den Übungsbonus seines Erschaffers zu Schadenswürfen.
+Condition/&ConditionInnovationWeaponSummonSteelDefenderSpellAttackDescription=Addiert den Zauberangriffsbonus seines Erschaffers zu Angriffswürfen.

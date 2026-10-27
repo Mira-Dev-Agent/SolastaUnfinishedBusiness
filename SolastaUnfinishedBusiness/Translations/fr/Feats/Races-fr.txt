@@ -93,3 +93,4 @@ Reaction/&UsePowerFeatFlamesOfPhlegethosReactDescription=Vous pouvez allumer vos
 Reaction/&UsePowerFeatFlamesOfPhlegethosReactTitle=Flammes de Phlégéthos
 Reaction/&UsePowerFeatFlamesOfPhlegethosTitle=Flammes de Phlégéthos
 Tag/&WoodElfMagicCantripSpecialTagTitle=Les tours de magie des elfes des bois
+Condition/&ConditionDragonWingsDescription=Vitesse de vol de 60 pieds.

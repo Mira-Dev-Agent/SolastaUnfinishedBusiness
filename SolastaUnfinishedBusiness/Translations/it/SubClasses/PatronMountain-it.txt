@@ -18,3 +18,4 @@ Reaction/&UseBarrierOfStoneReactTitle=Barriera di pietra
 Reaction/&UseBarrierOfStoneTitle=Barriera di pietra
 Subclass/&PatronMountainDescription=Hai stretto un patto con un'antica entità primordiale che abita in cima alle montagne più alte di Solasta. Tali entità anelano a un'epoca più semplice in cui i mortali li abbandonavano al loro lungo sonno sopra le nuvole, senza costruire città e senza scavare miniere. I loro stregoni disdegnano gli strumenti della civiltà, invocando la forza della montagna per proteggere i loro compagni e abbattere i loro nemici.
 Subclass/&PatronMountainTitle=La montagna
+Condition/&ConditionPatronMountainClingingStrengthDescription=La velocità aumenta di 10 piedi e puoi muoverti su pareti e soffitti come con Movimenti del ragno.

@@ -147,3 +147,5 @@ Feat/&FeatGroupWeaponMasterTitle=Maestro de armas
 Feat/&FeatGroupWeaponMasteryDescription=Has practicado extensamente con una variedad de armas, obteniendo los siguientes beneficios:\n• Aumenta tu Fuerza o Destreza en 1, hasta un máximo de 20.\n• Tu entrenamiento con armas te permite usar la propiedad de maestría de un tipo de arma simple o marcial de tu elección.
 Feat/&FeatGroupWeaponMasteryTitle=Maestría en armas
 Feature/&MartialChampionSuperiorCriticalDescription=Tus ataques con armas obtienen un impacto crítico con un resultado de 18, 19 o 20.
+Feat/&FeatGroupOriginDescription=Dotes disponibles mediante rasgos de trasfondo.
+Feat/&FeatGroupOriginTitle=Dotes de origen

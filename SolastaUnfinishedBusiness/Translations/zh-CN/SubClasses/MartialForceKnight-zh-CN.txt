@@ -40,3 +40,4 @@ Reaction/&UseKineticBarrierTitle=动能护壁
 Subclass/&MartialForceKnightDescription=灵能武士是纪律严明的战士，他们利用广泛的心灵能力在战斗中占据上风。他们可以轻松适应任何情况，通过注入灵能的攻击来增强自己的力量，或者通过精神创造的障碍和念控传动来帮助盟友。
 Subclass/&MartialForceKnightTitle=灵能武士
 Tooltip/&ForcePoweredStrikeDieDescription=你的原力打击骰子是 {0}，你还可以使用 {1}。
+Condition/&ConditionMartialForceKnightForceBulwarkDescription=受到半身掩护的保护。

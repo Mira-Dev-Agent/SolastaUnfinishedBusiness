@@ -10,3 +10,4 @@ Feature/&InvocationPoolWayOfBladePathOfTheBladeDescription=당신은 두 가지 
 Feature/&InvocationPoolWayOfBladePathOfTheBladeTitle=칼날의 길
 Subclass/&WayOfBladeDescription=칼날의 길의 승려들은 무기를 끊임없이 훈련하여 무기가 신체의 연장선처럼 됩니다. 칼싸움에 대한 숙달을 바탕으로 이 전통은 다양한 무기를 포함하도록 확장되었습니다.
 Subclass/&WayOfBladeTitle=블레이드의 길
+Feature/&CustomInvocationMonkWeaponSpecializationDescription=이 무기 종류는 당신에게 몽크 무기가 됩니다: 숙련을 얻고, 교묘함 속성을 가지며, 무술 피해 주사위를 사용할 수 있습니다.

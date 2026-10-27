@@ -108,3 +108,5 @@ Reaction/&SpendPowerTidesOfChaosSaveReactTitle=Поток хаоса
 Reaction/&SpendPowerTidesOfChaosSaveTitle=Поток хаоса
 Subclass/&SorcerousWildMagicDescription=Ваша магия исходит от диких сил хаоса, лежащих в основе мироздания. Вы, возможно, подверглись воздействию грубой магии в той или иной форме. Возможно, она просочилась через портал, ведущий в Лимбо, Стихийные Планы или таинственный Дальний Предел. Может быть, вы были благословлены могущественной феей или отмечены демоном. Или ваша магия может быть случайностью вашего рождения, без очевидной причины. Вне зависимости от её происхождения, хаотическая магия бурлит внутри вас, готовая вырваться наружу.
 Subclass/&SorcerousWildMagicTitle=Дикая магия
+Condition/&ConditionSorcerousWildMagicLightningStrikeDescription=До конца своего хода вы можете свободным действием нанести 4к10 урона электричеством до трём выбранным существам в пределах 30 футов.
+Condition/&ConditionSorcerousWildMagicPiercingVulnerabilityDescription=Уязвимость к колющему урону.

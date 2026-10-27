@@ -85,3 +85,6 @@ Spell/&VitalityTransferDescription=Sacrificas parte de tu salud para curar las h
 Spell/&VitalityTransferTitle=Transferencia de vida
 Spell/&WinterBreathDescription=Crea una ráfaga de viento frío para congelar a tus enemigos y derribarlos.
 Spell/&WinterBreathTitle=Aliento de invierno
+Condition/&ConditionAdderFangsDescription=Desventaja en ataques y pruebas de característica; la velocidad se reduce a la mitad.
+Condition/&ConditionAshardalonStrideDescription=La velocidad aumenta {0} pies y moverse no provoca ataques de oportunidad. Las criaturas a 5 pies o menos de tu recorrido reciben daño de fuego, una vez por turno.
+Condition/&ConditionIntellectFortressDescription=Resistencia al daño psíquico; ventaja en las tiradas de salvación de Inteligencia, Sabiduría y Carisma.

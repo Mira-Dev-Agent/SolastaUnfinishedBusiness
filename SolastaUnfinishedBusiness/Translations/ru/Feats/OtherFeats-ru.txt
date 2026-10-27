@@ -191,3 +191,7 @@ Reaction/&WarcasterAttackTitle=Атака
 Tag/&InitiateCantripSpecialTagTitle=Заговоры посвящённого
 Tag/&InitiateSpellSpecialTagTitle=Заклинания посвящённого
 Tag/&SniperCantripSpecialTagTitle=Заговоры меткого заклинателя
+Condition/&ConditionFeatAcrobatDescription=Труднопроходимая местность не требует дополнительного перемещения.
+Condition/&ConditionFeatDungeonDelverDescription=Сопротивление урону от этой ловушки.
+Condition/&ConditionFeatMageSlayerDescription=Помеха на спасброски для поддержания концентрации.
+Feature/&CustomInvocationFeatWeaponMasterDescription=Вы получаете владение этим видом оружия.

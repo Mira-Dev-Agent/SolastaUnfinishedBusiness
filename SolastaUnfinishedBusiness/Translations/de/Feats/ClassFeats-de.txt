@@ -67,3 +67,4 @@ Reaction/&ReactionAttackExploiterDescription={0} wurde von einem Angriff getroff
 Reaction/&ReactionAttackExploiterReactDescription=Nutzen Sie Ihre Reaktion zum Angriff.
 Reaction/&ReactionAttackExploiterReactTitle=Attacke
 Reaction/&ReactionAttackExploiterTitle=Ausbeuten
+Condition/&ConditionFeatCallForChargeDescription=Bewegungsrate um 15 Fuß erhöht; Vorteil beim nächsten Angriffswurf.

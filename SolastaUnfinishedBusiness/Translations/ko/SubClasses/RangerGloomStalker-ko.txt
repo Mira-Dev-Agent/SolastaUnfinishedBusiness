@@ -18,3 +18,4 @@ Reaction/&CustomReactionShadowyDodgeReactTitle=경비
 Reaction/&CustomReactionShadowyDodgeTitle=그림자 회피
 Subclass/&RangerGloomStalkerDescription=글룸 스토커는 땅속 깊은 곳, 어두운 골목길, 원시림, 빛이 어두워지는 곳 등 가장 어두운 곳에 집이 있습니다. 대부분의 사람들은 두려움을 가지고 그러한 장소에 들어갑니다. 그러나 우울한 스토커는 더 넓은 세상에 도달하기 전에 매복 공격을 시도하여 대담하게 어둠 속으로 모험을 감행합니다. 이러한 순찰대는 언더다크에서 흔히 볼 수 있지만, 어둠 속에 악이 도사리고 있는 곳이면 어디든 갈 수 있습니다.
 Subclass/&RangerGloomStalkerTitle=글룸 스토커
+Condition/&ConditionRangerGloomStalkerDreadAmbusherDescription=턴이 끝날 때까지 보행 속도가 10피트 증가합니다.

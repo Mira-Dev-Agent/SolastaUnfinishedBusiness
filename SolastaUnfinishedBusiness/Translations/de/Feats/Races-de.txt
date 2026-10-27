@@ -93,3 +93,4 @@ Reaction/&UsePowerFeatFlamesOfPhlegethosReactDescription=Sie können Ihre Flamme
 Reaction/&UsePowerFeatFlamesOfPhlegethosReactTitle=Flammen von Phlegethos
 Reaction/&UsePowerFeatFlamesOfPhlegethosTitle=Flammen von Phlegethos
 Tag/&WoodElfMagicCantripSpecialTagTitle=Zaubertricks der Waldelfen
+Condition/&ConditionDragonWingsDescription=Fluggeschwindigkeit von 60 Fuß.

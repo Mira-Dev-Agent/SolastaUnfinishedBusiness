@@ -17,3 +17,6 @@ Spell/&RescueTheDyingDescription=Con una parola, richiami energia positiva nel c
 Spell/&RescueTheDyingTitle=Salvare i morenti
 Spell/&ReverseGravityDescription=Questo incantesimo inverte la gravità in un cilindro di 15 metri di raggio e 30 metri di altezza, centrato su un punto entro il raggio d'azione.
 Spell/&ReverseGravityTitle=Gravità inversa
+Condition/&ConditionCrownOfStarsDescription=Puoi usare un'azione bonus per inviare una delle tue scintille rimaste contro una creatura entro 120 piedi.
+Condition/&ConditionDraconicTransformationDescription=Velocità di volo di 60 piedi e vista cieca di 30 piedi. Come azione bonus, puoi esalare energia scintillante in un cono di 60 piedi: 6d8 danni da forza, tiro salvezza su Destrezza per dimezzare.
+Condition/&ConditionRescueTheDyingDescription=Resistenza a tutti i danni.

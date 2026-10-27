@@ -191,3 +191,7 @@ Reaction/&WarcasterAttackTitle=攻击
 Tag/&InitiateCantripSpecialTagTitle=魔法学徒
 Tag/&InitiateSpellSpecialTagTitle=魔法学徒
 Tag/&SniperCantripSpecialTagTitle=法术狙手
+Condition/&ConditionFeatAcrobatDescription=困难地形不消耗额外移动力。
+Condition/&ConditionFeatDungeonDelverDescription=对此陷阱造成的伤害具有抗性。
+Condition/&ConditionFeatMageSlayerDescription=为维持专注而进行的豁免检定具有劣势。
+Feature/&CustomInvocationFeatWeaponMasterDescription=你获得此类武器的熟练。

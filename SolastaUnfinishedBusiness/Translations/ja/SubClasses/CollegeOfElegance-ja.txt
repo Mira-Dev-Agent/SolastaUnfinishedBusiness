@@ -22,3 +22,4 @@ Reaction/&CustomReactionEvasiveFootworkReactTitle=守る
 Reaction/&CustomReactionEvasiveFootworkTitle=回避フットワーク
 Subclass/&CollegeOfEleganceDescription=カレッジ オブ エレガンスは、身体動作の芸術を習得した吟遊詩人の本拠地です。彼らは、ダンスや魅惑的な身振りで自分を表現し、派手な衣装を着て、しばしば注目の的になることに絶妙な美しさを見出します。戦闘では、これらの吟遊詩人はエレガントなステップを戦闘機動にシームレスに織り込み、選択した武器と組み合わせて、友人にも敵にも同様に忘れられない光景を作り出します。
 Subclass/&CollegeOfEleganceTitle=カレッジ オブ エレガンス
+Condition/&ConditionCollegeOfEleganceAmazingDisplayDescription=リアクションを使えない。移動速度が0になる。

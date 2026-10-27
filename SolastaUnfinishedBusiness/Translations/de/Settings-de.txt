@@ -494,3 +494,63 @@ ModUi/&WeaponMasterySystemCustomizeResetAllWarning=Setzen Sie alle Waffen -Meist
 ModUi/&WeaponMasterySystemCustomizeToggle=Passen Sie die Meisterschaften der Waffenmeisterschaft an
 ModUi/&WideScreenBattleUI=Aktivieren Sie die Breitbild-Kampf-Benutzeroberfläche <i><color=#F0DAA0>(Für Auflösungen mit einem Seitenverhältnis von mehr als 16:9)</color></i>
 ModUi/&WildSurgeDieRollThreshold=<color=white>Setze den Schwellenwert für die Chance des <color=#D89555>Sorcerer Wild Magic</color>-Würfels:</color>\n<i><color=#F0DAA0>[Wild Surge wird ausgelöst, wenn der Würfel kleiner oder gleich dem Schwellenwert ist]</color></i>
+ModUi/&AddOriginFeatsToAutoLearn= + Herkunftstalente zum automatischen Lernen hinzufügen
+ModUi/&AllMagicThrownReturn=Alle magischen Wurfwaffen kehren zum Werfer zurück <b><i><color=#C04040E0>[Neustart zum Entfernen nötig]</color></i></b>
+ModUi/&AllowShortRestWithPartySpreadOut=Kurze Rast erlauben, wenn die Gruppe verteilt ist <i><color=#F0DAA0>[ändert die Spielregel, dass die Gruppe innerhalb von 10 Feldern sein muss; nicht im Kampf, Gespräch oder in einer Zwischensequenz, und die anderen Rastregeln (Feinde in der Nähe, unsichere Bereiche, Nahrung) gelten weiter. Auch unter Gameplay > Mehrspieler und Gameplay > Kampagnen]</color></i>
+ModUi/&CombineWaitWithLongRest=Wenn die Gruppe heute schon lange gerastet hat, wartet der Lange-Rast-Knopf, bis wieder gerastet werden kann, und rastet dann <i><color=#F0DAA0>[eine Bestätigung mit der Gesamtzeit und eine Zustimmung im Mehrspieler, auch bei Lagerfeuern; alle anderen Rastregeln gelten weiter]</color></i>
+ModUi/&CraftWithBaseInsteadOfPrimed=Rezepte, die eine präparierte Waffe oder Rüstung verlangen, akzeptieren auch die einfache <i><color=#F0DAA0>[jedes Rezept, aus dem Spiel, dieser Mod und Kampagnen; präparierte Gegenstände werden zuerst verwendet; einfache zählen nur, wenn sie nicht ausgerüstet sind, damit Ihre eigene Ausrüstung nie verbraucht wird]</color></i>
+ModUi/&EnableBackgroundAbilityScoreIncreases=Attributserhöhungen kommen vom Hintergrund statt vom Volk <i><color=#F0DAA0>[Flexible Völker ist nicht kompatibel und wird ausgeschaltet]</color></i>
+ModUi/&EnableBackgroundBonusFeats=Bonustalente durch Hintergründe aktivieren <i><color=#F0DAA0>[Flexible Hintergründe ist nicht kompatibel und wird ausgeschaltet]</color></i>
+ModUi/&EnableLevelDownAction=Die Aktion <color=#D89555>STUFE ZURÜCK</color> nach der Rast aktivieren <i><color=#F0DAA0>[macht die letzte Stufe eines Helden und ihre Entscheidungen rückgängig; nur mit Finishing Business 1.6.1.0 oder neuer erreichte Stufen werden aufgezeichnet]</color></i>
+ModUi/&InfusionSlotsReturnOnLongRestOnly=Das Beenden einer Infusion gibt ihren Platz erst bei der nächsten langen Rast frei <i><color=#F0DAA0>[Tabletop-Regel; sonst ist der Platz sofort frei. Das Ersetzen einer Infusion oder Infusionen ändern nach einer langen Rast gibt ihn immer sofort frei]</color></i>
+ModUi/&InfusionsOnlyOnNonMagicalItems=Infusionen des Artificers können nur auf nichtmagische Gegenstände gelegt werden <i><color=#F0DAA0>[Tabletop-Regel; sonst können auch magische Gegenstände infundiert werden, aber keine Waffe, die gerade von einem vorübergehenden Zauber wie Magische Waffe verstärkt wird]</color></i>
+ModUi/&MultiplayerAllowAlliesToPassThroughInCombat=Verbündeten im Kampf erlauben, sich durcheinander hindurch zu bewegen, solange sich beide bewegen
+ModUi/&MultiplayerAllowCharactersToOverlapOutOfCombat=Charakteren außerhalb des Kampfes erlauben, Felder zu teilen, damit die Gruppe gemeinsam durch Kriechgänge und Türen geht
+ModUi/&MultiplayerAllowPlayersToStartRests=Jeden Spieler eine kurze oder lange Rast im Rastbildschirm beginnen lassen, nicht nur den Host <i><color=#F0DAA0>[der Host wendet die Rast weiterhin für alle an; Lagerfeuer und von der Geschichte begonnene Rasten folgen den Spielregeln]</color></i>
+ModUi/&MultiplayerAlwaysOnFixes=<color=#F0DAA0>Immer aktiv:</color> Das Zufallsziel der Wilden Magie nutzt die synchronisierten Würfel, die UMSCHALT-Wahl zwischen Hexenmeister- und normalen Plätzen wird mit dem Zauber, der Reaktion oder der Umwandlung an jeden Computer gesendet, Reaktionszeitstempel werden im Mehrspieler nicht gespeichert, jeder Held erhält eine Rolle pro Gespräch, ein Held spricht nie zwei Zeilen hintereinander für verschiedene Rollen, und Helden 5 und 6 erhalten eigene Plätze in Zwischensequenzen.
+ModUi/&MultiplayerApprovalSkipActionsOfTenMinutesOrLess=Nicht nach Ritualen und Aktionen von 10 Minuten oder weniger fragen <i><color=#F0DAA0>[Rituale, Wirkzeiten von 1 und 10 Minuten, Gottheit markieren]</color></i>
+ModUi/&MultiplayerBuildInfo=<color=white>Dieser Build:</color> {0}
+ModUi/&MultiplayerCurrentDelay=<color=white>Aktuelle Aktionsverzögerung:</color> {0} Ticks ({1} ms)
+ModUi/&MultiplayerDescription=Korrekturen und Änderungen für den Mehrspielermodus. Jeder Spieler muss denselben Mod-Build und dieselben Einstellungen verwenden, da das Spiel auf jedem Computer dieselbe Simulation ausführt.
+ModUi/&MultiplayerDesyncTitle=<color=#F0DAA0>Desync:</color>
+ModUi/&MultiplayerDeterministicHitCounting=Trefferreaktionen einmal pro Spieltick statt einmal pro gezeichnetem Bild zählen <i><color=#F0DAA0>[behebt einen Desync, wenn ein Bild eines Spielers länger als 50 ms dauert (unter 20 FPS oder ein Ruckler), während ein Ziel zweimal hintereinander getroffen wird; nur Mehrspielerpartien]</color></i>
+ModUi/&MultiplayerDeterministicStandAgainstTheTide=Die synchronisierten Würfel verwenden, um das Umleitungsziel von <color=#D89555>Stand Against the Tide</color> zu wählen <i><color=#F0DAA0>[nur Mehrspielerpartien]</color></i>
+ModUi/&MultiplayerEnableDesyncDetection=Desyncs erkennen und eine Warnung anzeigen, damit die Gruppe neu laden kann <i><color=#F0DAA0>[vergleicht alle 5 Sekunden den Entitätenzähler zwischen den Computern]</color></i>
+ModUi/&MultiplayerEnableStateFingerprint=Zusätzlich alle 5 Sekunden TP, Position, Zustände, Zauberplätze jedes Charakters und die Würfelfolge vergleichen und sagen, welcher Charakter abweicht <i><color=#F0DAA0>[nur geprüft, wenn sich nichts bewegt oder handelt]</color></i>
+ModUi/&MultiplayerEnableTickBufferTuning=Aktionsverzögerung anpassen <i><color=#F0DAA0>[jede Aktion wird um so viele 50-ms-Ticks verzögert, damit sie rechtzeitig jeden Computer erreicht]</color></i>
+ModUi/&MultiplayerFlushCommandsImmediately=Jede Aktion sofort beim Auslösen senden statt beim nächsten Tick <i><color=#F0DAA0>[spart bis zu 50 ms pro Aktion; dieselben Nachrichten, nur früher gesendet]</color></i>
+ModUi/&MultiplayerFps={0} FPS
+ModUi/&MultiplayerFpsAllSeeAll=Alle sehen alle
+ModUi/&MultiplayerFpsHostSeesAll=Nur der Host sieht alle
+ModUi/&MultiplayerFpsHostSeesAllOthersOwn=Host sieht alle, andere ihre eigenen
+ModUi/&MultiplayerFpsOwnOnly=Jeder Spieler sieht seine eigenen
+ModUi/&MultiplayerFpsVisibility=<color=white>Wer die Bildraten (FPS) der Spieler sieht</color> <i><color=#F0DAA0>[angezeigt in diesem Reiter, auf Spielerplaketten und im Overlay; gelb unter 45 FPS, rot unter 30]</color></i>
+ModUi/&MultiplayerHostRole= (Host)
+ModUi/&MultiplayerHostSettingsBanner=<b><color=#E0A040>Dies sind die Einstellungen des HOSTS für diese Mehrspielersitzung. Sie sind hier schreibgeschützt und Ihre eigene Settings.xml bleibt unverändert.</color></b>
+ModUi/&MultiplayerHostSettingsThisLaunchBanner=<b><color=#E0A040>Dieser Start verwendet die Einstellungen des HOSTS (Settings/Host.xml). Sie sind hier schreibgeschützt und Ihre eigene Settings.xml bleibt unverändert; der nächste Start verwendet wieder Ihre eigenen Einstellungen.</color></b>
+ModUi/&MultiplayerInitialTickBuffer=<color=white>Anfängliche Aktionsverzögerung in Ticks</color> <i><color=#F0DAA0>[Spielstandard 6]</color></i>
+ModUi/&MultiplayerLagTitle=<color=#F0DAA0>Aktionsverzögerung:</color>
+ModUi/&MultiplayerMenu=Mehrspieler
+ModUi/&MultiplayerMinimumTickBuffer=<color=white>Minimale Aktionsverzögerung in Ticks</color> <i><color=#F0DAA0>[Spielstandard 4, nur verwendet, wenn jeder Ping es erlaubt]</color></i>
+ModUi/&MultiplayerMovementTitle=<color=#F0DAA0>Bewegung</color> <i><color=#F0DAA0>[nur Mehrspielerpartien, Einzelspieler behält die Spielregeln]</color></i><color=#F0DAA0>:</color>
+ModUi/&MultiplayerNoFps=FPS nicht gemeldet
+ModUi/&MultiplayerNoHost=Nicht in einem Mehrspielerraum.
+ModUi/&MultiplayerNoPing=Ping nicht gemeldet
+ModUi/&MultiplayerNoVersion=keine Version gemeldet
+ModUi/&MultiplayerOfferHostResync=Dem Host eine Ein-Klick-Neusynchronisierung anbieten, wenn ein Desync nicht korrigiert werden kann <i><color=#F0DAA0>[der Host speichert schnell und lädt neu; Clients werden in denselben Spielstand geholt]</color></i>
+ModUi/&MultiplayerPing=Ping {0} ms
+ModUi/&MultiplayerPingBasedTickBuffer=Die Aktionsverzögerung nach dem Ping jedes Spielers bemessen <i><color=#F0DAA0>[erhöht sie, bevor jemand wartet, wenn eine Verbindung langsam ist, und lässt schnelle Gruppen bis zum Minimum unten sinken]</color></i>
+ModUi/&MultiplayerPingVisibleToHostOnly=Nur der Host sieht den Ping der Spieler und die Aktionsverzögerung <i><color=#F0DAA0>[sonst sieht jeder Spieler sie in diesem Reiter und auf Spielerplaketten]</color></i>
+ModUi/&MultiplayerPlayersVersions=<color=white>Builds in diesem Raum:</color>
+ModUi/&MultiplayerQuickCorrectDesync=Außerhalb des Kampfes darf der Host kleine Abweichungen (TP, Position, Zauberplätze, Würfel) auf jedem Computer ohne Neuladen korrigieren <i><color=#F0DAA0>[Zustände oder fehlende Charaktere erfordern weiterhin eine Neusynchronisierung]</color></i>
+ModUi/&MultiplayerRequireApprovalForTimeConsumingActions=Jeden Spieler Aktionen zustimmen lassen, bei denen Spielzeit vergeht: kurze und lange Rasten, Zauber aus Schriftrollen lernen oder schreiben, Gottheit markieren, Rituale sowie Zauber oder Kräfte, die eine Minute oder länger dauern <i><color=#F0DAA0>[das Fenster sagt, was getan wird und wie lange; niemand wird gefragt, während ein Charakter im Kampf oder in einer Zwischensequenz ist, und der fragende Spieler erfährt, welcher Charakter]</color></i>
+ModUi/&MultiplayerResolveOverlapsOnBattleStart=Bei Kampfbeginn Charaktere, die sich ein Feld teilen, auf das nächste sichere Feld bewegen <i><color=#F0DAA0>[kostenlos, ungefährlich und beim Schleichen von Feinden ungesehen. Ein einzelner Schleicher in einem Feld, das kein Feind sieht, behält es; sonst behält es der zuerst erstellte Charakter]</color></i>
+ModUi/&MultiplayerSecondsBeforeLowerTickBuffer=<color=white>Sekunden ohne Warten, bevor die Verzögerung gesenkt wird</color> <i><color=#F0DAA0>[Spielstandard 10]</color></i>
+ModUi/&MultiplayerShowFpsOverlay=Während einer Mehrspielersitzung oben links ein kleines Overlay mit den Bildraten und Pings anzeigen, die Sie sehen dürfen
+ModUi/&MultiplayerSpreadOverlappedCharacters=Charaktere, die sich ein Feld teilen, leicht auseinander zeichnen, damit jeder angezeigt werden kann <i><color=#F0DAA0>[nur optisch: zwei nebeneinander, drei im Dreieck, mehr in einem weiteren Ring; sie kehren in die Mitte zurück, wenn sie sich bewegen]</color></i>
+ModUi/&MultiplayerTimeTitle=<color=#F0DAA0>Zeit und Rasten:</color>
+ModUi/&PickPocketNonHostiles=Auch vielen nicht feindseligen NSCs Beute zum Taschendiebstahl hinzufügen <i><color=#F0DAA0>[ein Fehlschlag wirkt sich auf den Ruf aus]</color></i>
+ModUi/&SearchClear=Leeren
+ModUi/&SearchNoResults=Keine Einstellungen passen zu "{0}".
+ModUi/&SearchSettings=Einstellungen suchen:
+ModUi/&WarnBeforeCrafting=Vor dem Herstellen warnen, dass die Zutaten sofort verbraucht werden und Herstellungswürfe misslingen können <i><color=#F0DAA0>[listet auch einfache Waffen oder Rüstungen auf, die anstelle präparierter verwendet werden]</color></i>

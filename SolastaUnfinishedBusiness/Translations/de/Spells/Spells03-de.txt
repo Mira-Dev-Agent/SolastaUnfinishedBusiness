@@ -85,3 +85,6 @@ Spell/&VitalityTransferDescription=Du opferst einen Teil deiner Gesundheit, um d
 Spell/&VitalityTransferTitle=Lebensübertragung
 Spell/&WinterBreathDescription=Erzeugen Sie einen kalten Windstoß, der Ihre Feinde unterkühlt und niederstreckt.
 Spell/&WinterBreathTitle=Winteratem
+Condition/&ConditionAdderFangsDescription=Nachteil bei Angriffen und Attributswürfen; Bewegungsrate halbiert.
+Condition/&ConditionAshardalonStrideDescription=Bewegungsrate um {0} Fuß erhöht und Bewegung provoziert keine Gelegenheitsangriffe. Kreaturen, an denen Sie sich auf 5 Fuß vorbeibewegen, erleiden einmal pro Zug Feuerschaden.
+Condition/&ConditionIntellectFortressDescription=Resistenz gegen psychischen Schaden; Vorteil bei Intelligenz-, Weisheits- und Charismarettungswürfen.

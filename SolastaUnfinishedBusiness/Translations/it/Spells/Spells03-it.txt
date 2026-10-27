@@ -85,3 +85,6 @@ Spell/&VitalityTransferDescription=Sacrifichi parte della tua salute per curare 
 Spell/&VitalityTransferTitle=Trasferimento della vita
 Spell/&WinterBreathDescription=Crea una folata di vento freddo per congelare i tuoi nemici e buttarli a terra.
 Spell/&WinterBreathTitle=Il respiro dell'inverno
+Condition/&ConditionAdderFangsDescription=Svantaggio agli attacchi e alle prove di caratteristica; la velocità è dimezzata.
+Condition/&ConditionAshardalonStrideDescription=La velocità aumenta di {0} piedi e muoversi non provoca attacchi di opportunità. Le creature entro 5 piedi dal tuo percorso subiscono danni da fuoco, una volta per turno.
+Condition/&ConditionIntellectFortressDescription=Resistenza ai danni psichici; vantaggio ai tiri salvezza su Intelligenza, Saggezza e Carisma.

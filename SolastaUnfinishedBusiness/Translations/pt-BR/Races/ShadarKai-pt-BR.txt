@@ -4,3 +4,4 @@ Feature/&PowerShadarKaiTeleportDescription=Como uma ação bônus, você pode ma
 Feature/&PowerShadarKaiTeleportTitle=Bênção da Rainha Corvo
 Race/&RaceShadarKaiDescription=Shadar-kai são os elfos do Pendor das Sombras, originalmente atraídos para aquele reino temido pela Rainha Corvo. Ao longo dos séculos, alguns deles continuaram a servi-la, enquanto outros se aventuraram no Plano Material para forjar seus próprios destinos.
 Race/&RaceShadarKaiTitle=Shadar Kai
+Condition/&ConditionShadarKaiTeleportDescription=Resistência a todo dano.

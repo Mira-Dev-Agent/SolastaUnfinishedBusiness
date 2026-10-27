@@ -4,3 +4,4 @@ Feature/&PowerShadarKaiTeleportDescription=用一个附赠动作，你可以魔�
 Feature/&PowerShadarKaiTeleportTitle=鸦后的祝福
 Race/&RaceShadarKaiDescription=影灵是堕影冥界的精灵，从前被鸦后带来了这个阴森可怖的世界。几个世纪以来，他们中的一些仍然继续侍奉于她，而另一些则冒险进入了物质位面来造就属于自己的命运。
 Race/&RaceShadarKaiTitle=影灵
+Condition/&ConditionShadarKaiTeleportDescription=对所有伤害具有抗性。

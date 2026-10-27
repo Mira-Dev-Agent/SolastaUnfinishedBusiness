@@ -107,3 +107,4 @@ Reaction/&UseTombOfFrostDescription=Vous pouvez vous enfouir dans la glace, gagn
 Reaction/&UseTombOfFrostReactDescription=Réduisez les dégâts.
 Reaction/&UseTombOfFrostReactTitle=Tombeau de Lévistus
 Reaction/&UseTombOfFrostTitle=Tombeau de Léviste
+Condition/&ConditionInvocationTombOfFrostDescription=Ne peut ni bouger, ni effectuer d'actions ou de réactions ; vulnérable aux dégâts de feu.

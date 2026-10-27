@@ -65,3 +65,5 @@ Spell/&SpellWebTitle=Web
 Spell/&SubSpellDragonsBreathSpellDescription=Imbuye al objetivo con {0} aliento.
 Spell/&WitherAndBloomDescription=Invocas tanto la muerte como la vida sobre una esfera de 10 pies de radio centrada en un aliado. Cada enemigo en esa área debe realizar una tirada de salvación de Constitución, recibiendo 2d6 de daño necrótico si falla, o la mitad de daño si tiene éxito. Además, el objetivo gasta y tira uno de sus Dados de Golpe no gastados y recupera una cantidad de puntos de golpe igual a la tirada más tu modificador por capacidad de lanzamiento de conjuros. Cuando lanzas este conjuro usando un espacio de conjuro de nivel 3 o superior, el daño aumenta en 1d6 por cada espacio por encima del 2.º, y la cantidad de Dados de Golpe que se pueden gastar y añadir a la tirada de curación aumenta en uno por cada espacio por encima del 2.º.
 Spell/&WitherAndBloomTitle=Marchitarse y florecer
+Condition/&ConditionBorrowedKnowledgeDescription=Competencia en esta habilidad.
+Condition/&ConditionKineticJauntDescription=La velocidad a pie aumenta 10 pies; el movimiento no provoca ataques de oportunidad; puede atravesar el espacio de cualquier criatura.

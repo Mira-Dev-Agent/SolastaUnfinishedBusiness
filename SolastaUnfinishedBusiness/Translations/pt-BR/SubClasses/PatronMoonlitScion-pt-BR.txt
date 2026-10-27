@@ -24,3 +24,5 @@ Reaction/&UseMoonlightGuiseReactTitle=Disfarce de luar
 Reaction/&UseMoonlightGuiseTitle=Disfarce de luar
 Subclass/&PatronMoonlitScionDescription=Seu patrono é um espírito da lua, uma entidade que incorpora a natureza cíclica da luz e da escuridão. Esses espíritos buscam manter o poder da lua sobre o céu noturno enquanto mantêm poderes profanos que perseguem a escuridão sob controle e encarregam seus bruxos do mesmo, concedendo-lhes comando sobre os poderes da lua e seus efeitos.
 Subclass/&PatronMoonlitScionTitle=O Luar
+Condition/&ConditionMoonlitScionLunarChillEnemyDescription=Impedido até o fim do próximo turno do bruxo.
+Condition/&ConditionMoonlitScionLunarRadianceEnemyDescription=-1 na CA.

@@ -24,3 +24,5 @@ Reaction/&UseMoonlightGuiseReactTitle=Maschera al chiaro di luna
 Reaction/&UseMoonlightGuiseTitle=Maschera al chiaro di luna
 Subclass/&PatronMoonlitScionDescription=Il tuo patrono è uno spirito della luna, un'entità che incarna la natura ciclica di luce e oscurità. Questi spiriti cercano di mantenere il potere della luna sul cielo notturno, tenendo a bada i poteri profani che infestano l'oscurità e incaricando i loro stregoni di fare lo stesso, concedendo loro il comando sui poteri della luna e sui suoi effetti.
 Subclass/&PatronMoonlitScionTitle=Il Chiaro di Luna
+Condition/&ConditionMoonlitScionLunarChillEnemyDescription=Ostacolato fino alla fine del prossimo turno del warlock.
+Condition/&ConditionMoonlitScionLunarRadianceEnemyDescription=-1 alla CA.

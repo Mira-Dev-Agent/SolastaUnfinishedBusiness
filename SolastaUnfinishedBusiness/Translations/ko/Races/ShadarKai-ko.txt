@@ -4,3 +4,4 @@ Feature/&PowerShadarKaiTeleportDescription=보너스 액션으로, 당신이 볼
 Feature/&PowerShadarKaiTeleportTitle=까마귀 여왕의 축복
 Race/&RaceShadarKaiDescription=Shadar-kai는 원래 Raven Queen에 의해 그 무서운 영역으로 끌려간 Shadowfell의 엘프입니다. 수세기에 걸쳐 그들 중 일부는 계속해서 그녀를 섬겼고, 다른 일부는 자신의 운명을 개척하기 위해 물질계로 모험을 떠났습니다.
 Race/&RaceShadarKaiTitle=샤다르카이
+Condition/&ConditionShadarKaiTeleportDescription=모든 피해에 저항합니다.

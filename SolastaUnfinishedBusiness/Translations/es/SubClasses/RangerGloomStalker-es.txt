@@ -18,3 +18,4 @@ Reaction/&CustomReactionShadowyDodgeReactTitle=Gastar
 Reaction/&CustomReactionShadowyDodgeTitle=Esquiva sombría
 Subclass/&RangerGloomStalkerDescription=Los acechadores sombríos se sienten como en casa en los lugares más oscuros: en las profundidades de la tierra, en callejones sombríos, en bosques primitivos y en cualquier otro lugar donde la luz se atenúe. La mayoría de la gente entra en esos lugares con temor, pero un acechador sombrío se aventura audazmente en la oscuridad, buscando tender una emboscada a las amenazas antes de que puedan llegar al resto del mundo. Estos exploradores se encuentran a menudo en la Infraoscuridad, pero irán a cualquier lugar donde el mal aceche en las sombras.
 Subclass/&RangerGloomStalkerTitle=Acechador sombrío
+Condition/&ConditionRangerGloomStalkerDreadAmbusherDescription=La velocidad a pie aumenta 10 pies hasta el final del turno.

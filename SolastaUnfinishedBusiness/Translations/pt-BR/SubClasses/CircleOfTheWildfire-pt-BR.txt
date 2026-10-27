@@ -33,3 +33,6 @@ Reaction/&UseCauterizingFlamesHealReactTitle=Chamas Cauterizantes: Cura
 Reaction/&UseCauterizingFlamesHealTitle=Cauterizando Chamas: Cura
 Subclass/&CircleOfTheWildfireDescription=Druidas dentro do Círculo do Fogo Selvagem entendem que a destruição às vezes é a precursora da criação, como quando um incêndio florestal promove o crescimento posterior. Esses druidas se unem a um espírito primitivo que abriga tanto poder destrutivo quanto criativo, permitindo que os druidas criem chamas controladas que queimam uma coisa, mas dão vida a outra.
 Subclass/&CircleOfTheWildfireTitle=Círculo do Fogo Selvagem
+Condition/&ConditionCircleOfTheWildfireSpiritAttackRollDescription=Soma o bônus de ataque mágico de quem o invocou às jogadas de ataque.
+Condition/&ConditionCircleOfTheWildfireSpiritDamageRollDescription=Soma o bônus de proficiência de quem o invocou às jogadas de dano.
+Condition/&ConditionCircleOfTheWildfireSpiritHitPointsDescription=Ganha 5 pontos de vida extras por nível de druida de quem o invocou.

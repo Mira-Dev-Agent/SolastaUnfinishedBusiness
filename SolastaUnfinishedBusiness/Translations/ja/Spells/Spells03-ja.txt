@@ -85,3 +85,6 @@ Spell/&VitalityTransferDescription=他のクリーチャーの傷を修復する
 Spell/&VitalityTransferTitle=生命の転移
 Spell/&WinterBreathDescription=冷たい風を起こして敵を冷やし、伏せさせます。
 Spell/&WinterBreathTitle=冬の息吹
+Condition/&ConditionAdderFangsDescription=攻撃と能力値判定に不利。移動速度が半分になる。
+Condition/&ConditionAshardalonStrideDescription=移動速度が{0}フィート増加し、移動で機会攻撃を誘発しない。移動中に5フィート以内を通ったクリーチャーは、1ターンに1回、火ダメージを受ける。
+Condition/&ConditionIntellectFortressDescription=精神ダメージに抵抗。【知力】【判断力】【魅力】セーヴィング・スローに有利。

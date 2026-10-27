@@ -108,3 +108,5 @@ Reaction/&SpendPowerTidesOfChaosSaveReactTitle=혼돈의 물결
 Reaction/&SpendPowerTidesOfChaosSaveTitle=혼돈의 물결
 Subclass/&SorcerousWildMagicDescription=당신의 타고난 마법은 창조 질서의 근간을 이루는 혼돈의 거친 힘에서 비롯됩니다. 어쩌면 림보, 정령계, 신비한 먼 영역으로 이어지는 차원 포털을 통해 어떤 형태로든 원시 마법에 노출되는 것을 견뎌냈을 수도 있습니다. 아마도 당신은 강력한 요정 생물의 축복을 받았거나 악마의 표식을 받았을 것입니다. 또는 당신의 마법은 뚜렷한 원인이나 이유가 없는 출생의 우연일 수도 있습니다. 그러나 이 혼돈의 마법은 당신의 내면을 휘젓고 어떤 출구를 기다리게 되었습니다.
 Subclass/&SorcerousWildMagicTitle=와일드 매직
+Condition/&ConditionSorcerousWildMagicLightningStrikeDescription=턴이 끝나기 전에 자유 행동으로 30피트 이내에서 선택한 생물 최대 셋에게 4d10 번개 피해를 줄 수 있습니다.
+Condition/&ConditionSorcerousWildMagicPiercingVulnerabilityDescription=관통 피해에 취약합니다.

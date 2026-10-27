@@ -33,3 +33,6 @@ Reaction/&UseCauterizingFlamesHealReactTitle=Flammes cautérisantes : guérir
 Reaction/&UseCauterizingFlamesHealTitle=Flammes cautérisantes : Guérison
 Subclass/&CircleOfTheWildfireDescription=Les druides du Cercle du Feu sauvage comprennent que la destruction est parfois le précurseur de la création, comme lorsqu'un feu de forêt favorise la croissance ultérieure. Ces druides se lient à un esprit primordial qui abrite à la fois un pouvoir destructeur et créatif, ce qui leur permet de créer des flammes contrôlées qui brûlent une chose mais donnent vie à une autre.
 Subclass/&CircleOfTheWildfireTitle=Cercle du feu de forêt
+Condition/&ConditionCircleOfTheWildfireSpiritAttackRollDescription=Ajoute le bonus d'attaque des sorts de son invocateur à ses jets d'attaque.
+Condition/&ConditionCircleOfTheWildfireSpiritDamageRollDescription=Ajoute le bonus de maîtrise de son invocateur à ses jets de dégâts.
+Condition/&ConditionCircleOfTheWildfireSpiritHitPointsDescription=Gagne 5 points de vie supplémentaires par niveau de druide de son invocateur.

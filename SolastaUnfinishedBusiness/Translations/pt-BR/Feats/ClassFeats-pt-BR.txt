@@ -67,3 +67,4 @@ Reaction/&ReactionAttackExploiterDescription={0} foi atingido por um ataque. Voc
 Reaction/&ReactionAttackExploiterReactDescription=Use sua reação para atacar.
 Reaction/&ReactionAttackExploiterReactTitle=Ataque
 Reaction/&ReactionAttackExploiterTitle=Explorar
+Condition/&ConditionFeatCallForChargeDescription=O deslocamento aumenta em 15 pés; vantagem na próxima jogada de ataque.

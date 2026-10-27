@@ -70,3 +70,6 @@ Spell/&TreeForestGuardianDescription=피부가 거칠어지고 머리카락에�
 Spell/&TreeForestGuardianTitle=야생나무
 Spell/&VitriolicSphereDescription=범위 내의 한 지점을 가리키면 1피트 길이의 빛나는 에메랄드 산성 공이 그곳에서 줄을 지어 20피트 반경에서 폭발합니다. 그 지역에 있는 각 생물은 민첩 내성 굴림을 해야 합니다. 저장에 실패하면 생물은 다음 턴이 끝날 때 10d4의 산성 피해를 입고 5d4의 산성 피해를 입습니다. 성공적으로 저장하면 생물은 초기 피해의 절반을 받고 다음 턴이 끝날 때 피해를 입지 않습니다. 5레벨 이상의 주문 슬롯을 사용해 이 주문을 시전하면, 4레벨 이상의 각 슬롯 레벨마다 초기 피해가 2d4씩 증가합니다.
 Spell/&VitriolicSphereTitle=유리 구
+Condition/&ConditionPsionicBlastDescription=시전자의 다음 턴이 끝날 때까지 이동 속도가 절반이 됩니다.
+Condition/&ConditionSynapticStaticDescription=명중 굴림과 능력 판정에서 1d6을 뺍니다. 각 턴이 끝날 때 지능 내성 굴림을 다시 하여 효과를 끝냅니다.
+Spell/&ElementalBaneSubSpellDescription=대상은 건강 내성 굴림에 성공해야 합니다. 실패하면 매 턴 처음으로 {0} 피해를 받을 때 추가로 2d6 {0} 피해를 받고, 주문이 끝날 때까지 {0} 피해에 대한 저항을 잃습니다.

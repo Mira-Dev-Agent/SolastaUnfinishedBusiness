@@ -17,3 +17,6 @@ Spell/&RescueTheDyingDescription=言葉を発することで、対象の身体�
 Spell/&RescueTheDyingTitle=死にゆく人を救う
 Spell/&ReverseGravityDescription=この呪文は、範囲内の点を中心とした半径 50 フィート、高さ 100 フィートの円柱内で重力を逆転させます。
 Spell/&ReverseGravityTitle=リバースグラビティ
+Condition/&ConditionCrownOfStarsDescription=ボーナス・アクションで残りの光点の1つを120フィート以内のクリーチャーに放てる。
+Condition/&ConditionDraconicTransformationDescription=飛行速度60フィート、盲目視覚30フィート。ボーナス・アクションで60フィートの円錐形にきらめくエネルギーを吐き出せる：6d8の力場ダメージ、【敏捷力】セーヴィング・スローで半減。
+Condition/&ConditionRescueTheDyingDescription=すべてのダメージに抵抗を持つ。

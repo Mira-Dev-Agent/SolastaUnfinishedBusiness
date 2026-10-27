@@ -30,3 +30,5 @@ Screen/&InventorWeaponsmithSpellDescription=Ce sort de forgeron de bataille est 
 Screen/&InventorWeaponsmithSpellTitle=Bataille Smith
 Subclass/&InnovationWeaponDescription=Les Battle Smiths concentrent leurs études sur les armes magiques et sur la façon de les utiliser efficacement.
 Subclass/&InnovationWeaponTitle=Bataille Smith
+Condition/&ConditionInnovationWeaponSummonSteelDefenderProficiencyBonusDescription=Ajoute le bonus de maîtrise de son créateur à ses jets de dégâts.
+Condition/&ConditionInnovationWeaponSummonSteelDefenderSpellAttackDescription=Ajoute le bonus d'attaque des sorts de son créateur à ses jets d'attaque.

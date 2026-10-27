@@ -17,3 +17,6 @@ Spell/&RescueTheDyingDescription=D'un mot, vous invoquez de l'énergie positive 
 Spell/&RescueTheDyingTitle=Sauver les mourants
 Spell/&ReverseGravityDescription=Ce sort inverse la gravité dans un cylindre de 50 pieds de rayon et de 100 pieds de haut centré sur un point à portée.
 Spell/&ReverseGravityTitle=Inversion de la gravité
+Condition/&ConditionCrownOfStarsDescription=Vous pouvez utiliser une action bonus pour envoyer une de vos particules restantes sur une créature située à 120 pieds ou moins.
+Condition/&ConditionDraconicTransformationDescription=Vitesse de vol de 60 pieds et vision aveugle de 30 pieds. Par une action bonus, vous pouvez exhaler une énergie chatoyante dans un cône de 60 pieds : 6d8 dégâts de force, jet de sauvegarde de Dextérité pour la moitié.
+Condition/&ConditionRescueTheDyingDescription=Résistance à tous les dégâts.

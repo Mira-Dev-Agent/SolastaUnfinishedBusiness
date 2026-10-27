@@ -30,3 +30,6 @@ Spell/&ScatterDescription=空气在你能看见的范围内的最多五个你选
 Spell/&ScatterTitle=驱离术
 Spell/&ShelterFromEnergyDescription=选择以下伤害类型之一：强酸、寒冷、火焰、闪电、雷鸣、暗蚀、光耀，然后选择最多六个在范围内可见的自愿生物。1 小时内，目标对该伤害类型具有抗性。当你使用 7 级或更高级别的法术位施放此法术时，你可以针对每个高于 6 环的法术位多选择一个额外的自愿生物。
 Spell/&ShelterFromEnergyTitle=群体防护能量
+Condition/&ConditionFizbanPlatinumShieldDescription=半身掩护；对强酸、寒冷、火焰、闪电和毒素伤害具有抗性。对于成功时造成一半伤害的效果，敏捷豁免成功时不受伤害，失败时受到一半伤害。
+Condition/&ConditionRingOfBladesDescription=你可以用一个附赠动作将剩余的一把刀刃掷向60英尺内的一个生物。
+Condition/&ConditionShelterFromEnergyDescription=对{0}伤害具有抗性。

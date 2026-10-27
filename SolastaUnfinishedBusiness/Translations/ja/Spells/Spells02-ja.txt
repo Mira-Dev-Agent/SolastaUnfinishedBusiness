@@ -65,3 +65,5 @@ Spell/&SpellWebTitle=Web
 Spell/&SubSpellDragonsBreathSpellDescription=対象に{0}の息吹を吹き込む。
 Spell/&WitherAndBloomDescription=あなたは味方を中心とした半径 10 フィートの球体に死と生の両方を呼び出します。そのエリアにいる各敵は憲法セーヴィング・スローを行わなければならず、セーヴに失敗した場合は2d6の壊死ダメージを受けるか、成功した場合は半分のダメージを受ける。さらに、ターゲットは未使用のヒット ダイスを 1 つ消費してロールし、そのロールにあなたの呪文詠唱能力修正値を加えたものに等しいヒット ポイントを回復します。あなたが第 3 レベル以上の呪文スロットを使用してこの呪文を唱えると、ダメージは第 2 レベル以上のスロットごとに 1d6 ずつ増加し、消費して治癒ロールに追加できるヒット ダイスの数は第 2 レベル以上のスロットごとに 1 ずつ増加します。 。
 Spell/&WitherAndBloomTitle=枯れて咲く
+Condition/&ConditionBorrowedKnowledgeDescription=この技能に習熟する。
+Condition/&ConditionKineticJauntDescription=歩行速度が10フィート増加。移動で機会攻撃を誘発しない。どのクリーチャーの占めるマスも通り抜けられる。

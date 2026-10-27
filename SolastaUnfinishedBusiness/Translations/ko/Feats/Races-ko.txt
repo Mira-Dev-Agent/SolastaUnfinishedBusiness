@@ -93,3 +93,4 @@ Reaction/&UsePowerFeatFlamesOfPhlegethosReactDescription=플레게토스의 불�
 Reaction/&UsePowerFeatFlamesOfPhlegethosReactTitle=플레게토스의 불꽃
 Reaction/&UsePowerFeatFlamesOfPhlegethosTitle=플레게토스의 불꽃
 Tag/&WoodElfMagicCantripSpecialTagTitle=우드 엘프 매직 캔트립
+Condition/&ConditionDragonWingsDescription=비행 속도 60피트.

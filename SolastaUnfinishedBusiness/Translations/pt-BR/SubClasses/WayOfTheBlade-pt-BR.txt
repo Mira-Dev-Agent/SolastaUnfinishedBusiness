@@ -10,3 +10,4 @@ Feature/&InvocationPoolWayOfBladePathOfTheBladeDescription=Você pode escolher d
 Feature/&InvocationPoolWayOfBladePathOfTheBladeTitle=Caminho da Lâmina
 Subclass/&WayOfBladeDescription=Monges do Caminho da Lâmina treinam incansavelmente com suas armas, a ponto de a arma se tornar como uma extensão do corpo. Fundada na maestria da luta de espadas, a tradição se expandiu para incluir muitas armas diferentes.
 Subclass/&WayOfBladeTitle=Caminho da Lâmina
+Feature/&CustomInvocationMonkWeaponSpecializationDescription=Este tipo de arma se torna uma arma de monge para você: você ganha proficiência com ela, ela tem a propriedade acuidade e pode usar seu dado de dano de Artes Marciais.

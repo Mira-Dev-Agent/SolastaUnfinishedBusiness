@@ -27,3 +27,4 @@ Spell/&TimeStopDescription=당신은 자신을 제외한 모든 사람의 시간
 Spell/&TimeStopTitle=시간 정지
 Spell/&WeirdDescription=당신은 다른 사람들의 마음에 환상적 공포를 만들어내려고 합니다. 반경 30피트, 범위 내 지점을 중심으로 한 구체에 있는 당신이 선택한 각 생명체는 지혜 구원 굴림을 합니다. 구원에 실패하면 대상은 10d10 사이킥 피해를 입고 지속 시간 동안 공포 상태에 빠집니다. 구원에 성공하면 대상은 절반의 피해만 입습니다. 공포에 질린 대상은 각 턴이 끝날 때마다 지혜 구원 굴림을 합니다. 구원에 실패하면 5d10 사이킥 피해를 입습니다. 구원에 성공하면 해당 대상에서 주문이 끝납니다.
 Spell/&WeirdTitle=기이한
+Condition/&ConditionInvulnerabilityDescription=모든 피해에 면역입니다.

@@ -134,3 +134,6 @@ Spell/&WitchBoltTitle=마녀 볼트
 Spell/&WrathfulSmiteDescription=대상은 공격으로 인해 추가로 1d6의 괴사성 피해를 입으며, 지혜 구원 굴림에 성공해야 하고 그렇지 않으면 주문이 끝날 때까지 공포 상태에 처해야 합니다. 각 턴이 끝날 때 공포 상태인 대상은 구원을 반복하여 성공 시 주문을 끝냅니다. 피해는 1 이상의 각 주문 슬롯 레벨마다 1d6씩 증가합니다.
 Spell/&WrathfulSmiteTitle=분노한 일격
 Tooltip/&TagDamagePureTitle=카오틱 데미지
+Condition/&ConditionChaosBoltLeapDescription=혼돈의 화살이 튈 수 있습니다: 자유 행동으로 다른 생물을 노려 새로 명중 굴림과 피해 굴림을 합니다.
+Condition/&ConditionThunderousSmiteDescription=다음 근접 무기 명중이 추가로 2d6 천둥 피해를 주며, 대상은 근력 내성 굴림에 성공하지 못하면 10피트 밀려나고 넘어집니다.
+Condition/&ConditionVoidGraspDescription=반응을 할 수 없습니다.

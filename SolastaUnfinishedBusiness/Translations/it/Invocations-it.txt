@@ -107,3 +107,4 @@ Reaction/&UseTombOfFrostDescription=Puoi seppellirti nel ghiaccio e ottenere 10 
 Reaction/&UseTombOfFrostReactDescription=Ridurre i danni.
 Reaction/&UseTombOfFrostReactTitle=Tomba di Levisto
 Reaction/&UseTombOfFrostTitle=Tomba di Levisto
+Condition/&ConditionInvocationTombOfFrostDescription=Non può muoversi né compiere azioni o reazioni; vulnerabile ai danni da fuoco.

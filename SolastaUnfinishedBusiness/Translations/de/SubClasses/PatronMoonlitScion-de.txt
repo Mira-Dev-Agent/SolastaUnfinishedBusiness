@@ -24,3 +24,5 @@ Reaction/&UseMoonlightGuiseReactTitle=Mondschein-Gewand
 Reaction/&UseMoonlightGuiseTitle=Mondschein-Gewand
 Subclass/&PatronMoonlitScionDescription=Ihr Schutzpatron ist ein Geist des Mondes, ein Wesen, das die zyklische Natur von Licht und Dunkelheit verkörpert. Diese Geister versuchen, die Macht des Mondes über den Nachthimmel aufrechtzuerhalten und gleichzeitig profane Mächte, die die Dunkelheit belästigen, in Schach zu halten. Sie beauftragen ihre Hexenmeister mit derselben Aufgabe und verleihen ihnen so die Kontrolle über die Kräfte des Mondes und seine Auswirkungen.
 Subclass/&PatronMoonlitScionTitle=Das Mondlicht
+Condition/&ConditionMoonlitScionLunarChillEnemyDescription=Behindert bis zum Ende des nächsten Zuges des Hexenmeisters.
+Condition/&ConditionMoonlitScionLunarRadianceEnemyDescription=-1 auf RK.

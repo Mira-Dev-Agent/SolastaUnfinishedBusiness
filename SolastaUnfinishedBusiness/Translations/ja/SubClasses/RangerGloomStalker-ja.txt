@@ -18,3 +18,4 @@ Reaction/&CustomReactionShadowyDodgeReactTitle=過ごす
 Reaction/&CustomReactionShadowyDodgeTitle=影の回避
 Subclass/&RangerGloomStalkerDescription=暗いストーカーは、最も暗い場所、つまり地中深く、薄暗い路地、原生林、その他光が薄暗い場所を住処としています。ほとんどの人はそのような場所に恐怖を感じながら入りますが、陰気なストーカーは、脅威が広い世界に到達する前に待ち伏せしようと、大胆に暗闇に足を踏み入れます。このようなレンジャーはアンダーダークでよく見られますが、彼らは悪が影に潜んでいる場所であればどこにでも行きます。
 Subclass/&RangerGloomStalkerTitle=憂鬱なストーカー
+Condition/&ConditionRangerGloomStalkerDreadAmbusherDescription=ターン終了時まで歩行速度が10フィート増加する。

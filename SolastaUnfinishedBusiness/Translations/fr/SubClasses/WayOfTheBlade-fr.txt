@@ -10,3 +10,4 @@ Feature/&InvocationPoolWayOfBladePathOfTheBladeDescription=Vous pouvez choisir d
 Feature/&InvocationPoolWayOfBladePathOfTheBladeTitle=Le chemin de la lame
 Subclass/&WayOfBladeDescription=Les moines de la Voie de la Lame s'entraînent sans relâche avec leurs armes, au point que l'arme devient comme une extension du corps. Fondée sur la maîtrise du combat à l'épée, la tradition s'est étendue pour inclure de nombreuses armes différentes.
 Subclass/&WayOfBladeTitle=La voie de la lame
+Feature/&CustomInvocationMonkWeaponSpecializationDescription=Ce type d'arme devient une arme de moine pour vous : vous en obtenez la maîtrise, elle a la propriété finesse et elle peut utiliser votre dé de dégâts d'Arts martiaux.

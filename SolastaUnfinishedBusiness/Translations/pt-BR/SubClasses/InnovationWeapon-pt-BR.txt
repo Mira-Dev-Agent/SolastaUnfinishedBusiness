@@ -30,3 +30,5 @@ Screen/&InventorWeaponsmithSpellDescription=Esta magia do Ferreiro de Batalha é
 Screen/&InventorWeaponsmithSpellTitle=Ferreiro de Batalha
 Subclass/&InnovationWeaponDescription=Os ferreiros de batalha concentram seus estudos em armas mágicas e como usá-las de forma eficaz.
 Subclass/&InnovationWeaponTitle=Batalha Smith
+Condition/&ConditionInnovationWeaponSummonSteelDefenderProficiencyBonusDescription=Soma o bônus de proficiência de seu criador às jogadas de dano.
+Condition/&ConditionInnovationWeaponSummonSteelDefenderSpellAttackDescription=Soma o bônus de ataque mágico de seu criador às jogadas de ataque.

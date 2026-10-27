@@ -191,3 +191,7 @@ Reaction/&WarcasterAttackTitle=Ataque
 Tag/&InitiateCantripSpecialTagTitle=Iniciar trucos
 Tag/&InitiateSpellSpecialTagTitle=Iniciar hechizos
 Tag/&SniperCantripSpecialTagTitle=Trucos de francotirador
+Condition/&ConditionFeatAcrobatDescription=El terreno difícil no cuesta movimiento adicional.
+Condition/&ConditionFeatDungeonDelverDescription=Resistencia al daño que causa esta trampa.
+Condition/&ConditionFeatMageSlayerDescription=Desventaja en las tiradas de salvación para mantener la concentración.
+Feature/&CustomInvocationFeatWeaponMasterDescription=Obtienes competencia con este tipo de arma.

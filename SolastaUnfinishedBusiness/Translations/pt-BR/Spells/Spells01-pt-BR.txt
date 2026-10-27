@@ -134,3 +134,6 @@ Spell/&WitchBoltTitle=Parafuso de Bruxa
 Spell/&WrathfulSmiteDescription=O alvo sofre 1d6 de dano Necrótico extra do ataque e deve ser bem-sucedido em um teste de resistência de Sabedoria ou ter a condição Amedrontado até que a magia termine. No final de cada um de seus turnos, o alvo Amedrontado repete o teste, terminando a magia em si mesmo em um sucesso. O dano aumenta em 1d6 para cada nível de espaço de magia acima de 1.
 Spell/&WrathfulSmiteTitle=Golpe Irado
 Tooltip/&TagDamagePureTitle=Dano Caótico
+Condition/&ConditionChaosBoltLeapDescription=O raio do caos pode saltar: use sua ação livre para mirar outra criatura com uma nova jogada de ataque e de dano.
+Condition/&ConditionThunderousSmiteDescription=Seu próximo acerto com arma corpo a corpo causa 2d6 de dano trovejante extra, e o alvo deve passar em um teste de resistência de Força ou será empurrado 10 pés e derrubado.
+Condition/&ConditionVoidGraspDescription=Não pode realizar reações.

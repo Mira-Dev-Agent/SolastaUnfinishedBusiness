@@ -10,3 +10,4 @@ Feature/&InvocationPoolWayOfBladePathOfTheBladeDescription=Sie können zwei nich
 Feature/&InvocationPoolWayOfBladePathOfTheBladeTitle=Pfad der Klinge
 Subclass/&WayOfBladeDescription=Mönche des Weges der Klinge trainieren unermüdlich mit ihren Waffen, bis die Waffe zu einer Art Verlängerung ihres Körpers wird. Die Tradition gründet auf der Beherrschung des Schwertkampfs und umfasst mittlerweile viele verschiedene Waffen.
 Subclass/&WayOfBladeTitle=Weg der Klinge
+Feature/&CustomInvocationMonkWeaponSpecializationDescription=Diese Waffenart wird für Sie zur Mönchswaffe: Sie erhalten Übung damit, sie hat die Eigenschaft Finesse und kann Ihren Kampfkunst-Schadenswürfel verwenden.

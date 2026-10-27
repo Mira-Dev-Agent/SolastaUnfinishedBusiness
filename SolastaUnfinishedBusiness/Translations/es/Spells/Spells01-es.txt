@@ -134,3 +134,6 @@ Spell/&WitchBoltTitle=Rayo de bruja
 Spell/&WrathfulSmiteDescription=El objetivo recibe 1d6 puntos de daño necrótico adicionales por el ataque y debe superar una tirada de salvación de Sabiduría o tener la condición de Asustado hasta que el conjuro termine. Al final de cada uno de sus turnos, el objetivo Asustado repite la tirada de salvación y, si tiene éxito, termina el conjuro sobre sí mismo. El daño aumenta en 1d6 por cada nivel de espacio de conjuro por encima de 1.
 Spell/&WrathfulSmiteTitle=Golpe iracundo
 Tooltip/&TagDamagePureTitle=Daño caótico
+Condition/&ConditionChaosBoltLeapDescription=El rayo de caos puede saltar: usa tu acción libre para elegir otra criatura con una nueva tirada de ataque y de daño.
+Condition/&ConditionThunderousSmiteDescription=Tu siguiente impacto con un arma cuerpo a cuerpo inflige 2d6 de daño de trueno adicional, y el objetivo debe superar una tirada de salvación de Fuerza o será empujado 10 pies y derribado.
+Condition/&ConditionVoidGraspDescription=No puede realizar reacciones.

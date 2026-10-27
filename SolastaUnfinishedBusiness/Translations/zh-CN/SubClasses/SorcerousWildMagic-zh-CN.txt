@@ -108,3 +108,5 @@ Reaction/&SpendPowerTidesOfChaosSaveReactTitle=混沌之潮
 Reaction/&SpendPowerTidesOfChaosSaveTitle=混沌之潮
 Subclass/&SorcerousWildMagicDescription=你与生俱来的魔法来自于构成创造秩序的狂野混沌之力。你可能曾接触过某种原始魔法，也许是通过通往 Limbo、元素位面或神秘的遥远国度的位面传送门。也许你受到了强大精灵生物的祝福或被恶魔标记。或者你的魔法可能是你出生时的侥幸，没有明显的原因或理由。然而，这种混乱的魔法最终在你的体内翻腾，等待着任何宣泄的机会。
 Subclass/&SorcerousWildMagicTitle=狂野魔法
+Condition/&ConditionSorcerousWildMagicLightningStrikeDescription=在你的回合结束前，你可以用一个自由动作对30英尺内至多三个你选择的生物造成4d10闪电伤害。
+Condition/&ConditionSorcerousWildMagicPiercingVulnerabilityDescription=易受穿刺伤害。

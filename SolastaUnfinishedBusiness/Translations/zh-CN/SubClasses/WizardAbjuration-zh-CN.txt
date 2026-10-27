@@ -32,3 +32,4 @@ Subclass/&WizardAbjurationTitle=护法师
 Tag/&AbjurerSpellSpecialTagTitle=学派法术
 Tooltip/&PortraitPoolPowerWizardAbjurationArcaneWardBG3PointsFormat=你拥有{0}/{1}点奥术守御。\n当你受到伤害时，守御会格挡等量伤害并失去1点强度。施展防护系法术后，守御强度会按法术环阶提升，最高至你法师等级的2倍。
 Tooltip/&PortraitPoolPowerWizardAbjurationArcaneWardPointsFormat=你拥有{0}/{1}点奥术守御。\n当你受到伤害时，守御会减少等量伤害，并按减免的伤害值降低生命值。每当你施展1环或更高环阶防护系法术时，守御会恢复等同于所用法术位环阶两倍的生命值。
+Condition/&ConditionWizardAbjurationArcaneWardDescription=你的奥术护盾已生效：每当你受到伤害时，由护盾代你承受伤害，直到其生命值耗尽。

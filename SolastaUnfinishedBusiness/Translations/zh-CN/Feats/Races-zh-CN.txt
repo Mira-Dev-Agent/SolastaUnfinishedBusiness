@@ -93,3 +93,4 @@ Reaction/&UsePowerFeatFlamesOfPhlegethosReactDescription=点燃弗莱格索斯�
 Reaction/&UsePowerFeatFlamesOfPhlegethosReactTitle=弗莱格索斯之焰
 Reaction/&UsePowerFeatFlamesOfPhlegethosTitle=弗莱格索斯之焰
 Tag/&WoodElfMagicCantripSpecialTagTitle=木精灵魔法戏法
+Condition/&ConditionDragonWingsDescription=飞行速度60英尺。

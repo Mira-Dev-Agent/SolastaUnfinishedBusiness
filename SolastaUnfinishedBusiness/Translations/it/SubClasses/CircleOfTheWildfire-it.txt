@@ -33,3 +33,6 @@ Reaction/&UseCauterizingFlamesHealReactTitle=Fiamme cauterizzanti: guarisci
 Reaction/&UseCauterizingFlamesHealTitle=Fiamme cauterizzanti: guarisci
 Subclass/&CircleOfTheWildfireDescription=I druidi all'interno del Circle of Wildfire capiscono che la distruzione è talvolta il precursore della creazione, come quando un incendio boschivo favorisce una crescita successiva. Questi druidi si legano a uno spirito primordiale che ospita sia il potere distruttivo che quello creativo, consentendo ai druidi di creare fiamme controllate che bruciano una cosa ma danno vita a un'altra.
 Subclass/&CircleOfTheWildfireTitle=Cerchio del fuoco selvaggio
+Condition/&ConditionCircleOfTheWildfireSpiritAttackRollDescription=Aggiunge il bonus di attacco con incantesimi del suo evocatore ai tiri per colpire.
+Condition/&ConditionCircleOfTheWildfireSpiritDamageRollDescription=Aggiunge il bonus di competenza del suo evocatore ai tiri per i danni.
+Condition/&ConditionCircleOfTheWildfireSpiritHitPointsDescription=Ottiene 5 punti ferita extra per ogni livello da druido del suo evocatore.

@@ -27,3 +27,4 @@ Spell/&TimeStopDescription=Você interrompe brevemente o fluxo do tempo para tod
 Spell/&TimeStopTitle=Parar o tempo
 Spell/&WeirdDescription=Você tenta criar terrores ilusórios nas mentes dos outros. Cada criatura de sua escolha em uma Esfera de 30 pés de raio centrada em um ponto dentro do alcance faz um teste de resistência de Sabedoria. Em uma falha, um alvo sofre 10d10 de dano Psíquico e tem a condição Amedrontado pela duração. Em uma falha, um alvo sofre apenas metade do dano. Um alvo Amedrontado faz um teste de resistência de Sabedoria no final de cada um de seus turnos. Em uma falha, ele sofre 5d10 de dano Psíquico. Em uma falha, a magia termina naquele alvo.
 Spell/&WeirdTitle=Esquisito
+Condition/&ConditionInvulnerabilityDescription=Imunidade a todo dano.

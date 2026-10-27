@@ -40,3 +40,4 @@ Reaction/&UseKineticBarrierTitle=Barriera cinetica
 Subclass/&MartialForceKnightDescription=I Psi Warriors sono guerrieri disciplinati che utilizzano un'ampia gamma di abilità psicocinetiche per ottenere il sopravvento in battaglia. Possono adattarsi facilmente a qualsiasi situazione, aumentare la loro potenza con attacchi infusi di psi o aiutare gli alleati con barriere create mentalmente e movimenti telecinetici.
 Subclass/&MartialForceKnightTitle=Guerriero Psi
 Tooltip/&ForcePoweredStrikeDieDescription=Il tuo dado Colpo Alimentato dalla Forza è {0} e ti restano {1} utilizzi.
+Condition/&ConditionMartialForceKnightForceBulwarkDescription=Protetto da copertura parziale.

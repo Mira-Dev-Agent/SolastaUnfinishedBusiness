@@ -50,3 +50,5 @@ Spell/&SynapticStaticDescription=Você escolhe um ponto dentro do alcance e faz 
 Spell/&SynapticStaticTitle=Estática sináptica
 Spell/&TelekinesisDescription=Você pode tentar mover uma criatura Enorme ou menor. Faça um teste de habilidade com sua habilidade de conjuração contestada pelo teste de Força da criatura. Se você vencer o teste, você move a criatura até 30 pés em qualquer direção, mas não além do alcance desta magia. Até o final do seu próximo turno, a criatura é restringida em seu aperto telecinético. Em rodadas subsequentes, você pode usar sua ação para tentar manter seu aperto telecinético na criatura repetindo o teste, ou escolher uma nova criatura como alvo, encerrando o efeito restringido na criatura afetada anteriormente.
 Spell/&TelekinesisTitle=Telecinese
+Condition/&ConditionCircleOfMagicalNegationDescription=Vantagem em testes de resistência contra magia. Um teste bem-sucedido contra uma magia ou efeito mágico que causa metade do dano em caso de sucesso não causa dano algum.
+Condition/&ConditionEmpoweredKnowledgeDescription=Especialização nesta perícia: bônus de proficiência dobrado nos testes de atributo que a usam.

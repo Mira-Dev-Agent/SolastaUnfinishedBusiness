@@ -18,3 +18,4 @@ Reaction/&CustomReactionShadowyDodgeReactTitle=Использовать
 Reaction/&CustomReactionShadowyDodgeTitle=Теневое уклонение
 Subclass/&RangerGloomStalkerDescription=Сумрачные охотники ощущают себя как дома в самых тёмных местах: глубоко под землёй, в мрачных переулках, первобытных лесах и везде, где свет тускнеет. Большинство народов, попадая в такие места, ощущают беспокойство, но сумрачные охотники смело следуют во тьму, стремясь устранить угрозы, прежде чем они попадут в открытый мир. Такие следопыты обычно встречаются в Подземье, но они последуют в любое место, где зло скрывается в тенях.
 Subclass/&RangerGloomStalkerTitle=Сумрачный охотник
+Condition/&ConditionRangerGloomStalkerDreadAmbusherDescription=Скорость ходьбы увеличена на 10 футов до конца хода.

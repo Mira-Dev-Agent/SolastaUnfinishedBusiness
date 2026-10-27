@@ -18,3 +18,4 @@ Reaction/&UseBarrierOfStoneReactTitle=石の障壁
 Reaction/&UseBarrierOfStoneTitle=石の障壁
 Subclass/&PatronMountainDescription=あなたはソラスタの最も高い山々の頂上に住む古代の原始的な存在と契約を結びました。そのような存在は、人間が雲の上で長い眠りについた、都市を建てることも鉱山を掘ることもなかった、より単純な時代を懐かしんでいます。彼らの魔術師は文明の道具を軽蔑し、仲間を守り敵を倒すために山の力を求めます。
 Subclass/&PatronMountainTitle=山
+Condition/&ConditionPatronMountainClingingStrengthDescription=移動速度が10フィート増加し、スパイダー・クライムのように壁や天井を移動できる。

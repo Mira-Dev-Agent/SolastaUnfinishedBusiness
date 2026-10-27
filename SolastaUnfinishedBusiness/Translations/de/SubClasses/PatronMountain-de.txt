@@ -18,3 +18,4 @@ Reaction/&UseBarrierOfStoneReactTitle=Barriere aus Stein
 Reaction/&UseBarrierOfStoneTitle=Barriere aus Stein
 Subclass/&PatronMountainDescription=Sie haben einen Pakt mit einem uralten Urwesen geschlossen, das auf den höchsten Bergen von Solasta lebt. Solche Wesen sehnen sich nach einer einfacheren Epoche, als die Sterblichen sie ihrem langen Schlaf über den Wolken überließen, keine Städte errichteten und keine Minen gruben. Ihre Hexenmeister verachten die Werkzeuge der Zivilisation und rufen die Stärke des Berges an, um ihre Gefährten zu beschützen und ihre Feinde niederzuschlagen.
 Subclass/&PatronMountainTitle=Der Berg
+Condition/&ConditionPatronMountainClingingStrengthDescription=Bewegungsrate um 10 Fuß erhöht, und Sie können sich wie mit Spinnenklettern an Wänden und Decken bewegen.

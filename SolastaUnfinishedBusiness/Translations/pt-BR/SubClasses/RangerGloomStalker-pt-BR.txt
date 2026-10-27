@@ -18,3 +18,4 @@ Reaction/&CustomReactionShadowyDodgeReactTitle=Gastar
 Reaction/&CustomReactionShadowyDodgeTitle=Esquiva Sombria
 Subclass/&RangerGloomStalkerDescription=Os perseguidores sombrios estão em casa nos lugares mais escuros: nas profundezas da terra, em becos sombrios, em florestas primitivas e em qualquer outro lugar onde a luz diminua. A maioria das pessoas entra nesses lugares com receio, mas um perseguidor sombrio se aventura corajosamente na escuridão, buscando emboscar ameaças antes que elas possam alcançar o mundo mais amplo. Esses patrulheiros são frequentemente encontrados no Subterrâneo, mas eles irão a qualquer lugar onde o mal espreita nas sombras.
 Subclass/&RangerGloomStalkerTitle=Perseguidor da melancolia
+Condition/&ConditionRangerGloomStalkerDreadAmbusherDescription=O deslocamento a pé aumenta em 10 pés até o fim do turno.

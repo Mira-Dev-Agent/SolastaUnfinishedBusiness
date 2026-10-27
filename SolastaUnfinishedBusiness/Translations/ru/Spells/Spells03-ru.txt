@@ -85,3 +85,6 @@ Spell/&VitalityTransferDescription=Вы жертвуете своим здоро
 Spell/&VitalityTransferTitle=Передача жизни
 Spell/&WinterBreathDescription=Создайте порыв холодного ветра, чтобы заморозить врагов и сбить их с ног.
 Spell/&WinterBreathTitle=Дыхание зимы
+Condition/&ConditionAdderFangsDescription=Помеха на атаки и проверки характеристик; скорость уменьшена вдвое.
+Condition/&ConditionAshardalonStrideDescription=Скорость увеличена на {0} футов, и перемещение не провоцирует атаки. Существа, мимо которых вы проходите в пределах 5 футов, получают урон огнём, раз в ход.
+Condition/&ConditionIntellectFortressDescription=Сопротивление психическому урону; преимущество на спасброски Интеллекта, Мудрости и Харизмы.

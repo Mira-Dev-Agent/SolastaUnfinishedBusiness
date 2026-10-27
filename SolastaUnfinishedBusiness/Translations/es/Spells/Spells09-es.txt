@@ -27,3 +27,4 @@ Spell/&TimeStopDescription=Detienes brevemente el paso del tiempo para todos exc
 Spell/&TimeStopTitle=Detener el tiempo
 Spell/&WeirdDescription=Intentas crear terrores ilusorios en las mentes de los demás. Cada criatura que elijas en una esfera de 30 pies de radio centrada en un punto dentro del alcance realiza una tirada de salvación de Sabiduría. Si falla la tirada, el objetivo sufre 10d10 puntos de daño psíquico y tiene la condición de Asustado mientras dure la tirada. Si tiene éxito, el objetivo sufre solo la mitad del daño. Un objetivo Asustado realiza una tirada de salvación de Sabiduría al final de cada uno de sus turnos. Si falla la tirada, sufre 5d10 puntos de daño psíquico. Si tiene éxito, el conjuro termina en ese objetivo.
 Spell/&WeirdTitle=Extraño
+Condition/&ConditionInvulnerabilityDescription=Inmunidad a todo el daño.

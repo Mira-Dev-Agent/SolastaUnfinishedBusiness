@@ -18,3 +18,4 @@ Reaction/&CustomReactionShadowyDodgeReactTitle=Dépenser
 Reaction/&CustomReactionShadowyDodgeTitle=Dodge l'ombre
 Subclass/&RangerGloomStalkerDescription=Les traqueurs de ténèbres sont chez eux dans les endroits les plus sombres : dans les profondeurs de la terre, dans les ruelles lugubres, dans les forêts primitives et partout où la lumière faiblit. La plupart des gens pénètrent dans ces endroits avec appréhension, mais un traqueur de ténèbres s'aventure hardiment dans l'obscurité, cherchant à piéger les menaces avant qu'elles ne puissent atteindre le monde extérieur. On trouve souvent de tels rangers dans l'Outreterre, mais ils iront partout où le mal se cache dans l'ombre.
 Subclass/&RangerGloomStalkerTitle=Traqueur des ténèbres
+Condition/&ConditionRangerGloomStalkerDreadAmbusherDescription=Vitesse de marche augmentée de 10 pieds jusqu'à la fin du tour.

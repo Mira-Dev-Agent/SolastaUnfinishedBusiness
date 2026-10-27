@@ -40,3 +40,4 @@ Reaction/&UseKineticBarrierTitle=キネティックバリア
 Subclass/&MartialForceKnightDescription=サイ戦士は、戦闘で優位に立つために幅広い念動力能力を利用する規律ある戦士です。彼らはどんな状況にも簡単に適応でき、サイを注入した攻撃で自分の力を増強したり、精神的に作り出したバリアや念動力で味方を助けたりすることができます。
 Subclass/&MartialForceKnightTitle=サイ戦士
 Tooltip/&ForcePoweredStrikeDieDescription=あなたのフォース パワード ストライク ダイスは {0} で、残りの使用回数は {1} です。
+Condition/&ConditionMartialForceKnightForceBulwarkDescription=半遮蔽で守られている。

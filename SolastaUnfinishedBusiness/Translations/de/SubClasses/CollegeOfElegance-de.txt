@@ -22,3 +22,4 @@ Reaction/&CustomReactionEvasiveFootworkReactTitle=Verteidigen
 Reaction/&CustomReactionEvasiveFootworkTitle=Ausweichende Beinarbeit
 Subclass/&CollegeOfEleganceDescription=Das College of Elegance ist die Heimat von Barden, die die Kunst der Körperbewegung gemeistert haben. Sie sehen exquisite Schönheit im Tanzen und im Ausdruck durch hypnotisierende Gesten, in auffälligen Outfits und oft im Mittelpunkt der Aufmerksamkeit. Im Kampf verweben diese Barden elegante Schritte nahtlos in Kampfmanöver, kombinieren sie mit einer Waffe ihrer Wahl und schaffen so ein unvergessliches Spektakel für Freunde und Feinde gleichermaßen.
 Subclass/&CollegeOfEleganceTitle=Hochschule der Eleganz
+Condition/&ConditionCollegeOfEleganceAmazingDisplayDescription=Kann keine Reaktionen nutzen; Bewegungsrate auf 0 gesenkt.

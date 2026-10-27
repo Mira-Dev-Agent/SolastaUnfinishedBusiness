@@ -22,3 +22,4 @@ Reaction/&CustomReactionEvasiveFootworkReactTitle=保卫
 Reaction/&CustomReactionEvasiveFootworkTitle=回避步法
 Subclass/&CollegeOfEleganceDescription=优雅学院是掌握身体运动艺术的吟游诗人的故乡。他们在舞蹈中看到了精致的美，并通过迷人的手势、穿着华丽的服装来表达自己，并且常常希望成为关注的焦点。在战斗中，这些吟游诗人将优雅的步伐无缝地融入战斗演习中，并与他们选择的武器搭配，为朋友和敌人创造了令人难忘的场面。
 Subclass/&CollegeOfEleganceTitle=优雅学院
+Condition/&ConditionCollegeOfEleganceAmazingDisplayDescription=无法使用反应；速度降为0。

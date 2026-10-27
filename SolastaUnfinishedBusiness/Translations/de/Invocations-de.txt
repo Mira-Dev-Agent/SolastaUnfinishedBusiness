@@ -107,3 +107,4 @@ Reaction/&UseTombOfFrostDescription=Sie können sich in Eis einschließen und er
 Reaction/&UseTombOfFrostReactDescription=Reduzieren Sie den Schaden.
 Reaction/&UseTombOfFrostReactTitle=Grab des Levistus
 Reaction/&UseTombOfFrostTitle=Grab des Levistus
+Condition/&ConditionInvocationTombOfFrostDescription=Kann sich nicht bewegen und keine Aktionen oder Reaktionen ausführen; anfällig für Feuerschaden.

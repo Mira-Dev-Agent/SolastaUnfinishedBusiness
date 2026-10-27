@@ -191,3 +191,7 @@ Reaction/&WarcasterAttackTitle=Attacke
 Tag/&InitiateCantripSpecialTagTitle=Cantrips einleiten
 Tag/&InitiateSpellSpecialTagTitle=Zauber einleiten
 Tag/&SniperCantripSpecialTagTitle=Scharfschützen-Cantrips
+Condition/&ConditionFeatAcrobatDescription=Schwieriges Gelände kostet keine zusätzliche Bewegung.
+Condition/&ConditionFeatDungeonDelverDescription=Resistenz gegen den Schaden dieser Falle.
+Condition/&ConditionFeatMageSlayerDescription=Nachteil bei Rettungswürfen zum Aufrechterhalten der Konzentration.
+Feature/&CustomInvocationFeatWeaponMasterDescription=Sie erhalten Übung mit dieser Waffenart.

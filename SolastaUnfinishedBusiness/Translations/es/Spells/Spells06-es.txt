@@ -30,3 +30,6 @@ Spell/&ScatterDescription=El aire se estremece alrededor de hasta cinco criatura
 Spell/&ScatterTitle=Dispersión
 Spell/&ShelterFromEnergyDescription=Elige uno de los siguientes tipos de daño: ácido, frío, fuego, relámpago, necrótico, radiante o trueno, y luego elige hasta seis criaturas voluntarias que puedas ver dentro del alcance. Durante 1 hora, los objetivos tienen resistencia a ese tipo de daño. Cuando lanzas este hechizo usando un espacio de hechizo de nivel 7 o superior, puedes seleccionar como objetivo hasta una criatura voluntaria adicional por cada nivel de espacio por encima del 6.
 Spell/&ShelterFromEnergyTitle=Refugio de la energía
+Condition/&ConditionFizbanPlatinumShieldDescription=Cobertura media; resistencia al daño de ácido, frío, fuego, relámpago y veneno. Una tirada de salvación de Destreza contra un efecto que inflige la mitad del daño si se supera no inflige daño si se supera y la mitad si se falla.
+Condition/&ConditionRingOfBladesDescription=Puedes usar una acción adicional para lanzar una de tus hojas restantes a una criatura situada a 60 pies o menos.
+Condition/&ConditionShelterFromEnergyDescription=Resistencia al daño de {0}.

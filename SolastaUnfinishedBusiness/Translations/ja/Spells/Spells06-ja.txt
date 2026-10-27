@@ -30,3 +30,6 @@ Spell/&ScatterDescription=範囲内にいる、あなたが選択した最大 5 
 Spell/&ScatterTitle=散らばる
 Spell/&ShelterFromEnergyDescription=酸、冷気、火、稲妻、壊死、光、雷のいずれかのダメージ タイプを選択し、範囲内にいる最大 6 体の自発的なクリーチャーを選択します。1 時間の間、ターゲットはそのダメージ タイプに対する耐性を持ちます。7 レベル以上の呪文スロットを使用してこの呪文を発動する場合、6 レベルを超えるスロット レベルごとに最大 1 体の自発的なクリーチャーを追加でターゲットにすることができます。
 Spell/&ShelterFromEnergyTitle=エネルギーからの避難所
+Condition/&ConditionFizbanPlatinumShieldDescription=半遮蔽。酸、冷気、火、電撃、毒ダメージに抵抗。成功時に半分のダメージを与える効果に対する【敏捷力】セーヴィング・スローは、成功ならダメージなし、失敗なら半分のダメージになる。
+Condition/&ConditionRingOfBladesDescription=ボーナス・アクションで残りの刃の1本を60フィート以内のクリーチャーに投げられる。
+Condition/&ConditionShelterFromEnergyDescription={0}ダメージに抵抗。

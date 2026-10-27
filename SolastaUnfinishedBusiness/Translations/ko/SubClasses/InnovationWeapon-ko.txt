@@ -30,3 +30,5 @@ Screen/&InventorWeaponsmithSpellDescription=이 Battle Smith 주문은 항상 �
 Screen/&InventorWeaponsmithSpellTitle=배틀스미스
 Subclass/&InnovationWeaponDescription=Battle Smiths는 마법 무기와 이를 효과적으로 사용하는 방법에 대한 연구에 중점을 두고 있습니다.
 Subclass/&InnovationWeaponTitle=배틀스미스
+Condition/&ConditionInnovationWeaponSummonSteelDefenderProficiencyBonusDescription=제작자의 숙련 보너스를 피해 굴림에 더합니다.
+Condition/&ConditionInnovationWeaponSummonSteelDefenderSpellAttackDescription=제작자의 주문 명중 보너스를 명중 굴림에 더합니다.

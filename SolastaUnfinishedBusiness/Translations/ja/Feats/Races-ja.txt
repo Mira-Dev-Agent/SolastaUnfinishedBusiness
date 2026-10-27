@@ -93,3 +93,4 @@ Reaction/&UsePowerFeatFlamesOfPhlegethosReactDescription=フレゲトスの炎�
 Reaction/&UsePowerFeatFlamesOfPhlegethosReactTitle=フレゲトスの炎
 Reaction/&UsePowerFeatFlamesOfPhlegethosTitle=フレゲトスの炎
 Tag/&WoodElfMagicCantripSpecialTagTitle=ウッドエルフの魔法のキャントリップ
+Condition/&ConditionDragonWingsDescription=飛行速度60フィート。

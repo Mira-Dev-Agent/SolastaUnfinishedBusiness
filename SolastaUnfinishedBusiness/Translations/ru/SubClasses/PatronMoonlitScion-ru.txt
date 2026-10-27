@@ -24,3 +24,5 @@ Reaction/&UseMoonlightGuiseReactTitle=Лунный облик
 Reaction/&UseMoonlightGuiseTitle=Лунный облик
 Subclass/&PatronMoonlitScionDescription=Ваш покровитель - дух луны, сущность, воплощающая цикличность света и тьмы. Эти духи стремятся сохранить власть луны над ночным небом, удерживая в узде проклятые силы, несущие тьму, и поручают своим колдунам то же самое, наделяя их властью над силами луны и её эффектами.
 Subclass/&PatronMoonlitScionTitle=Лунный свет
+Condition/&ConditionMoonlitScionLunarChillEnemyDescription=Скован до конца следующего хода колдуна.
+Condition/&ConditionMoonlitScionLunarRadianceEnemyDescription=-1 к КД.

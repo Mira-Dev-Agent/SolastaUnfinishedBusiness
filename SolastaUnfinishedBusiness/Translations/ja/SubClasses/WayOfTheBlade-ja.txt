@@ -10,3 +10,4 @@ Feature/&InvocationPoolWayOfBladePathOfTheBladeDescription=非重近接武器タ
 Feature/&InvocationPoolWayOfBladePathOfTheBladeTitle=刃の道
 Subclass/&WayOfBladeDescription=剣術の修行僧は、武器が身体の一部となるまで、武器を徹底的に訓練します。剣術の熟練を基盤として、この伝統はさまざまな武器を扱うように拡大しました。
 Subclass/&WayOfBladeTitle=刃の道
+Feature/&CustomInvocationMonkWeaponSpecializationDescription=この種類の武器はあなたにとってモンク武器になる：習熟し、妙技の特性を持ち、マーシャル・アーツのダメージ・ダイスを使える。

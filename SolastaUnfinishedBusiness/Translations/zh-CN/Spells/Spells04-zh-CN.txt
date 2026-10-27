@@ -70,3 +70,6 @@ Spell/&TreeForestGuardianDescription=你的皮肤看起来像树皮，头发上�
 Spell/&TreeForestGuardianTitle=原初之森
 Spell/&VitriolicSphereDescription=你指向范围内的某个地方，一个直径 1 英尺的绿色酸球便会在那里划出一道条纹，并在半径 20 英尺的范围内爆炸。该区域内的每个生物都必须进行敏捷豁免检定。如果豁免失败，生物将受到 10d4 酸伤害，并在其下一回合结束时受到 5d4 酸伤害。如果豁免成功，生物将受到一半的初始伤害，并在其下一回合结束时不受伤害。当你使用 5 级或更高级别的法术位施放此法术时，初始伤害每高于 4 级法术位增加 2d4。
 Spell/&VitriolicSphereTitle=浓酸球
+Condition/&ConditionPsionicBlastDescription=速度减半，直到施法者的下一回合结束。
+Condition/&ConditionSynapticStaticDescription=攻击检定和属性检定减去1d6。在每回合结束时重复智力豁免检定以结束效果。
+Spell/&ElementalBaneSubSpellDescription=目标必须通过体质豁免检定。失败时，它每回合第一次受到{0}伤害时，会额外受到2d6{0}伤害，并在法术结束前失去对{0}伤害的任何抗性。
