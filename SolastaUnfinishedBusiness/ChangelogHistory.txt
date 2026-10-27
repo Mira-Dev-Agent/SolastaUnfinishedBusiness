@@ -1,3 +1,7 @@
+1.6.13.1:
+- Rebuild of 1.6.13.0, whose release build failed: the multiplayer hit-counting fix now finds its game method in a way the release build supports. Same changes as 1.6.13.0
+- Not tested in game or in a multiplayer session
+
 1.6.13.0:
 - Multiplayer desync fix (Gameplay > Multiplayer, on by default): the game counted a target's hit reactions once per drawn frame. On a computer whose frame took longer than 50 ms (under 20 FPS or a stutter), two hits in a row counted as one there and as two elsewhere, so attacks and spells ended at different times. They are now counted once per game tick on every computer
 - Not tested in game or in a multiplayer session

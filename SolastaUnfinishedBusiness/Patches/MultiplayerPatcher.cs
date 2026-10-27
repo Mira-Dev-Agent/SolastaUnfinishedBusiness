@@ -529,8 +529,11 @@ public static class MultiplayerPatcher
         [UsedImplicitly]
         public static MethodBase TargetMethod()
         {
-            return AccessTools.EnumeratorMoveNext(
-                AccessTools.Method(typeof(GameLocationActionManager), "CharacterDamageReceivedAsync"));
+            // the coroutine's state machine; AccessTools.EnumeratorMoveNext isn't in the Harmony the build uses
+            return AccessTools.Method(
+                typeof(GameLocationActionManager).GetNestedTypes(BindingFlags.NonPublic)
+                    .First(x => x.Name.StartsWith("<CharacterDamageReceivedAsync>")),
+                "MoveNext");
         }
 
         [UsedImplicitly]
