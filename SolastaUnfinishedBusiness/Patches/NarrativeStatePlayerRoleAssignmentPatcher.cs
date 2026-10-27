@@ -5,6 +5,7 @@ using System.Reflection.Emit;
 using HarmonyLib;
 using JetBrains.Annotations;
 using SolastaUnfinishedBusiness.Api.Helpers;
+using SolastaUnfinishedBusiness.Models;
 
 namespace SolastaUnfinishedBusiness.Patches;
 
@@ -31,6 +32,22 @@ public static class NarrativeStatePlayerRoleAssignmentPatcher
             if (!Main.Settings.EnableHeroWithBestProficiencyToRollChoice)
             {
                 actors.RemoveAt(position);
+            }
+        }
+
+        [UsedImplicitly]
+        public static void Prefix(NarrativeStatePlayerRoleAssignment __instance, out HashSet<string> __state)
+        {
+            __state = __instance.PlayerRolesMap == null ? [] : [.. __instance.PlayerRolesMap.Keys];
+        }
+
+        [UsedImplicitly]
+        public static void Postfix(NarrativeStatePlayerRoleAssignment __instance, HashSet<string> __state)
+        {
+            //PATCH: one hero per role so heroes don't talk to themselves (MULTIPLAYER)
+            if (Main.Settings.EnableHeroWithBestProficiencyToRollChoice)
+            {
+                MultiplayerContext.EnsureUniqueHeroPerRole(__instance, __state);
             }
         }
 

@@ -45,6 +45,19 @@ public static class NarrativeDirectionManagerPatcher
         }
     }
 
+    [HarmonyPatch(typeof(NarrativeDirectionManager), nameof(NarrativeDirectionManager.PrepareCharacters))]
+    [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]
+    [UsedImplicitly]
+    public static class PrepareCharacters_Patch
+    {
+        [UsedImplicitly]
+        public static void Postfix(NarrativeDirectionManager __instance, NarrativeSequence narrativeSequence)
+        {
+            //PATCH: places heroes 5 and 6 behind the authored 4 player markers (MULTIPLAYER)
+            MultiplayerContext.PlaceExtraHeroes(__instance, narrativeSequence);
+        }
+    }
+
     //PATCH: EnableLogDialoguesToConsole
     [HarmonyPatch(typeof(NarrativeDirectionManager), nameof(NarrativeDirectionManager.StartDialogSequence))]
     [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]

@@ -18,6 +18,7 @@ using SolastaUnfinishedBusiness.Models;
 using SolastaUnfinishedBusiness.Properties;
 using SolastaUnfinishedBusiness.Spells;
 using SolastaUnfinishedBusiness.Validators;
+using TA;
 using static RuleDefinitions;
 using static SolastaUnfinishedBusiness.Api.DatabaseHelper;
 using static SolastaUnfinishedBusiness.Api.DatabaseHelper.ActionDefinitions;
@@ -1410,9 +1411,15 @@ public sealed class SorcerousWildMagic : AbstractSubclass
 
         EnumerateTargetsWithinRange(caster, range, targets, false);
 
-        var random = new PcgRandom((ulong)DateTime.Now.Ticks);
-        var index = random.Next(targets.Count);
-        var target = targets.ElementAt(index);
+        if (targets.Count == 0)
+        {
+            return;
+        }
+
+        //PATCH: the wall clock differs on every peer, so pick the target from the game's synced random (MULTIPLAYER)
+        targets.Sort((a, b) => a.Guid.CompareTo(b.Guid));
+
+        var target = targets.ElementAt(DeterministicRandom.Range(0, targets.Count));
         var rulesetTarget = target.RulesetCharacter;
 
         EffectHelpers.StartVisualEffect(caster, target, magicEffect, EffectHelpers.EffectType.Effect);

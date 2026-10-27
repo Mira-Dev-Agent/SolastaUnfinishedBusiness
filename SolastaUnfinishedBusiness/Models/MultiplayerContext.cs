@@ -1,0 +1,496 @@
+using System.Collections.Generic;
+using System.Linq;
+using Photon.Pun;
+using TA;
+using UnityEngine;
+
+namespace SolastaUnfinishedBusiness.Models;
+
+// Multiplayer fixes. Every decision here must depend only on state that is identical on all peers
+// (game state, scene data, shared settings) so the lockstep simulation stays in sync.
+internal static class MultiplayerContext
+{
+    // vanilla NetworkTick uses 6 as initial buffer, 4 as floor, 12 as ceiling and waits 10 checks before lowering
+    internal const int DefaultInitialTickBuffer = 4;
+    internal const int DefaultMinimumTickBuffer = 3;
+    internal const int DefaultSecondsBeforeLowerTickBuffer = 3;
+    internal const int MinTickBuffer = 2;
+    internal const int MaxTickBuffer = 12;
+
+    private const int IncreaseTickBufferStep = 2;
+    private const float IncreaseTickBufferWaitingTime = 3f;
+    private const float LowerTickBufferMaxWaitingTime = 0.05f;
+    private const float TickDuration = 0.05f;
+
+    private const ulong DesyncCheckTickInterval = 100;
+    private const int DesyncCheckHistory = 32;
+
+    private const float ExtraPlacementBackOffset = 1.2f;
+
+    private static readonly Dictionary<ulong, ulong> EntityGuidByTick = [];
+    private static ulong _lastDesyncCheckTickSent = ulong.MaxValue;
+    private static bool _desyncReported;
+
+    #region Tick Buffer
+
+    internal static int InitialTickBuffer =>
+        Mathf.Clamp(Main.Settings.MultiplayerInitialTickBuffer, MinimumTickBuffer, MaxTickBuffer);
+
+    private static int MinimumTickBuffer =>
+        Mathf.Clamp(Main.Settings.MultiplayerMinimumTickBuffer, MinTickBuffer, MaxTickBuffer);
+
+    private static int ChecksBeforeLowerTickBuffer =>
+        Mathf.Max(1, Main.Settings.MultiplayerSecondsBeforeLowerTickBuffer);
+
+    internal static void ResetTickBuffer(NetworkTick tick)
+    {
+        var value = (byte)InitialTickBuffer;
+
+        tick.currentSendTickBuffer = value;
+        tick.currentWaitTickBuffer = value;
+        tick.targetTickBuffer = value;
+        tick.counterToAllowLowerBuffer = ChecksBeforeLowerTickBuffer;
+    }
+
+    // same shape as vanilla NetworkTick.UpdateTickBufferValue (called once per second by every peer) but with a
+    // configurable floor and patience, and lowering one tick at a time instead of two
+    internal static bool UpdateTickBufferValue(NetworkTick tick, out byte wantedTickBuffer)
+    {
+        wantedTickBuffer = tick.targetTickBuffer;
+
+        if (tick.targetTickBuffer != tick.currentSendTickBuffer ||
+            tick.targetTickBuffer != tick.currentWaitTickBuffer ||
+            tick.waitingTimePerActor.Count <= 0 ||
+            tick.networkPingPerActor.Count <= 0)
+        {
+            return false;
+        }
+
+        var maxWaitingTime = tick.waitingTimePerActor.Values.Max();
+
+        if (tick.targetTickBuffer < MaxTickBuffer && maxWaitingTime >= IncreaseTickBufferWaitingTime)
+        {
+            wantedTickBuffer = (byte)Mathf.Min(tick.targetTickBuffer + IncreaseTickBufferStep, MaxTickBuffer);
+            tick.waitingTimePerActor.Clear();
+            tick.counterToAllowLowerBuffer = ChecksBeforeLowerTickBuffer;
+
+            return true;
+        }
+
+        if (tick.targetTickBuffer <= MinimumTickBuffer)
+        {
+            return false;
+        }
+
+        if (maxWaitingTime >= LowerTickBufferMaxWaitingTime)
+        {
+            tick.counterToAllowLowerBuffer = ChecksBeforeLowerTickBuffer;
+
+            return false;
+        }
+
+        var lowerTickBuffer = Mathf.Max(tick.targetTickBuffer - 1, MinimumTickBuffer);
+        var tickSpread = tick.MaxTick - tick.MinTick;
+        var maxPingInSeconds = tick.networkPingPerActor.Values.Max() * 0.001f;
+        // a command must reach every peer (round trip through the relay) before its scheduled tick
+        var pingFits = maxPingInSeconds > 0 &&
+                       maxPingInSeconds * 2 < (lowerTickBuffer * TickDuration) - TickDuration;
+
+        if (!pingFits || tickSpread >= (ulong)lowerTickBuffer)
+        {
+            tick.counterToAllowLowerBuffer = ChecksBeforeLowerTickBuffer;
+
+            return false;
+        }
+
+        tick.counterToAllowLowerBuffer--;
+
+        if (tick.counterToAllowLowerBuffer > 0)
+        {
+            return false;
+        }
+
+        wantedTickBuffer = (byte)lowerTickBuffer;
+        tick.counterToAllowLowerBuffer = ChecksBeforeLowerTickBuffer;
+
+        return true;
+    }
+
+    #endregion
+
+    #region Desync Detection
+
+    // the game ships the receiving side of an entity guid comparison but never sends it
+    internal static void SendDesyncCheckIfNeeded(NetworkingManager networkingManager)
+    {
+        if (!Main.Settings.MultiplayerEnableDesyncDetection ||
+            !networkingManager.IsMultiplayerGame ||
+            networkingManager.frozenGameplay ||
+            !networkingManager.ValidGameplayContext() ||
+            networkingManager.view == null)
+        {
+            return;
+        }
+
+        var localTick = networkingManager.tick.LocalTick;
+
+        if (localTick == 0 || localTick % DesyncCheckTickInterval != 0 || localTick == _lastDesyncCheckTickSent)
+        {
+            return;
+        }
+
+        if (ServiceRepository.GetService<IRulesetEntityService>() is not { } entityService)
+        {
+            return;
+        }
+
+        _lastDesyncCheckTickSent = localTick;
+        networkingManager.view.RPC(nameof(NetworkingManager.NotifyCurEntityGuidByTickRPC), RpcTarget.AllViaServer,
+            (long)localTick, (long)entityService.CurrentGuid);
+    }
+
+    // compares every peer's value with the first one received for that tick, so it also works with 3+ players
+    internal static void CheckCurEntityGuidByTick(ulong localTick, ulong incomingGuid)
+    {
+        if (!EntityGuidByTick.TryGetValue(localTick, out var firstGuid))
+        {
+            EntityGuidByTick.Add(localTick, incomingGuid);
+
+            foreach (var oldTick in EntityGuidByTick.Keys
+                         .Where(x => x + (DesyncCheckTickInterval * DesyncCheckHistory) < localTick)
+                         .ToList())
+            {
+                EntityGuidByTick.Remove(oldTick);
+            }
+
+            return;
+        }
+
+        if (firstGuid == incomingGuid || _desyncReported)
+        {
+            return;
+        }
+
+        _desyncReported = true;
+        Main.Error($"Multiplayer desync detected at tick {localTick}: entity guid {firstGuid} vs {incomingGuid}");
+        Gui.GuiService.ShowAlert("Message/&MultiplayerDesyncDetected", Gui.ColorFailure, 10f);
+    }
+
+    internal static void ResetDesyncDetection()
+    {
+        EntityGuidByTick.Clear();
+        _lastDesyncCheckTickSent = ulong.MaxValue;
+        _desyncReported = false;
+    }
+
+    #endregion
+
+    #region Movement
+
+    private static bool IsBattleInProgress =>
+        ServiceRepository.GetService<IGameLocationBattleService>() is { IsBattleInProgress: true };
+
+    private static List<GameLocationCharacter> GetOtherOccupants(GameLocationCharacter character, int3 position)
+    {
+        return GridAccessor.Default.Occupants_TryGet(position, out var occupants) && occupants != null
+            ? occupants.Where(x => x != null && x != character).ToList()
+            : [];
+    }
+
+    // out of combat any non-hostile characters may share cells, so the party no longer queues behind each other
+    // in crawl spaces and doorways. In combat only allies that are themselves moving, and only if enabled.
+    internal static bool CanIgnoreOccupantsAt(GameLocationCharacter mover, int3 position)
+    {
+        if (mover == null)
+        {
+            return false;
+        }
+
+        var others = GetOtherOccupants(mover, position);
+
+        if (others.Count == 0)
+        {
+            return false;
+        }
+
+        if (!IsBattleInProgress)
+        {
+            return Main.Settings.MultiplayerAllowCharactersToOverlapOutOfCombat &&
+                   others.All(x => !x.IsOppositeSide(mover.Side));
+        }
+
+        return Main.Settings.MultiplayerAllowAlliesToPassThroughInCombat &&
+               others.All(x =>
+                   x.Side == mover.Side &&
+                   x.MoveInProgress &&
+                   x.RulesetCharacter is { IsDeadOrDyingOrUnconscious: false });
+    }
+
+    // when a battle starts with characters sharing a cell, every one except the occupant with the lowest guid steps
+    // to the closest safe cell: free, not dangerous, and not perceived by any enemy if the character is sneaking.
+    // This runs on every peer from the same game state at the same point of the simulation, which is how lockstep
+    // keeps it identical everywhere (the host's result and every client's result are the same by construction).
+    internal static void ResolveOverlapOnBattleStart(GameLocationCharacter character)
+    {
+        if (!Main.Settings.MultiplayerResolveOverlapsOnBattleStart ||
+            character?.RulesetCharacter is not { IsDeadOrUnconscious: false })
+        {
+            return;
+        }
+
+        var others = GetOtherOccupants(character, character.LocationPosition);
+
+        if (others.Count == 0 || others.All(x => x.Guid > character.Guid))
+        {
+            return;
+        }
+
+        var positioningService = ServiceRepository.GetService<IGameLocationPositioningService>();
+
+        if (positioningService == null)
+        {
+            return;
+        }
+
+        if (!TryFindClosestSafeCell(character, positioningService, out var destination))
+        {
+            Main.Info($"No safe cell found to separate {character.Name} at battle start.");
+
+            return;
+        }
+
+        positioningService.TeleportCharacter(character, destination, character.Orientation);
+    }
+
+    private const int SafeCellSearchRadius = 6;
+
+    private static bool TryFindClosestSafeCell(
+        GameLocationCharacter character,
+        IGameLocationPositioningService positioningService,
+        out int3 destination)
+    {
+        var origin = character.LocationPosition;
+        var enemies = character.Stealthy
+            ? (ServiceRepository.GetService<IGameLocationCharacterService>()?.ValidCharacters ?? [])
+            .Where(x => x.IsOppositeSide(character.Side) &&
+                        x.RulesetCharacter is { IsDeadOrDyingOrUnconscious: false })
+            .ToList()
+            : [];
+        var visibilityService = ServiceRepository.GetService<IGameLocationVisibilityService>();
+
+        // deterministic order: horizontal distance, then same floor first, then coordinates
+        var candidates = new List<int3>();
+
+        for (var x = -SafeCellSearchRadius; x <= SafeCellSearchRadius; x++)
+        {
+            for (var z = -SafeCellSearchRadius; z <= SafeCellSearchRadius; z++)
+            {
+                for (var y = -1; y <= 1; y++)
+                {
+                    if (x != 0 || z != 0 || y != 0)
+                    {
+                        candidates.Add(new int3(origin.x + x, origin.y + y, origin.z + z));
+                    }
+                }
+            }
+        }
+
+        foreach (var cell in candidates
+                     .OrderBy(c => ((c.x - origin.x) * (c.x - origin.x)) + ((c.z - origin.z) * (c.z - origin.z)))
+                     .ThenBy(c => Mathf.Abs(c.y - origin.y))
+                     .ThenBy(c => c.x)
+                     .ThenBy(c => c.z)
+                     .ThenBy(c => c.y))
+        {
+            if (!positioningService.CanPlaceCharacter(
+                    character, cell, CellHelpers.PlacementMode.Station, null, null) ||
+                positioningService.IsDangerousPosition(character, cell) ||
+                (visibilityService != null &&
+                 enemies.Any(enemy => visibilityService.IsCellPerceivedByCharacter(cell, enemy))))
+            {
+                continue;
+            }
+
+            destination = cell;
+
+            return true;
+        }
+
+        destination = origin;
+
+        return false;
+    }
+
+    #endregion
+
+    #region Narrative Sequences
+
+    // with EnableHeroWithBestProficiencyToRollChoice the same hero can win several roles of a state, so lines
+    // addressed between those roles make the hero talk to themselves. Give each new role its own hero when possible.
+    internal static void EnsureUniqueHeroPerRole(
+        NarrativeStatePlayerRoleAssignment state, HashSet<string> rolesBefore)
+    {
+        var rolesMap = state.PlayerRolesMap;
+        var description = state.NarrativeStateDescription;
+
+        if (rolesMap == null || description?.DialogLines == null)
+        {
+            return;
+        }
+
+        var isGameplaySequence = state.NarrativeSequence.IsGameplaySequence;
+        var actors = state.NarrativeSequence.PlayerActors
+            .Where(x => x != null &&
+                        (!isGameplaySequence ||
+                         x.GameLocationCharacter.RulesetCharacter is { IsDeadOrUnconscious: false }))
+            .ToList();
+        var used = new HashSet<WorldLocationCharacter>();
+
+        foreach (var line in description.DialogLines)
+        {
+            var role = line.TextLine;
+
+            if (rolesBefore.Contains(role) || !rolesMap.TryGetValue(role, out var actor) || actor == null)
+            {
+                continue;
+            }
+
+            if (used.Contains(actor))
+            {
+                var candidates = actors.Where(x => !used.Contains(x)).ToList();
+
+                if (line.FlavorFlags is { Count: > 0 } && candidates.Count > 1)
+                {
+                    state.SortByPersonalityFlagRelevance(candidates, line.FlavorFlags);
+                }
+
+                if (candidates.Count > 0)
+                {
+                    actor = candidates[0];
+                    rolesMap[role] = actor;
+                }
+            }
+
+            used.Add(actor);
+        }
+    }
+
+    private static NarrativeSequence _lastSpeechSequence;
+    private static GameLocationCharacter _lastSpeaker;
+    private static string _lastSpeakerRole;
+
+    internal static void RecordSpeaker(NarrativeStateBaseSpeech state)
+    {
+        _lastSpeechSequence = state.NarrativeSequence;
+        _lastSpeaker = state.speaker;
+        _lastSpeakerRole = state.NarrativeStateDescription?.Role;
+    }
+
+    // a role is written to be spoken by someone other than the previous line's role, so never let the same hero
+    // say two consecutive lines of different roles: hand the role to another hero (preferably one without a role)
+    // and rebuild the line so voice, lip sync and listeners match the new speaker
+    internal static void AvoidConsecutiveLinesBySameHero(NarrativeStateCharacterSpeech state)
+    {
+        var sequence = state.NarrativeSequence;
+        var role = state.NarrativeStateDescription?.Role;
+
+        if (sequence == null || sequence != _lastSpeechSequence || string.IsNullOrEmpty(role) ||
+            role == _lastSpeakerRole || state.speaker == null || state.speaker != _lastSpeaker)
+        {
+            return;
+        }
+
+        var rolesMap = state.PlayerRolesMap;
+
+        if (rolesMap == null || !rolesMap.ContainsKey(role))
+        {
+            return;
+        }
+
+        var isGameplaySequence = sequence.IsGameplaySequence;
+        var heroesWithRole = new HashSet<WorldLocationCharacter>(rolesMap.Values);
+        var candidates = sequence.PlayerActors
+            .Where(x => x != null &&
+                        x.GameLocationCharacter != _lastSpeaker &&
+                        (!isGameplaySequence ||
+                         x.GameLocationCharacter.RulesetCharacter is { IsDeadOrDyingOrUnconscious: false }))
+            .ToList();
+        var withoutRole = candidates.Where(x => !heroesWithRole.Contains(x)).ToList();
+        var pool = withoutRole.Count > 0 ? withoutRole : candidates;
+
+        if (pool.Count == 0)
+        {
+            return;
+        }
+
+        var flavorFlags = state.NarrativeStateDescription.DialogLines?.FirstOrDefault()?.FlavorFlags;
+
+        if (flavorFlags is { Count: > 0 } && pool.Count > 1)
+        {
+            state.SortByPersonalityFlagRelevance(pool, flavorFlags);
+        }
+
+        rolesMap[role] = pool[0];
+
+        if (sequence.PlayerRolesMap != null && sequence.PlayerRolesMap != rolesMap &&
+            sequence.PlayerRolesMap.ContainsKey(role))
+        {
+            sequence.PlayerRolesMap[role] = pool[0];
+        }
+
+        state.BuildHook(rolesMap, state.NpcRolesMap);
+    }
+
+    // official scenes author 4 player placement markers, so heroes 5 and 6 would stay wherever they were standing.
+    // Place them one step behind the front row, between the heroes in front of them, facing the same way.
+    internal static void PlaceExtraHeroes(NarrativeDirectionManager manager, NarrativeSequence sequence)
+    {
+        var markers = sequence.PlayerPlacementMarkers;
+        var actors = sequence.PlayerActors;
+
+        if (sequence.NarrativeTreeDefinition.IsUserContent ||
+            markers == null || markers.Length == 0 || actors == null || actors.Count <= markers.Length ||
+            markers.Any(x => x == null))
+        {
+            return;
+        }
+
+        var isTopDown = sequence.NarrativeTreeDefinition.IsTopDownNarrativeSequence;
+        var positioningService = ServiceRepository.GetService<IGameLocationPositioningService>();
+
+        for (var i = markers.Length; i < actors.Count; i++)
+        {
+            var actor = actors[i];
+
+            if (actor == null)
+            {
+                continue;
+            }
+
+            var extraIndex = i - markers.Length;
+            var first = markers[(extraIndex * 2) % markers.Length];
+            var second = markers[((extraIndex * 2) + 1) % markers.Length];
+            var position = ((first.position + second.position) * 0.5f) -
+                           (first.forward * ExtraPlacementBackOffset);
+            var placement = new GameObject($"UB_ExtraHeroPlacement{i}").transform;
+
+            placement.SetPositionAndRotation(position, first.rotation);
+
+            if (!isTopDown)
+            {
+                actor.PlaceFreely(placement);
+            }
+            else if (positioningService != null &&
+                     positioningService.CanPlaceCharacter(actor.GameLocationCharacter,
+                         positioningService.GetGridPositionFromWorldPosition(placement),
+                         CellHelpers.PlacementMode.Station, null, null))
+            {
+                manager.TeleportCharacterToStartingPosition(actor, placement);
+            }
+
+            Object.Destroy(placement.gameObject);
+        }
+    }
+
+    #endregion
+}

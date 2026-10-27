@@ -172,6 +172,23 @@ public class Settings : UnityModManager.ModSettings
     #endregion
 
     public bool EnableCriticalHitsMissesAt10 { get; set; }
+
+    //
+    // Gameplay - Multiplayer
+    //
+
+    // only fixes for vanilla behavior are toggles; fixes for bugs that come from this mod are always applied
+    public bool MultiplayerDeterministicStandAgainstTheTide { get; set; } = true;
+    public bool MultiplayerEnableDesyncDetection { get; set; } = true;
+    public bool MultiplayerEnableTickBufferTuning { get; set; } = true;
+    public int MultiplayerInitialTickBuffer { get; set; } = MultiplayerContext.DefaultInitialTickBuffer;
+    public int MultiplayerMinimumTickBuffer { get; set; } = MultiplayerContext.DefaultMinimumTickBuffer;
+    public int MultiplayerSecondsBeforeLowerTickBuffer { get; set; } =
+        MultiplayerContext.DefaultSecondsBeforeLowerTickBuffer;
+    public bool MultiplayerAllowCharactersToOverlapOutOfCombat { get; set; } = true;
+    public bool MultiplayerResolveOverlapsOnBattleStart { get; set; } = true;
+    public bool MultiplayerAllowAlliesToPassThroughInCombat { get; set; } = true;
+
     //
     // Gameplay - Campaigns
     //

@@ -321,6 +321,9 @@ public static class GameLocationCharacterPatcher
             //PATCH: acts as a callback for the character's combat started event
             //while there already is callback for this event it doesn't have character or surprise flag arguments
             CharacterBattleListenersPatch.OnCharacterBattleStarted(__instance, surprise);
+
+            //PATCH: separates characters that were sharing a cell when the battle started (MULTIPLAYER)
+            MultiplayerContext.ResolveOverlapOnBattleStart(__instance);
         }
     }
 

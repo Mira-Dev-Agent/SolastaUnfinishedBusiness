@@ -656,3 +656,4 @@ UI/&RecipeFilterAmmunition=Ammunition
 UI/&RecipeFilterArmor=Armor
 UI/&RecipeFilterUsableDevices=Usable Devices
 UI/&RecipeFilterWeapons=Weapons
+Message/&MultiplayerDesyncDetected=Multiplayer desync detected. Save and reload the game on the host to resynchronize.

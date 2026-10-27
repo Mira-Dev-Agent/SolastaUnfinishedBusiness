@@ -4,6 +4,8 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Xml;
+using System.Xml.Serialization;
 using JetBrains.Annotations;
 using SolastaUnfinishedBusiness.Api.ModKit;
 using SolastaUnfinishedBusiness.Models;
@@ -102,6 +104,7 @@ internal static class Main
         {
             Mod = new ModManager<Core, Settings>();
             Mod.Enable(modEntry, assembly);
+            AddMissingSettingsToFile(modEntry);
 
             modEntry.OnShowGUI = _ =>
             {
@@ -131,6 +134,57 @@ internal static class Main
         }
 
         return true;
+    }
+
+    // after an update the settings file lacks the new settings until the mod menu saves it again. Write them now with
+    // their defaults. Every other value comes from what was just loaded, so it is written back unchanged. Only do it
+    // when the file parses as Settings, so a file the game failed to read is never overwritten with defaults.
+    private static void AddMissingSettingsToFile(UnityModManager.ModEntry modEntry)
+    {
+        var path = Path.Combine(modEntry.Path, "Settings.xml");
+
+        if (!File.Exists(path))
+        {
+            return;
+        }
+
+        var document = new XmlDocument();
+
+        try
+        {
+            document.Load(path);
+
+            using var reader = new XmlNodeReader(document);
+
+            _ = new XmlSerializer(typeof(Settings)).Deserialize(reader);
+        }
+        catch (Exception ex)
+        {
+            Error($"Settings.xml could not be read, so it was left unchanged: {ex.Message}");
+
+            return;
+        }
+
+        var existing = document.DocumentElement?.ChildNodes.OfType<XmlElement>().Select(x => x.Name).ToHashSet() ??
+                       [];
+        var missing = typeof(Settings)
+            .GetProperties(BindingFlags.Public | BindingFlags.Instance)
+            .Where(x => x.CanRead && x.CanWrite && x.GetIndexParameters().Length == 0 &&
+                        !x.IsDefined(typeof(XmlIgnoreAttribute)))
+            .Select(x => x.GetCustomAttribute<XmlElementAttribute>()?.ElementName is { Length: > 0 } name
+                ? name
+                : x.Name)
+            .Where(x => !existing.Contains(x))
+            .ToList();
+
+        if (missing.Count == 0)
+        {
+            return;
+        }
+
+        File.Copy(path, path + ".bak", true);
+        UnityModManager.ModSettings.Save(Settings, modEntry);
+        Info($"added {missing.Count} new settings to Settings.xml: {string.Join(", ", missing)}");
     }
 
     internal static void LoadSettingFilenames()
