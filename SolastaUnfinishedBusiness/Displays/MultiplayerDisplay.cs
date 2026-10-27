@@ -170,6 +170,12 @@ internal static class MultiplayerDisplay
             Main.Settings.MultiplayerAllowAlliesToPassThroughInCombat = toggle;
         }
 
+        toggle = Main.Settings.MultiplayerSpreadOverlappedCharacters;
+        if (UI.Toggle(Gui.Localize("ModUi/&MultiplayerSpreadOverlappedCharacters"), ref toggle, UI.AutoWidth()))
+        {
+            Main.Settings.MultiplayerSpreadOverlappedCharacters = toggle;
+        }
+
         UI.Label();
     }
 }

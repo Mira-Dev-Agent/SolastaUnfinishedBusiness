@@ -353,6 +353,19 @@ public static class MultiplayerPatcher
         }
     }
 
+    //PATCH: draws characters sharing a cell slightly apart so each can be pointed at; visual only (MULTIPLAYER)
+    [HarmonyPatch(typeof(WorldLocationCharacter), nameof(WorldLocationCharacter.Update))]
+    [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]
+    [UsedImplicitly]
+    public static class WorldLocationCharacterUpdate_Patch
+    {
+        [UsedImplicitly]
+        public static void Postfix(WorldLocationCharacter __instance)
+        {
+            MultiplayerContext.SpreadOverlappedCharacter(__instance);
+        }
+    }
+
     //PATCH: lets characters share cells instead of queuing behind each other (MULTIPLAYER)
     [HarmonyPatch(typeof(CharacterActionMoveStepBase), nameof(CharacterActionMoveStepBase.WaitForCanMove))]
     [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]

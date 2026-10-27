@@ -195,6 +195,7 @@ public class Settings : UnityModManager.ModSettings
     public bool MultiplayerAllowCharactersToOverlapOutOfCombat { get; set; } = true;
     public bool MultiplayerResolveOverlapsOnBattleStart { get; set; } = true;
     public bool MultiplayerAllowAlliesToPassThroughInCombat { get; set; } = true;
+    public bool MultiplayerSpreadOverlappedCharacters { get; set; } = true;
 
     //
     // Gameplay - Campaigns

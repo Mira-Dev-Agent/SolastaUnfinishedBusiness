@@ -503,6 +503,105 @@ internal static class MultiplayerContext
         return false;
     }
 
+    // Characters still sharing a cell (out of combat, or when no safe cell was found) are drawn slightly apart so each
+    // can be pointed at. Only the model moves: in multiplayer the game takes target and bone positions from the
+    // logical position and the model's initial pose, so line of sight and everything simulated stay the same.
+    // Two stand side by side, three in a triangle, more in a ring that widens with their number, always inside the cell.
+    private const float SpreadSmoothing = 8f;
+    private const float SpreadEpsilon = 0.001f;
+
+    private static readonly HashSet<WorldLocationCharacter> SpreadCharacters = [];
+
+    internal static void SpreadOverlappedCharacter(WorldLocationCharacter world)
+    {
+        SpreadCharacters.RemoveWhere(x => !x);
+
+        var graphics = world.graphicsCharacter;
+        var character = world.gameCharacter;
+
+        if (!graphics || character == null)
+        {
+            return;
+        }
+
+        var target = Vector3.zero;
+
+        if (Global.IsMultiplayer &&
+            Main.Settings.MultiplayerSpreadOverlappedCharacters &&
+            // climbing, jumping and falling only happen during a move
+            !character.MoveInProgress)
+        {
+            var occupants = GetOtherOccupants(character, character.LocationPosition)
+                .Where(x => !x.MoveInProgress)
+                .Append(character)
+                .OrderBy(x => x.Guid)
+                .ToList();
+
+            if (occupants.Count > 1)
+            {
+                target = world.transform.InverseTransformDirection(
+                    SpreadOffset(occupants.IndexOf(character), occupants.Count));
+            }
+        }
+
+        if (target == Vector3.zero && !SpreadCharacters.Contains(world))
+        {
+            return;
+        }
+
+        var local = graphics.transform.localPosition;
+        var wanted = new Vector3(target.x, local.y, target.z);
+        var next = Vector3.Lerp(local, wanted, Mathf.Clamp01(Time.deltaTime * SpreadSmoothing));
+
+        if (target == Vector3.zero && new Vector2(next.x, next.z).sqrMagnitude < SpreadEpsilon)
+        {
+            next = new Vector3(0, local.y, 0);
+            SpreadCharacters.Remove(world);
+        }
+        else
+        {
+            SpreadCharacters.Add(world);
+        }
+
+        graphics.transform.localPosition = next;
+    }
+
+    private static float _cellSize;
+
+    // world width of one grid cell, read once from the game's grid
+    private static float CellSize
+    {
+        get
+        {
+            if (_cellSize > 0 ||
+                ServiceRepository.GetService<IGameLocationPositioningService>() is not { } positioning)
+            {
+                return _cellSize > 0 ? _cellSize : 1f;
+            }
+
+            var size = (positioning.GetWorldPositionFromGridPosition(new int3(1, 0, 0)) -
+                        positioning.GetWorldPositionFromGridPosition(new int3(0, 0, 0))).magnitude;
+
+            _cellSize = size > 0.01f ? size : 1f;
+
+            return _cellSize;
+        }
+    }
+
+    // world-space offset of the index-th of count characters sharing a cell, as a share of the cell width
+    private static Vector3 SpreadOffset(int index, int count)
+    {
+        var radius = CellSize * count switch
+        {
+            2 => 0.22f,
+            3 => 0.26f,
+            _ => Mathf.Min(0.3f + (0.02f * (count - 4)), 0.38f)
+        };
+        var angle = (Mathf.PI * 2f * index / count) + (count == 2 ? 0f : Mathf.PI / 2f);
+
+        return new Vector3(Mathf.Cos(angle) * radius, 0, Mathf.Sin(angle) * radius);
+    }
+
     #endregion
 
     #region Narrative Sequences

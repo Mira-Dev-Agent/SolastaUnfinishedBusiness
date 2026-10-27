@@ -1,3 +1,7 @@
+1.6.5.0:
+- Multiplayer: characters sharing a cell are drawn slightly apart so each one can be pointed at and clicked: two side by side, three in a triangle, more in a ring that widens with their number. Visual only, so it cannot cause a desync. They ease back to the center when they move (toggle, on by default)
+- Not tested in game or in a multiplayer session
+
 1.6.4.0:
 - Multiplayer: desync detection can also compare a game-state fingerprint every 5 seconds: each character's HP, temporary HP, position, conditions, spell slots, plus the dice sequence. It says which character and value differ, and only checks when nothing is moving or acting (toggle, on by default)
 - Multiplayer: out of combat the host can quick-correct small differences (HP, position, spell slots, dice) on every computer at the same tick, without reloading (toggle, on by default)
