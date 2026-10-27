@@ -1,3 +1,10 @@
+1.6.9.0:
+- When the party already had a long rest today, the Long Rest button on the rest screen stays usable: it waits until the party can rest again, then rests, as one action (Gameplay > Campaigns, on by default)
+  - One confirmation shows the wait and the total in-game time
+  - The button is only usable when every other rest rule passes (combat, enemies nearby, unsafe area, food, party spread)
+- Multiplayer: waiting until the party can rest and the long rest are approved together, with the total time, at the rest screen and at campfires
+- Not tested in game or in a multiplayer session
+
 1.6.8.0:
 - Multiplayer: every player can now start a short or long rest from the rest screen, not only the host (Gameplay > Multiplayer, on by default)
   - The host still applies the rest for everyone, and the rest still asks for approval when that setting is on

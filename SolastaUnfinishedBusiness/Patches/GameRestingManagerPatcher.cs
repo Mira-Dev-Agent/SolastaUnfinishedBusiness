@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using HarmonyLib;
 using JetBrains.Annotations;
+using SolastaUnfinishedBusiness.Models;
 using static RuleDefinitions;
 
 namespace SolastaUnfinishedBusiness.Patches;
@@ -45,8 +46,27 @@ public static class GameRestingManagerPatcher
 
         // the distance check is the game's last one, so passing it leaves every other rule in place
         [UsedImplicitly]
-        public static void Postfix(RestType restType, ref string failureFlag, ref bool __result)
+        public static void Postfix(
+            GameRestingManager __instance,
+            RestType restType,
+            ref string failureFlag,
+            bool shouldCheckPlayerPrivileges,
+            ref bool __result)
         {
+            //PATCH: on the rest screen, a long rest the party already took today waits until it can rest again
+            if (InRestScreen && restType == RestType.LongRest && !LongRestWaitContext.IgnoreRestFrequency)
+            {
+                LongRestWaitContext.NeedsWait = !__result &&
+                                                LongRestWaitContext.OnlyRestedToday(__instance, failureFlag,
+                                                    shouldCheckPlayerPrivileges);
+
+                if (LongRestWaitContext.NeedsWait)
+                {
+                    failureFlag = string.Empty;
+                    __result = true;
+                }
+            }
+
             if (__result ||
                 !Main.Settings.AllowShortRestWithPartySpreadOut ||
                 restType != RestType.ShortRest ||

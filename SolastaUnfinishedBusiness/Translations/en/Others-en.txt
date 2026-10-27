@@ -754,3 +754,6 @@ Message/&MultiplayerApprovalHour=1 hour
 Message/&MultiplayerApprovalHours={0} hours
 Message/&MultiplayerApprovalMinute=1 minute
 Message/&MultiplayerApprovalMinutes={0} minutes
+Message/&LongRestWaitTitle=Wait, then long rest
+Message/&LongRestWaitDescription=The party already had a long rest today. Wait <b>{0}</b> until it can rest again, then take a long rest?\n\nThis passes <b>{1}</b> of in-game time in total.
+Message/&MultiplayerApprovalActionWaitAndLongRest=wait {0} until the party can rest again, then take a long rest

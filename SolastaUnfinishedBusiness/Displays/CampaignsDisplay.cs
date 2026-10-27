@@ -42,6 +42,12 @@ internal static class CampaignsDisplay
             Main.Settings.AllowShortRestWithPartySpreadOut = toggle;
         }
 
+        toggle = Main.Settings.CombineWaitWithLongRest;
+        if (UI.Toggle(Gui.Localize("ModUi/&CombineWaitWithLongRest"), ref toggle, UI.AutoWidth()))
+        {
+            Main.Settings.CombineWaitWithLongRest = toggle;
+        }
+
         UI.Label();
 
         var floatValue = Main.Settings.FasterTimeModifier;

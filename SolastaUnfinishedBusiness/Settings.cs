@@ -209,6 +209,7 @@ public class Settings : UnityModManager.ModSettings
     public bool NoExperienceOnLevelUp { get; set; }
     public bool OverrideMinMaxLevel { get; set; }
     public bool AllowShortRestWithPartySpreadOut { get; set; }
+    public bool CombineWaitWithLongRest { get; set; } = true;
     public float FasterTimeModifier { get; set; } = CampaignsDisplay.DefaultFastTimeModifier;
     public int MultiplyTheExperienceGainedBy { get; set; } = 100;
     public int OverridePartySize { get; set; } = ToolsContext.GamePartySize;

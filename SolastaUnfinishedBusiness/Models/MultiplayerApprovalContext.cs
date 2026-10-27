@@ -23,7 +23,8 @@ internal static class MultiplayerApprovalContext
         MarkDeity = 5,
         CastSpell = 6,
         CastRitual = 7,
-        UsePower = 8
+        UsePower = 8,
+        WaitAndLongRest = 9
     }
 
     private enum Answer : byte
@@ -396,6 +397,12 @@ internal static class MultiplayerApprovalContext
     {
         var subject = subjectName;
 
+        // the wait is sent in hours and worded on each computer
+        if (action == ApprovalAction.WaitAndLongRest && int.TryParse(characterName, out var hours))
+        {
+            characterName = FormatDuration(hours * 3600);
+        }
+
         if (DatabaseRepository.GetDatabase<SpellDefinition>().TryGetElement(subjectName, out var spell))
         {
             subject = spell.FormatTitle();
@@ -408,7 +415,7 @@ internal static class MultiplayerApprovalContext
         return Gui.Format($"Message/&MultiplayerApprovalAction{action}", characterName, subject);
     }
 
-    private static string FormatDuration(int seconds)
+    internal static string FormatDuration(int seconds)
     {
         var hours = seconds / 3600;
         var minutes = (seconds % 3600 + 59) / 60;

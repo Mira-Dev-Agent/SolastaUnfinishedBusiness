@@ -1831,4 +1831,23 @@ public static class RulesetCharacterHeroPatcher
             }
         }
     }
+
+    //PATCH: lets the combined wait and long rest check every other rest rule while the party already rested today
+    [HarmonyPatch(typeof(RulesetCharacterHero), nameof(RulesetCharacterHero.CanRest))]
+    [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]
+    [UsedImplicitly]
+    public static class CanRest_Patch
+    {
+        [UsedImplicitly]
+        public static void Postfix(ref string failureFlag, ref bool __result)
+        {
+            if (__result || !LongRestWaitContext.IgnoreRestFrequency || failureFlag != LongRestWaitContext.RestTooOften)
+            {
+                return;
+            }
+
+            failureFlag = string.Empty;
+            __result = true;
+        }
+    }
 }

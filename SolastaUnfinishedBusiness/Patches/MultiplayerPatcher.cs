@@ -284,6 +284,22 @@ public static class MultiplayerPatcher
         }
     }
 
+    //PATCH: asks every player to approve waiting until the party can rest again and the long rest, together (MULTIPLAYER)
+    [HarmonyPatch(typeof(NetworkingManager), nameof(NetworkingManager.StartDeferredLongRest))]
+    [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]
+    [UsedImplicitly]
+    public static class StartDeferredLongRest_Patch
+    {
+        [UsedImplicitly]
+        public static bool Prefix(NetworkingManager __instance, int missingHours)
+        {
+            return !MultiplayerApprovalContext.MustWaitForApproval(
+                MultiplayerApprovalContext.ApprovalAction.WaitAndLongRest, missingHours.ToString(), null,
+                (missingHours * 3600) + MultiplayerApprovalContext.RestSeconds(RuleDefinitions.RestType.LongRest),
+                () => __instance.StartDeferredLongRest(missingHours));
+        }
+    }
+
     //PATCH: asks every player to approve Mark Deity (MULTIPLAYER)
     [HarmonyPatch(typeof(NetworkingManager), nameof(NetworkingManager.MarkDeity))]
     [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]

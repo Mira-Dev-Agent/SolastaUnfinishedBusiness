@@ -60,6 +60,12 @@ public static class RestModalPatcher
         {
             GameRestingManagerPatcher.InRestScreen = true;
 
+            //PATCH: when the party already rested today, waits until it can rest again, then rests
+            if (LongRestWaitContext.TryWaitThenRest(__instance))
+            {
+                return false;
+            }
+
             return !MustWaitForApproval(RestType.LongRest, __instance.OnStartLongRestCb);
         }
 
