@@ -1,3 +1,9 @@
+1.6.8.0:
+- Multiplayer: every player can now start a short or long rest from the rest screen, not only the host (Gameplay > Multiplayer, on by default)
+  - The host still applies the rest for everyone, and the rest still asks for approval when that setting is on
+  - Campfires and rests started by the story keep the game rules
+- Not tested in game or in a multiplayer session
+
 1.6.7.0:
 - Multiplayer: actions that pass in-game time now wait until every other player approves them (Gameplay > Multiplayer, on by default)
   - Covers short and long rests, learning or scribing a spell from a scroll, Mark Deity, rituals, and spells or powers that take a minute or more (Heroes' Feast counts its feast hours)

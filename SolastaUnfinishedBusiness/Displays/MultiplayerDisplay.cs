@@ -166,6 +166,12 @@ internal static class MultiplayerDisplay
             }
         }
 
+        toggle = Main.Settings.MultiplayerAllowPlayersToStartRests;
+        if (UI.Toggle(Gui.Localize("ModUi/&MultiplayerAllowPlayersToStartRests"), ref toggle, UI.AutoWidth()))
+        {
+            Main.Settings.MultiplayerAllowPlayersToStartRests = toggle;
+        }
+
         // the same setting is also under Campaigns
         toggle = Main.Settings.AllowShortRestWithPartySpreadOut;
         if (UI.Toggle(Gui.Localize("ModUi/&AllowShortRestWithPartySpreadOut"), ref toggle, UI.AutoWidth()))

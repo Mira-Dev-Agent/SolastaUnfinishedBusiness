@@ -37,7 +37,15 @@ public static class RestModalPatcher
         [UsedImplicitly]
         public static bool Prefix(RestModal __instance)
         {
+            GameRestingManagerPatcher.InRestScreen = true;
+
             return !MustWaitForApproval(RestType.ShortRest, __instance.OnStartShortRestCb);
+        }
+
+        [UsedImplicitly]
+        public static void Finalizer()
+        {
+            GameRestingManagerPatcher.InRestScreen = false;
         }
     }
 
@@ -50,7 +58,34 @@ public static class RestModalPatcher
         [UsedImplicitly]
         public static bool Prefix(RestModal __instance)
         {
+            GameRestingManagerPatcher.InRestScreen = true;
+
             return !MustWaitForApproval(RestType.LongRest, __instance.OnStartLongRestCb);
+        }
+
+        [UsedImplicitly]
+        public static void Finalizer()
+        {
+            GameRestingManagerPatcher.InRestScreen = false;
+        }
+    }
+
+    //PATCH: the rest screen's start buttons are enabled for every player, not only the host (MULTIPLAYER)
+    [HarmonyPatch(typeof(RestBeforePanel), nameof(RestBeforePanel.SetRestType))]
+    [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]
+    [UsedImplicitly]
+    public static class SetRestType_Patch
+    {
+        [UsedImplicitly]
+        public static void Prefix()
+        {
+            GameRestingManagerPatcher.InRestScreen = true;
+        }
+
+        [UsedImplicitly]
+        public static void Finalizer()
+        {
+            GameRestingManagerPatcher.InRestScreen = false;
         }
     }
 }

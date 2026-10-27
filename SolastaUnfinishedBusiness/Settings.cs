@@ -200,6 +200,7 @@ public class Settings : UnityModManager.ModSettings
     public bool MultiplayerSpreadOverlappedCharacters { get; set; } = true;
     public bool MultiplayerRequireApprovalForTimeConsumingActions { get; set; } = true;
     public bool MultiplayerApprovalSkipActionsOfTenMinutesOrLess { get; set; } = true;
+    public bool MultiplayerAllowPlayersToStartRests { get; set; } = true;
 
     //
     // Gameplay - Campaigns
