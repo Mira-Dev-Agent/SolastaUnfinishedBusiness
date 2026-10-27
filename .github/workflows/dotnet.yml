@@ -1,5 +1,5 @@
-# This workflow will build a .NET project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+# Builds the mod and publishes a GitHub release whenever a version tag is pushed (e.g. `git push origin 1.6.1.1`).
+# The tag must match Info.json's Version; the release notes are that version's entry in ChangelogHistory.txt.
 
 name: .NET
 
@@ -9,6 +9,8 @@ on:
         - '*'
 env:
   SolastaInstallDir: ../SolastaFiles
+permissions:
+  contents: write
 jobs:
   build:
 
@@ -16,6 +18,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - name: Check version
+        run: |
+          version=$(jq -r .Version SolastaUnfinishedBusiness/Info.json)
+          if [ "$version" != "$GITHUB_REF_NAME" ]; then
+            echo "::error::Tag $GITHUB_REF_NAME doesn't match Info.json Version $version"
+            exit 1
+          fi
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
@@ -26,37 +35,24 @@ jobs:
         run: dotnet clean SolastaUnfinishedBusiness.sln
       - name: Build
         run: dotnet build SolastaUnfinishedBusiness.sln --no-restore -c "Release Workflow"
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          make_latest: true
-          draft: true
       - name: Zip Files
-        uses: vimtor/action-zip@v1.2
-        with:
-          files: ./SolastaFiles/Mods/
-          recursive: true
-          dest: SolastaUnfinishedBusiness.zip
-      - name: Upload Info.json
-        uses: actions/upload-release-asset@v1
+        run: |
+          cd SolastaFiles/Mods
+          zip -r -q "$GITHUB_WORKSPACE/SolastaUnfinishedBusiness.zip" SolastaUnfinishedBusiness
+      - name: Release Notes
+        # the version's changelog entry: the lines after "<version>:" up to the next blank line
+        run: |
+          tr -d '\r' < SolastaUnfinishedBusiness/ChangelogHistory.txt |
+            awk -v header="$GITHUB_REF_NAME:" '$0 == header { found = 1; next } found && $0 == "" { exit } found' \
+            > release-notes.md
+          if [ ! -s release-notes.md ]; then
+            echo "::error::No ChangelogHistory.txt entry for $GITHUB_REF_NAME"
+            exit 1
+          fi
+      - name: Publish Release
         env:
-          GITHUB_TOKEN: ${{ github.token }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./SolastaFiles/Mods/SolastaUnfinishedBusiness/Info.json
-          asset_name: Info.json
-          asset_content_type: application/json
-      - name: Upload Zip File
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: SolastaUnfinishedBusiness.zip
-          asset_name: SolastaUnfinishedBusiness.zip
-          asset_content_type: application/zip
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" --verify-tag --latest --title "$GITHUB_REF_NAME" \
+            --notes-file release-notes.md \
+            SolastaUnfinishedBusiness.zip SolastaFiles/Mods/SolastaUnfinishedBusiness/Info.json
