@@ -1,3 +1,4 @@
+Condition/&ConditionWizardAbjurationArcaneWardDescription=Your Arcane Ward is active: whenever you take damage, the ward takes the damage instead until its hit points run out.
 Condition/&ConditionWizardAbjurationArcaneWardTitle=Arcane Ward
 Feature/&MagicAffinityWizardAbjurationSavant2024Description=Choose two Wizard spells from the Abjuration school, and add them to your spellbook for free. In addition, whenever you gain access to a new level of spell slots in this class, you can add one Wizard spell from the Abjuration school to your spell book for free.
 Feature/&MagicAffinityWizardAbjurationSavant2024Title=Abjuration Savant

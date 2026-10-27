@@ -1,3 +1,9 @@
+1.6.1.5:
+- Filled empty tooltips: all 121 conditions found without a description (spells, feats, races, subclasses and 2024 rules) now describe their effect, many reusing the mod's or the game's existing feature texts
+- Weapon Master and Way of Blade weapon choices, the Elemental Bane damage choices, the Militia Skills background feature, the Eldritch Cannons and the Create Bonfire, Faithful Hound and Sickening Radiance effects now have descriptions
+- Primed and +1/+2/+3 Katana, Halberd, Pike, Long Mace and Hand Crossbow use the game's own lore texts; the elemental variants and both gauntlets got new descriptions; their crafting manuals follow, and Prime manuals use the game's generic manual text
+- Not tested in game: none of the new tooltips have been viewed in game yet
+
 1.6.1.4:
 - Fixed the Remake Old Character button being hidden exactly on top of New Character: it now has its own row below New Character, with its own label and tooltip
 - Characters Moved popup: Keep is now the main button and Delete uses the cancel style. Delete asks for confirmation before deleting, so pressing Escape never deletes. The folder path is shown with consistent slashes

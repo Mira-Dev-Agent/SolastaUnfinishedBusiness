@@ -265,7 +265,7 @@ public sealed class WizardAbjuration : AbstractSubclass
             .Create(ArcaneWardConditionName)
             .SetGuiPresentation(
                 Category.Condition,
-                Gui.NoLocalization,
+                "Condition/&ConditionWizardAbjurationArcaneWardDescription",
                 ConditionDefinitions.ConditionShielded.GuiPresentation.SpriteReference)
             .SetConditionType(ConditionType.Beneficial)
             .SetSilent(Silent.WhenRefreshedOrRemoved)

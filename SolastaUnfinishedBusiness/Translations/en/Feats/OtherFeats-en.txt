@@ -1,5 +1,8 @@
 Action/&GrappleOnUnarmedToggleDescription=Activate/deactivate Grapple on unarmed attacks
 Action/&GrappleOnUnarmedToggleTitle=Grapple on Unarmed
+Condition/&ConditionFeatAcrobatDescription=Difficult terrain doesn't cost extra movement.
+Condition/&ConditionFeatDungeonDelverDescription=Resistance to the damage dealt by this trap.
+Condition/&ConditionFeatMageSlayerDescription=Disadvantage on saving throws to maintain concentration.
 Condition/&ConditionFeatMobileAfterDashDescription=Grants immunity to movement restrictions as well as being restrained.
 Condition/&ConditionFeatMobileAfterDashTitle=Freedom
 Failure/&MustBeHumanoid=Must be humanoid
@@ -98,6 +101,7 @@ Feat/&FeatWeaponMasteryStrDescription=You have practiced extensively with a vari
 Feat/&FeatWeaponMasteryStrTitle=Weapon Mastery [Str]
 Feature/&CastSpellFeatMagicInitiateTitle=Initiate
 Feature/&CastSpellFeatSpellSniperTitle=Sniper
+Feature/&CustomInvocationFeatWeaponMasterDescription=You gain proficiency with this weapon type.
 Feature/&PowerFeatAcrobatDescription=As a bonus action, you can make a DC 15 Dexterity (Acrobatics) check. If you succeed, difficult terrain doesn't cost you extra movement until the end of the current turn.
 Feature/&PowerFeatAcrobatTitle=Acrobat
 Feature/&PowerFeatBalefulScionDescription=Once per turn, when you damage a creature you can see within 60 feet of yourself, you can also deal necrotic damage to it. The necrotic damage equals 1d6 + your proficiency bonus, and you regain a number of hit points equal to 1D6 + your proficiency bonus. You can use this benefit a number of times equal to your proficiency bonus, and you regain all expended uses when you finish a long rest.

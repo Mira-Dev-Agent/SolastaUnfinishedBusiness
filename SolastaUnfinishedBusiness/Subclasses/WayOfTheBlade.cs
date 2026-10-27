@@ -246,7 +246,7 @@ public sealed class WayOfBlade : AbstractSubclass
                 .Create($"CustomInvocationMonkWeaponSpecialization{weaponTypeName}")
                 .SetGuiPresentation(
                     weaponTypeDefinition.GuiPresentation.Title,
-                    weaponTypeDefinition.GuiPresentation.Description,
+                    "Feature/&CustomInvocationMonkWeaponSpecializationDescription",
                     CustomWeaponsContext.GetStandardWeaponOfType(weaponTypeDefinition.Name))
                 .SetPoolType(InvocationPoolTypeCustom.Pools.MonkWeaponSpecialization)
                 .SetGrantedFeature(featureMonkWeaponSpecialization)

@@ -519,7 +519,7 @@ internal static partial class SpellBuilders
                                 .Create($"Condition{NAME}{damageType}")
                                 .SetGuiPresentation(
                                     Gui.Format($"Condition/&Condition{NAME}Title", title),
-                                    Gui.EmptyContent,
+                                    Gui.Format("Condition/&ConditionShelterFromEnergyDescription", title),
                                     ConditionAuraOfProtection)
                                 .SetPossessive()
                                 .SetFeatures(damageAffinity)
@@ -589,7 +589,7 @@ internal static partial class SpellBuilders
             .SetConditionParticleReference(WardingBond)
             .AddToDB();
 
-        conditionMark.GuiPresentation.description = Gui.EmptyContent;
+        conditionMark.GuiPresentation.description = "Condition/&ConditionFizbanPlatinumShieldDescription";
 
         var lightSourceForm =
             SpellDefinitions.Light.EffectDescription.GetFirstFormOfType(EffectForm.EffectFormType.LightSource);
@@ -984,7 +984,7 @@ internal static partial class SpellBuilders
             .CopyParticleReferences(PowerSorcererChildRiftDeflection)
             .AddToDB();
 
-        conditionRingOfBlades.GuiPresentation.description = Gui.EmptyContent;
+        conditionRingOfBlades.GuiPresentation.description = "Condition/&ConditionRingOfBladesDescription";
 
         var behavior = new ModifyEffectDescriptionRingOfBlades(powerRingOfBlades, conditionRingOfBlades);
 

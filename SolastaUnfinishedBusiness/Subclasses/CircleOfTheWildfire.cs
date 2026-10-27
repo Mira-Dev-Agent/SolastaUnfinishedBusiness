@@ -205,7 +205,7 @@ public sealed class CircleOfTheWildfire : AbstractSubclass
                     .AddToDB(),
                 ConditionDefinitionBuilder
                     .Create($"Condition{Name}SpiritAttackRoll")
-                    .SetGuiPresentation("Feedback/&SpiritBonusTitle", Gui.EmptyContent)
+                    .SetGuiPresentation("Feedback/&SpiritBonusTitle", "Condition/&ConditionCircleOfTheWildfireSpiritAttackRollDescription")
                     .SetPossessive()
                     .SetSilent(Silent.WhenAddedOrRemoved)
                     .SetAmountOrigin(ConditionDefinition.OriginOfAmount.SourceSpellAttack)
@@ -213,7 +213,7 @@ public sealed class CircleOfTheWildfire : AbstractSubclass
                     .AddToDB(),
                 ConditionDefinitionBuilder
                     .Create($"Condition{Name}SpiritDamageRoll")
-                    .SetGuiPresentation("Feedback/&SpiritBonusTitle", Gui.EmptyContent)
+                    .SetGuiPresentation("Feedback/&SpiritBonusTitle", "Condition/&ConditionCircleOfTheWildfireSpiritDamageRollDescription")
                     .SetPossessive()
                     .SetSilent(Silent.WhenAddedOrRemoved)
                     .SetAmountOrigin(ExtraOriginOfAmount.SourceProficiencyBonus)
@@ -221,7 +221,7 @@ public sealed class CircleOfTheWildfire : AbstractSubclass
                     .AddToDB(),
                 ConditionDefinitionBuilder
                     .Create($"Condition{Name}SpiritHitPoints")
-                    .SetGuiPresentation("Feedback/&SpiritBonusTitle", Gui.EmptyContent)
+                    .SetGuiPresentation("Feedback/&SpiritBonusTitle", "Condition/&ConditionCircleOfTheWildfireSpiritHitPointsDescription")
                     .SetPossessive()
                     .SetSilent(Silent.WhenAddedOrRemoved)
                     .SetAmountOrigin(ExtraOriginOfAmount.SourceClassLevel, DruidClass)

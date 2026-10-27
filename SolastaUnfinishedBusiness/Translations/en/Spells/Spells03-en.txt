@@ -1,3 +1,5 @@
+Condition/&ConditionAdderFangsDescription=Disadvantage on attacks and ability checks; speed is halved.
+Condition/&ConditionAshardalonStrideDescription=Speed increases by {0} ft and moving doesn't provoke opportunity attacks. Creatures you move within 5 ft of take fire damage, once per turn.
 Condition/&ConditionAuraOfLifeDescription=You can be targeted to regain 2d6 hit points.
 Condition/&ConditionAuraOfLifeTitle=Aura of Life
 Condition/&ConditionBlindedByBlindingSmiteTitle=Blinded by Blinding Smite
@@ -8,6 +10,7 @@ Condition/&ConditionCrusadersMantleDescription=Gain a bonus 1d4 radiant damage o
 Condition/&ConditionCrusadersMantleTitle=Crusader's Mantle
 Condition/&ConditionFlameArrowsDescription=You deal an extra 1d6 fire damage with arrows or bolts attacks.
 Condition/&ConditionFlameArrowsTitle=Flame Arrows
+Condition/&ConditionIntellectFortressDescription=Resistance to psychic damage; advantage on Intelligence, Wisdom and Charisma saving throws.
 Condition/&ConditionLightningArrowDescription=The next time you make a ranged weapon attack the target takes 3d8 lightning damage on a hit, or half as much damage on a miss, Whether you hit or miss, each creature within 10 feet of the target must make a Dexterity saving throw. Each of these creatures takes 2d8 lightning damage on a failed save, or half as much damage on a successful one. When you cast this spell using a spell slot of 4th level or higher, the damage for both effects of the spell increases by 1d8 for each slot level above 3rd.
 Condition/&ConditionLightningArrowTitle=Lightning Arrow
 Condition/&ConditionSpiritShroudNoHealDescription=Cannot gain hit points. If undead, disadvantage on attacking the caster.

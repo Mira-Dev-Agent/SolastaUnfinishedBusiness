@@ -230,7 +230,7 @@ internal static partial class SpellBuilders
             .SetConditionParticleReference(ConditionMonkSlowFall)
             .AddToDB();
 
-        condition.GuiPresentation.description = Gui.EmptyContent;
+        condition.GuiPresentation.description = "Condition/&ConditionKineticJauntDescription";
 
         var spell = SpellDefinitionBuilder
             .Create(NAME)
@@ -633,7 +633,7 @@ internal static partial class SpellBuilders
                                 ConditionDefinitionBuilder
                                     .Create($"Condition{NAME}{skill.Name}")
                                     .SetGuiPresentation(
-                                        skill.GuiPresentation.Title, Gui.EmptyContent, ConditionBullsStrength)
+                                        skill.GuiPresentation.Title, "Condition/&ConditionBorrowedKnowledgeDescription", ConditionBullsStrength)
                                     .SetPossessive()
                                     .SetFeatures(
                                         FeatureDefinitionProficiencyBuilder

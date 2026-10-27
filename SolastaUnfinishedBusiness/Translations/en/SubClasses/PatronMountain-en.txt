@@ -1,3 +1,4 @@
+Condition/&ConditionPatronMountainClingingStrengthDescription=Speed increases by 10 ft, and you can move on walls and ceilings as with Spider Climb.
 Feature/&FeatureSetPatronMountainEternalGuardianDescription=You may use your Barrier of Stone feature a number of times equal to your Charisma modifier per short rest.
 Feature/&FeatureSetPatronMountainEternalGuardianTitle=Eternal Guardian
 Feature/&FeatureSetPatronMountainIceboundSoulDescription=Gain immunity to cold damage. The first time you hit an enemy with an attack on your turn, they must make a Constitution saving throw against your warlock spell DC or become blinded until the end of their next turn.

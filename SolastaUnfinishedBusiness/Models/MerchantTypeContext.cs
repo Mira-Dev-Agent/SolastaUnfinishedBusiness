@@ -286,7 +286,10 @@ internal static class RecipeHelper
             .Create($"CraftingManual{recipe.Name}")
             .SetGuiPresentation(
                 Gui.Format($"Item/&{termTag}Title", item.FormatTitle()),
-                item.guiPresentation.description,
+                // items without a description of their own get the game's generic crafting manual text
+                item.guiPresentation.description == Gui.NoLocalization
+                    ? reference.GuiPresentation.Description
+                    : item.guiPresentation.description,
                 reference)
             .SetItemPresentation(reference.ItemPresentation)
             .SetMerchantCategory(MerchantCategoryDefinitions.Crafting)

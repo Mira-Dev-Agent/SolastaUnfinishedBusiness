@@ -137,7 +137,7 @@ public static partial class Tabletop2024Context
             .CopyParticleReferences(ConditionSlowed)
             .AddToDB();
 
-        _conditionHamstringBlow.GuiPresentation.description = Gui.EmptyContent;
+        _conditionHamstringBlow.GuiPresentation.description = "Condition/&ConditionHamstringBlowDescription";
 
         // Staggering Blow
 
@@ -167,7 +167,7 @@ public static partial class Tabletop2024Context
             .CopyParticleReferences(ConditionDazzled)
             .AddToDB();
 
-        _conditionStaggeringBlow.GuiPresentation.description = Gui.EmptyContent;
+        _conditionStaggeringBlow.GuiPresentation.description = "Condition/&ConditionStaggeringBlowDescription";
 
         _conditionStaggeringBlowAoO = ConditionDefinitionBuilder
             .Create("ConditionStaggeringBlowAoO")

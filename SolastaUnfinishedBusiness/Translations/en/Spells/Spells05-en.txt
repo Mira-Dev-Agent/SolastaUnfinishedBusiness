@@ -1,3 +1,5 @@
+Condition/&ConditionCircleOfMagicalNegationDescription=Advantage on saving throws against magic. A successful saving throw against a spell or magical effect that deals half damage on a success deals no damage instead.
+Condition/&ConditionEmpoweredKnowledgeDescription=Expertise in this skill: double proficiency bonus on ability checks that use it.
 Condition/&ConditionFarStepDescription=You can use a bonus action to teleport up to 60ft to an unoccupied space you can see.
 Condition/&ConditionFarStepTitle=Far Step
 Condition/&ConditionTelekinesisDescription=You can use your action to attempt to maintain your telekinetic grip on the creature by repeating the contest, or target a new creature, ending the restrained effect on the previously affected creature.

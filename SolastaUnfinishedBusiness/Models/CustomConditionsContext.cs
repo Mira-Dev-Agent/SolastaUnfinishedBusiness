@@ -51,7 +51,7 @@ internal static class CustomConditionsContext
                     .AddToDB())
             .AddToDB();
 
-        Distracted.GuiPresentation.description = Gui.EmptyContent;
+        Distracted.GuiPresentation.description = "Condition/&ConditionDistractedByAllyDescription";
 
         FlightSuspended = BuildFlightSuspended();
 
@@ -65,7 +65,7 @@ internal static class CustomConditionsContext
                 FeatureDefinitionActionAffinitys.ActionAffinityConditionRestrained)
             .AddToDB();
 
-        StopMovement.GuiPresentation.description = Gui.EmptyContent;
+        StopMovement.GuiPresentation.description = "Condition/&ConditionStopMovementDescription";
 
         BuildTaunted();
     }
@@ -97,7 +97,7 @@ internal static class CustomConditionsContext
             .SetFeatures(abilityCheckAffinityLightSensitivity, combatAffinityDarkelfLightSensitivity)
             .AddToDB();
 
-        conditionLightSensitive.GuiPresentation.description = Gui.EmptyContent;
+        conditionLightSensitive.GuiPresentation.description = "Condition/&ConditionLightSensitivityDescription";
 
         return conditionLightSensitive;
     }

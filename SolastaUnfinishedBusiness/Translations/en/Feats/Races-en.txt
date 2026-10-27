@@ -1,3 +1,4 @@
+Condition/&ConditionDragonWingsDescription=Flying speed of 60 ft.
 Condition/&ConditionFeatFlamesOfPhlegethosDescription=Any creature within 5 feet of you that hits you with a melee attack takes 1d4 fire damage.
 Condition/&ConditionFeatFlamesOfPhlegethosTitle=Flames of Phlegethos
 Failure/&AllyMustBeAbleToChargeTarget=Cannot charge target

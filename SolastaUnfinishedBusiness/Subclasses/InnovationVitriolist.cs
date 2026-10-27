@@ -79,7 +79,7 @@ public sealed class InnovationVitriolist : AbstractSubclass
 
         var conditionCorroded = ConditionDefinitionBuilder
             .Create($"Condition{Name}Corroded")
-            .SetGuiPresentation(Category.Condition, Gui.EmptyContent, ConditionDefinitions.ConditionHeatMetal)
+            .SetGuiPresentation(Category.Condition,  ConditionDefinitions.ConditionHeatMetal)
             .SetConditionType(ConditionType.Detrimental)
             // need special duration because of SetUseSpellAttack
             .SetSpecialDuration(DurationType.Round, 1)

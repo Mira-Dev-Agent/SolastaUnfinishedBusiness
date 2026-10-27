@@ -42,7 +42,7 @@ internal static partial class SpellBuilders
             .AddFeatures(movementAffinityAdderFangs)
             .AddToDB();
 
-        conditionAdderFangs.GuiPresentation.description = Gui.EmptyContent;
+        conditionAdderFangs.GuiPresentation.description = "Condition/&ConditionAdderFangsDescription";
 
         var spell = SpellDefinitionBuilder
             .Create(Name)
@@ -234,7 +234,7 @@ internal static partial class SpellBuilders
             .SetConditionParticleReference(ConditionFeebleMinded)
             .AddToDB();
 
-        condition.GuiPresentation.description = Gui.EmptyContent;
+        condition.GuiPresentation.description = "Condition/&ConditionIntellectFortressDescription";
 
         var spell = SpellDefinitionBuilder
             .Create(NAME)
@@ -529,7 +529,7 @@ internal static partial class SpellBuilders
                 .SetConditionParticleReference(ConditionOnFire)
                 .AddToDB();
 
-            conditionAshardalonStride.GuiPresentation.description = Gui.EmptyContent;
+            conditionAshardalonStride.GuiPresentation.description = Gui.Format("Condition/&ConditionAshardalonStrideDescription", $"{(effectLevel + 1) * 5}");
 
             conditions.Add(conditionAshardalonStride);
         }

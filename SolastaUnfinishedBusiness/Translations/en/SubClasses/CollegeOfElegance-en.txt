@@ -1,3 +1,4 @@
+Condition/&ConditionCollegeOfEleganceAmazingDisplayDescription=Cannot use reactions; speed is reduced to 0.
 Condition/&ConditionCollegeOfEleganceAmazingDisplayTitle=Amazed
 Feature/&DieRollModifierCollegeOfEleganceGraceDescription=When you make a Charisma (Performance) or Dexterity (Acrobatics) check, you can treat a d20 roll of 9 or lower as a 10.
 Feature/&DieRollModifierCollegeOfEleganceGraceTitle=Grace

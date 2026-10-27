@@ -84,7 +84,7 @@ internal static partial class SpellBuilders
             .CopyParticleReferences(DispelEvilAndGood)
             .AddToDB();
 
-        conditionInvulnerability.GuiPresentation.description = Gui.EmptyContent;
+        conditionInvulnerability.GuiPresentation.description = "Condition/&ConditionInvulnerabilityDescription";
 
         return SpellDefinitionBuilder
             .Create(NAME)

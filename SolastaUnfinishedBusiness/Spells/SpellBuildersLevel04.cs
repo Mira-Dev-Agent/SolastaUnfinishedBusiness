@@ -90,7 +90,7 @@ internal static partial class SpellBuilders
 
         var proxyFaithfulHound = EffectProxyDefinitionBuilder
             .Create(EffectProxyDefinitions.ProxyArcaneSword, $"Proxy{NAME}")
-            .SetGuiPresentation(Category.Proxy, Gui.NoLocalization, sprite)
+            .SetGuiPresentation(Category.Proxy, "Spell/&FaithfulHoundDescription", sprite)
             .SetPortrait(sprite)
             .SetActionId(ExtraActionId.ProxyHoundWeapon)
             .SetAttackMethod(ProxyAttackMethod.CasterSpellAbility, DamageTypePiercing, DieType.D8, 4)
@@ -332,7 +332,7 @@ internal static partial class SpellBuilders
                     .AddToDB())
             .AddToDB();
 
-        conditionDazed.GuiPresentation.description = Gui.EmptyContent;
+        conditionDazed.GuiPresentation.description = "Condition/&ConditionPsionicBlastDescription";
 
         var spell = SpellDefinitionBuilder
             .Create(NAME)
@@ -383,7 +383,7 @@ internal static partial class SpellBuilders
 
         var proxy = EffectProxyDefinitionBuilder
             .Create(EffectProxyDefinitions.ProxyIndomitableLight, $"Proxy{NAME}")
-            .SetGuiPresentation(NAME, Category.Spell, Gui.NoLocalization)
+            .SetGuiPresentation(NAME, Category.Spell)
             .AddToDB();
 
         proxy.addLightSource = true;
@@ -1162,7 +1162,7 @@ internal static partial class SpellBuilders
 
             var spell = SpellDefinitionBuilder
                 .Create(NAME + damageType)
-                .SetGuiPresentation(title, Gui.NoLocalization)
+                .SetGuiPresentation(title, Gui.Format("Spell/&ElementalBaneSubSpellDescription", damageTitle))
                 .SetSchoolOfMagic(SchoolOfMagicDefinitions.SchoolTransmutation)
                 .SetSpellLevel(4)
                 .SetCastingTime(ActivationTime.Action)

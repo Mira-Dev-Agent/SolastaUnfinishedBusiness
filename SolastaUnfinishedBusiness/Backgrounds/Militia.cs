@@ -34,7 +34,7 @@ internal static partial class BackgroundsBuilders
                     .AddToDB(),
                 FeatureDefinitionProficiencyBuilder
                     .Create($"Proficiency{BackgroundMilitia}Skills")
-                    .SetGuiPresentation(Category.Feature, description: "Feature/&ArmorTrainingShortDescription")
+                    .SetGuiPresentation(Category.Feature)
                     .SetProficiencies(ProficiencyType.Skill,
                         Investigation,
                         Perception,

@@ -129,7 +129,7 @@ public static partial class Tabletop2024Context
 
         var conditionDisarmed = ConditionDefinitionBuilder
             .Create($"Condition{Cunning}Disarmed")
-            .SetGuiPresentation(Category.Condition, Gui.EmptyContent, ConditionBaned)
+            .SetGuiPresentation(Category.Condition,  ConditionBaned)
             .SetConditionType(ConditionType.Detrimental)
             .AddFeatures(combatAffinityDisarmed)
             .AddToDB();
@@ -283,7 +283,7 @@ public static partial class Tabletop2024Context
 
         var conditionKnockOut = ConditionDefinitionBuilder
             .Create(ConditionDefinitions.ConditionIncapacitated, $"Condition{Devious}KnockOut")
-            .SetGuiPresentation(Category.Condition, Gui.EmptyContent, ConditionDefinitions.ConditionAsleep)
+            .SetGuiPresentation(Category.Condition,  ConditionDefinitions.ConditionAsleep)
             .SetParentCondition(ConditionDefinitions.ConditionIncapacitated)
             .SetFeatures()
             .SetSpecialInterruptions(ConditionInterruption.Damaged)

@@ -8,6 +8,7 @@ Condition/&ConditionAbilitySpriteDescription=Gain an AC score of at least 16 and
 Condition/&ConditionAbilitySpriteTitle=Sprite's Ability
 Condition/&ConditionInvocationPerniciousCloakSelfDescription=You have advantage on Charisma (Intimidation) checks but disadvantage on all other Charisma checks. Any other creature that starts its turn within 5ft of you takes poison damage equal to your Charisma modifier.
 Condition/&ConditionInvocationPerniciousCloakSelfTitle=Cloak of Flies
+Condition/&ConditionInvocationTombOfFrostDescription=Unable to move, take actions, or reactions; vulnerability to fire damage.
 Failure/&MustHaveMaledictionCurseOrHex=Must have Malediction spell, Bestow Curse spell, Sign of Ill Omen invocation, or Soul Hex feature
 Failure/&MustHaveThirstingBlade=Must have Thirsting Blade invocation
 Feature/&AttackModifierHitAndDamagePlus1Description=The weapon gains a +1 bonus to its attack and damage rolls.

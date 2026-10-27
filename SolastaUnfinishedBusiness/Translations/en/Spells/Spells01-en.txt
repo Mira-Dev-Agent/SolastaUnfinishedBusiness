@@ -1,5 +1,6 @@
 Condition/&AdditionalConditionEnsnaringStrikeDescription=You are entangled in vines preventing movement, disadvantage on Dexterity saving throws, and receiving piercing damage every turn. At end of your turn, make a Strength throwing save to escape the vines.
 Condition/&AdditionalConditionEnsnaringStrikeTitle=Ensnared
+Condition/&ConditionChaosBoltLeapDescription=The chaos bolt can leap: use your free action to target a different creature with a new attack and damage roll.
 Condition/&ConditionElementalInfusionDamageDescription=Your next melee attack deals an additional 1d6 {0} per slot level spent.
 Condition/&ConditionElementalInfusionResistanceDescription=You have resistance to {0}, and your next melee attack deals an additional 1d6 {0} per slot level spent.
 Condition/&ConditionElementalInfusionTitle={0} Infusion
@@ -23,8 +24,10 @@ Condition/&ConditionStrikeWithTheWindDescription=Your movement doesn't provoke o
 Condition/&ConditionStrikeWithTheWindMovementDescription=Your movement speed increases by 30 feet.
 Condition/&ConditionStrikeWithTheWindMovementTitle=Move with The Wind
 Condition/&ConditionStrikeWithTheWindTitle=Zephyr Strike
+Condition/&ConditionThunderousSmiteDescription=Your next melee weapon hit deals an extra 2d6 thunder damage, and the target must succeed on a Strength saving throw or be pushed 10 ft away and knocked prone.
 Condition/&ConditionVileBrewDescription=You are covered in acid and can use your action to scrape or wash the acid off yourself. You take acid damage at start of each of yours turns.
 Condition/&ConditionVileBrewTitle=Covered in Acid
+Condition/&ConditionVoidGraspDescription=Cannot take reactions.
 Condition/&ConditionWitchBoltDescription=Marked by Witch Bolt.
 Condition/&ConditionWitchBoltTitle=Witch Bolt
 Failure/&MustBeWitchBolt=Must be marked by Witch Bolt

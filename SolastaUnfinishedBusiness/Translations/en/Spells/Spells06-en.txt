@@ -1,5 +1,8 @@
+Condition/&ConditionFizbanPlatinumShieldDescription=Half cover; resistance to acid, cold, fire, lightning and poison damage. A Dexterity saving throw against an effect that deals half damage on a success deals no damage on a success and half damage on a failure.
 Condition/&ConditionHeroicInfusionDescription=You endow yourself with endurance and martial prowess fueled by magic.
 Condition/&ConditionHeroicInfusionTitle=Tenser's Transformation
+Condition/&ConditionRingOfBladesDescription=You can use a bonus action to throw one of your remaining blades at a creature within 60 ft.
+Condition/&ConditionShelterFromEnergyDescription=Resistance to {0} damage.
 Condition/&ConditionShelterFromEnergyTitle={0} Resistance
 Failure/&MustBeLargeOrSmaller=Must be large size or smaller to be aimed
 Failure/&MustNotHaveFizbanPlatinumShield=Must not have Fizban's Platinum Shield

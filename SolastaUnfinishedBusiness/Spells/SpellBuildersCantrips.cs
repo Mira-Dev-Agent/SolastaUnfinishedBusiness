@@ -183,7 +183,7 @@ internal static partial class SpellBuilders
             .AddToDB();
 
         effectProxyCreateBonfire.actionId = Id.NoAction;
-        effectProxyCreateBonfire.GuiPresentation.description = Gui.NoLocalization;
+        effectProxyCreateBonfire.GuiPresentation.description = "Spell/&CreateBonfireDescription";
         effectProxyCreateBonfire.lightSourceForm.dimAdditionalRange = 2;
         effectProxyCreateBonfire.lightSourceForm.brightRange = 2;
 

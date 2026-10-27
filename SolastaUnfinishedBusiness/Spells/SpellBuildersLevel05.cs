@@ -355,7 +355,7 @@ internal static partial class SpellBuilders
 
         var conditionMuddled = ConditionDefinitionBuilder
             .Create($"Condition{NAME}")
-            .SetGuiPresentation(Category.Condition, Gui.EmptyContent, ConditionDazzled)
+            .SetGuiPresentation(Category.Condition, ConditionDazzled)
             .SetPossessive()
             .SetConditionType(ConditionType.Detrimental)
             .SetFeatures(
@@ -543,7 +543,7 @@ internal static partial class SpellBuilders
             .SetFeatures(savingThrowAffinityCircleOfMagicalNegation)
             .AddToDB();
 
-        conditionCircleOfMagicalNegation.GuiPresentation.description = Gui.EmptyContent;
+        conditionCircleOfMagicalNegation.GuiPresentation.description = "Condition/&ConditionCircleOfMagicalNegationDescription";
 
         conditionCircleOfMagicalNegation.AddCustomSubFeatures(
             new MagicEffectBeforeHitConfirmedOnMeCircleOfMagicalNegation(conditionCircleOfMagicalNegation));
@@ -664,7 +664,7 @@ internal static partial class SpellBuilders
                                 ConditionDefinitionBuilder
                                     .Create($"Condition{NAME}{skill.Name}")
                                     .SetGuiPresentation(
-                                        skill.GuiPresentation.Title, Gui.EmptyContent, ConditionBullsStrength)
+                                        skill.GuiPresentation.Title, "Condition/&ConditionEmpoweredKnowledgeDescription", ConditionBullsStrength)
                                     .SetPossessive()
                                     .SetFeatures(
                                         FeatureDefinitionProficiencyBuilder

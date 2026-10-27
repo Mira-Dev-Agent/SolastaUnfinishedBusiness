@@ -1,3 +1,4 @@
+Condition/&ConditionMartialForceKnightForceBulwarkDescription=Protected by half cover.
 Condition/&ConditionMartialForceKnightForceDriveDescription=Your equipped melee weapons gain 30 feet of additional range.
 Condition/&ConditionMartialForceKnightForceDriveTitle=Force Drive
 Condition/&ConditionMartialForceKnightKineticBarrierDescription=You have a protective shield of pure force around, granting you extra AC equal to the Psi Warrior Intelligence modifier.

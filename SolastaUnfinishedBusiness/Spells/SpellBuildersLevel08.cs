@@ -245,7 +245,7 @@ internal static partial class SpellBuilders
 
         var conditionSavingThrowAffinity = ConditionDefinitionBuilder
             .Create($"Condition{NAME}SavingThrowAffinity")
-            .SetGuiPresentation(NAME, Category.Spell, Gui.EmptyContent)
+            .SetGuiPresentation(NAME, Category.Spell, "Condition/&ConditionSoulExpulsionSavingThrowAffinityDescription")
             .SetSilent(Silent.WhenAddedOrRemoved)
             .SetFeatures(
                 FeatureDefinitionSavingThrowAffinityBuilder
@@ -259,7 +259,7 @@ internal static partial class SpellBuilders
 
         var conditionCombatAffinity = ConditionDefinitionBuilder
             .Create($"Condition{NAME}CombatAffinity")
-            .SetGuiPresentation(Category.Condition, Gui.EmptyContent, ConditionDoomLaughter)
+            .SetGuiPresentation(Category.Condition, ConditionDoomLaughter)
             .SetConditionType(ConditionType.Detrimental)
             .SetFeatures(
                 FeatureDefinitionCombatAffinityBuilder

@@ -913,7 +913,7 @@ public sealed class InnovationArtillerist : AbstractSubclass
             .AddFeatures(monsterAdditionalFeatures)
             .AddToDB();
 
-        monster.guiPresentation.description = GuiPresentationBuilder.EmptyString;
+        monster.guiPresentation.description = $"Feature/&{presentationName}Description";
 
         return monster;
     }

@@ -1,4 +1,6 @@
+Condition/&ConditionInnovationWeaponSummonSteelDefenderProficiencyBonusDescription=Adds its creator's proficiency bonus to damage rolls.
 Condition/&ConditionInnovationWeaponSummonSteelDefenderProficiencyBonusTitle=Adding Proficiency Bonus of its creator
+Condition/&ConditionInnovationWeaponSummonSteelDefenderSpellAttackDescription=Adds its creator's spell attack bonus to attack rolls.
 Condition/&ConditionInnovationWeaponSummonSteelDefenderSpellAttackTitle=Spell attack bonus of its creator
 Feature/&AutoPreparedSpellsInnovationWeaponDescription=Learn and have always prepared:\n{0}\n\n
 Feature/&AutoPreparedSpellsInnovationWeaponTitle=Battle Smith Spells

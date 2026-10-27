@@ -25,6 +25,7 @@ Feature/&ProficiencyBackgroundFarmerWeaponsDescription=Proficiency in clubs and 
 Feature/&ProficiencyBackgroundFarmerWeaponsTitle=Farmer Weapons
 Feature/&ProficiencyBackgroundMilitiaArmorDescription=Proficiency in light armor.
 Feature/&ProficiencyBackgroundMilitiaArmorTitle=Militia Armor
+Feature/&ProficiencyBackgroundMilitiaSkillsDescription=Intimidation, Investigation and Perception
 Feature/&ProficiencyBackgroundMilitiaSkillsTitle=Militia Skills
 Feature/&ProficiencyBackgroundMilitiaWeaponsDescription=Proficiency in short sword and spear.
 Feature/&ProficiencyBackgroundMilitiaWeaponsTitle=Militia Weapons

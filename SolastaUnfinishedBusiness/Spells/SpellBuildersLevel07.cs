@@ -124,7 +124,7 @@ internal static partial class SpellBuilders
             .AddCustomSubFeatures(AddUsablePowersFromCondition.Marker)
             .AddToDB();
 
-        condition.GuiPresentation.description = Gui.EmptyContent;
+        condition.GuiPresentation.description = "Condition/&ConditionDraconicTransformationDescription";
 
         return SpellDefinitionBuilder
             .Create(NAME)
@@ -195,7 +195,7 @@ internal static partial class SpellBuilders
             .SetSpecialInterruptions(ExtraConditionInterruption.AfterWasAttacked)
             .AddToDB();
 
-        condition.GuiPresentation.description = Gui.EmptyContent;
+        condition.GuiPresentation.description = "Condition/&ConditionRescueTheDyingDescription";
 
         var spell = SpellDefinitionBuilder
             .Create(RescueTheDyingName)
@@ -331,7 +331,7 @@ internal static partial class SpellBuilders
             .CopyParticleReferences(DeathWard)
             .AddToDB();
 
-        conditionCrownOfStars.GuiPresentation.description = Gui.EmptyContent;
+        conditionCrownOfStars.GuiPresentation.description = "Condition/&ConditionCrownOfStarsDescription";
 
         var lightSourceForm = Light.EffectDescription
             .GetFirstFormOfType(EffectForm.EffectFormType.LightSource).LightSourceForm;

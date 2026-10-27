@@ -1,3 +1,6 @@
+Condition/&ConditionCircleOfTheWildfireSpiritAttackRollDescription=Adds its summoner's spell attack bonus to attack rolls.
+Condition/&ConditionCircleOfTheWildfireSpiritDamageRollDescription=Adds its summoner's proficiency bonus to damage rolls.
+Condition/&ConditionCircleOfTheWildfireSpiritHitPointsDescription=Gains 5 extra hit points per druid level of its summoner.
 Feature/&FeatureCircleOfTheWildfireEnhancedBondDescription=The bond with your wildfire spirit enhances your destructive and restorative spells. Whenever you cast a spell that deals fire damage or restores hit points while your wildfire spirit is summoned, roll a d8, and you gain a bonus equal to the number rolled to one damage or healing roll of the spell.
 Feature/&FeatureCircleOfTheWildfireEnhancedBondTitle=Enhanced Bond
 Feature/&PowerCircleOfTheWildfireBlazingRevivalDescription=When you are reduced to 0 hit points and thereby fall unconscious, you can regain half your hit points and immediately rise to your feet. Once you use this feature, you can't use it again until you finish a long rest.

@@ -84,7 +84,7 @@ public sealed class RangerWildMaster : AbstractSubclass
             .SetAddedConditions(
                 ConditionDefinitionBuilder
                     .Create($"Condition{Name}BeastCompanionArmorClass")
-                    .SetGuiPresentation("Feedback/&BeastCompanionBonusTitle", Gui.EmptyContent)
+                    .SetGuiPresentation("Feedback/&BeastCompanionBonusTitle", "Condition/&ConditionRangerWildMasterBeastCompanionArmorClassDescription")
                     .SetPossessive()
                     .SetSilent(Silent.WhenAddedOrRemoved)
                     .SetAmountOrigin(ExtraOriginOfAmount.SourceProficiencyAndAbilityBonus, AttributeDefinitions.Wisdom)
@@ -92,7 +92,7 @@ public sealed class RangerWildMaster : AbstractSubclass
                     .AddToDB(),
                 ConditionDefinitionBuilder
                     .Create($"Condition{Name}BeastCompanionAttackRoll")
-                    .SetGuiPresentation("Feedback/&BeastCompanionBonusTitle", Gui.EmptyContent)
+                    .SetGuiPresentation("Feedback/&BeastCompanionBonusTitle", "Condition/&ConditionRangerWildMasterBeastCompanionAttackRollDescription")
                     .SetPossessive()
                     .SetSilent(Silent.WhenAddedOrRemoved)
                     .SetAmountOrigin(ExtraOriginOfAmount.SourceProficiencyAndAbilityBonus, AttributeDefinitions.Wisdom)
@@ -100,7 +100,7 @@ public sealed class RangerWildMaster : AbstractSubclass
                     .AddToDB(),
                 ConditionDefinitionBuilder
                     .Create($"Condition{Name}BeastCompanionDamageRoll")
-                    .SetGuiPresentation("Feedback/&BeastCompanionBonusTitle", Gui.EmptyContent)
+                    .SetGuiPresentation("Feedback/&BeastCompanionBonusTitle", "Condition/&ConditionRangerWildMasterBeastCompanionDamageRollDescription")
                     .SetPossessive()
                     .SetSilent(Silent.WhenAddedOrRemoved)
                     .SetAmountOrigin(ExtraOriginOfAmount.SourceProficiencyAndAbilityBonus, AttributeDefinitions.Wisdom)
@@ -108,7 +108,7 @@ public sealed class RangerWildMaster : AbstractSubclass
                     .AddToDB(),
                 ConditionDefinitionBuilder
                     .Create($"Condition{Name}BeastCompanionHitPoints")
-                    .SetGuiPresentation("Feedback/&BeastCompanionBonusTitle", Gui.EmptyContent)
+                    .SetGuiPresentation("Feedback/&BeastCompanionBonusTitle", "Condition/&ConditionRangerWildMasterBeastCompanionHitPointsDescription")
                     .SetPossessive()
                     .SetSilent(Silent.WhenAddedOrRemoved)
                     .SetAmountOrigin(ExtraOriginOfAmount.SourceClassLevel, RangerClass)
@@ -229,7 +229,7 @@ public sealed class RangerWildMaster : AbstractSubclass
             .SetAddedConditions(
                 ConditionDefinitionBuilder
                     .Create($"Condition{Name}TrueExpertise")
-                    .SetGuiPresentation("Feedback/&BeastCompanionBonusTitle", Gui.NoLocalization)
+                    .SetGuiPresentation("Feedback/&BeastCompanionBonusTitle", "Condition/&ConditionRangerWildMasterTrueExpertiseDescription")
                     .SetPossessive()
                     .SetSilent(Silent.WhenAddedOrRemoved)
                     .SetFeatures(

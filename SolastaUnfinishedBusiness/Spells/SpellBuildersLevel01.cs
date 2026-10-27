@@ -700,7 +700,7 @@ internal static partial class SpellBuilders
             .SetFeatures(actionAffinityVoidGrasp)
             .AddToDB();
 
-        conditionVoidGrasp.GuiPresentation.description = Gui.EmptyContent;
+        conditionVoidGrasp.GuiPresentation.description = "Condition/&ConditionVoidGraspDescription";
 
         var spell = SpellDefinitionBuilder
             .Create(NAME)
@@ -836,7 +836,7 @@ internal static partial class SpellBuilders
         var conditionThunderousSmite = ConditionDefinitionBuilder
             .Create($"Condition{NAME}")
             .SetGuiPresentation(
-                $"{NAME}Title".Formatted(Category.Spell), Gui.EmptyContent, ConditionBrandingSmite)
+                $"{NAME}Title".Formatted(Category.Spell), "Condition/&ConditionThunderousSmiteDescription", ConditionBrandingSmite)
             .SetPossessive()
             .SetFeatures(PowerThunderousSmite)
             .AddCustomSubFeatures(AddUsablePowersFromCondition.Marker)
@@ -974,7 +974,7 @@ internal static partial class SpellBuilders
 
         var conditionLeap = ConditionDefinitionBuilder
             .Create($"Condition{NAME}Leap")
-            .SetGuiPresentation(NAME, Category.Spell, Gui.EmptyContent)
+            .SetGuiPresentation(NAME, Category.Spell, "Condition/&ConditionChaosBoltLeapDescription")
             .SetSilent(Silent.WhenAddedOrRemoved)
             .SetAmountOrigin(ConditionDefinition.OriginOfAmount.Fixed)
             .SetFeatures(powerLeap)
@@ -2228,7 +2228,7 @@ internal static partial class SpellBuilders
 
         var conditionStrikeWithTheWindAttackMovement = ConditionDefinitionBuilder
             .Create($"Condition{NAME}Movement")
-            .SetGuiPresentation(Category.Condition, Gui.EmptyContent, ConditionDefinitions.ConditionDisengaging)
+            .SetGuiPresentation(Category.Condition, ConditionDefinitions.ConditionDisengaging)
             .SetPossessive()
             .SetFeatures(movementAffinityStrikeWithTheWind)
             .AddToDB();

@@ -515,7 +515,7 @@ internal static class OtherFeats
                 .Create($"CustomInvocation{Name}{weaponTypeName}")
                 .SetGuiPresentation(
                     weaponTypeDefinition.GuiPresentation.Title,
-                    weaponTypeDefinition.GuiPresentation.Description,
+                    "Feature/&CustomInvocationFeatWeaponMasterDescription",
                     GetStandardWeaponOfType(weaponTypeDefinition.Name))
                 .SetPoolType(InvocationPoolTypeCustom.Pools.WeaponMasterChoice)
                 .SetGrantedFeature(featureMonkWeaponSpecialization)
@@ -1524,7 +1524,7 @@ internal static class OtherFeats
                         new CustomBehaviorDungeonDelver(
                             ConditionDefinitionBuilder
                                 .Create($"Condition{Name}")
-                                .SetGuiPresentation(Name, Category.Feat, Gui.EmptyContent)
+                                .SetGuiPresentation(Name, Category.Feat, "Condition/&ConditionFeatDungeonDelverDescription")
                                 .SetSilent(Silent.WhenAddedOrRemoved)
                                 .SetFeatures(
                                     DamageAffinityAcidResistance,
@@ -1625,7 +1625,7 @@ internal static class OtherFeats
             .SetFeatures(movementAffinity)
             .AddToDB();
 
-        condition.GuiPresentation.description = Gui.EmptyContent;
+        condition.GuiPresentation.description = "Condition/&ConditionFeatAcrobatDescription";
 
         var power = FeatureDefinitionPowerBuilder
             .Create($"Power{Name}")
@@ -2708,7 +2708,7 @@ internal static class OtherFeats
                 .AddCustomSubFeatures(new CustomBehaviorMageSlayer(
                     ConditionDefinitionBuilder
                         .Create($"Condition{FeatMageSlayerName}")
-                        .SetGuiPresentation(FeatMageSlayerName, Category.Feat, Gui.EmptyContent)
+                        .SetGuiPresentation(FeatMageSlayerName, Category.Feat, "Condition/&ConditionFeatMageSlayerDescription")
                         .SetSilent(Silent.WhenAddedOrRemoved)
                         .AddFeatures(
                             FeatureDefinitionMagicAffinityBuilder

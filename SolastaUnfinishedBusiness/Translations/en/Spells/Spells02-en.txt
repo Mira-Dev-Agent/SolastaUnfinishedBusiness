@@ -1,9 +1,11 @@
+Condition/&ConditionBorrowedKnowledgeDescription=Proficiency in this skill.
 Condition/&ConditionDragonsBreathSpellDescription=Imbued with Dragon's Breath: {0}
 Condition/&ConditionDragonsBreathSpellTitle=Dragon's Breath
 Condition/&ConditionGrappledRestrainedIceBoundDescription=Frozen in place.
 Condition/&ConditionGrappledRestrainedIceBoundTitle=Held by Ice
 Condition/&ConditionGrappledRestrainedSpellWebDescription=You must make a Strength ability check to get off this condition.
 Condition/&ConditionGrappledRestrainedSpellWebTitle=Restrained by Web
+Condition/&ConditionKineticJauntDescription=Walking speed increases by 10 ft; movement doesn't provoke opportunity attacks; can move through the space of any creature.
 Condition/&ConditionMirrorImageDescription=Enemies can accidentally target this duplicate instead of you. If duplicate is hit it disappears.
 Condition/&ConditionMirrorImageTitle=Mirror Duplicate
 Condition/&ConditionNoxiousSprayDescription=The creature is unable to move or take main action.

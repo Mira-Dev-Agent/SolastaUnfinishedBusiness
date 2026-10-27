@@ -102,7 +102,7 @@ internal static class ClassFeats
                     .AddToDB())
             .AddToDB();
 
-        condition.GuiPresentation.description = Gui.EmptyContent;
+        condition.GuiPresentation.description = "Condition/&ConditionFeatCallForChargeDescription";
 
         return FeatDefinitionWithPrerequisitesBuilder
             .Create("FeatCallForCharge")

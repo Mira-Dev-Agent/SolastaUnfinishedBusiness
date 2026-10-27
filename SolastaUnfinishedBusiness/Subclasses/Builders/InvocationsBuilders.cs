@@ -1349,7 +1349,7 @@ internal static class InvocationsBuilders
             .CopyParticleReferences(PowerDomainElementalHeraldOfTheElementsCold)
             .AddToDB();
 
-        conditionTombOfFrost.GuiPresentation.description = Gui.EmptyContent;
+        conditionTombOfFrost.GuiPresentation.description = "Condition/&ConditionInvocationTombOfFrostDescription";
 
         var conditionTombOfFrostLazy = ConditionDefinitionBuilder
             .Create($"Condition{Name}Lazy")

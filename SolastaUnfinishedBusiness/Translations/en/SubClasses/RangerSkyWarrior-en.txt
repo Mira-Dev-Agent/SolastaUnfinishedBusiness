@@ -1,5 +1,6 @@
 Condition/&ConditionRangerSkyWarriorGiftOfTheWindAttackedDescription=Cannot do opportunity attacks against the source.
 Condition/&ConditionRangerSkyWarriorGiftOfTheWindAttackedTitle=Gift of the Wind
+Condition/&ConditionRangerSkyWarriorGiftOfTheWindDescription=Speed increases by 10 ft, and creatures you hit with a melee weapon attack can't make opportunity attacks against you. Ends if you no longer wear a shield.
 Feature/&AutoPreparedSpellsRangerSkyWarriorDescription=You gain bonus spells that are considered Ranger spells for you, they are always prepared and don't count against the number of Ranger spells you know:\n{0}\n\n
 Feature/&AutoPreparedSpellsRangerSkyWarriorTitle=Sky Warrior Bonus Spells
 Feature/&DamageAffinityRangerSkyWarriorIntangibleFormDescription=Gain resistance to bludgeoning damage.
