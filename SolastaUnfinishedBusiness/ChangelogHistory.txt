@@ -1,3 +1,8 @@
+1.6.15.1:
+- Mod menu: a wrapped setting text no longer overlaps the row below it (its height is measured with the same padding it is drawn with)
+- In-game retest of 1.6.14.0 passed: search typing, section restore and the profile field; Change Infusions and Active Infusions Next; Active Infusions on old saves; the replace question at the infusion cap; FPS choices and the hit-reaction toggle
+- Not tested in game: this wrapping fix and 1.6.15.0 (feature details panel, translations)
+
 1.6.15.0:
 - Character sheet: clicking a feature in the race, class or background list opens its full details in a panel that stays open until closed: the description, the option chosen, what a feature set includes, a power's uses left, and the level it needs
 - Translations: the 238 texts added by Finishing Business and the missing upstream ones (settings, multiplayer, infusions, level down, remake, crafting, rests, conditions and items) are now in German, Spanish, French, Italian, Japanese, Korean, Brazilian Portuguese, Russian and Simplified Chinese. They were machine-written by Claude and may need a native speaker's review

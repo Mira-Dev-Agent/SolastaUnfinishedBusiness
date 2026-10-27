@@ -143,6 +143,11 @@ internal static partial class UI
 
         if (lStyle.CalcSize(label).x > maxWidth)
         {
+            // measured with the padding the label is drawn with, so the row gets every line it wraps to
+            var labelPadding = labelStyle.padding;
+
+            lStyle.padding = new RectOffset(labelPadding.left, (int)stateSize.x + 5 + labelPadding.right,
+                labelPadding.top, labelPadding.bottom);
             lStyle.wordWrap = true;
             lStyle.fixedHeight = 0;
             lStyle.stretchWidth = true;
