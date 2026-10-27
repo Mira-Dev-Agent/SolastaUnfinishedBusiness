@@ -1,3 +1,10 @@
+1.6.4.0:
+- Multiplayer: desync detection can also compare a game-state fingerprint every 5 seconds: each character's HP, temporary HP, position, conditions, spell slots, plus the dice sequence. It says which character and value differ, and only checks when nothing is moving or acting (toggle, on by default)
+- Multiplayer: out of combat the host can quick-correct small differences (HP, position, spell slots, dice) on every computer at the same tick, without reloading (toggle, on by default)
+- Multiplayer: when a desync can't be corrected, the host is offered a one-click resync that quick-saves and reloads, bringing every client back in (toggle, on by default)
+- Multiplayer: when a battle starts, a lone sneaker in a cell no enemy can see keeps that cell. Otherwise the character created first keeps it, as before
+- Not tested in game or in a multiplayer session
+
 1.6.3.0:
 - Multiplayer: game actions are sent as soon as they are issued instead of at the next tick, saving up to 50 ms per action (toggle, on by default)
 - Multiplayer: the action delay is sized from every player's ping, raised before anyone waits when a connection is slow, and lowered for fast groups (toggle, on by default)

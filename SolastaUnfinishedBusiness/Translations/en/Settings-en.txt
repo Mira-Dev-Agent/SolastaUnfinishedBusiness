@@ -516,7 +516,7 @@ ModUi/&MultiplayerMinimumTickBuffer=<color=white>Minimum action delay in ticks</
 ModUi/&MultiplayerSecondsBeforeLowerTickBuffer=<color=white>Seconds without waiting before lowering the delay</color> <i><color=#F0DAA0>[game default 10]</color></i>
 ModUi/&MultiplayerMovementTitle=<color=#F0DAA0>Movement</color> <i><color=#F0DAA0>[multiplayer games only, single player keeps the game rules]</color></i><color=#F0DAA0>:</color>
 ModUi/&MultiplayerAllowCharactersToOverlapOutOfCombat=Allow characters to share cells out of combat, so the party moves through crawl spaces and doorways together
-ModUi/&MultiplayerResolveOverlapsOnBattleStart=When a battle starts, move characters sharing a cell to the closest safe cell <i><color=#F0DAA0>[free, not harmful, and not seen by enemies if sneaking]</color></i>
+ModUi/&MultiplayerResolveOverlapsOnBattleStart=When a battle starts, move characters sharing a cell to the closest safe cell <i><color=#F0DAA0>[free, not harmful, and not seen by enemies if sneaking. A lone sneaker in a cell no enemy sees keeps it; otherwise the character created first keeps it]</color></i>
 ModUi/&MultiplayerAllowAlliesToPassThroughInCombat=Allow allies to move through each other in combat while both are moving
 ModUi/&MultiplayerBuildInfo=<color=white>This build:</color> {0}
 ModUi/&MultiplayerNoHost=Not in a multiplayer room.
@@ -531,3 +531,6 @@ ModUi/&MultiplayerPingVisibleToHostOnly=Only the host sees players' ping and the
 ModUi/&MultiplayerCurrentDelay=<color=white>Current action delay:</color> {0} ticks ({1} ms)
 ModUi/&MultiplayerPing=ping {0} ms
 ModUi/&MultiplayerNoPing=ping not reported
+ModUi/&MultiplayerEnableStateFingerprint=Also compare every character's HP, position, conditions, spell slots and the dice sequence every 5 seconds, and say which character differs <i><color=#F0DAA0>[only checked when nothing is moving or acting]</color></i>
+ModUi/&MultiplayerQuickCorrectDesync=Out of combat, let the host correct small differences (HP, position, spell slots, dice) on every computer without reloading <i><color=#F0DAA0>[conditions or missing characters still need a resync]</color></i>
+ModUi/&MultiplayerOfferHostResync=Offer the host a one-click resync when a desync can't be corrected <i><color=#F0DAA0>[the host quick-saves and reloads; clients are brought into the same save]</color></i>

@@ -70,6 +70,27 @@ internal static class MultiplayerDisplay
             Main.Settings.MultiplayerEnableDesyncDetection = toggle;
         }
 
+        if (Main.Settings.MultiplayerEnableDesyncDetection)
+        {
+            toggle = Main.Settings.MultiplayerEnableStateFingerprint;
+            if (UI.Toggle(Gui.Localize("ModUi/&MultiplayerEnableStateFingerprint"), ref toggle, UI.AutoWidth()))
+            {
+                Main.Settings.MultiplayerEnableStateFingerprint = toggle;
+            }
+
+            toggle = Main.Settings.MultiplayerQuickCorrectDesync;
+            if (UI.Toggle(Gui.Localize("ModUi/&MultiplayerQuickCorrectDesync"), ref toggle, UI.AutoWidth()))
+            {
+                Main.Settings.MultiplayerQuickCorrectDesync = toggle;
+            }
+
+            toggle = Main.Settings.MultiplayerOfferHostResync;
+            if (UI.Toggle(Gui.Localize("ModUi/&MultiplayerOfferHostResync"), ref toggle, UI.AutoWidth()))
+            {
+                Main.Settings.MultiplayerOfferHostResync = toggle;
+            }
+        }
+
         UI.Label();
         UI.Label(Gui.Localize("ModUi/&MultiplayerLagTitle"));
         UI.Label();

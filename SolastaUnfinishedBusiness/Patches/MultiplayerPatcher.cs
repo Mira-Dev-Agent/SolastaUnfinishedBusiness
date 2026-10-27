@@ -68,6 +68,7 @@ public static class MultiplayerPatcher
         public static void Postfix()
         {
             MultiplayerContext.ResetDesyncDetection();
+            MultiplayerDesyncContext.Reset();
             MultiplayerContext.ClearLocalShiftKeyState();
         }
     }
@@ -210,6 +211,7 @@ public static class MultiplayerPatcher
         public static void Postfix(NetworkingManager __instance)
         {
             MultiplayerContext.SendDesyncCheckIfNeeded(__instance);
+            MultiplayerDesyncContext.SendFingerprintIfNeeded(__instance);
             MultiplayerSessionContext.PublishPingIfNeeded();
         }
     }

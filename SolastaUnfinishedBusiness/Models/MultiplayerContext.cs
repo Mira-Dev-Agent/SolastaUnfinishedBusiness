@@ -380,7 +380,7 @@ internal static class MultiplayerContext
                    x.RulesetCharacter is { IsDeadOrDyingOrUnconscious: false });
     }
 
-    // multiplayer only: when a battle starts with characters sharing a cell, every one except the occupant with the lowest guid steps
+    // multiplayer only: when a battle starts with characters sharing a cell, every one except the cell keeper (see CellKeeper) steps
     // to the closest safe cell: free, not dangerous, and not perceived by any enemy if the character is sneaking.
     // This runs on every peer from the same game state at the same point of the simulation, which is how lockstep
     // keeps it identical everywhere (the host's result and every client's result are the same by construction).
@@ -395,7 +395,7 @@ internal static class MultiplayerContext
 
         var others = GetOtherOccupants(character, character.LocationPosition);
 
-        if (others.Count == 0 || others.All(x => x.Guid > character.Guid))
+        if (others.Count == 0 || CellKeeper(character, others) == character)
         {
             return;
         }
@@ -415,6 +415,33 @@ internal static class MultiplayerContext
         }
 
         positioningService.TeleportCharacter(character, destination, character.Orientation);
+    }
+
+    // who stays in a shared cell: a lone sneaker when no enemy can see the cell yet (moving would risk being found),
+    // otherwise (several sneakers, or the cell already seen) the occupant with the lowest guid. Only game state is
+    // used, so every computer picks the same one.
+    private static GameLocationCharacter CellKeeper(GameLocationCharacter character, List<GameLocationCharacter> others)
+    {
+        var occupants = others.Append(character).ToList();
+        var sneakers = occupants.Where(x => x.Stealthy).ToList();
+
+        if (sneakers.Count == 1 && !IsCellSeenByEnemy(sneakers[0], character.LocationPosition))
+        {
+            return sneakers[0];
+        }
+
+        return occupants.OrderBy(x => x.Guid).First();
+    }
+
+    private static bool IsCellSeenByEnemy(GameLocationCharacter character, int3 cell)
+    {
+        var visibilityService = ServiceRepository.GetService<IGameLocationVisibilityService>();
+
+        return visibilityService != null &&
+               (ServiceRepository.GetService<IGameLocationCharacterService>()?.ValidCharacters ?? [])
+               .Any(x => x.IsOppositeSide(character.Side) &&
+                         x.RulesetCharacter is { IsDeadOrDyingOrUnconscious: false } &&
+                         visibilityService.IsCellPerceivedByCharacter(cell, x));
     }
 
     private const int SafeCellSearchRadius = 6;
