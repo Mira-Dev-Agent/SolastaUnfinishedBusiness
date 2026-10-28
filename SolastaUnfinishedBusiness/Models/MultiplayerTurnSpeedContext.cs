@@ -214,6 +214,14 @@ internal static class MultiplayerTurnSpeedContext
 
         private void OnGUI()
         {
+            var start = MultiplayerPerfContext.Start();
+
+            Draw();
+            MultiplayerPerfContext.Lap(MultiplayerPerfContext.Hook.Drawing, ref start);
+        }
+
+        private void Draw()
+        {
             if (!IsOnlineRoom || !Main.Settings.MultiplayerEnemyTurnSpeedUp || !IsEnemyTurn())
             {
                 return;

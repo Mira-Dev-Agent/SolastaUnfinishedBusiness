@@ -166,6 +166,14 @@ internal static class MultiplayerFpsContext
 
         private void OnGUI()
         {
+            var start = MultiplayerPerfContext.Start();
+
+            Draw();
+            MultiplayerPerfContext.Lap(MultiplayerPerfContext.Hook.Drawing, ref start);
+        }
+
+        private void Draw()
+        {
             if (!Main.Settings.MultiplayerShowFpsOverlay || !IsOnlineRoom)
             {
                 return;

@@ -1,3 +1,10 @@
+1.7.1:
+- Multiplayer: joining a room no longer fails with "TypeLoadException ... System.Xml.DtdProcessing" on PCs whose System.Xml lacks that type; the host-settings check compares settings directly instead of parsing XML
+- Multiplayer: errors while joining, leaving or updating a room are logged instead of escaping into the game's network handling
+- Multiplayer: the room list shows the campaign's name with the build tag again ("Crown of the Magister [FB 1.7.1]"), instead of its raw translation key
+- Temporary diagnostics: every 30 seconds in an online room the mod log gets an [MpPerf] line (frame rate, worst frame, slow frames, garbage collections, heap, action delay, network time scale, longest wait, slowest ping, time in the mod's own hooks), to find the cause of animation lag that grows over a session
+- Not tested in game: these changes (need a multiplayer session, ideally with the player who saw the TypeLoadException)
+
 1.7.0:
 - Versions are now plain MAJOR.MINOR.PATCH, starting at 1.7.0 after 1.6.17.3 (the numbers keep increasing, so the in-game updater offers it)
 - Releases are titled with the version and the Solasta version they're built for, e.g. "1.7.0 (Solasta 1.5.97)"

@@ -722,6 +722,19 @@ internal static class MultiplayerContext
         state.BuildHook(rolesMap, state.NpcRolesMap);
     }
 
+    // runs a room callback without letting an exception escape into Photon's event dispatch
+    internal static void Guarded(string what, System.Action action)
+    {
+        try
+        {
+            action();
+        }
+        catch (System.Exception ex)
+        {
+            Main.Error($"error while handling {what}: {ex}");
+        }
+    }
+
     // official scenes author 4 player placement markers, so heroes 5 and 6 would stay wherever they were standing.
     // Place them one step behind the front row, between the heroes in front of them, facing the same way.
     internal static void PlaceExtraHeroes(NarrativeDirectionManager manager, NarrativeSequence sequence)

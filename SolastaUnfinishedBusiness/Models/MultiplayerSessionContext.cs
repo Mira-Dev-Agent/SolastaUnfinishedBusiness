@@ -1,11 +1,11 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
-using System.Xml.Linq;
 using System.Xml.Serialization;
 using Photon.Pun;
 using Photon.Realtime;
@@ -207,7 +207,16 @@ internal static class MultiplayerSessionContext
 
         var color = version == BuildVersion ? "#80C080" : "#E06060";
 
-        roomInfo.campaignName = $"{roomInfo.campaignName} <color={color}>[{Main.ModAbbreviation} {DescribeVersion(version)}]</color>";
+        // official campaigns name themselves by a translation key, which the room list localizes; a key with the tag
+        // added isn't a key any more and showed raw, so the tag goes after the localized name
+        var campaignName = roomInfo.campaignName;
+
+        if (!string.IsNullOrEmpty(campaignName) && campaignName.Contains("/&"))
+        {
+            campaignName = Gui.Localize(campaignName);
+        }
+
+        roomInfo.campaignName = $"{campaignName} <color={color}>[{Main.ModAbbreviation} {DescribeVersion(version)}]</color>";
     }
 
     // player plates in the lobby and in game show each player's build when hovered; a different or missing build
@@ -482,38 +491,26 @@ internal static class MultiplayerSessionContext
                 .Select(x => x.Substring("ModUi/&".Length))
         ];
 
-        var localElements = ToElements(local);
-        var hostElements = ToElements(host);
-
-        return hostElements.Keys
-            .Where(x => _restartOnlySettings.Contains(x) &&
-                        !UiStatePrefixes.Any(x.StartsWith) &&
-                        (!localElements.TryGetValue(x, out var localValue) || localValue != hostElements[x]))
+        // compared property by property, not through XML: System.Xml.Linq needs System.Xml.DtdProcessing, which some
+        // players' System.Xml.dll lacks (TypeLoadException on joining a room, multiplayer-issue-01)
+        return _restartOnlySettings
+            .Where(x => !UiStatePrefixes.Any(x.StartsWith))
+            .Select(x => typeof(Settings).GetProperty(x, BindingFlags.Public | BindingFlags.Instance))
+            .Where(x => x is { CanRead: true } && !SameValue(x.GetValue(local), x.GetValue(host)))
+            .Select(x => x.Name)
             .OrderBy(x => x)
             .ToList();
     }
 
-    private static Dictionary<string, string> ToElements(Settings settings)
+    // lists compare item by item, everything else by value
+    private static bool SameValue(object local, object host)
     {
-        using var memory = new MemoryStream();
-
-        new XmlSerializer(typeof(Settings)).Serialize(memory, settings);
-        memory.Position = 0;
-
-        var root = XDocument.Load(memory).Root;
-        var result = new Dictionary<string, string>();
-
-        if (root == null)
+        if (local is IEnumerable localItems and not string && host is IEnumerable hostItems and not string)
         {
-            return result;
+            return localItems.Cast<object>().SequenceEqual(hostItems.Cast<object>());
         }
 
-        foreach (var element in root.Elements())
-        {
-            result[element.Name.LocalName] = element.ToString(SaveOptions.DisableFormatting);
-        }
-
-        return result;
+        return Equals(local, host);
     }
 
     private static void RequestHostSettingsOnNextLaunch()

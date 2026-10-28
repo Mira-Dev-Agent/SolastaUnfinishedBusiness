@@ -212,12 +212,18 @@ public static class MultiplayerPatcher
         [UsedImplicitly]
         public static void Postfix(NetworkingManager __instance)
         {
+            var start = MultiplayerPerfContext.Start();
+
             MultiplayerContext.SendDesyncCheckIfNeeded(__instance);
+            MultiplayerPerfContext.Lap(MultiplayerPerfContext.Hook.DesyncCheck, ref start);
             MultiplayerDesyncContext.SendFingerprintIfNeeded(__instance);
+            MultiplayerPerfContext.Lap(MultiplayerPerfContext.Hook.Fingerprint, ref start);
             MultiplayerSessionContext.PublishPingIfNeeded();
             MultiplayerFpsContext.MeasureAndPublishIfNeeded();
             MultiplayerApprovalContext.Update();
             MultiplayerTurnSpeedContext.Update(__instance);
+            MultiplayerPerfContext.Lap(MultiplayerPerfContext.Hook.OtherTick, ref start);
+            MultiplayerPerfContext.OnTick(__instance);
         }
     }
 
@@ -346,9 +352,11 @@ public static class MultiplayerPatcher
         [UsedImplicitly]
         public static void Postfix()
         {
-            MultiplayerSessionContext.OnJoinedRoom();
-            MultiplayerApprovalContext.OnJoinedRoom();
-            MultiplayerTurnSpeedContext.OnJoinedRoom();
+            // an exception here would escape into Photon's event dispatch and leave the room half set up
+            MultiplayerContext.Guarded("joining a room", MultiplayerSessionContext.OnJoinedRoom);
+            MultiplayerContext.Guarded("joining a room", MultiplayerApprovalContext.OnJoinedRoom);
+            MultiplayerContext.Guarded("joining a room", MultiplayerTurnSpeedContext.OnJoinedRoom);
+            MultiplayerContext.Guarded("joining a room", MultiplayerPerfContext.OnJoinedRoom);
         }
     }
 
@@ -361,7 +369,8 @@ public static class MultiplayerPatcher
         [UsedImplicitly]
         public static void Postfix(Hashtable propertiesThatChanged)
         {
-            MultiplayerSessionContext.OnRoomPropertiesUpdate(propertiesThatChanged);
+            MultiplayerContext.Guarded("a room update",
+                () => MultiplayerSessionContext.OnRoomPropertiesUpdate(propertiesThatChanged));
         }
     }
 
@@ -374,7 +383,8 @@ public static class MultiplayerPatcher
         [UsedImplicitly]
         public static void Postfix(Player newMasterClient)
         {
-            MultiplayerSessionContext.OnMasterClientSwitched(newMasterClient);
+            MultiplayerContext.Guarded("a host change",
+                () => MultiplayerSessionContext.OnMasterClientSwitched(newMasterClient));
         }
     }
 
@@ -387,9 +397,10 @@ public static class MultiplayerPatcher
         [UsedImplicitly]
         public static void Postfix()
         {
-            MultiplayerSessionContext.OnLeftRoom();
-            MultiplayerApprovalContext.Reset();
-            MultiplayerTurnSpeedContext.OnLeftRoom();
+            MultiplayerContext.Guarded("leaving a room", MultiplayerSessionContext.OnLeftRoom);
+            MultiplayerContext.Guarded("leaving a room", MultiplayerApprovalContext.Reset);
+            MultiplayerContext.Guarded("leaving a room", MultiplayerTurnSpeedContext.OnLeftRoom);
+            MultiplayerContext.Guarded("leaving a room", MultiplayerPerfContext.OnLeftRoom);
         }
     }
 
