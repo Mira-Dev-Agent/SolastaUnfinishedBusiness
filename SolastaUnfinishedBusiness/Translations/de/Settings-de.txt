@@ -1,7 +1,7 @@
 ModUI/&EnableChanceToPerceiveCloseRange=<i>+ roll
 ModUI/&EnableCriticalHitsMissesAt10=Ermöglichen
 ModUI/&EnableDamageOnFailedJumpCheck=Wendet 1W4 -Schäden bei fehlgeschlagenen Sprungprüfungen an
-ModUI/&ModVersionControl=-Unfinished Business Mod-Versionseinstellungen-
+ModUI/&ModVersionControl=-%ModName%-Mod-Versionseinstellungen-
 ModUI/&ModifyJumpRulesForArmorAndEncumberance=Wenden Sie Norm- und Rüstungsstrafen an, um die Reichweite zu springen
 ModUI/&ModifyThrowingRulesForStrength=Wenden Sie die Strafen auf Reichweite aus, aus Mangel an Kraft
 ModUI/&RoleplaySettings=Rollenspiel

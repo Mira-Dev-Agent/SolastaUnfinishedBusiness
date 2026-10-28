@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Serialization;
 using JetBrains.Annotations;
@@ -29,6 +30,28 @@ internal static class Main
     internal static Settings Settings => Mod.Settings;
 
     internal static string ModVersion => ModEntry?.Info?.Version ?? string.Empty;
+
+    // the name the mod manager shows (Info.json DisplayName) without its rich text tags, so "Finishing Business";
+    // the mod's id when there is no display name
+    internal static string ModName
+    {
+        get
+        {
+            var displayName = Regex.Replace(ModEntry?.Info?.DisplayName ?? string.Empty, "<[^>]*>", string.Empty)
+                .Trim();
+
+            return displayName.Length > 0 ? displayName : ModEntry?.Info?.Id ?? string.Empty;
+        }
+    }
+
+    // the first capital letter of each word of the mod name ("FB"), or a word's first letter when it has no capital
+    internal static string ModAbbreviation =>
+        string.Concat(ModName.Split([' '], StringSplitOptions.RemoveEmptyEntries).Select(word =>
+        {
+            var capital = word.FirstOrDefault(char.IsUpper);
+
+            return char.ToUpperInvariant(capital != '\0' ? capital : word[0]);
+        }));
 
     // swaps the settings the mod reads; used to play with the host's settings as a multiplayer client
     internal static void UseSettings(Settings settings)

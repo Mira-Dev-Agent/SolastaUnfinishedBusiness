@@ -1,3 +1,9 @@
+1.6.15.8:
+- The mod's name in texts (mod header, welcome message, content pack, feature tag, error and version warnings, version settings) now comes from Info.json's display name, "Finishing Business", in every language; translation texts write it as %ModName%
+- Multiplayer: the build label on player plates and in the room browser is the display name's abbreviation, made from each word's first capital letter ("FB"), instead of "UB"
+- In-game test of 1.6.15.7: the feature details panel opens on instant and held clicks; real screenshots of the overlay, the Multiplayer tab and the lobby tooltip; German and Chinese have no overlaps
+- Not tested in game: this change and the 1.6.15.6 overlay outline in a running adventure
+
 1.6.15.7:
 - Character sheet: clicking a feature now opens its details. The inspection screen's main panel handles presses for its UI sounds, so Unity gave it the press and never sent the row a click; the row now takes the press and passes the press and release on, so the panel's sounds still play
 - Removed the temporary feature click diagnostics from 1.6.15.5

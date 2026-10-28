@@ -220,7 +220,7 @@ internal static class MultiplayerSessionContext
 
         var color = version == BuildVersion ? "#80C080" : "#E06060";
 
-        roomInfo.campaignName = $"{roomInfo.campaignName} <color={color}>[UB {DescribeVersion(version)}]</color>";
+        roomInfo.campaignName = $"{roomInfo.campaignName} <color={color}>[{Main.ModAbbreviation} {DescribeVersion(version)}]</color>";
     }
 
     // player plates in the lobby and in game show each player's build when hovered; a different or missing build
@@ -288,7 +288,7 @@ internal static class MultiplayerSessionContext
 
         if (group.playerImageTooltip)
         {
-            var content = $"{slot.PlayerNickname}\nUB {DescribeVersion(version)}";
+            var content = $"{slot.PlayerNickname}\n{Main.ModAbbreviation} {DescribeVersion(version)}";
 
             if (CanSeePings)
             {

@@ -205,7 +205,7 @@ internal static class TranslatorContext
                         var term = split[0];
                         var text = split[1];
 
-                        languageSourceData.AddTerm(term).Languages[languageIndex] = text;
+                        languageSourceData.AddTerm(term).Languages[languageIndex] = WithModName(text);
                     }
                     catch
                     {
@@ -237,6 +237,14 @@ internal static class TranslatorContext
 
             Main.Info($"Font asset {fontName} loaded.");
         }
+    }
+
+    // translation texts write the mod's name as this marker, so it always matches Info.json's display name
+    private const string ModNameMarker = "%ModName%";
+
+    private static string WithModName(string text)
+    {
+        return text.Contains(ModNameMarker) ? text.Replace(ModNameMarker, Main.ModName) : text;
     }
 
     private static bool IsModTerm(string fullName, string languageCode)
@@ -402,6 +410,8 @@ internal static class TranslatorContext
 
         void AddTerm(string term, string text)
         {
+            text = WithModName(text);
+
             var termData = languageSourceData.GetTermData(term);
 
             if (termData?.Languages[languageIndex] != null)
