@@ -143,16 +143,21 @@ internal static class ToolsDisplay
 
         using (UI.HorizontalScope())
         {
+            // Update only when a newer version is out, Rollback only to a version an in-game update archived
             if (UpdateContext.InProgress)
             {
                 UI.ActionButton($"{UpdateContext.Progress}%", () => { }, width);
             }
-            else
+            else if (UpdateContext.IsUpdateAvailable)
             {
-                UI.ActionButton(Gui.Localize("ModUi/&Update"), () => UpdateContext.UpdateMod(), width);
+                UI.ActionButton(Gui.Localize("ModUi/&Update"), UpdateContext.UpdateMod, width);
             }
 
-            UI.ActionButton(Gui.Localize("ModUi/&Rollback"), UpdateContext.DisplayRollbackMessage, width);
+            if (UpdateContext.CanRollback)
+            {
+                UI.ActionButton(Gui.Localize("ModUi/&Rollback"), UpdateContext.DisplayRollbackMessage, width);
+            }
+
             UI.ActionButton(Gui.Localize("ModUi/&Changelog"), UpdateContext.OpenChangeLog, width);
 
 #if DEBUG

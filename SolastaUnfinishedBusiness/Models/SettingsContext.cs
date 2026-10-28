@@ -40,6 +40,8 @@ public static class SettingsContext
                         (SettingTypeAttribute[])property.GetCustomAttributes(typeof(SettingTypeAttribute), true)
                 })
                 .Where(t => t.customAttributes.Length != 0)
+                .Where(t => t.property.Name != nameof(IGuiModSettingsService.UpdateMod) ||
+                            UpdateContext.IsUpdateAvailable)
                 .Select(t => new Setting(provider, t.property, t.customAttributes[0])));
 
         if (sortByPriority && settingList.Count >= 2)
@@ -58,6 +60,11 @@ public static class SettingsContext
         [SettingTypeHeader("ModHeader", SortOrder = 1000)]
         [UsedImplicitly]
         bool ModHeader { get; set; }
+
+        // only listed while a newer version is out (AddSettings); ticking it asks to update and it never stays ticked
+        [SettingTypeToggle("UpdateMod", SortOrder = 1001, DisplayFooter = true)]
+        [UsedImplicitly]
+        bool UpdateMod { get; set; }
 
         [SettingTypeToggle("EnableCharacterChecker", SortOrder = 1011, DisplayFooter = true)]
         [UsedImplicitly]
@@ -187,6 +194,19 @@ public static class SettingsContext
         private bool _unlockUnmarkedSorcerers = UserPreferences.GetValue<bool>("Settings/Gui/UnlockUnmarkedSorcerers");
 
         public bool ModHeader { get; set; }
+
+        // the game's settings menu has no buttons, so this toggle acts as one
+        public bool UpdateMod
+        {
+            get => false;
+            set
+            {
+                if (value)
+                {
+                    UpdateContext.DisplayUpdateConfirmation();
+                }
+            }
+        }
 
         public string EmpressGarbAppearance
         {

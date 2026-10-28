@@ -1,3 +1,11 @@
+1.6.17.0:
+- In-game update: versions are compared number by number (1.6.10.0 is newer than 1.6.9.0; before, they were compared as text, so some updates weren't offered)
+- In-game update: every file in the update replaces the installed one, changed or not; the replaced files are moved to Archive/<old version> inside the mod folder, with a list of the files the update added
+- Rollback: only offered when an in-game update left an archive, and goes back to exactly that version; only the latest archive is kept (about the size of the mod)
+- Update popup: Changelog opens the changelog and keeps the popup open, and a new Later button closes it
+- Update can also be started from the game's Settings > GUI ("Update Finishing Business to the latest version", asks first) and from Mod UI > Gameplay > General; both only show when a newer version is out
+- Not tested in game: these update changes (an update can only be tried once a newer release than the installed one exists)
+
 1.6.16.2:
 - Feats: in Chinese, the choices of Elemental Adept, Elemental Master, Spell Sniper and Magic Initiate no longer show up as separate feats. Their titles are built from a template when the mod loads, so the English-title check couldn't read them, and the Chinese templates use full-width 【】 brackets
 - In-game test of 1.6.15.13: Grappler stays enabled in German, Chinese and English; German sub-feats appear only inside their groups

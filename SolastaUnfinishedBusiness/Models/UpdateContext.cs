@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
-using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using JetBrains.Annotations;
@@ -14,6 +16,7 @@ using Newtonsoft.Json.Linq;
 using SolastaUnfinishedBusiness.Api.LanguageExtensions;
 using SolastaUnfinishedBusiness.Api.ModKit.Utility;
 using SolastaUnfinishedBusiness.CustomUI;
+using UnityEngine;
 using UnityModManagerNet;
 
 namespace SolastaUnfinishedBusiness.Models;
@@ -22,6 +25,14 @@ internal static class UpdateContext
 {
     private static readonly string TempFolder = $"TEMP_UPDATE{Path.DirectorySeparatorChar}";
     private static readonly string ModFolder = $"SolastaUnfinishedBusiness{Path.DirectorySeparatorChar}";
+
+    // an in-game update moves every installed file it replaces to Archive/<version it replaced>, with a list of the
+    // files it added, so Rollback can put that version back exactly. Only versions left by an update can be rolled
+    // back to, and only the latest one is kept (it is about the size of the mod).
+    private const string ArchiveFolderName = "Archive";
+    private const string AddedFilesList = "added-files.txt";
+
+    private static string ArchiveFolder => Path.Combine(Main.ModFolder, ArchiveFolderName);
     private static InfoJson Info { get; set; }
     private static string BaseURL { get; set; }
     private static string VersionURL { get; set; }
@@ -62,15 +73,43 @@ internal static class UpdateContext
         Main.Settings.DisplayModMessage = (Main.Settings.DisplayModMessage + 1) % 100;
     }
 
+    internal static bool CanRollback => PreviousVersion != null;
+
+    internal static bool IsUpdateAvailable => ShouldUpdate;
+
+    // the newest archived version older than this one, or null when no in-game update left one
     private static string GetPreviousVersion()
     {
-        var a1 = InstalledVersion.Split('.');
-        var minor = int.Parse(a1[3]);
+        if (!Directory.Exists(ArchiveFolder))
+        {
+            return null;
+        }
 
-        a1[3] = (--minor).ToString();
+        return Directory.GetDirectories(ArchiveFolder)
+            .Select(Path.GetFileName)
+            .Where(version => CompareVersions(version, InstalledVersion) < 0)
+            .OrderByDescending(version => version, Comparer<string>.Create(CompareVersions))
+            .FirstOrDefault();
+    }
 
-        // ReSharper disable once AssignNullToNotNullAttribute
-        return string.Join(".", a1);
+    // part by part as numbers, so 1.6.10.0 is newer than 1.6.9.0; a missing part counts as 0
+    private static int CompareVersions(string left, string right)
+    {
+        var a = left.Split('.');
+        var b = right.Split('.');
+
+        for (var i = 0; i < Math.Max(a.Length, b.Length); i++)
+        {
+            var x = i < a.Length && int.TryParse(a[i], out var parsedA) ? parsedA : 0;
+            var y = i < b.Length && int.TryParse(b[i], out var parsedB) ? parsedB : 0;
+
+            if (x != y)
+            {
+                return x.CompareTo(y);
+            }
+        }
+
+        return 0;
     }
 
     private static string GetLatestVersion(out bool shouldUpdate)
@@ -91,12 +130,7 @@ internal static class UpdateContext
             // ReSharper disable once AssignNullToNotNullAttribute
             version = infoJson["Version"].Value<string>();
 
-            var a1 = InstalledVersion.Split('.');
-            var a2 = version.Split('.');
-            var v1 = a1[0] + a1[1] + a1[2] + int.Parse(a1[3]).ToString("D3");
-            var v2 = a2[0] + a2[1] + a2[2] + int.Parse(a2[3]).ToString("D3");
-
-            shouldUpdate = string.Compare(v2, v1, StringComparison.Ordinal) > 0;
+            shouldUpdate = CompareVersions(version, InstalledVersion) > 0;
         }
         catch
         {
@@ -106,11 +140,11 @@ internal static class UpdateContext
         return version;
     }
 
-    internal static void UpdateMod(bool toLatest = true)
+    internal static void UpdateMod()
     {
         if (InProgress) { return; }
 
-        if (!ShouldUpdate && toLatest)
+        if (!ShouldUpdate)
         {
             ShowMessage("Mod version is already the latest or higher",
                 "ChangeLog", OpenChangeLog);
@@ -121,7 +155,7 @@ internal static class UpdateContext
         InProgress = true;
         Progress = 0;
 
-        var version = toLatest ? LatestVersion : PreviousVersion;
+        var version = LatestVersion;
         var zipFile = "SolastaUnfinishedBusiness.zip";
         var fullZipFile = Path.Combine(Main.ModFolder, zipFile);
         var fullZipFolder = Path.Combine(Main.ModFolder, TempFolder);
@@ -180,6 +214,16 @@ internal static class UpdateContext
 
                 ZipFile.ExtractToDirectory(fullZipFile, fullZipFolder);
 
+                var archive = Path.Combine(ArchiveFolder, InstalledVersion);
+                var addedFiles = new List<string>();
+
+                if (Directory.Exists(archive))
+                {
+                    Directory.Delete(archive, true);
+                }
+
+                Directory.CreateDirectory(archive);
+
                 foreach (var sourceFile in Directory.GetFiles(fullZipFolder, "*", SearchOption.AllDirectories))
                 {
                     var destFile = sourceFile.ReplaceFirst(TempFolder, string.Empty);
@@ -193,12 +237,28 @@ internal static class UpdateContext
 
                     Directory.CreateDirectory(destFolder);
 
-                    if (Checksum(destFile) != Checksum(sourceFile))
+                    // every file is replaced, changed or not; the installed one is kept in the archive
+                    var relative = RelativeToModFolder(destFile);
+
+                    if (File.Exists(destFile))
                     {
-                        File.Delete(destFile);
-                        File.Move(sourceFile, destFile);
+                        var archived = Path.Combine(archive, relative);
+
+                        Directory.CreateDirectory(Path.GetDirectoryName(archived)!);
+                        File.Move(destFile, archived);
                     }
+                    else
+                    {
+                        addedFiles.Add(relative);
+                    }
+
+                    File.Move(sourceFile, destFile);
                 }
+
+                File.WriteAllLines(Path.Combine(archive, AddedFilesList), addedFiles);
+                RemoveOtherArchives(archive);
+                ShouldUpdate = false;
+                PreviousVersion = GetPreviousVersion();
 
                 ShowMessage("Mod update is successful. Please restart.", "ChangeLog", OpenChangeLog);
             }
@@ -229,17 +289,121 @@ internal static class UpdateContext
 
     internal static void DisplayRollbackMessage()
     {
-        if (InProgress) { return; }
+        if (InProgress || !CanRollback) { return; }
 
         ShowMessage($"Would you like to rollback to {PreviousVersion}?",
-            "Message/&MessageOkTitle", () => UpdateMod(false),
+            "Message/&MessageOkTitle", Rollback,
             "Message/&MessageCancelTitle");
     }
 
+    // puts back the files the update to this version replaced and removes the ones it added
+    private static void Rollback()
+    {
+        var version = PreviousVersion;
+        var archive = Path.Combine(ArchiveFolder, version);
+
+        try
+        {
+            var addedList = Path.Combine(archive, AddedFilesList);
+
+            if (File.Exists(addedList))
+            {
+                foreach (var added in File.ReadAllLines(addedList).Where(x => x.Length > 0))
+                {
+                    var file = Path.Combine(Main.ModFolder, added);
+
+                    if (File.Exists(file))
+                    {
+                        File.Delete(file);
+                    }
+                }
+            }
+
+            foreach (var archived in Directory.GetFiles(archive, "*", SearchOption.AllDirectories)
+                         .Where(file => file != addedList))
+            {
+                var destFile = Path.Combine(Main.ModFolder, archived.Substring(archive.Length + 1));
+
+                Directory.CreateDirectory(Path.GetDirectoryName(destFile)!);
+
+                if (File.Exists(destFile))
+                {
+                    File.Delete(destFile);
+                }
+
+                File.Move(archived, destFile);
+            }
+
+            Directory.Delete(archive, true);
+            PreviousVersion = GetPreviousVersion();
+
+            ShowMessage($"Rolled back to {version}. Please restart.", "ChangeLog", OpenChangeLog);
+        }
+        catch (Exception err)
+        {
+            Main.Error($"Failed to roll back mod: {err.Message}: {err.StackTrace}");
+
+            ShowMessage($"Failed to roll back to {version}. Its files are still in:\r\n{archive}.",
+                "Message/&MessageOkTitle", severity: MessageModal.Severity.Serious3);
+        }
+    }
+
+    private static string RelativeToModFolder(string path)
+    {
+        return path.Substring(Main.ModFolder.Length).TrimStart(Path.DirectorySeparatorChar, '/');
+    }
+
+    // only the archive the update just made is kept
+    private static void RemoveOtherArchives(string keep)
+    {
+        foreach (var old in Directory.GetDirectories(ArchiveFolder).Where(folder => folder != keep))
+        {
+            Directory.Delete(old, true);
+        }
+    }
+
+    // Changelog opens it and keeps this message up (the message box closes after a button, so it reopens a frame
+    // later); Later closes it
     private static void DisplayUpdateMessage()
     {
-        ShowMessage($"Version {LatestVersion} is now available. Open Mod UI > Gameplay > General to update.",
-            "Changelog", OpenChangeLog);
+        ShowMessage(
+            $"Version {LatestVersion} is now available. Update it from Mod UI > Gameplay > General or the game's " +
+            "Settings > GUI.",
+            "Changelog", () =>
+            {
+                OpenChangeLog();
+                NextFrame(DisplayUpdateMessage);
+            },
+            "Message/&MessageLaterTitle");
+    }
+
+    // asks before updating from the game's settings menu, which has no buttons, only toggles
+    internal static void DisplayUpdateConfirmation()
+    {
+        if (InProgress || !ShouldUpdate) { return; }
+
+        ShowMessage($"Update to version {LatestVersion} now? You'll need to restart the game afterwards.",
+            "Message/&MessageUpdateTitle", UpdateMod,
+            "Message/&MessageLaterTitle");
+    }
+
+    private static void NextFrame(Action action)
+    {
+        if (Gui.GuiService is MonoBehaviour behaviour && behaviour)
+        {
+            behaviour.StartCoroutine(RunNextFrame(action));
+        }
+        else
+        {
+            action();
+        }
+    }
+
+    private static IEnumerator RunNextFrame(Action action)
+    {
+        yield return null;
+
+        action();
     }
 
     private static void DisplayWelcomeMessage()
@@ -302,22 +466,5 @@ internal static class UpdateContext
                 throw;
             }
         }
-    }
-
-    private static string Checksum(string path)
-    {
-        using var file = new FileStream(path, FileMode.Open, FileAccess.Read);
-        using var buffer = new BufferedStream(file);
-        using var cryptoProvider = SHA1.Create();
-
-        var hash = cryptoProvider.ComputeHash(buffer);
-
-        var str = new StringBuilder();
-        foreach (var b in hash)
-        {
-            str.Append(b.ToString("X2"));
-        }
-
-        return str.ToString();
     }
 }
