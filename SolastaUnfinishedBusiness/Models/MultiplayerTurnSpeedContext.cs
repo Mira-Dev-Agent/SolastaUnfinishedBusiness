@@ -188,13 +188,19 @@ internal static class MultiplayerTurnSpeedContext
     }
 
     // watches the key the game uses for its single-player speed-up, which it ignores in multiplayer; a tap toggles.
-    // During enemy turns a button at the top of the screen does the same, and while sped up a label above it says so,
-    // outlined like the FPS overlay so it reads over any scene.
+    // During enemy turns a button does the same, and while sped up a label above it says so, outlined like the FPS
+    // overlay so it reads over any scene. Both sit at the top centre in the game's 1920x1080 reference layout, scaled
+    // like the game's own UI: below the initiative bar's area (200 high at the top) and below the alert panel (centred,
+    // ending 79 from the top), so neither covers the other.
     private sealed class TurnSpeedInput : MonoBehaviour
     {
-        private const float Top = 64f;
+        private const float ReferenceHeight = 1080f;
+        private const float Top = 206f;
+        private const float LabelHeight = 24f;
         private const float ButtonWidth = 260f;
         private const float ButtonHeight = 32f;
+        private const int LabelFontSize = 16;
+        private const int ButtonFontSize = 15;
 
         private static readonly Vector2[] OutlineOffsets =
         [
@@ -213,14 +219,19 @@ internal static class MultiplayerTurnSpeedContext
                 return;
             }
 
-            _buttonStyle ??= new GUIStyle(GUI.skin.button) { fontSize = 15 };
+            var scale = Screen.height / ReferenceHeight;
+
+            _buttonStyle ??= new GUIStyle(GUI.skin.button);
+            _buttonStyle.fontSize = Mathf.RoundToInt(ButtonFontSize * scale);
 
             var label = Gui.Localize(_pending
                 ? "ModUi/&MultiplayerTurnSpeedUpPending"
                 : _speedUp
                     ? "ModUi/&MultiplayerTurnSpeedUpStop"
                     : "ModUi/&MultiplayerTurnSpeedUpStart");
-            var buttonRect = new Rect((Screen.width - ButtonWidth) / 2f, Top + 26f, ButtonWidth, ButtonHeight);
+            var top = Top * scale;
+            var buttonRect = new Rect((Screen.width - (ButtonWidth * scale)) / 2f, top + (LabelHeight * scale),
+                ButtonWidth * scale, ButtonHeight * scale);
 
             GUI.enabled = !_pending;
 
@@ -238,14 +249,16 @@ internal static class MultiplayerTurnSpeedContext
 
             _labelStyle ??= new GUIStyle(GUI.skin.label)
             {
-                alignment = TextAnchor.MiddleCenter, fontSize = 16, wordWrap = false,
+                alignment = TextAnchor.MiddleCenter, wordWrap = false,
                 normal = { textColor = new Color(0.94f, 0.85f, 0.63f) }
             };
             _outlineStyle ??= new GUIStyle(_labelStyle) { normal = { textColor = new Color(0f, 0f, 0f, 0.85f) } };
+            _labelStyle.fontSize = _outlineStyle.fontSize = Mathf.RoundToInt(LabelFontSize * scale);
 
             var text = Gui.Format("ModUi/&MultiplayerTurnSpeedUpIndicator", Modifier.ToString("0.#"));
             var size = _labelStyle.CalcSize(new GUIContent(text));
-            var rect = new Rect((Screen.width - size.x) / 2f, Top, size.x, size.y);
+            var rect = new Rect((Screen.width - size.x) / 2f, top + (((LabelHeight * scale) - size.y) / 2f), size.x,
+                size.y);
 
             foreach (var offset in OutlineOffsets)
             {
