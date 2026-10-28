@@ -1,3 +1,9 @@
+1.6.15.7:
+- Character sheet: clicking a feature now opens its details. The inspection screen's main panel handles presses for its UI sounds, so Unity gave it the press and never sent the row a click; the row now takes the press and passes the press and release on, so the panel's sounds still play
+- Removed the temporary feature click diagnostics from 1.6.15.5
+- In-game test of 1.6.15.5: the diagnostics showed the press going to CharacterInspectionScreen/MainPanel on every click; wrapping still passes
+- Not tested in game: this fix, the 1.6.15.6 overlay outline, and the 1.6.15.0 translations after the wrapping fixes
+
 1.6.15.6:
 - Multiplayer overlay: no background box any more; each value has a dark 1px outline so it stays readable over any scene
 - Not tested in game: this change, 1.6.15.2 to 1.6.15.5 (FPS and ping wording, overlay table, wrapping fixes, feature click diagnostics)
