@@ -1,3 +1,8 @@
+1.6.15.9:
+- Multiplayer: the build shown and compared between players is the version alone ("FB 1.6.15.9"), without the "#" hash of the DLL
+- Releases: the release workflow now refuses a version that was already released, so every numbered release is a unique build
+- Not tested in game: this change and 1.6.15.8 (mod name from the display name, "FB" label)
+
 1.6.15.8:
 - The mod's name in texts (mod header, welcome message, content pack, feature tag, error and version warnings, version settings) now comes from Info.json's display name, "Finishing Business", in every language; translation texts write it as %ModName%
 - Multiplayer: the build label on player plates and in the room browser is the display name's abbreviation, made from each word's first capital letter ("FB"), instead of "UB"

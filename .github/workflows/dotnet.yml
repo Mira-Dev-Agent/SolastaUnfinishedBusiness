@@ -1,5 +1,6 @@
 # Builds the mod and publishes a GitHub release whenever a version tag is pushed (e.g. `git push origin 1.6.1.1`).
-# The tag must match Info.json's Version; the release notes are that version's entry in ChangelogHistory.txt.
+# The tag must match Info.json's Version and must not have been released before; the release notes are that
+# version's entry in ChangelogHistory.txt.
 # A failed release can be re-run by hand from the Actions tab by choosing the version tag as the ref.
 
 name: .NET
@@ -25,6 +26,16 @@ jobs:
           version=$(jq -r .Version SolastaUnfinishedBusiness/Info.json)
           if [ "$version" != "$GITHUB_REF_NAME" ]; then
             echo "::error::Tag $GITHUB_REF_NAME doesn't match Info.json Version $version"
+            exit 1
+          fi
+      - name: Check the version wasn't released before
+        # every numbered release must be a unique build: the mod shows the version alone, so a moved tag must not
+        # publish different files under a number players already have
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "$GITHUB_REF_NAME" -R "$GITHUB_REPOSITORY" > /dev/null 2>&1; then
+            echo "::error::Version $GITHUB_REF_NAME was already released; bump the version instead"
             exit 1
           fi
       - name: Setup .NET

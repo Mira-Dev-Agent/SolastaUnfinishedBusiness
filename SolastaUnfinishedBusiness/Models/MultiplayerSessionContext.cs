@@ -43,28 +43,15 @@ internal static class MultiplayerSessionContext
     internal static bool IsUsingHostSettingsForThisLaunch { get; private set; }
     internal static string HostVersion { get; private set; }
 
-    internal static string BuildVersion { get; } = ComputeBuildVersion();
+    // every numbered release is a unique build (the release workflow refuses a version that was already released),
+    // so the version alone tells builds apart
+    internal static string BuildVersion => Main.ModVersion;
 
     private static string HostSettingsFile => Path.Combine(Main.SettingsFolder, $"{HostSettingsName}.xml");
     private static string UseHostSettingsFlagFile => Path.Combine(Main.SettingsFolder, UseHostSettingsFlag);
 
     private static bool IsOnlineRoom => PhotonNetwork.InRoom && !PhotonNetwork.OfflineMode;
 
-    // the shown version is shared by upstream and forks, so a short hash of this build tells them apart
-    private static string ComputeBuildVersion()
-    {
-        try
-        {
-            using var sha = SHA256.Create();
-            var hash = sha.ComputeHash(File.ReadAllBytes(Assembly.GetExecutingAssembly().Location));
-
-            return $"{Main.ModVersion} #{BitConverter.ToString(hash, 0, 4).Replace("-", string.Empty).ToLower()}";
-        }
-        catch
-        {
-            return Main.ModVersion;
-        }
-    }
 
     #region Room Events
 
