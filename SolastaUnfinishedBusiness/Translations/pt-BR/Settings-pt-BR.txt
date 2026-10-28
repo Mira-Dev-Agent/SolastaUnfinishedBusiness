@@ -286,6 +286,7 @@ ModUi/&ExpandAll=Expandir tudo
 ModUi/&FactionHelp=<color=#C04040E0>Carregue um jogo de campanha oficial para modificar as relações de facção...</color>
 ModUi/&FactionRelations=<color=#F0DAA0>Facções:</color>
 ModUi/&FasterTimeEnemyTurnButton=Mostra um botão durante os turnos inimigos no modo solo que os mantém acelerados até ser clicado de novo <i><color=#F0DAA0>[termina quando começa o turno de um membro do grupo; a velocidade é o modificador de tempo de jogo abaixo; segurar espaço continua funcionando como antes]</color></i>
+ModUi/&EnemyTurnSpeedUpByDefault=Acelerar os turnos inimigos por padrão <i><color=#F0DAA0>[cada sequência de turnos inimigos começa acelerada, como se o botão acima tivesse sido clicado; clicar nele volta à velocidade normal até o turno de um membro do grupo; no multijogador vale a configuração do anfitrião]</color></i>
 ModUi/&FasterTimeModifier=<color=white>Modificador de tempo de jogo ao pressionar a barra de espaço</color>
 ModUi/&FeatGroups=<color=#F0DAA0>Grupos de talentos</color>
 ModUi/&FeatGroupsHelp=• Cada grupo é uma consolidação de <color=#D89555>talentos</color> semelhantes <i><color=#F0DAA0>[por exemplo: credos, estilos de luta, metamagia, etc.]</color></i>\n• Os talentos nesses grupos não serão mais diretamente visíveis no estágio de seleção de proficiência\n• O grupo, quando selecionado, os oferece em uma lista suspensa para organizar a tela do jogo

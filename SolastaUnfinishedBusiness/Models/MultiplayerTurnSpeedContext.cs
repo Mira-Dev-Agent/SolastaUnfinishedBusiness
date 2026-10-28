@@ -17,6 +17,8 @@ namespace SolastaUnfinishedBusiness.Models;
 // single player), and the speed-up ends when a party member's turn starts, so nobody's choosing time is ever rushed.
 // In single player the same button can be turned on in the settings: the game only speeds up while the key is held
 // (CameraMode.ApplyFasterTurn, every frame), and a click keeps it sped up until clicked again or a party turn starts.
+// With "speed up enemy turns by default", every run of enemy turns starts sped up as if the button had been clicked
+// (in multiplayer the host's setting decides, through the same tick-scheduled state, with no alert).
 internal static class MultiplayerTurnSpeedContext
 {
     private const byte EventCode = 173;
@@ -28,6 +30,7 @@ internal static class MultiplayerTurnSpeedContext
 
     private static bool _eventHandlerRegistered;
     private static bool _speedUp;
+    private static bool _wasEnemyTurn;
     private static bool _pending;
     private static bool _pendingOn;
     private static long _pendingTick;
@@ -86,8 +89,20 @@ internal static class MultiplayerTurnSpeedContext
     private static void Reset()
     {
         _speedUp = false;
+        _wasEnemyTurn = false;
         _pending = false;
         Modifier = 1f;
+    }
+
+    // true on the first enemy turn after a party turn (or the first one seen at all), once per run of enemy turns
+    private static bool EnemyTurnsBegan()
+    {
+        var enemyTurn = IsEnemyTurn();
+        var began = enemyTurn && !_wasEnemyTurn;
+
+        _wasEnemyTurn = enemyTurn;
+
+        return began;
     }
 
     // a non-party character is acting in a battle that has started: the game's own condition for a faster turn
@@ -118,15 +133,26 @@ internal static class MultiplayerTurnSpeedContext
         {
             _pending = false;
 
-            // a speed-up that arrives after the enemy turns already ended does nothing, so it isn't announced
+            // a speed-up that arrives after the enemy turns already ended does nothing, so it isn't announced; one the
+            // host's default started has no player name and isn't announced either
             if (!_pendingOn || IsEnemyTurn())
             {
                 _speedUp = _pendingOn;
-                Gui.GuiService?.ShowAlert(
-                    Gui.Format(_pendingOn
-                        ? "Message/&MultiplayerTurnSpeedUpStarted"
-                        : "Message/&MultiplayerTurnSpeedUpStopped", _pendingNickname), Gui.ColorAlmostWhite, 3f);
+
+                if (!string.IsNullOrEmpty(_pendingNickname))
+                {
+                    Gui.GuiService?.ShowAlert(
+                        Gui.Format(_pendingOn
+                            ? "Message/&MultiplayerTurnSpeedUpStarted"
+                            : "Message/&MultiplayerTurnSpeedUpStopped", _pendingNickname), Gui.ColorAlmostWhite, 3f);
+                }
             }
+        }
+
+        if (EnemyTurnsBegan() && PhotonNetwork.IsMasterClient && Main.Settings.EnemyTurnSpeedUpByDefault &&
+            Main.Settings.MultiplayerEnemyTurnSpeedUp)
+        {
+            Decide(true, null);
         }
 
         // turn changes run on the same tick everywhere, so every computer stops at the same tick
@@ -259,6 +285,13 @@ internal static class MultiplayerTurnSpeedContext
             var start = MultiplayerPerfContext.Start();
 
             HandleKey();
+
+            if (!Global.IsMultiplayer && EnemyTurnsBegan() && IsSinglePlayerButton &&
+                Main.Settings.EnemyTurnSpeedUpByDefault)
+            {
+                _speedUp = true;
+                Modifier = Main.Settings.FasterTimeModifier;
+            }
 
             // single player has no network tick, so the speed-up ends here when the enemy turns do
             if (_speedUp && !Global.IsMultiplayer && (!IsSinglePlayerButton || !IsEnemyTurn()))

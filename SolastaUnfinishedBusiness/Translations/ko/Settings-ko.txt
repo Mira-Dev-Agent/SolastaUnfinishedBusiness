@@ -286,6 +286,7 @@ ModUi/&ExpandAll=모두 확장
 ModUi/&FactionHelp=<color=#C04040E0>공식 캠페인 게임을 불러와서 파벌 관계를 수정하세요...</color>
 ModUi/&FactionRelations=<color=#F0DAA0>진영:</color>
 ModUi/&FasterTimeEnemyTurnButton=싱글 플레이에서 적의 턴 동안 버튼을 표시하여 다시 클릭할 때까지 적의 턴을 가속합니다 <i><color=#F0DAA0>[파티원의 턴이 시작되면 끝납니다; 속도는 아래의 게임 시간 수정입니다; 스페이스를 누르고 있는 방식도 그대로 작동합니다]</color></i>
+ModUi/&EnemyTurnSpeedUpByDefault=기본으로 적의 턴 가속 <i><color=#F0DAA0>[적의 턴이 이어지는 동안 위의 버튼을 클릭한 것처럼 처음부터 가속됩니다; 버튼을 클릭하면 파티원의 턴까지 보통 속도로 돌아갑니다; 멀티플레이에서는 호스트의 설정이 적용됩니다]</color></i>
 ModUi/&FasterTimeModifier=<color=white>스페이스바를 누를 때 게임 시간 수정</color>
 ModUi/&FeatGroups=<color=#F0DAA0>특기 그룹</color>
 ModUi/&FeatGroupsHelp=• 각 그룹은 유사한 <color=#D89555>특기</color>의 통합입니다. <i><color=#F0DAA0>[예: 신조, 전투 스타일, 메타매직 등]</color></i>\n• 이러한 그룹의 특기는 더 이상 숙련도 선택 단계에서 직접 볼 수 없습니다.\n• 그룹을 선택하면 게임 화면을 정리하기 위해 드롭다운 목록에 특기가 제공됩니다.

@@ -286,6 +286,7 @@ ModUi/&ExpandAll=展开全部
 ModUi/&FactionHelp=<color=#C04040E0>加载官方战役游戏来修改派系关系...</color>
 ModUi/&FactionRelations=<color=#F0DAA0>派系:</color>
 ModUi/&FasterTimeEnemyTurnButton=单人游戏中在敌人回合显示一个按钮，点击后加快敌人回合，再次点击恢复 <i><color=#F0DAA0>[队伍成员的回合开始时结束；速度为下方的游戏时间修改器；按住空格仍和以前一样有效]</color></i>
+ModUi/&EnemyTurnSpeedUpByDefault=默认加快敌人回合 <i><color=#F0DAA0>[每轮连续的敌人回合开始时即已加快，如同点击了上方的按钮；点击按钮可恢复正常速度，直到队伍成员的回合；多人游戏中以主机的设置为准]</color></i>
 ModUi/&FasterTimeModifier=<color=white>按空格键时游戏时间修改器</color>
 ModUi/&FeatGroups=<color=#F0DAA0>功绩团体</color>
 ModUi/&FeatGroupsHelp=• 每个组都是类似<color=#D89555>专长</color>的整合<i><color=#F0DAA0>[即：信条、格斗风格、超魔法等]</color></i>\n• 这些组中的专长将不再在熟练选择阶段直接可见\n• 选择组后，会在下拉列表中提供这些专长，以使游戏屏幕更加简洁

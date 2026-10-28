@@ -286,6 +286,7 @@ ModUi/&ExpandAll=Espandi tutto
 ModUi/&FactionHelp=<color=#C04040E0>Carica una partita di campagna ufficiale per modificare le relazioni tra fazioni...</color>
 ModUi/&FactionRelations=<color=#F0DAA0>Fazioni:</color>
 ModUi/&FasterTimeEnemyTurnButton=Mostra un pulsante durante i turni nemici in giocatore singolo che li mantiene velocizzati finché non lo si clicca di nuovo <i><color=#F0DAA0>[finisce quando inizia il turno di un membro del gruppo; la velocità è il modificatore del tempo di gioco qui sotto; tenere premuto spazio funziona ancora come prima]</color></i>
+ModUi/&EnemyTurnSpeedUpByDefault=Velocizza i turni nemici per impostazione predefinita <i><color=#F0DAA0>[ogni serie di turni nemici inizia velocizzata, come se il pulsante sopra fosse stato cliccato; cliccarlo li riporta alla velocità normale fino al turno di un membro del gruppo; in multigiocatore conta l'impostazione dell'host]</color></i>
 ModUi/&FasterTimeModifier=<color=white>Modificatore del tempo di gioco quando si preme la barra spaziatrice</color>
 ModUi/&FeatGroups=<color=#F0DAA0>Gruppi di imprese</color>
 ModUi/&FeatGroupsHelp=• Ogni gruppo è un consolidamento di <color=#D89555>imprese</color> simili <i><color=#F0DAA0>[ad esempio: credi, stili di combattimento, metamagia, ecc.]</color></i>\n• Le imprese in questi gruppi non saranno più visibili direttamente nella fase di selezione delle competenze\n• Il gruppo, quando selezionato, le offre in un elenco a discesa per riordinare la schermata di gioco

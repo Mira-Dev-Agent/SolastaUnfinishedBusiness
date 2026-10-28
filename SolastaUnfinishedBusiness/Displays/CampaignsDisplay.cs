@@ -56,6 +56,12 @@ internal static class CampaignsDisplay
             Main.Settings.FasterTimeEnemyTurnButton = toggle;
         }
 
+        toggle = Main.Settings.EnemyTurnSpeedUpByDefault;
+        if (UI.Toggle(Gui.Localize("ModUi/&EnemyTurnSpeedUpByDefault"), ref toggle, UI.AutoWidth()))
+        {
+            Main.Settings.EnemyTurnSpeedUpByDefault = toggle;
+        }
+
         var floatValue = Main.Settings.FasterTimeModifier;
         if (UI.Slider(Gui.Localize("ModUi/&FasterTimeModifier"), ref floatValue,
                 DefaultFastTimeModifier, 10f, DefaultFastTimeModifier, 1, string.Empty, UI.AutoWidth()))
