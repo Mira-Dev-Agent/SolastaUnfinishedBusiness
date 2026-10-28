@@ -559,4 +559,5 @@ ModUi/&MultiplayerEnemyTurnSpeedUp=Let any player speed up enemy turns with the 
 ModUi/&MultiplayerTurnSpeedUpIndicator=Enemy turns sped up (×{0})
 ModUi/&MultiplayerTurnSpeedUpStart=Speed up enemy turns
 ModUi/&MultiplayerTurnSpeedUpStop=Back to normal speed
+ModUi/&MultiplayerTurnSpeedUpTooltip=Plays the enemy turns faster until clicked again or a party member's turn starts.
 ModUi/&MultiplayerTurnSpeedUpPending=Waiting for the host…

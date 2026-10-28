@@ -519,6 +519,7 @@ ModUi/&MultiplayerEnemyTurnSpeedUp=Любой игрок может ускори
 ModUi/&MultiplayerTurnSpeedUpIndicator=Ходы врагов ускорены (×{0})
 ModUi/&MultiplayerTurnSpeedUpStart=Ускорить ходы врагов
 ModUi/&MultiplayerTurnSpeedUpStop=Вернуть обычную скорость
+ModUi/&MultiplayerTurnSpeedUpTooltip=Ускоряет ходы врагов, пока кнопку не нажмут снова или не начнётся ход члена отряда.
 ModUi/&MultiplayerTurnSpeedUpPending=Ожидание хоста…
 ModUi/&MultiplayerDeterministicStandAgainstTheTide=Использовать синхронизированные кости для выбора цели перенаправления <color=#D89555>Stand Against the Tide</color> <i><color=#F0DAA0>[только сетевые игры]</color></i>
 ModUi/&MultiplayerEnableDesyncDetection=Обнаруживать рассинхронизацию и показывать предупреждение, чтобы отряд мог перезагрузиться <i><color=#F0DAA0>[сравнивает счётчик сущностей между компьютерами каждые 5 секунд]</color></i>

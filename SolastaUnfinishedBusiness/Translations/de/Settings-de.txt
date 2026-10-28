@@ -519,6 +519,7 @@ ModUi/&MultiplayerEnemyTurnSpeedUp=Jeder Spieler kann die Gegnerzüge mit der Sc
 ModUi/&MultiplayerTurnSpeedUpIndicator=Gegnerzüge beschleunigt (×{0})
 ModUi/&MultiplayerTurnSpeedUpStart=Gegnerzüge beschleunigen
 ModUi/&MultiplayerTurnSpeedUpStop=Zurück zur normalen Geschwindigkeit
+ModUi/&MultiplayerTurnSpeedUpTooltip=Spielt die Gegnerzüge schneller ab, bis erneut geklickt wird oder ein Gruppenmitglied am Zug ist.
 ModUi/&MultiplayerTurnSpeedUpPending=Warte auf den Host …
 ModUi/&MultiplayerDeterministicStandAgainstTheTide=Die synchronisierten Würfel verwenden, um das Umleitungsziel von <color=#D89555>Stand Against the Tide</color> zu wählen <i><color=#F0DAA0>[nur Mehrspielerpartien]</color></i>
 ModUi/&MultiplayerEnableDesyncDetection=Desyncs erkennen und eine Warnung anzeigen, damit die Gruppe neu laden kann <i><color=#F0DAA0>[vergleicht alle 5 Sekunden den Entitätenzähler zwischen den Computern]</color></i>

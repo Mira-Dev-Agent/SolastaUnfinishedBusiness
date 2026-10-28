@@ -519,6 +519,7 @@ ModUi/&MultiplayerEnemyTurnSpeedUp=どのプレイヤーでも敵のターン中
 ModUi/&MultiplayerTurnSpeedUpIndicator=敵のターン加速中（×{0}）
 ModUi/&MultiplayerTurnSpeedUpStart=敵のターンを加速
 ModUi/&MultiplayerTurnSpeedUpStop=通常の速度に戻す
+ModUi/&MultiplayerTurnSpeedUpTooltip=もう一度クリックするか、パーティーメンバーのターンが始まるまで、敵のターンを速く進めます。
 ModUi/&MultiplayerTurnSpeedUpPending=ホストを待っています…
 ModUi/&MultiplayerDeterministicStandAgainstTheTide=<color=#D89555>Stand Against the Tide</color>のリダイレクト先を同期ダイスで選ぶ <i><color=#F0DAA0>[マルチプレイのみ]</color></i>
 ModUi/&MultiplayerEnableDesyncDetection=同期ずれを検出して警告を表示し、パーティーがロードし直せるようにする <i><color=#F0DAA0>[5秒ごとにコンピューター間でエンティティカウンターを比較]</color></i>

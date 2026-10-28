@@ -1,3 +1,8 @@
+1.8.2:
+- Enemy-turn speed-up button: it now widens to fit its text on one line. It kept the size of the game's MENU button it is copied from (70 wide), so its texts wrapped word by word over the box and the "Enemy turns sped up" label above it
+- Enemy-turn speed-up button: its tooltip now says what it does, instead of the menu button's "Opens the game menu."
+- Not tested in game: this change
+
 1.8.1:
 - Campaigns: the enemy-turn speed-up button in single player is now on by default (it can still be turned off in the Campaigns settings)
 - Not tested in game: this change

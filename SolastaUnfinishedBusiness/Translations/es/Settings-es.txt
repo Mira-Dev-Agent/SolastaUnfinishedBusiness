@@ -519,6 +519,7 @@ ModUi/&MultiplayerEnemyTurnSpeedUp=Permite que cualquier jugador acelere los tur
 ModUi/&MultiplayerTurnSpeedUpIndicator=Turnos enemigos acelerados (×{0})
 ModUi/&MultiplayerTurnSpeedUpStart=Acelerar turnos enemigos
 ModUi/&MultiplayerTurnSpeedUpStop=Volver a la velocidad normal
+ModUi/&MultiplayerTurnSpeedUpTooltip=Reproduce los turnos enemigos más rápido hasta que se vuelva a pulsar o empiece el turno de un miembro del grupo.
 ModUi/&MultiplayerTurnSpeedUpPending=Esperando al anfitrión…
 ModUi/&MultiplayerDeterministicStandAgainstTheTide=Usar los dados sincronizados para elegir el objetivo de redirección de <color=#D89555>Stand Against the Tide</color> <i><color=#F0DAA0>[solo partidas multijugador]</color></i>
 ModUi/&MultiplayerEnableDesyncDetection=Detectar desincronizaciones y mostrar una alerta para que el grupo pueda recargar <i><color=#F0DAA0>[compara el contador de entidades entre ordenadores cada 5 segundos]</color></i>

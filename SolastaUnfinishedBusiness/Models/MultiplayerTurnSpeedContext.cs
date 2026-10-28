@@ -236,12 +236,18 @@ internal static class MultiplayerTurnSpeedContext
         private const string StartTerm = "ModUi/&MultiplayerTurnSpeedUpStart";
         private const string StopTerm = "ModUi/&MultiplayerTurnSpeedUpStop";
         private const string PendingTerm = "ModUi/&MultiplayerTurnSpeedUpPending";
+        private const string TooltipTerm = "ModUi/&MultiplayerTurnSpeedUpTooltip";
+
+        // space between the text and the button's edges, on top of the button's own layout padding
+        private const float TextMargin = 16f;
 
         private bool _wasActive;
         private GameLocationScreenBattle _screen;
         private GameObject _button;
         private Button _buttonComponent;
         private GuiLabel _buttonLabel;
+        private TextMeshProUGUI _buttonText;
+        private float _buttonMinWidth;
         private string _buttonTerm;
         private TextMeshProUGUI _indicator;
         private float _indicatorModifier = -1f;
@@ -297,6 +303,7 @@ internal static class MultiplayerTurnSpeedContext
             {
                 _buttonTerm = term;
                 _buttonLabel.Text = term;
+                FitButtonToText();
             }
 
             if (_buttonComponent && _buttonComponent.interactable == _pending)
@@ -311,6 +318,26 @@ internal static class MultiplayerTurnSpeedContext
                 _indicatorModifier = Modifier;
                 _indicator.text = Gui.Format("ModUi/&MultiplayerTurnSpeedUpIndicator", Modifier.ToString("0.#"));
             }
+        }
+
+        // the copied button keeps the menu button's fixed 70x30 size, made for "MENU", and its layout group sizes the
+        // label to that width, so longer texts wrapped word by word over the box and the label above it. The button
+        // is widened to the text on one line instead
+        private void FitButtonToText()
+        {
+            if (!_buttonText)
+            {
+                return;
+            }
+
+            var rect = (RectTransform)_button.transform;
+            var layout = _button.GetComponent<HorizontalLayoutGroup>();
+            var padding = layout ? layout.padding.horizontal : 0;
+            var textWidth = _buttonText
+                .GetPreferredValues(_buttonText.text, float.PositiveInfinity, float.PositiveInfinity).x;
+
+            rect.sizeDelta = new Vector2(
+                Mathf.Max(_buttonMinWidth, Mathf.Ceil(textWidth) + padding + TextMargin), rect.sizeDelta.y);
         }
 
         private static void SetActive(GameObject gameObject, bool active)
@@ -358,7 +385,14 @@ internal static class MultiplayerTurnSpeedContext
             _button = CopyButton(source.gameObject, screen.transform);
             _buttonComponent = _button.GetComponent<Button>();
             _buttonLabel = _button.GetComponentInChildren<GuiLabel>(true);
+            _buttonText = _button.GetComponentInChildren<TextMeshProUGUI>(true);
+            _buttonMinWidth = ((RectTransform)_button.transform).sizeDelta.x;
             _buttonTerm = null;
+
+            if (_buttonText)
+            {
+                _buttonText.enableWordWrapping = false;
+            }
             _indicator = CreateIndicator(screen.transform);
             _indicatorModifier = -1f;
 
@@ -386,6 +420,12 @@ internal static class MultiplayerTurnSpeedContext
             foreach (var setup in copy.GetComponentsInChildren<GuiButtonSetup>(true))
             {
                 DestroyImmediate(setup);
+            }
+
+            // the menu button's backgrounds carry its "Opens the game menu." tooltip
+            foreach (var tooltip in copy.GetComponentsInChildren<GuiTooltip>(true))
+            {
+                tooltip.Content = Gui.Localize(TooltipTerm);
             }
 
             var button = copy.GetComponent<Button>();

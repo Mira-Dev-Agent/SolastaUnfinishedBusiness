@@ -519,6 +519,7 @@ ModUi/&MultiplayerEnemyTurnSpeedUp=允许任何玩家通过敌人回合时显示
 ModUi/&MultiplayerTurnSpeedUpIndicator=敌人回合加速中（×{0}）
 ModUi/&MultiplayerTurnSpeedUpStart=加速敌人回合
 ModUi/&MultiplayerTurnSpeedUpStop=恢复正常速度
+ModUi/&MultiplayerTurnSpeedUpTooltip=加快敌人回合，直到再次点击或队伍成员的回合开始。
 ModUi/&MultiplayerTurnSpeedUpPending=正在等待主机…
 ModUi/&MultiplayerDeterministicStandAgainstTheTide=使用同步骰子选择<color=#D89555>Stand Against the Tide</color>的转移目标 <i><color=#F0DAA0>[仅限多人游戏]</color></i>
 ModUi/&MultiplayerEnableDesyncDetection=检测不同步并显示提醒，以便队伍重新加载 <i><color=#F0DAA0>[每5秒比较各电脑之间的实体计数器]</color></i>
