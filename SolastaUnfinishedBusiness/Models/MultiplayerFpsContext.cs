@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Text.RegularExpressions;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
@@ -146,15 +147,22 @@ internal static class MultiplayerFpsContext
         _overlay = gameObject.AddComponent<FpsOverlay>();
     }
 
-    // a small box in the top-left corner with a borderless table: one row per visible player,
-    // with the name, frame rate and ping in aligned columns
+    // a borderless table in the top-left corner with no background: one row per visible player, with the name, frame
+    // rate and ping in aligned columns; each cell has a dark 1px outline so it stays readable over any scene
     private sealed class FpsOverlay : MonoBehaviour
     {
-        private const float Padding = 6f;
+        private const float Margin = 14f;
         private const float ColumnGap = 24f;
 
-        private GUIStyle _boxStyle;
+        private static readonly Regex ColorTags = new("</?color[^>]*>", RegexOptions.Compiled);
+
+        private static readonly Vector2[] OutlineOffsets =
+        [
+            new(-1, -1), new(0, -1), new(1, -1), new(-1, 0), new(1, 0), new(-1, 1), new(0, 1), new(1, 1)
+        ];
+
         private GUIStyle _cellStyle;
+        private GUIStyle _outlineStyle;
 
         private void OnGUI()
         {
@@ -171,12 +179,12 @@ internal static class MultiplayerFpsContext
                 return;
             }
 
-            _boxStyle ??= new GUIStyle(GUI.skin.box);
             _cellStyle ??= new GUIStyle(GUI.skin.label)
             {
                 alignment = TextAnchor.MiddleLeft, richText = true, fontSize = 14, wordWrap = false,
                 padding = new RectOffset(0, 0, 0, 0), margin = new RectOffset(0, 0, 0, 0)
             };
+            _outlineStyle ??= new GUIStyle(_cellStyle) { normal = { textColor = new Color(0f, 0f, 0f, 0.85f) } };
 
             // a cell is empty where this player may not see that value; a column nobody sees is left out
             var rows = players.Select(x => new[]
@@ -195,19 +203,26 @@ internal static class MultiplayerFpsContext
             var widths = columns.Select(c => rows.Max(r => _cellStyle.CalcSize(new GUIContent(r[c] ?? "")).x))
                 .ToList();
             var rowHeight = _cellStyle.CalcSize(new GUIContent("Ag")).y;
-            var width = widths.Sum() + (ColumnGap * (widths.Count - 1)) + (Padding * 2);
-            var height = (rowHeight * rows.Count) + (Padding * 2);
-
-            GUI.Box(new Rect(8, 8, width, height), GUIContent.none, _boxStyle);
 
             for (var r = 0; r < rows.Count; r++)
             {
-                var x = 8 + Padding;
-                var y = 8 + Padding + (rowHeight * r);
+                var x = Margin;
+                var y = Margin + (rowHeight * r);
 
                 for (var i = 0; i < columns.Count; i++)
                 {
-                    GUI.Label(new Rect(x, y, widths[i], rowHeight), rows[r][columns[i]] ?? "", _cellStyle);
+                    var text = rows[r][columns[i]] ?? "";
+                    var cell = new Rect(x, y, widths[i], rowHeight);
+
+                    // the outline drops the colour tags, so amber and red values still get a dark outline
+                    var outlineText = ColorTags.Replace(text, "");
+
+                    foreach (var offset in OutlineOffsets)
+                    {
+                        GUI.Label(new Rect(cell.position + offset, cell.size), outlineText, _outlineStyle);
+                    }
+
+                    GUI.Label(cell, text, _cellStyle);
                     x += widths[i] + ColumnGap;
                 }
             }

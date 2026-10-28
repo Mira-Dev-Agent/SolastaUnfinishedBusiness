@@ -1,3 +1,7 @@
+1.6.15.6:
+- Multiplayer overlay: no background box any more; each value has a dark 1px outline so it stays readable over any scene
+- Not tested in game: this change, 1.6.15.2 to 1.6.15.5 (FPS and ping wording, overlay table, wrapping fixes, feature click diagnostics)
+
 1.6.15.5:
 - Character sheet: the feature details panel uses the normal click event again instead of watching the mouse each frame; nothing found in the game's code or UI explains why clicks didn't arrive, so that workaround is withdrawn
 - Temporary diagnostics: for the first 8 presses on a feature row, the mod log lists what the click raycast hits, which object would take the press and the click, and after the release whether the click arrived and how far the pointer moved
