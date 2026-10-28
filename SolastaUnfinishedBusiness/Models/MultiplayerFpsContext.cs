@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using Photon.Pun;
 using Photon.Realtime;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace SolastaUnfinishedBusiness.Models;
@@ -149,130 +150,194 @@ internal static class MultiplayerFpsContext
     }
 
     // a borderless table in the top-left corner with no background: one row per visible player, with the name, frame
-    // rate and ping in aligned columns; each cell has a dark 1px outline so it stays readable over any scene.
-    // The table is rebuilt at most once a second and drawn from that cache every frame: building it every frame (strings,
-    // lists and a regex per cell, several times a frame) made about 10 KB of garbage per frame, which made the full
-    // garbage collections of the ~900 MB heap, each a visible hitch, come much more often (evidence/mp-perf-solo).
+    // rate and ping in aligned columns, in the game's own UI font with an outline so it stays readable over any scene.
+    // It's TextMeshPro text on a canvas of its own: each value is one mesh with a built-in outline, kept between
+    // frames, instead of IMGUI labels redrawn several times a frame (nine per value for the outline). The table is
+    // rebuilt at most once a second; building it every frame had made about 10 KB of garbage per frame and much more
+    // frequent full garbage collections, each a visible hitch (evidence/mp-perf-solo).
     private sealed class FpsOverlay : MonoBehaviour
     {
+        private const float ReferenceWidth = 1920f;
+        private const float ReferenceHeight = 1080f;
         private const float Margin = 14f;
         private const float ColumnGap = 24f;
+        private const float FontSize = 15f;
         private const float RebuildSeconds = 1f;
+        private const string GameFontName = "SourceSansPro-Regular SDF";
 
-        private static readonly Regex ColorTags = new("</?color[^>]*>", RegexOptions.Compiled);
-
-        private static readonly Vector2[] OutlineOffsets =
-        [
-            new(-1, -1), new(0, -1), new(1, -1), new(-1, 0), new(1, 0), new(-1, 1), new(0, 1), new(1, 1)
-        ];
-
-        private readonly List<Cell> _cells = [];
-        private GUIStyle _cellStyle;
-        private GUIStyle _outlineStyle;
+        private readonly List<TextMeshProUGUI> _cells = [];
+        private Canvas _canvas;
+        private RectTransform _root;
+        private TMP_FontAsset _font;
         private float _nextRebuild;
 
-        private void OnGUI()
+        private void Update()
         {
             var start = MultiplayerPerfContext.Start();
 
-            Draw();
+            Refresh();
             MultiplayerPerfContext.Lap(MultiplayerPerfContext.Hook.Drawing, ref start);
         }
 
-        private void Draw()
+        private void Refresh()
         {
             if (!Main.Settings.MultiplayerShowFpsOverlay || !IsOnlineRoom)
             {
-                _cells.Clear();
+                if (_canvas && _canvas.enabled)
+                {
+                    _canvas.enabled = false;
+                }
+
                 _nextRebuild = 0;
 
                 return;
             }
 
-            _cellStyle ??= new GUIStyle(GUI.skin.label)
-            {
-                alignment = TextAnchor.MiddleLeft, richText = true, fontSize = 14, wordWrap = false,
-                padding = new RectOffset(0, 0, 0, 0), margin = new RectOffset(0, 0, 0, 0)
-            };
-            _outlineStyle ??= new GUIStyle(_cellStyle) { normal = { textColor = new Color(0f, 0f, 0f, 0.85f) } };
+            EnsureCanvas();
 
-            if (Time.unscaledTime >= _nextRebuild)
+            if (!_canvas.enabled)
             {
-                _nextRebuild = Time.unscaledTime + RebuildSeconds;
-                Rebuild();
+                _canvas.enabled = true;
             }
 
-            // only cached strings and rects from here: no allocations per frame
-            for (var c = 0; c < _cells.Count; c++)
+            if (Time.unscaledTime < _nextRebuild)
             {
-                var cell = _cells[c];
+                return;
+            }
 
-                for (var o = 0; o < OutlineOffsets.Length; o++)
+            _nextRebuild = Time.unscaledTime + RebuildSeconds;
+            Rebuild();
+        }
+
+        // a screen space canvas above the game's UI, scaled like the game's 1920x1080 layout, that never takes clicks
+        private void EnsureCanvas()
+        {
+            if (_canvas)
+            {
+                return;
+            }
+
+            var canvasObject = new GameObject("FbFpsOverlayCanvas", typeof(RectTransform));
+
+            canvasObject.transform.SetParent(transform, false);
+            _canvas = canvasObject.AddComponent<Canvas>();
+            _canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            _canvas.sortingOrder = short.MaxValue;
+
+            var scaler = canvasObject.AddComponent<CanvasScaler>();
+
+            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            scaler.referenceResolution = new Vector2(ReferenceWidth, ReferenceHeight);
+            scaler.matchWidthOrHeight = 1f;
+
+            _root = (RectTransform)canvasObject.transform;
+            _font = Resources.FindObjectsOfTypeAll<TMP_FontAsset>().FirstOrDefault(x => x.name == GameFontName) ??
+                    TMP_Settings.defaultFontAsset;
+        }
+
+        private TextMeshProUGUI Cell(int index)
+        {
+            while (_cells.Count <= index)
+            {
+                var cellObject = new GameObject($"FbFpsOverlayCell{_cells.Count}", typeof(RectTransform));
+
+                cellObject.transform.SetParent(_root, false);
+
+                var cell = cellObject.AddComponent<TextMeshProUGUI>();
+
+                if (_font)
                 {
-                    GUI.Label(new Rect(cell.Rect.position + OutlineOffsets[o], cell.Rect.size), cell.Outline,
-                        _outlineStyle);
+                    cell.font = _font;
                 }
 
-                GUI.Label(cell.Rect, cell.Text, _cellStyle);
+                cell.fontSize = FontSize;
+                cell.color = Color.white;
+                cell.richText = true;
+                cell.enableWordWrapping = false;
+                cell.overflowMode = TextOverflowModes.Overflow;
+                cell.alignment = TextAlignmentOptions.TopLeft;
+                cell.raycastTarget = false;
+                cell.outlineWidth = 0.2f;
+                cell.outlineColor = new Color32(0, 0, 0, 220);
+
+                var rect = cell.rectTransform;
+
+                rect.anchorMin = rect.anchorMax = rect.pivot = new Vector2(0f, 1f);
+                _cells.Add(cell);
             }
+
+            return _cells[index];
         }
 
         private void Rebuild()
         {
-            _cells.Clear();
-
+            var used = 0;
             var canSeePings = MultiplayerSessionContext.CanSeePings;
             var players = PhotonNetwork.PlayerList.Where(x => canSeePings || CanSee(x)).ToList();
 
-            if (players.Count == 0)
+            if (players.Count > 0)
             {
-                return;
-            }
-
-            // a cell is empty where this player may not see that value; a column nobody sees is left out
-            var rows = players.Select(x => new[]
-            {
-                x.NickName, CanSee(x) ? DescribeFps(x) : null,
-                canSeePings ? MultiplayerSessionContext.DescribePing(x) : null
-            }).ToList();
-
-            // with only your own values there's no name, and each value gets a line of its own
-            if (players.Count == 1 && players[0].IsLocal)
-            {
-                rows = rows[0].Skip(1).Where(x => x != null).Select(x => new[] { x }).ToList();
-            }
-
-            if (rows.Count == 0)
-            {
-                return;
-            }
-
-            var columns = Enumerable.Range(0, rows[0].Length).Where(c => rows.Any(r => r[c] != null)).ToList();
-            var widths = columns.Select(c => rows.Max(r => _cellStyle.CalcSize(new GUIContent(r[c] ?? "")).x))
-                .ToList();
-            var rowHeight = _cellStyle.CalcSize(new GUIContent("Ag")).y;
-
-            for (var r = 0; r < rows.Count; r++)
-            {
-                var x = Margin;
-                var y = Margin + (rowHeight * r);
-
-                for (var i = 0; i < columns.Count; i++)
+                // a cell is empty where this player may not see that value; a column nobody sees is left out
+                var rows = players.Select(x => new[]
                 {
-                    var text = rows[r][columns[i]] ?? "";
+                    x.NickName, CanSee(x) ? DescribeFps(x) : null,
+                    canSeePings ? MultiplayerSessionContext.DescribePing(x) : null
+                }).ToList();
 
-                    // the outline drops the colour tags, so amber and red values still get a dark outline
-                    _cells.Add(new Cell(new Rect(x, y, widths[i], rowHeight), text, ColorTags.Replace(text, "")));
-                    x += widths[i] + ColumnGap;
+                // with only your own values there's no name, and each value gets a line of its own
+                if (players.Count == 1 && players[0].IsLocal)
+                {
+                    rows = rows[0].Skip(1).Where(x => x != null).Select(x => new[] { x }).ToList();
+                }
+
+                if (rows.Count > 0)
+                {
+                    used = Layout(rows);
+                }
+            }
+
+            for (var i = 0; i < _cells.Count; i++)
+            {
+                var active = i < used;
+
+                if (_cells[i].gameObject.activeSelf != active)
+                {
+                    _cells[i].gameObject.SetActive(active);
                 }
             }
         }
 
-        private readonly struct Cell(Rect rect, string text, string outline)
+        // places one text per cell in aligned columns and returns how many cells it used
+        private int Layout(List<string[]> rows)
         {
-            internal Rect Rect { get; } = rect;
-            internal string Text { get; } = text;
-            internal string Outline { get; } = outline;
+            var columns = Enumerable.Range(0, rows[0].Length).Where(c => rows.Any(r => r[c] != null)).ToList();
+            var measure = Cell(0);
+            var widths = columns.Select(c => rows.Max(r => measure.GetPreferredValues(r[c] ?? string.Empty).x))
+                .ToList();
+            var rowHeight = measure.GetPreferredValues("Ag").y;
+            var used = 0;
+
+            for (var r = 0; r < rows.Count; r++)
+            {
+                var x = Margin;
+
+                for (var i = 0; i < columns.Count; i++)
+                {
+                    var cell = Cell(used++);
+                    var value = rows[r][columns[i]] ?? string.Empty;
+
+                    if (cell.text != value)
+                    {
+                        cell.text = value;
+                    }
+
+                    cell.rectTransform.anchoredPosition = new Vector2(x, -(Margin + (rowHeight * r)));
+                    cell.rectTransform.sizeDelta = new Vector2(widths[i], rowHeight);
+                    x += widths[i] + ColumnGap;
+                }
+            }
+
+            return used;
         }
     }
 }

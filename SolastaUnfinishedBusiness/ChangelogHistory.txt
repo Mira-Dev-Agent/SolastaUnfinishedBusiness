@@ -1,3 +1,7 @@
+1.7.3:
+- Multiplayer: the FPS and ping overlay is now TextMeshPro text on a canvas of its own, in the game's UI font with a built-in outline, instead of IMGUI labels drawn several times a frame (nine per value for the outline). It still rebuilds at most once a second, scales with the screen like the game's 1920x1080 layout, and never takes clicks
+- Not tested in game: this change (the overlay may look slightly larger and in the game's font)
+
 1.7.2:
 - Multiplayer: the FPS and ping overlay builds its table at most once a second and draws it from that cache, instead of rebuilding strings and lists every frame. It made about 10 KB of garbage per frame (6 times the game's own at idle), which made the game's full memory clean-ups, each a 30-140 ms freeze, come much more often (measured in a lobby with the [MpPerf] lines)
 - The enemy-turn speed-up button and label look up their texts once and measure the label only when it changes
