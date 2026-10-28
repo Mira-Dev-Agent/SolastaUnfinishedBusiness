@@ -62,11 +62,15 @@ internal static class FeatsContext
         // tweak the groups to make display simpler on mod UI: a feat whose title ends in "[Ability]" is one choice
         // inside a group. Read from the English title, as translations don't keep the brackets the same way (some use
         // full-width ones or none, and some added them to feats that aren't in a group), and a feat dropped here is
-        // also removed from the enabled feats in the settings below.
+        // also removed from the enabled feats in the settings below. Feats that build their title from a template when
+        // they're created (Elemental Adept, Spell Sniper, Magic Initiate and others) hold translated text instead of a
+        // term, so they fall back to that text; every language writes those templates with "[" or, in Chinese, "【".
         var englishTerms = TranslatorContext.GetEnglishTerms();
 
         Feats.RemoveWhere(x =>
-            (englishTerms.TryGetValue(x.GuiPresentation.Title, out var title) ? title : x.FormatTitle()).Contains("["));
+            englishTerms.TryGetValue(x.GuiPresentation.Title, out var englishTitle)
+                ? englishTitle.Contains("[")
+                : x.FormatTitle() is var title && (title.Contains("[") || title.Contains("【")));
         Feats.RemoveWhere(x => x.HasSubFeatureOfType<HideFromFeats>());
 
         foreach (var child in AttributeDefinitions.AbilityScoreNames

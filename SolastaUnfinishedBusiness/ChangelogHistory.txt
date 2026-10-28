@@ -1,3 +1,8 @@
+1.6.16.2:
+- Feats: in Chinese, the choices of Elemental Adept, Elemental Master, Spell Sniper and Magic Initiate no longer show up as separate feats. Their titles are built from a template when the mod loads, so the English-title check couldn't read them, and the Chinese templates use full-width 【】 brackets
+- In-game test of 1.6.15.13: Grappler stays enabled in German, Chinese and English; German sub-feats appear only inside their groups
+- Not tested in game: this fix, and the 1.6.16.x enemy-turn speed-up (needs a session with at least two players)
+
 1.6.16.1:
 - Multiplayer: the enemy-turn speed-up button and its label sit at the top centre below the initiative bar area and below the game's alert messages, in the game's 1920x1080 layout scaled to the screen like its own UI
 - Not tested in game: the speed-up and its position (needs a session with at least two players)
