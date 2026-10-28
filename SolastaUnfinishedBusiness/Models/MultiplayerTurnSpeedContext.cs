@@ -223,12 +223,14 @@ internal static class MultiplayerTurnSpeedContext
     // watches the key the game uses for its single-player speed-up, which it ignores in multiplayer; a tap toggles.
     // During enemy turns a button does the same: a copy of the battle screen's own menu button, so it has the game's
     // look, highlight and click sound, with its gamepad binding removed and its click replaced. While sped up, a label
-    // above it says so, in the game's font with an outline. Both sit at the top centre of the battle screen, which the
-    // game scales from its 1920x1080 layout: below the initiative bar's area (200 high at the top) and the alert panel
-    // (centred, ending 79 from the top), so neither covers the other.
+    // below it says so, in the game's font with an outline. Both sit at the top centre of the battle screen, which the
+    // game scales from its 1920x1080 layout: the button just under the initiative bar, whose portraits end about 178
+    // from the top (the active one's name lowest), and below the alert panel (centred, ending 79 from the top). They
+    // show only while the initiative bar does, so they go with it when the game hides the battle UI for a close-up.
     private sealed class TurnSpeedInput : MonoBehaviour
     {
-        private const float Top = 206f;
+        private const float Top = 186f;
+        private const float LabelGap = 2f;
         private const float LabelHeight = 24f;
         private const float LabelFontSize = 17f;
         private const string SourceButtonName = "GameMenuButton";
@@ -285,7 +287,9 @@ internal static class MultiplayerTurnSpeedContext
         private void RefreshControls()
         {
             var enabled = IsOnlineRoom ? Main.Settings.MultiplayerEnemyTurnSpeedUp : IsSinglePlayerButton;
-            var show = enabled && IsEnemyTurn() && EnsureControls();
+            // Shown turns false as soon as the bar starts hiding, e.g. in ContextualSequenceStart for a close-up
+            var show = enabled && IsEnemyTurn() && EnsureControls() && _screen.initiativeTable &&
+                       _screen.initiativeTable.Shown;
 
             if (!show)
             {
@@ -393,7 +397,8 @@ internal static class MultiplayerTurnSpeedContext
             {
                 _buttonText.enableWordWrapping = false;
             }
-            _indicator = CreateIndicator(screen.transform);
+            _indicator = CreateIndicator(
+                screen.transform, Top + ((RectTransform)_button.transform).sizeDelta.y + LabelGap);
             _indicatorModifier = -1f;
 
             return true;
@@ -440,14 +445,14 @@ internal static class MultiplayerTurnSpeedContext
 
             copy.transform.SetParent(parent, false);
             rect.anchorMin = rect.anchorMax = rect.pivot = new Vector2(0.5f, 1f);
-            rect.anchoredPosition = new Vector2(0f, -(Top + LabelHeight));
+            rect.anchoredPosition = new Vector2(0f, -Top);
             copy.SetActive(false);
             Destroy(holder);
 
             return copy;
         }
 
-        private static TextMeshProUGUI CreateIndicator(Transform parent)
+        private static TextMeshProUGUI CreateIndicator(Transform parent, float top)
         {
             var labelObject = new GameObject("FbTurnSpeedIndicator", typeof(RectTransform));
 
@@ -473,7 +478,7 @@ internal static class MultiplayerTurnSpeedContext
             var rect = label.rectTransform;
 
             rect.anchorMin = rect.anchorMax = rect.pivot = new Vector2(0.5f, 1f);
-            rect.anchoredPosition = new Vector2(0f, -Top);
+            rect.anchoredPosition = new Vector2(0f, -top);
             rect.sizeDelta = new Vector2(400f, LabelHeight);
             labelObject.SetActive(false);
 
