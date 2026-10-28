@@ -1,3 +1,7 @@
+1.7.5:
+- Multiplayer: fixed the enemy-turn speed-up button logging a NullReferenceException (from the game's GuiImageHighlighter) every time its colour changed, such as on hover or while waiting for the host. The copy deleted the button's hidden gamepad-hint object, whose image the button's highlighter colours; now only the gamepad binding itself is removed
+- Not tested in game: this fix (the button only shows during enemy turns in an online game with at least two players)
+
 1.7.4:
 - Multiplayer: the enemy-turn speed-up button is now a copy of the battle screen's own menu button, with the game's look, highlight and click sound (its gamepad binding removed and its click replaced), placed in the battle screen so it scales with the game's UI. The "Enemy turns sped up" label above it is TextMeshPro text in the game's font with an outline
 - The mod no longer draws anything in game with IMGUI; only the mod menu (Unity Mod Manager) still does

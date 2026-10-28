@@ -338,9 +338,11 @@ internal static class MultiplayerTurnSpeedContext
 
             copy.name = "FbTurnSpeedButton";
 
+            // only the binding goes: its object's Image is what the button's GuiImageHighlighter colours, so destroying
+            // the object made every colour change throw; the object stays inactive, as only GuiButtonSetup shows it
             foreach (var binding in copy.GetComponentsInChildren<GamepadBindingButton>(true))
             {
-                DestroyImmediate(binding.gameObject);
+                DestroyImmediate(binding);
             }
 
             foreach (var setup in copy.GetComponentsInChildren<GuiButtonSetup>(true))
