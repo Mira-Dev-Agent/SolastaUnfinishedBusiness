@@ -1,6 +1,6 @@
 # Builds the mod and publishes a GitHub release whenever a version tag is pushed (e.g. `git push origin 1.6.1.1`).
 # The tag must match Info.json's Version and must not have been released before; the release notes are that
-# version's entry in ChangelogHistory.txt.
+# version's entry in ChangelogHistory.txt, and the title is the version plus the Solasta version it was built for.
 # A failed release can be re-run by hand from the Actions tab by choosing the version tag as the ref.
 
 name: .NET
@@ -65,7 +65,10 @@ jobs:
       - name: Publish Release
         env:
           GH_TOKEN: ${{ github.token }}
+        # titled with the version and the Solasta version it was built for (Info.json GameVersion)
         run: |
-          gh release create "$GITHUB_REF_NAME" --verify-tag --latest --title "$GITHUB_REF_NAME" \
+          game_version=$(jq -r .GameVersion SolastaUnfinishedBusiness/Info.json)
+          gh release create "$GITHUB_REF_NAME" --verify-tag --latest \
+            --title "$GITHUB_REF_NAME (Solasta $game_version)" \
             --notes-file release-notes.md \
             SolastaUnfinishedBusiness.zip SolastaFiles/Mods/SolastaUnfinishedBusiness/Info.json

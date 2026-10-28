@@ -1,3 +1,9 @@
+1.7.0:
+- Versions are now plain MAJOR.MINOR.PATCH, starting at 1.7.0 after 1.6.17.3 (the numbers keep increasing, so the in-game updater offers it)
+- Releases are titled with the version and the Solasta version they're built for, e.g. "1.7.0 (Solasta 1.5.97)"
+- In-game check during a live multiplayer session: the enemy-turn speed-up button shows during enemy turns under the initiative bar and is hidden on party turns; the FPS and ping overlay covers the first initiative portrait and the map's CLOSE button
+- Not tested in game: this release changes no code; the speed-up itself hasn't been clicked in a multiplayer game yet
+
 1.6.17.3:
 - Cutscenes with 5 or 6 heroes: back to the 1.6.17.1 positioning (the extra heroes stand one step behind, between spots 1-2 and 3-4); the 1.6.17.2 gap positioning is withdrawn
 - The temporary cutscene log lines from 1.6.17.1 are still in
