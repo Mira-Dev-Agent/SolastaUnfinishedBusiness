@@ -1,6 +1,8 @@
 1.8.2:
 - Enemy-turn speed-up button: it now widens to fit its text on one line. It kept the size of the game's MENU button it is copied from (70 wide), so its texts wrapped word by word over the box and the "Enemy turns sped up" label above it
 - Enemy-turn speed-up button: its tooltip now says what it does, instead of the menu button's "Opens the game menu."
+- Lore-friendly names ("Unlock additional lore friendly names"): the extra names load again in builds from GitHub. The list was split on Windows line endings only, but the release workflow builds from a Linux checkout, whose copy has Unix line endings, so the whole list was read as one line and its names were lost
+- Lore-friendly names: fixed the High Elf surname "Frostbloom", whose line had a space instead of a tab and didn't load
 - Not tested in game: this change
 
 1.8.1:

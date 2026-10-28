@@ -830,7 +830,7 @@ ElfHigh	Sur	Farstrider
 ElfHigh	Sur	Firebrand
 ElfHigh	Sur	Fireleaf
 ElfHigh	Sur	Flameheart
-ElfHigh	Sur Frostbloom
+ElfHigh	Sur	Frostbloom
 ElfHigh	Sur	Frostbough
 ElfHigh	Sur	Frostglen
 ElfHigh	Sur	Frostmantle

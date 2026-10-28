@@ -266,7 +266,9 @@ internal static class RulesContext
         }
 
         var payload = Resources.Names;
-        var lines = new List<string>(payload.Split([Environment.NewLine], StringSplitOptions.None));
+        // either line ending: git stores Names.txt with LF and a Windows checkout turns it into CRLF, so splitting on
+        // Environment.NewLine made the whole file one line in builds from a Linux checkout (the release workflow)
+        var lines = new List<string>(payload.Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries));
 
         foreach (var line in lines)
         {
