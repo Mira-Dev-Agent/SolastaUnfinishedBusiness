@@ -1,3 +1,7 @@
+1.6.15.11:
+- README: the install steps name the Unity Mod Manager version: 0.24.0 or later (the mod's declared minimum), built against 0.24.2 and tested in game with 0.27.10
+- Not tested in game: 1.6.15.8 and 1.6.15.9 (mod name from the display name, "FB" label, version without the hash); this release changes no code
+
 1.6.15.10:
 - README: the mod is named Finishing Business, with install steps for this fork's releases; the mod ID, folder, DLL and repository stay SolastaUnfinishedBusiness
 - Not tested in game: 1.6.15.8 and 1.6.15.9 (mod name from the display name, "FB" label, version without the hash); this release changes no code

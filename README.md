@@ -6,7 +6,7 @@ Finishing Business is a fork of the Solasta mod [Unfinished Business](https://gi
 
 # How to install
 
-1. Install [Unity Mod Manager (UMM)](https://www.nexusmods.com/site/mods/21) for Solasta, if you don't have it yet.
+1. Install [Unity Mod Manager (UMM)](https://www.nexusmods.com/site/mods/21) for Solasta, if you don't have it yet. You need **version 0.24.0 or later**: that's the minimum this mod declares (`ManagerVersion` in `Info.json`), and older versions refuse to load it. The releases are built against UMM 0.24.2 and tested in game with **UMM 0.27.10**, so if you're installing it now, use 0.27.10 or a later version.
 2. Download `SolastaUnfinishedBusiness.zip` from the latest of this fork's [releases](https://github.com/Mira-Dev-Agent/SolastaUnfinishedBusiness/releases).
 3. Extract it into Solasta's `Mods` folder, so you get `Mods\SolastaUnfinishedBusiness\` with `Info.json` and `SolastaUnfinishedBusiness.dll` inside. Keep that folder name.
 4. Start Solasta and press <kbd>Ctrl</kbd>+<kbd>F10</kbd> to open Unity Mod Manager. The mod is listed as **Finishing Business**.
