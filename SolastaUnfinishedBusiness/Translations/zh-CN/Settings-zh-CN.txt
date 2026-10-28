@@ -519,7 +519,7 @@ ModUi/&MultiplayerEnableDesyncDetection=检测不同步并显示提醒，以便�
 ModUi/&MultiplayerEnableStateFingerprint=每5秒还比较每个角色的生命值、位置、状态、法术位和骰子序列，并指出哪个角色不同 <i><color=#F0DAA0>[只在没有任何东西移动或行动时检查]</color></i>
 ModUi/&MultiplayerEnableTickBufferTuning=调整行动延迟 <i><color=#F0DAA0>[每个行动延迟这么多个50毫秒帧刻，以便及时到达每台电脑]</color></i>
 ModUi/&MultiplayerFlushCommandsImmediately=下达行动后立即发送，而不是等到下一帧刻 <i><color=#F0DAA0>[每个行动最多节省50毫秒；消息相同，只是更早发送]</color></i>
-ModUi/&MultiplayerFps={0} FPS
+ModUi/&MultiplayerFps=FPS：{0}
 ModUi/&MultiplayerFpsAllSeeAll=所有人可见所有人
 ModUi/&MultiplayerFpsHostSeesAll=仅主机可见所有人
 ModUi/&MultiplayerFpsHostSeesAllOthersOwn=主机可见所有人，其他人只见自己
@@ -533,12 +533,12 @@ ModUi/&MultiplayerLagTitle=<color=#F0DAA0>行动延迟：</color>
 ModUi/&MultiplayerMenu=多人游戏
 ModUi/&MultiplayerMinimumTickBuffer=<color=white>最小行动延迟（帧刻）</color> <i><color=#F0DAA0>[游戏默认4，只在所有人的延迟都允许时使用]</color></i>
 ModUi/&MultiplayerMovementTitle=<color=#F0DAA0>移动</color> <i><color=#F0DAA0>[仅限多人游戏，单人游戏保持游戏规则]</color></i><color=#F0DAA0>:</color>
-ModUi/&MultiplayerNoFps=未报告FPS
+ModUi/&MultiplayerNoFps=FPS：未报告
 ModUi/&MultiplayerNoHost=不在多人游戏房间中。
-ModUi/&MultiplayerNoPing=未报告延迟
+ModUi/&MultiplayerNoPing=延迟：未报告
 ModUi/&MultiplayerNoVersion=未报告版本
 ModUi/&MultiplayerOfferHostResync=当不同步无法修正时，为主机提供一键重新同步 <i><color=#F0DAA0>[主机快速存档并重新加载；客户端会进入同一个存档]</color></i>
-ModUi/&MultiplayerPing=延迟{0}毫秒
+ModUi/&MultiplayerPing=延迟：{0}毫秒
 ModUi/&MultiplayerPingBasedTickBuffer=根据每位玩家的延迟设定行动延迟 <i><color=#F0DAA0>[连接较慢时会在任何人等待前提高延迟，并让快速的队伍降到下方的最小值]</color></i>
 ModUi/&MultiplayerPingVisibleToHostOnly=只有主机能看到玩家的延迟和行动延迟 <i><color=#F0DAA0>[否则每位玩家都会在此标签页和玩家名牌上看到]</color></i>
 ModUi/&MultiplayerPlayersVersions=<color=white>此房间中的版本：</color>

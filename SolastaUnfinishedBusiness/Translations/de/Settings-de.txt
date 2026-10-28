@@ -519,7 +519,7 @@ ModUi/&MultiplayerEnableDesyncDetection=Desyncs erkennen und eine Warnung anzeig
 ModUi/&MultiplayerEnableStateFingerprint=Zusätzlich alle 5 Sekunden TP, Position, Zustände, Zauberplätze jedes Charakters und die Würfelfolge vergleichen und sagen, welcher Charakter abweicht <i><color=#F0DAA0>[nur geprüft, wenn sich nichts bewegt oder handelt]</color></i>
 ModUi/&MultiplayerEnableTickBufferTuning=Aktionsverzögerung anpassen <i><color=#F0DAA0>[jede Aktion wird um so viele 50-ms-Ticks verzögert, damit sie rechtzeitig jeden Computer erreicht]</color></i>
 ModUi/&MultiplayerFlushCommandsImmediately=Jede Aktion sofort beim Auslösen senden statt beim nächsten Tick <i><color=#F0DAA0>[spart bis zu 50 ms pro Aktion; dieselben Nachrichten, nur früher gesendet]</color></i>
-ModUi/&MultiplayerFps={0} FPS
+ModUi/&MultiplayerFps=FPS: {0}
 ModUi/&MultiplayerFpsAllSeeAll=Alle sehen alle
 ModUi/&MultiplayerFpsHostSeesAll=Nur der Host sieht alle
 ModUi/&MultiplayerFpsHostSeesAllOthersOwn=Host sieht alle, andere ihre eigenen
@@ -533,12 +533,12 @@ ModUi/&MultiplayerLagTitle=<color=#F0DAA0>Aktionsverzögerung:</color>
 ModUi/&MultiplayerMenu=Mehrspieler
 ModUi/&MultiplayerMinimumTickBuffer=<color=white>Minimale Aktionsverzögerung in Ticks</color> <i><color=#F0DAA0>[Spielstandard 4, nur verwendet, wenn jeder Ping es erlaubt]</color></i>
 ModUi/&MultiplayerMovementTitle=<color=#F0DAA0>Bewegung</color> <i><color=#F0DAA0>[nur Mehrspielerpartien, Einzelspieler behält die Spielregeln]</color></i><color=#F0DAA0>:</color>
-ModUi/&MultiplayerNoFps=FPS nicht gemeldet
+ModUi/&MultiplayerNoFps=FPS: nicht gemeldet
 ModUi/&MultiplayerNoHost=Nicht in einem Mehrspielerraum.
-ModUi/&MultiplayerNoPing=Ping nicht gemeldet
+ModUi/&MultiplayerNoPing=Ping: nicht gemeldet
 ModUi/&MultiplayerNoVersion=keine Version gemeldet
 ModUi/&MultiplayerOfferHostResync=Dem Host eine Ein-Klick-Neusynchronisierung anbieten, wenn ein Desync nicht korrigiert werden kann <i><color=#F0DAA0>[der Host speichert schnell und lädt neu; Clients werden in denselben Spielstand geholt]</color></i>
-ModUi/&MultiplayerPing=Ping {0} ms
+ModUi/&MultiplayerPing=Ping: {0} ms
 ModUi/&MultiplayerPingBasedTickBuffer=Die Aktionsverzögerung nach dem Ping jedes Spielers bemessen <i><color=#F0DAA0>[erhöht sie, bevor jemand wartet, wenn eine Verbindung langsam ist, und lässt schnelle Gruppen bis zum Minimum unten sinken]</color></i>
 ModUi/&MultiplayerPingVisibleToHostOnly=Nur der Host sieht den Ping der Spieler und die Aktionsverzögerung <i><color=#F0DAA0>[sonst sieht jeder Spieler sie in diesem Reiter und auf Spielerplaketten]</color></i>
 ModUi/&MultiplayerPlayersVersions=<color=white>Builds in diesem Raum:</color>

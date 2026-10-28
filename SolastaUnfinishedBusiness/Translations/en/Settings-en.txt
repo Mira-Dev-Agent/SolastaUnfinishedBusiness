@@ -532,8 +532,8 @@ ModUi/&MultiplayerFlushCommandsImmediately=Send each action as soon as it is iss
 ModUi/&MultiplayerPingBasedTickBuffer=Size the action delay from every player's ping <i><color=#F0DAA0>[raises it before anyone waits when a connection is slow, and lets fast groups go down to the minimum below]</color></i>
 ModUi/&MultiplayerPingVisibleToHostOnly=Only the host sees players' ping and the action delay <i><color=#F0DAA0>[otherwise every player sees them in this tab and on player plates]</color></i>
 ModUi/&MultiplayerCurrentDelay=<color=white>Current action delay:</color> {0} ticks ({1} ms)
-ModUi/&MultiplayerPing=ping {0} ms
-ModUi/&MultiplayerNoPing=ping not reported
+ModUi/&MultiplayerPing=Ping: {0} ms
+ModUi/&MultiplayerNoPing=Ping: not reported
 ModUi/&MultiplayerEnableStateFingerprint=Also compare every character's HP, position, conditions, spell slots and the dice sequence every 5 seconds, and say which character differs <i><color=#F0DAA0>[only checked when nothing is moving or acting]</color></i>
 ModUi/&MultiplayerQuickCorrectDesync=Out of combat, let the host correct small differences (HP, position, spell slots, dice) on every computer without reloading <i><color=#F0DAA0>[conditions or missing characters still need a resync]</color></i>
 ModUi/&MultiplayerOfferHostResync=Offer the host a one-click resync when a desync can't be corrected <i><color=#F0DAA0>[the host quick-saves and reloads; clients are brought into the same save]</color></i>
@@ -550,7 +550,7 @@ ModUi/&MultiplayerFpsHostSeesAll=Only the host sees everyone
 ModUi/&MultiplayerFpsAllSeeAll=Everyone sees everyone
 ModUi/&MultiplayerFpsOwnOnly=Each player sees their own
 ModUi/&MultiplayerShowFpsOverlay=Show a small overlay in the top-left corner during a multiplayer session with the frame rates and pings you may see
-ModUi/&MultiplayerFps={0} FPS
-ModUi/&MultiplayerNoFps=FPS not reported
+ModUi/&MultiplayerFps=FPS: {0}
+ModUi/&MultiplayerNoFps=FPS: not reported
 ModUi/&MultiplayerFpsHostSeesAllOthersOwn=Host sees everyone, others their own
 ModUi/&MultiplayerDeterministicHitCounting=Count hit reactions once per game tick instead of once per drawn frame <i><color=#F0DAA0>[fixes a desync when a player's frame takes longer than 50 ms (under 20 FPS or a stutter) while a target is hit twice in a row; multiplayer games only]</color></i>

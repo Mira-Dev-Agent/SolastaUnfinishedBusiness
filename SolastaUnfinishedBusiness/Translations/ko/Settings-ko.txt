@@ -519,7 +519,7 @@ ModUi/&MultiplayerEnableDesyncDetection=동기화 어긋남을 감지하고 경�
 ModUi/&MultiplayerEnableStateFingerprint=5초마다 각 캐릭터의 HP, 위치, 상태, 주문 슬롯과 주사위 순서도 비교하고, 어느 캐릭터가 다른지 알려 줌 <i><color=#F0DAA0>[아무것도 이동하거나 행동하지 않을 때만 확인]</color></i>
 ModUi/&MultiplayerEnableTickBufferTuning=행동 지연 조정 <i><color=#F0DAA0>[각 행동은 이만큼의 50ms 틱만큼 지연되어 모든 컴퓨터에 제때 도착함]</color></i>
 ModUi/&MultiplayerFlushCommandsImmediately=각 행동을 다음 틱이 아니라 내린 즉시 전송 <i><color=#F0DAA0>[행동당 최대 50ms 절약. 같은 메시지를 더 빨리 보낼 뿐]</color></i>
-ModUi/&MultiplayerFps={0} FPS
+ModUi/&MultiplayerFps=FPS: {0}
 ModUi/&MultiplayerFpsAllSeeAll=모두가 모두를 봄
 ModUi/&MultiplayerFpsHostSeesAll=호스트만 모두를 봄
 ModUi/&MultiplayerFpsHostSeesAllOthersOwn=호스트는 모두, 나머지는 자기 것만
@@ -533,12 +533,12 @@ ModUi/&MultiplayerLagTitle=<color=#F0DAA0>행동 지연:</color>
 ModUi/&MultiplayerMenu=멀티플레이
 ModUi/&MultiplayerMinimumTickBuffer=<color=white>최소 행동 지연(틱)</color> <i><color=#F0DAA0>[게임 기본값 4, 모두의 핑이 허용할 때만 사용]</color></i>
 ModUi/&MultiplayerMovementTitle=<color=#F0DAA0>이동</color> <i><color=#F0DAA0>[멀티플레이 전용, 싱글 플레이는 게임 규칙 유지]</color></i><color=#F0DAA0>:</color>
-ModUi/&MultiplayerNoFps=FPS 보고 없음
+ModUi/&MultiplayerNoFps=FPS: 보고 없음
 ModUi/&MultiplayerNoHost=멀티플레이 방에 있지 않습니다.
-ModUi/&MultiplayerNoPing=핑 보고 없음
+ModUi/&MultiplayerNoPing=핑: 보고 없음
 ModUi/&MultiplayerNoVersion=버전 보고 없음
 ModUi/&MultiplayerOfferHostResync=동기화 어긋남을 수정할 수 없을 때 호스트에게 원클릭 재동기화를 제안 <i><color=#F0DAA0>[호스트가 빠른 저장 후 다시 불러오고, 클라이언트도 같은 저장으로 돌아옴]</color></i>
-ModUi/&MultiplayerPing=핑 {0}ms
+ModUi/&MultiplayerPing=핑: {0}ms
 ModUi/&MultiplayerPingBasedTickBuffer=각 플레이어의 핑에 맞춰 행동 지연을 정함 <i><color=#F0DAA0>[연결이 느리면 누군가 기다리기 전에 올리고, 빠른 그룹은 아래의 최솟값까지 내릴 수 있음]</color></i>
 ModUi/&MultiplayerPingVisibleToHostOnly=플레이어의 핑과 행동 지연은 호스트만 봄 <i><color=#F0DAA0>[끄면 모든 플레이어가 이 탭과 플레이어 명패에서 봄]</color></i>
 ModUi/&MultiplayerPlayersVersions=<color=white>이 방의 빌드:</color>

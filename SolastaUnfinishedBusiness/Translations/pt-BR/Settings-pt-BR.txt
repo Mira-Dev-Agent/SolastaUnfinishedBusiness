@@ -519,7 +519,7 @@ ModUi/&MultiplayerEnableDesyncDetection=Detectar dessincronizações e mostrar u
 ModUi/&MultiplayerEnableStateFingerprint=Comparar também, a cada 5 segundos, PV, posição, condições, espaços de magia de cada personagem e a sequência de dados, e dizer qual personagem difere <i><color=#F0DAA0>[só verificado quando nada está se movendo ou agindo]</color></i>
 ModUi/&MultiplayerEnableTickBufferTuning=Ajustar o atraso de ação <i><color=#F0DAA0>[cada ação é atrasada por esse número de ticks de 50 ms para chegar a tempo em cada computador]</color></i>
 ModUi/&MultiplayerFlushCommandsImmediately=Enviar cada ação assim que é dada em vez de no próximo tick <i><color=#F0DAA0>[economiza até 50 ms por ação; as mesmas mensagens, só enviadas antes]</color></i>
-ModUi/&MultiplayerFps={0} FPS
+ModUi/&MultiplayerFps=FPS: {0}
 ModUi/&MultiplayerFpsAllSeeAll=Todos veem todos
 ModUi/&MultiplayerFpsHostSeesAll=Só o anfitrião vê todos
 ModUi/&MultiplayerFpsHostSeesAllOthersOwn=O anfitrião vê todos, os outros os próprios
@@ -533,12 +533,12 @@ ModUi/&MultiplayerLagTitle=<color=#F0DAA0>Atraso de ação:</color>
 ModUi/&MultiplayerMenu=Multijogador
 ModUi/&MultiplayerMinimumTickBuffer=<color=white>Atraso de ação mínimo em ticks</color> <i><color=#F0DAA0>[padrão do jogo 4, só usado quando todo ping permite]</color></i>
 ModUi/&MultiplayerMovementTitle=<color=#F0DAA0>Movimento</color> <i><color=#F0DAA0>[só partidas multijogador, o modo solo mantém as regras do jogo]</color></i><color=#F0DAA0>:</color>
-ModUi/&MultiplayerNoFps=FPS não informado
+ModUi/&MultiplayerNoFps=FPS: não informado
 ModUi/&MultiplayerNoHost=Não está em uma sala multijogador.
-ModUi/&MultiplayerNoPing=ping não informado
+ModUi/&MultiplayerNoPing=Ping: não informado
 ModUi/&MultiplayerNoVersion=nenhuma versão informada
 ModUi/&MultiplayerOfferHostResync=Oferecer ao anfitrião uma ressincronização com um clique quando uma dessincronização não puder ser corrigida <i><color=#F0DAA0>[o anfitrião salva rápido e recarrega; os clientes são trazidos para o mesmo salvamento]</color></i>
-ModUi/&MultiplayerPing=ping {0} ms
+ModUi/&MultiplayerPing=Ping: {0} ms
 ModUi/&MultiplayerPingBasedTickBuffer=Dimensionar o atraso de ação pelo ping de cada jogador <i><color=#F0DAA0>[aumenta antes que alguém espere quando uma conexão está lenta, e deixa grupos rápidos descerem até o mínimo abaixo]</color></i>
 ModUi/&MultiplayerPingVisibleToHostOnly=Só o anfitrião vê o ping dos jogadores e o atraso de ação <i><color=#F0DAA0>[senão cada jogador os vê nesta aba e nas placas de jogador]</color></i>
 ModUi/&MultiplayerPlayersVersions=<color=white>Versões nesta sala:</color>

@@ -519,7 +519,7 @@ ModUi/&MultiplayerEnableDesyncDetection=同期ずれを検出して警告を表�
 ModUi/&MultiplayerEnableStateFingerprint=さらに5秒ごとに各キャラクターのHP、位置、状態、呪文スロットとダイス列を比較し、どのキャラクターが異なるか表示する <i><color=#F0DAA0>[何も移動・行動していないときのみ確認]</color></i>
 ModUi/&MultiplayerEnableTickBufferTuning=行動遅延を調整 <i><color=#F0DAA0>[各行動はこの数の50ミリ秒ティックだけ遅らされ、すべてのコンピューターに間に合うように届く]</color></i>
 ModUi/&MultiplayerFlushCommandsImmediately=各行動を次のティックではなく出した直後に送る <i><color=#F0DAA0>[行動ごとに最大50ミリ秒短縮。メッセージは同じで、早く送るだけ]</color></i>
-ModUi/&MultiplayerFps={0} FPS
+ModUi/&MultiplayerFps=FPS: {0}
 ModUi/&MultiplayerFpsAllSeeAll=全員が全員を見られる
 ModUi/&MultiplayerFpsHostSeesAll=ホストだけが全員を見られる
 ModUi/&MultiplayerFpsHostSeesAllOthersOwn=ホストは全員、他は自分のみ
@@ -533,12 +533,12 @@ ModUi/&MultiplayerLagTitle=<color=#F0DAA0>行動遅延：</color>
 ModUi/&MultiplayerMenu=マルチプレイ
 ModUi/&MultiplayerMinimumTickBuffer=<color=white>最小の行動遅延（ティック）</color> <i><color=#F0DAA0>[ゲームの既定値4、全員のpingが許す場合のみ使用]</color></i>
 ModUi/&MultiplayerMovementTitle=<color=#F0DAA0>移動</color> <i><color=#F0DAA0>[マルチプレイのみ、シングルプレイはゲームのルールのまま]</color></i><color=#F0DAA0>:</color>
-ModUi/&MultiplayerNoFps=FPS未報告
+ModUi/&MultiplayerNoFps=FPS: 未報告
 ModUi/&MultiplayerNoHost=マルチプレイのルームにいません。
-ModUi/&MultiplayerNoPing=ping未報告
+ModUi/&MultiplayerNoPing=Ping: 未報告
 ModUi/&MultiplayerNoVersion=バージョン未報告
 ModUi/&MultiplayerOfferHostResync=同期ずれを修正できない場合、ホストにワンクリックの再同期を提案する <i><color=#F0DAA0>[ホストがクイックセーブしてロードし直し、クライアントも同じセーブに戻る]</color></i>
-ModUi/&MultiplayerPing=ping {0}ミリ秒
+ModUi/&MultiplayerPing=Ping: {0}ミリ秒
 ModUi/&MultiplayerPingBasedTickBuffer=各プレイヤーのpingから行動遅延を決める <i><color=#F0DAA0>[回線が遅いときは誰かが待つ前に引き上げ、速いグループは下の最小値まで下げられる]</color></i>
 ModUi/&MultiplayerPingVisibleToHostOnly=プレイヤーのpingと行動遅延はホストだけが見られる <i><color=#F0DAA0>[オフなら全プレイヤーがこのタブとプレイヤープレートで見られる]</color></i>
 ModUi/&MultiplayerPlayersVersions=<color=white>このルームのビルド：</color>

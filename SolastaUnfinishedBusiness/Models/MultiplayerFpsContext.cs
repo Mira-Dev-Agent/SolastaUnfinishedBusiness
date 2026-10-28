@@ -114,7 +114,7 @@ internal static class MultiplayerFpsContext
         return player.CustomProperties.TryGetValue(FpsKey, out var value) && value is int fps ? fps : null;
     }
 
-    // "58 FPS", amber when it has little margin and red when frames get close to a tick
+    // "FPS: 58", amber when it has little margin and red when frames get close to a tick
     internal static string DescribeFps(Player player)
     {
         var fps = GetPlayerFps(player);
@@ -146,10 +146,15 @@ internal static class MultiplayerFpsContext
         _overlay = gameObject.AddComponent<FpsOverlay>();
     }
 
-    // a small box in the top-left corner with each visible player's frame rate
+    // a small box in the top-left corner with a borderless table: one row per visible player,
+    // with the name, frame rate and ping in aligned columns
     private sealed class FpsOverlay : MonoBehaviour
     {
-        private GUIStyle _style;
+        private const float Padding = 6f;
+        private const float ColumnGap = 24f;
+
+        private GUIStyle _boxStyle;
+        private GUIStyle _cellStyle;
 
         private void OnGUI()
         {
@@ -166,18 +171,39 @@ internal static class MultiplayerFpsContext
                 return;
             }
 
-            _style ??= new GUIStyle(GUI.skin.box) { alignment = TextAnchor.UpperLeft, richText = true, fontSize = 14 };
+            _boxStyle ??= new GUIStyle(GUI.skin.box);
+            _cellStyle ??= new GUIStyle(GUI.skin.label)
+            {
+                alignment = TextAnchor.MiddleLeft, richText = true, fontSize = 14, wordWrap = false,
+                padding = new RectOffset(0, 0, 0, 0), margin = new RectOffset(0, 0, 0, 0)
+            };
 
-            // each line has what this player may see: the frame rate, the ping, or both
-            var text = string.Join("\n", players.Select(x =>
-                $"{x.NickName}: " + string.Join(" · ", new[]
+            // a cell is empty where this player may not see that value; a column nobody sees is left out
+            var rows = players.Select(x => new[]
+            {
+                x.NickName, CanSee(x) ? DescribeFps(x) : null,
+                canSeePings ? MultiplayerSessionContext.DescribePing(x) : null
+            }).ToList();
+            var columns = Enumerable.Range(0, 3).Where(c => rows.Any(r => r[c] != null)).ToList();
+            var widths = columns.Select(c => rows.Max(r => _cellStyle.CalcSize(new GUIContent(r[c] ?? "")).x))
+                .ToList();
+            var rowHeight = _cellStyle.CalcSize(new GUIContent("Ag")).y;
+            var width = widths.Sum() + (ColumnGap * (widths.Count - 1)) + (Padding * 2);
+            var height = (rowHeight * rows.Count) + (Padding * 2);
+
+            GUI.Box(new Rect(8, 8, width, height), GUIContent.none, _boxStyle);
+
+            for (var r = 0; r < rows.Count; r++)
+            {
+                var x = 8 + Padding;
+                var y = 8 + Padding + (rowHeight * r);
+
+                for (var i = 0; i < columns.Count; i++)
                 {
-                    CanSee(x) ? DescribeFps(x) : null,
-                    canSeePings ? MultiplayerSessionContext.DescribePing(x) : null
-                }.Where(y => y != null))));
-            var size = _style.CalcSize(new GUIContent(text));
-
-            GUI.Box(new Rect(8, 8, size.x + 8, size.y + 4), text, _style);
+                    GUI.Label(new Rect(x, y, widths[i], rowHeight), rows[r][columns[i]] ?? "", _cellStyle);
+                    x += widths[i] + ColumnGap;
+                }
+            }
         }
     }
 }

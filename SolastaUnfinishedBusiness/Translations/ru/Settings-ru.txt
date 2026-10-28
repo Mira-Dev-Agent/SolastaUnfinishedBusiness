@@ -519,7 +519,7 @@ ModUi/&MultiplayerEnableDesyncDetection=Обнаруживать рассинх�
 ModUi/&MultiplayerEnableStateFingerprint=Также каждые 5 секунд сравнивать ОЗ, позицию, состояния, ячейки заклинаний каждого персонажа и последовательность бросков и сообщать, какой персонаж отличается <i><color=#F0DAA0>[проверяется, только когда ничего не двигается и не действует]</color></i>
 ModUi/&MultiplayerEnableTickBufferTuning=Настроить задержку действий <i><color=#F0DAA0>[каждое действие откладывается на столько тиков по 50 мс, чтобы вовремя дойти до каждого компьютера]</color></i>
 ModUi/&MultiplayerFlushCommandsImmediately=Отправлять каждое действие сразу, а не на следующем тике <i><color=#F0DAA0>[экономит до 50 мс на действие; те же сообщения, только отправленные раньше]</color></i>
-ModUi/&MultiplayerFps={0} FPS
+ModUi/&MultiplayerFps=FPS: {0}
 ModUi/&MultiplayerFpsAllSeeAll=Все видят всех
 ModUi/&MultiplayerFpsHostSeesAll=Только хост видит всех
 ModUi/&MultiplayerFpsHostSeesAllOthersOwn=Хост видит всех, остальные свой
@@ -533,12 +533,12 @@ ModUi/&MultiplayerLagTitle=<color=#F0DAA0>Задержка действий:</co
 ModUi/&MultiplayerMenu=Мультиплеер
 ModUi/&MultiplayerMinimumTickBuffer=<color=white>Минимальная задержка действий в тиках</color> <i><color=#F0DAA0>[по умолчанию в игре 4, используется, только если позволяет пинг каждого]</color></i>
 ModUi/&MultiplayerMovementTitle=<color=#F0DAA0>Перемещение</color> <i><color=#F0DAA0>[только сетевые игры, одиночная игра сохраняет правила игры]</color></i><color=#F0DAA0>:</color>
-ModUi/&MultiplayerNoFps=FPS не сообщён
+ModUi/&MultiplayerNoFps=FPS: не сообщён
 ModUi/&MultiplayerNoHost=Не в сетевой комнате.
-ModUi/&MultiplayerNoPing=пинг не сообщён
+ModUi/&MultiplayerNoPing=Пинг: не сообщён
 ModUi/&MultiplayerNoVersion=версия не сообщена
 ModUi/&MultiplayerOfferHostResync=Предлагать хосту пересинхронизацию в один клик, когда рассинхронизацию нельзя исправить <i><color=#F0DAA0>[хост быстро сохраняется и перезагружается; клиенты попадают в то же сохранение]</color></i>
-ModUi/&MultiplayerPing=пинг {0} мс
+ModUi/&MultiplayerPing=Пинг: {0} мс
 ModUi/&MultiplayerPingBasedTickBuffer=Подбирать задержку действий по пингу каждого игрока <i><color=#F0DAA0>[повышает её до того, как кто-то начнёт ждать при медленном соединении, и позволяет быстрым группам опускаться до минимума ниже]</color></i>
 ModUi/&MultiplayerPingVisibleToHostOnly=Только хост видит пинг игроков и задержку действий <i><color=#F0DAA0>[иначе каждый игрок видит их на этой вкладке и на плашках игроков]</color></i>
 ModUi/&MultiplayerPlayersVersions=<color=white>Сборки в этой комнате:</color>
