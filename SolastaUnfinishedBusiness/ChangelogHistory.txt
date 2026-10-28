@@ -1,3 +1,8 @@
+1.6.15.5:
+- Character sheet: the feature details panel uses the normal click event again instead of watching the mouse each frame; nothing found in the game's code or UI explains why clicks didn't arrive, so that workaround is withdrawn
+- Temporary diagnostics: for the first 8 presses on a feature row, the mod log lists what the click raycast hits, which object would take the press and the click, and after the release whether the click arrived and how far the pointer moved
+- Not tested in game: these changes, 1.6.15.2 to 1.6.15.4 (FPS and ping wording, overlay table, wrapping fixes)
+
 1.6.15.4:
 - Mod menu: wrapped setting texts get the height of all their lines (a forced minimum height had replaced the measured one, so rows got a single line and overlapped the rows around them)
 - Mod menu: toggles with a fixed width, like "Add below to shops", stay on one line instead of wrapping into a narrow column
