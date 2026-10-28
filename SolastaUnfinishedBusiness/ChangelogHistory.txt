@@ -1,3 +1,7 @@
+1.9.1:
+- The mod's links (repository, in-game update check, changelog and release downloads) and the README's releases link point to the repository's new home, SolastaFinishingBusiness/SolastaUnfinishedBusiness. The old Mira-Dev-Agent address still redirects there
+- Not tested in game: this change
+
 1.9.0:
 - Campaigns: new setting "Speed up enemy turns by default", off by default. With it on, every run of enemy turns starts sped up as if the speed-up button had been clicked; clicking the button sets them back to normal until a party member's turn. It needs the speed-up button shown; in multiplayer the host's setting counts and the automatic start shows no alert
 - Enemy-turn speed-up button: it now widens to fit its text on one line. It kept the size of the game's MENU button it is copied from (70 wide), so its texts wrapped word by word over the box and the "Enemy turns sped up" label above it
