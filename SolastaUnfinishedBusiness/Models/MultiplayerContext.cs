@@ -729,6 +729,8 @@ internal static class MultiplayerContext
         var markers = sequence.PlayerPlacementMarkers;
         var actors = sequence.PlayerActors;
 
+        LogCutsceneParty("before", sequence, markers, actors);
+
         if (sequence.NarrativeTreeDefinition.IsUserContent ||
             markers == null || markers.Length == 0 || actors == null || actors.Count <= markers.Length ||
             markers.Any(x => x == null))
@@ -770,6 +772,61 @@ internal static class MultiplayerContext
             }
 
             Object.Destroy(placement.gameObject);
+        }
+
+        LogCutsceneParty("after", sequence, markers, actors);
+    }
+
+    // TEMPORARY diagnostics (1.6.17.1): a 6-hero cutscene showed 5 heroes and the root cause isn't known yet. For the
+    // first few sequences of each launch, log the party in the sequence with each hero's marker and position, and the
+    // whole campaign party, so a missing hero can be told apart from a hidden one. Remove once the cause is known.
+    private const int MaxCutsceneLogs = 6;
+    private static int _cutsceneLogs;
+
+    private static void LogCutsceneParty(
+        string when, NarrativeSequence sequence, Transform[] markers, List<WorldLocationCharacter> actors)
+    {
+        if (_cutsceneLogs >= MaxCutsceneLogs)
+        {
+            return;
+        }
+
+        _cutsceneLogs++;
+
+        var party = Gui.GameCampaign?.Party?.CharactersList;
+
+        Main.Info($"[CutsceneParty] {when} {sequence.NarrativeTreeDefinition?.Name}: userContent=" +
+                  $"{sequence.NarrativeTreeDefinition?.IsUserContent}, topDown=" +
+                  $"{sequence.NarrativeTreeDefinition?.IsTopDownNarrativeSequence}, markers={markers?.Length ?? -1}, " +
+                  $"actors={actors?.Count ?? -1}, campaignParty={party?.Count ?? -1}, " +
+                  $"allowAll={Main.Settings.AllowAllPlayersOnNarrativeSequences}, " +
+                  $"partySize={Main.Settings.OverridePartySize}");
+
+        for (var i = 0; markers != null && i < markers.Length; i++)
+        {
+            Main.Info($"[CutsceneParty]   marker {i}: " +
+                      (markers[i] ? $"{markers[i].position} forward {markers[i].forward}" : "null"));
+        }
+
+        for (var i = 0; actors != null && i < actors.Count; i++)
+        {
+            var actor = actors[i];
+
+            Main.Info($"[CutsceneParty]   actor {i}: " + (actor
+                ? $"{actor.GameLocationCharacter?.Name} at {actor.transform.position} " +
+                  $"active={actor.gameObject.activeInHierarchy}"
+                : "null"));
+        }
+
+        if (party == null || actors == null)
+        {
+            return;
+        }
+
+        foreach (var character in party.Where(x =>
+                     actors.All(a => !a || a.GameLocationCharacter?.RulesetCharacter != x.RulesetCharacter)))
+        {
+            Main.Info($"[CutsceneParty]   not in the sequence: {character.RulesetCharacter?.Name}");
         }
     }
 

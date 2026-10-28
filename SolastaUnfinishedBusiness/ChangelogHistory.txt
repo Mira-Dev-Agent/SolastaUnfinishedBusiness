@@ -1,3 +1,8 @@
+1.6.17.1:
+- Temporary diagnostics: for the first 6 cutscene set-ups of each launch, the mod log lists the scene's player markers, each hero in the scene with their position, and any party member not in the scene, to find why a 6th hero was missing from a cutscene
+- In-game test: in a 6-hero party conversation (Halman Summer, Caer Cyflen) the 5th hero shows behind the front row, but the 6th appears in no frame; the alert in battle sits at y 93-173 of 1440 and fades in place, clear of the speed-up controls
+- Not tested in game: these diagnostics and the 1.6.17.0 update changes
+
 1.6.17.0:
 - In-game update: versions are compared number by number (1.6.10.0 is newer than 1.6.9.0; before, they were compared as text, so some updates weren't offered)
 - In-game update: every file in the update replaces the installed one, changed or not; the replaced files are moved to Archive/<old version> inside the mod folder, with a list of the files the update added
