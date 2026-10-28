@@ -1,7 +1,10 @@
+using System.Linq;
 using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace SolastaUnfinishedBusiness.Models;
 
@@ -188,113 +191,41 @@ internal static class MultiplayerTurnSpeedContext
     }
 
     // watches the key the game uses for its single-player speed-up, which it ignores in multiplayer; a tap toggles.
-    // During enemy turns a button does the same, and while sped up a label above it says so, outlined like the FPS
-    // overlay so it reads over any scene. Both sit at the top centre in the game's 1920x1080 reference layout, scaled
-    // like the game's own UI: below the initiative bar's area (200 high at the top) and below the alert panel (centred,
-    // ending 79 from the top), so neither covers the other.
+    // During enemy turns a button does the same: a copy of the battle screen's own menu button, so it has the game's
+    // look, highlight and click sound, with its gamepad binding removed and its click replaced. While sped up, a label
+    // above it says so, in the game's font with an outline. Both sit at the top centre of the battle screen, which the
+    // game scales from its 1920x1080 layout: below the initiative bar's area (200 high at the top) and the alert panel
+    // (centred, ending 79 from the top), so neither covers the other.
     private sealed class TurnSpeedInput : MonoBehaviour
     {
-        private const float ReferenceHeight = 1080f;
         private const float Top = 206f;
         private const float LabelHeight = 24f;
-        private const float ButtonWidth = 260f;
-        private const float ButtonHeight = 32f;
-        private const int LabelFontSize = 16;
-        private const int ButtonFontSize = 15;
-
-        private static readonly Vector2[] OutlineOffsets =
-        [
-            new(-1, -1), new(0, -1), new(1, -1), new(-1, 0), new(1, 0), new(-1, 1), new(0, 1), new(1, 1)
-        ];
+        private const float LabelFontSize = 17f;
+        private const string SourceButtonName = "GameMenuButton";
+        private const string GameFontName = "SourceSansPro-Regular SDF";
+        private const string StartTerm = "ModUi/&MultiplayerTurnSpeedUpStart";
+        private const string StopTerm = "ModUi/&MultiplayerTurnSpeedUpStop";
+        private const string PendingTerm = "ModUi/&MultiplayerTurnSpeedUpPending";
 
         private bool _wasActive;
-        private string _startLabel;
-        private string _stopLabel;
-        private string _pendingLabel;
-        private string _indicatorText;
+        private GameLocationScreenBattle _screen;
+        private GameObject _button;
+        private Button _buttonComponent;
+        private GuiLabel _buttonLabel;
+        private string _buttonTerm;
+        private TextMeshProUGUI _indicator;
         private float _indicatorModifier = -1f;
-        private int _indicatorFontSize;
-        private Vector2 _indicatorSize;
-        private GUIStyle _buttonStyle;
-        private GUIStyle _labelStyle;
-        private GUIStyle _outlineStyle;
 
-        private void OnGUI()
+        private void Update()
         {
             var start = MultiplayerPerfContext.Start();
 
-            Draw();
+            HandleKey();
+            RefreshControls();
             MultiplayerPerfContext.Lap(MultiplayerPerfContext.Hook.Drawing, ref start);
         }
 
-        private void Draw()
-        {
-            if (!IsOnlineRoom || !Main.Settings.MultiplayerEnemyTurnSpeedUp || !IsEnemyTurn())
-            {
-                return;
-            }
-
-            var scale = Screen.height / ReferenceHeight;
-
-            _buttonStyle ??= new GUIStyle(GUI.skin.button);
-            _buttonStyle.fontSize = Mathf.RoundToInt(ButtonFontSize * scale);
-
-            // texts are looked up once and the indicator measured only when it changes, so drawing makes no garbage
-            _startLabel ??= Gui.Localize("ModUi/&MultiplayerTurnSpeedUpStart");
-            _stopLabel ??= Gui.Localize("ModUi/&MultiplayerTurnSpeedUpStop");
-            _pendingLabel ??= Gui.Localize("ModUi/&MultiplayerTurnSpeedUpPending");
-
-            var label = _pending ? _pendingLabel : _speedUp ? _stopLabel : _startLabel;
-            var top = Top * scale;
-            var buttonRect = new Rect((Screen.width - (ButtonWidth * scale)) / 2f, top + (LabelHeight * scale),
-                ButtonWidth * scale, ButtonHeight * scale);
-
-            GUI.enabled = !_pending;
-
-            if (GUI.Button(buttonRect, label, _buttonStyle))
-            {
-                RequestToggle();
-            }
-
-            GUI.enabled = true;
-
-            if (!_speedUp)
-            {
-                return;
-            }
-
-            _labelStyle ??= new GUIStyle(GUI.skin.label)
-            {
-                alignment = TextAnchor.MiddleCenter, wordWrap = false,
-                normal = { textColor = new Color(0.94f, 0.85f, 0.63f) }
-            };
-            _outlineStyle ??= new GUIStyle(_labelStyle) { normal = { textColor = new Color(0f, 0f, 0f, 0.85f) } };
-            var fontSize = Mathf.RoundToInt(LabelFontSize * scale);
-
-            if (_indicatorText == null || !Mathf.Approximately(_indicatorModifier, Modifier) ||
-                _indicatorFontSize != fontSize)
-            {
-                _labelStyle.fontSize = _outlineStyle.fontSize = fontSize;
-                _indicatorModifier = Modifier;
-                _indicatorFontSize = fontSize;
-                _indicatorText = Gui.Format("ModUi/&MultiplayerTurnSpeedUpIndicator", Modifier.ToString("0.#"));
-                _indicatorSize = _labelStyle.CalcSize(new GUIContent(_indicatorText));
-            }
-
-            var text = _indicatorText;
-            var size = _indicatorSize;
-            var rect = new Rect((Screen.width - size.x) / 2f, top + (((LabelHeight * scale) - size.y) / 2f), size.x,
-                size.y);
-
-            for (var o = 0; o < OutlineOffsets.Length; o++)
-            {
-                GUI.Label(new Rect(rect.position + OutlineOffsets[o], rect.size), text, _outlineStyle);
-            }
-
-            GUI.Label(rect, text, _labelStyle);
-        }
-
-        private void Update()
+        private void HandleKey()
         {
             var active = IsOnlineRoom &&
                          ServiceRepository.GetService<IInputService>()?.IsCommandActive(InputCommands.Id.PlayPause) ==
@@ -306,6 +237,167 @@ internal static class MultiplayerTurnSpeedContext
             }
 
             _wasActive = active;
+        }
+
+        private void RefreshControls()
+        {
+            var show = IsOnlineRoom && Main.Settings.MultiplayerEnemyTurnSpeedUp && IsEnemyTurn() && EnsureControls();
+
+            if (!show)
+            {
+                SetActive(_button, false);
+                SetActive(_indicator ? _indicator.gameObject : null, false);
+
+                return;
+            }
+
+            SetActive(_button, true);
+
+            var term = _pending ? PendingTerm : _speedUp ? StopTerm : StartTerm;
+
+            if (_buttonTerm != term && _buttonLabel)
+            {
+                _buttonTerm = term;
+                _buttonLabel.Text = term;
+            }
+
+            if (_buttonComponent && _buttonComponent.interactable == _pending)
+            {
+                _buttonComponent.interactable = !_pending;
+            }
+
+            SetActive(_indicator.gameObject, _speedUp);
+
+            if (_speedUp && !Mathf.Approximately(_indicatorModifier, Modifier))
+            {
+                _indicatorModifier = Modifier;
+                _indicator.text = Gui.Format("ModUi/&MultiplayerTurnSpeedUpIndicator", Modifier.ToString("0.#"));
+            }
+        }
+
+        private static void SetActive(GameObject gameObject, bool active)
+        {
+            if (gameObject && gameObject.activeSelf != active)
+            {
+                gameObject.SetActive(active);
+            }
+        }
+
+        // builds the button and label in the current battle screen, once per screen
+        private bool EnsureControls()
+        {
+            var screen = Gui.GuiService?.GetScreen<GameLocationScreenBattle>();
+
+            if (!screen)
+            {
+                return false;
+            }
+
+            if (_screen == screen && _button && _indicator)
+            {
+                return true;
+            }
+
+            var source = screen.transform.Find(SourceButtonName);
+
+            if (!source)
+            {
+                return false;
+            }
+
+            _screen = screen;
+
+            if (_button)
+            {
+                Destroy(_button);
+            }
+
+            if (_indicator)
+            {
+                Destroy(_indicator.gameObject);
+            }
+
+            _button = CopyButton(source.gameObject, screen.transform);
+            _buttonComponent = _button.GetComponent<Button>();
+            _buttonLabel = _button.GetComponentInChildren<GuiLabel>(true);
+            _buttonTerm = null;
+            _indicator = CreateIndicator(screen.transform);
+            _indicatorModifier = -1f;
+
+            return true;
+        }
+
+        // copied under an inactive holder so none of the copy's components start up before they are changed
+        private static GameObject CopyButton(GameObject source, Transform parent)
+        {
+            var holder = new GameObject("FbTurnSpeedHolder");
+
+            holder.SetActive(false);
+
+            var copy = Instantiate(source, holder.transform, false);
+
+            copy.name = "FbTurnSpeedButton";
+
+            foreach (var binding in copy.GetComponentsInChildren<GamepadBindingButton>(true))
+            {
+                DestroyImmediate(binding.gameObject);
+            }
+
+            foreach (var setup in copy.GetComponentsInChildren<GuiButtonSetup>(true))
+            {
+                DestroyImmediate(setup);
+            }
+
+            var button = copy.GetComponent<Button>();
+
+            if (button)
+            {
+                button.onClick = new Button.ButtonClickedEvent();
+                button.onClick.AddListener(RequestToggle);
+            }
+
+            var rect = (RectTransform)copy.transform;
+
+            copy.transform.SetParent(parent, false);
+            rect.anchorMin = rect.anchorMax = rect.pivot = new Vector2(0.5f, 1f);
+            rect.anchoredPosition = new Vector2(0f, -(Top + LabelHeight));
+            copy.SetActive(false);
+            Destroy(holder);
+
+            return copy;
+        }
+
+        private static TextMeshProUGUI CreateIndicator(Transform parent)
+        {
+            var labelObject = new GameObject("FbTurnSpeedIndicator", typeof(RectTransform));
+
+            labelObject.transform.SetParent(parent, false);
+
+            var label = labelObject.AddComponent<TextMeshProUGUI>();
+            var font = Resources.FindObjectsOfTypeAll<TMP_FontAsset>().FirstOrDefault(x => x.name == GameFontName);
+
+            if (font)
+            {
+                label.font = font;
+            }
+
+            label.fontSize = LabelFontSize;
+            label.color = new Color(0.94f, 0.85f, 0.63f);
+            label.alignment = TextAlignmentOptions.Center;
+            label.enableWordWrapping = false;
+            label.overflowMode = TextOverflowModes.Overflow;
+            label.raycastTarget = false;
+            label.outlineWidth = 0.2f;
+            label.outlineColor = new Color32(0, 0, 0, 220);
+
+            var rect = label.rectTransform;
+
+            rect.anchorMin = rect.anchorMax = rect.pivot = new Vector2(0.5f, 1f);
+            rect.anchoredPosition = new Vector2(0f, -Top);
+            rect.sizeDelta = new Vector2(400f, LabelHeight);
+            labelObject.SetActive(false);
+
+            return label;
         }
     }
 }
