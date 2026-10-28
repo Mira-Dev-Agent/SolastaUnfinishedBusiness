@@ -1,3 +1,9 @@
+1.6.15.4:
+- Mod menu: wrapped setting texts get the height of all their lines (a forced minimum height had replaced the measured one, so rows got a single line and overlapped the rows around them)
+- Mod menu: toggles with a fixed width, like "Add below to shops", stay on one line instead of wrapping into a narrow column
+- Character sheet: clicking a feature now opens its details (the rows don't receive the event system's clicks, so each row checks for a press and release inside it); the mod log notes the first bind and the first open
+- Not tested in game: these fixes, 1.6.15.2 and 1.6.15.3 (FPS and ping wording, overlay table)
+
 1.6.15.3:
 - Multiplayer overlay: when you only see your own values, it shows just "FPS: 58" and "Ping: 18 ms" on separate lines, without your name
 - Not tested in game: this change and 1.6.15.2 (the overlay table only shows in a multiplayer session), the 1.6.15.1 wrapping fix and 1.6.15.0 (feature details panel, translations)

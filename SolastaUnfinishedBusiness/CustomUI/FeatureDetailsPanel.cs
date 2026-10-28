@@ -2,25 +2,70 @@ using System.Collections.Generic;
 using System.Linq;
 using SolastaUnfinishedBusiness.Api.LanguageExtensions;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace SolastaUnfinishedBusiness.CustomUI;
 
 // Clicking a feature in the character sheet's feature lists opens its full details in a panel that stays open until
 // closed: the description, the choice made, what a feature set includes, a power's uses left, and the level it needs.
-internal sealed class FeatureDetailsPanel : MonoBehaviour, IPointerClickHandler
+//
+// The rows don't receive the event system's pointer clicks (the game's tooltips find what's under the mouse their own
+// way), so a row watches for a left press and release inside its own rectangle instead.
+internal sealed class FeatureDetailsPanel : MonoBehaviour
 {
+    private static bool _loggedBind;
+    private static bool _loggedClick;
+
     private FeatureDefinition _choice;
     private FeatureDefinition _feature;
     private RulesetCharacter _character;
     private string _levelRequirement;
+    private bool _pressed;
 
-    public void OnPointerClick(PointerEventData eventData)
+    private void OnDisable()
     {
-        if (eventData.button == PointerEventData.InputButton.Left && _feature)
+        _pressed = false;
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
         {
-            Show(_feature, _choice, _character, _levelRequirement);
+            _pressed = !IsMessageOpen() && IsMouseOver();
         }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            var clicked = _pressed && !IsMessageOpen() && IsMouseOver();
+
+            _pressed = false;
+
+            if (clicked && _feature)
+            {
+                if (!_loggedClick)
+                {
+                    _loggedClick = true;
+                    Main.Info($"Feature details panel opened for {_feature.Name}");
+                }
+
+                Show(_feature, _choice, _character, _levelRequirement);
+            }
+        }
+    }
+
+    // while a message is open, a click on its button over a row must not open another one
+    private static bool IsMessageOpen()
+    {
+        var messageModal = Gui.GuiService.GetScreen<MessageModal>();
+
+        return messageModal && messageModal.Visible;
+    }
+
+    private bool IsMouseOver()
+    {
+        var canvas = GetComponentInParent<Canvas>()?.rootCanvas;
+        var camera = !canvas || canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera;
+
+        return transform is RectTransform rectTransform &&
+               RectTransformUtility.RectangleContainsScreenPoint(rectTransform, Input.mousePosition, camera);
     }
 
     internal static void Bind(
@@ -36,6 +81,12 @@ internal sealed class FeatureDetailsPanel : MonoBehaviour, IPointerClickHandler
         panel._choice = choice;
         panel._character = character;
         panel._levelRequirement = levelRequirement;
+
+        if (!_loggedBind)
+        {
+            _loggedBind = true;
+            Main.Info($"Feature details panel bound to the feature list (first: {feature.Name})");
+        }
     }
 
     private static void Show(

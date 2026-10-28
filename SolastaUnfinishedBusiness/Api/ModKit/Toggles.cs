@@ -31,7 +31,8 @@ internal static partial class UI
         GUIContent on,
         GUIContent off,
         GUIStyle stateStyle,
-        GUIStyle labelStyle)
+        GUIStyle labelStyle,
+        bool wrapped = false)
     {
         var controlID = GUIUtility.GetControlID(SButtonHint, FocusType.Passive, rect);
         var result = false;
@@ -102,8 +103,9 @@ internal static partial class UI
 
                 x = rightAlign ? stateRect.x - stateSize.x - 5 : stateRect.xMax + 5;
 
-                // a wrapped label fills the rest of the row
-                Rect labelRect = labelStyle.wordWrap
+                // a wrapped label fills the rest of the row; the skin's label style has word wrap on by default, so
+                // only a row laid out for wrapping is drawn that way, and a fixed-width toggle keeps its single line
+                Rect labelRect = wrapped
                     ? new Rect(x, rect.y, rect.xMax - x, rect.height)
                     : new Rect(x, rect.y, labelSize.x, labelSize.y);
 
@@ -152,11 +154,13 @@ internal static partial class UI
             lStyle.fixedHeight = 0;
             lStyle.stretchWidth = true;
 
+            // no height option: a forced min height would replace the wrapped height as the row's minimum, so the
+            // layout would give the row a single line and the rest would be drawn over the rows around it
             var wrappedRect = GUILayoutUtility.GetRect(label, lStyle, GUILayout.ExpandWidth(true),
-                GUILayout.MaxWidth(maxWidth), GUILayout.MinHeight(stateSize.y - 2));
+                GUILayout.MaxWidth(maxWidth));
 
             return Toggle(wrappedRect, label, value, isEmpty, on, off, stateStyle,
-                new GUIStyle(labelStyle) { wordWrap = true });
+                new GUIStyle(labelStyle) { wordWrap = true }, true);
         }
 
         var rect = GUILayoutUtility.GetRect(label, lStyle, options);
