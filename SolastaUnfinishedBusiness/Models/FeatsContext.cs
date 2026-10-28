@@ -59,8 +59,14 @@ internal static class FeatsContext
         feats.ForEach(LoadFeat);
         GroupFeats.Load(LoadFeatGroup);
 
-        // tweak the groups to make display simpler on mod UI
-        Feats.RemoveWhere(x => x.FormatTitle().Contains("["));
+        // tweak the groups to make display simpler on mod UI: a feat whose title ends in "[Ability]" is one choice
+        // inside a group. Read from the English title, as translations don't keep the brackets the same way (some use
+        // full-width ones or none, and some added them to feats that aren't in a group), and a feat dropped here is
+        // also removed from the enabled feats in the settings below.
+        var englishTerms = TranslatorContext.GetEnglishTerms();
+
+        Feats.RemoveWhere(x =>
+            (englishTerms.TryGetValue(x.GuiPresentation.Title, out var title) ? title : x.FormatTitle()).Contains("["));
         Feats.RemoveWhere(x => x.HasSubFeatureOfType<HideFromFeats>());
 
         foreach (var child in AttributeDefinitions.AbilityScoreNames

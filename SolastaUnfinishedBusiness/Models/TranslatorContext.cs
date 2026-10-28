@@ -275,6 +275,12 @@ internal static class TranslatorContext
         }
     }
 
+    // every English mod term with its text, whatever language is loaded
+    internal static Dictionary<string, string> GetEnglishTerms()
+    {
+        return GetTermsDict(English, IsModTerm);
+    }
+
     // English mod terms whose text contains the given marker, e.g. "Requires Restart" on settings labels
     internal static HashSet<string> GetEnglishTermsContaining(string marker)
     {

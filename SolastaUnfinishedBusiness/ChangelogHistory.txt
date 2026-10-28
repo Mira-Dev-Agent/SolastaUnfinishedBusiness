@@ -1,3 +1,10 @@
+1.6.15.13:
+- Feats: playing in another language no longer removes Grappler from the enabled feats. Group sub-feats ("[Ability]" titles) were picked out by the translated title, and 8 translations had added "[Str]" to Grappler, so it was dropped from the feat list and then from the settings; the check now reads the English title
+- Feats: in Chinese, Japanese and German, sub-feats whose translated title uses full-width or no brackets no longer show up as separate feats
+- Translations: Grappler's title no longer has a "[Str]" suffix in de, es, fr, it, ja, ko, pt-BR and zh-CN
+- In-game test of 1.6.15.12: "Finishing Business" in settings headers and spell tags (English, German), "FB 1.6.15.12" with no hash; logs clean
+- Not tested in game: this fix
+
 1.6.15.12:
 - README: Unity Mod Manager must be 0.24.0 to 0.27.10 (newer versions aren't compatible); it recommends 0.27.10 from Nexus Mods, plus the original mod's macOS build
 - Not tested in game: 1.6.15.8 and 1.6.15.9 (mod name from the display name, "FB" label, version without the hash); this release changes no code
