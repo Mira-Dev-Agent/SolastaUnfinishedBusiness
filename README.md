@@ -1,10 +1,19 @@
-# Solasta Unfinished Business
+# Finishing Business
 
-This is a [collection of work](https://github.com/EnderWiggin/SolastaUnfinishedBusiness/wiki) from the Solasta modding community. It includes multiclass, feats, classes, subclasses, items, crafting recipes, gameplay options, UI improvements, and more. The general philosophy is everything is optional to enable, so you can install the mod and then enable the pieces you want. There are some minor bug fixes that are enabled by default.
+Finishing Business is a fork of the Solasta mod [Unfinished Business](https://github.com/EnderWiggin/SolastaUnfinishedBusiness), a [collection of work](https://github.com/EnderWiggin/SolastaUnfinishedBusiness/wiki) from the Solasta modding community. It includes multiclass, feats, classes, subclasses, items, crafting recipes, gameplay options, UI improvements, and more. On top of that, this fork adds multiplayer fixes and options, Level Down, and other changes listed in [ChangelogHistory.txt](SolastaUnfinishedBusiness/ChangelogHistory.txt). The general philosophy is everything is optional to enable, so you can install the mod and then enable the pieces you want. There are some minor bug fixes that are enabled by default.
+
+**About the names:** the mod is called **Finishing Business**, and that's the name shown in game and in Unity Mod Manager. Its mod ID, its folder, its DLL and this repository are still named `SolastaUnfinishedBusiness`, kept from the original mod so that existing installs, settings and saves keep working.
 
 # How to install
 
-Download the first ZIP file from [releases](https://github.com/EnderWiggin/SolastaUnfinishedBusiness/releases) and follow the [installation guide](https://github.com/EnderWiggin/SolastaUnfinishedBusiness/wiki/Install).
+1. Install [Unity Mod Manager (UMM)](https://www.nexusmods.com/site/mods/21) for Solasta, if you don't have it yet.
+2. Download `SolastaUnfinishedBusiness.zip` from the latest of this fork's [releases](https://github.com/Mira-Dev-Agent/SolastaUnfinishedBusiness/releases).
+3. Extract it into Solasta's `Mods` folder, so you get `Mods\SolastaUnfinishedBusiness\` with `Info.json` and `SolastaUnfinishedBusiness.dll` inside. Keep that folder name.
+4. Start Solasta and press <kbd>Ctrl</kbd>+<kbd>F10</kbd> to open Unity Mod Manager. The mod is listed as **Finishing Business**.
+
+Finishing Business replaces Unfinished Business; don't install both. Both use the same mod ID and folder, so extracting over an existing Unfinished Business install upgrades it and keeps your `Settings` folder. In multiplayer, every player needs the same Finishing Business version.
+
+The original mod's [installation guide](https://github.com/EnderWiggin/SolastaUnfinishedBusiness/wiki/Install) has more detail on Unity Mod Manager.
 
 # How to report issues
 
