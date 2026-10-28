@@ -285,6 +285,7 @@ ModUi/&EvocationSculptSpellNoPerception=<b>エヴォーカー</b>の<color=#D895
 ModUi/&ExpandAll=すべて展開
 ModUi/&FactionHelp=<color=#C04040E0>派閥関係を変更するには、公式キャンペーン ゲームをロードします...</color>
 ModUi/&FactionRelations=<color=#F0DAA0>派閥:</color>
+ModUi/&FasterTimeEnemyTurnButton=シングルプレイで敵のターン中にボタンを表示し、もう一度クリックするまで敵のターンを加速したままにする <i><color=#F0DAA0>[パーティーメンバーのターンが始まると終了します。速度は下のゲーム時間の変更です。スペースを押し続ける操作も今まで通り使えます]</color></i>
 ModUi/&FasterTimeModifier=<color=white>スペースバーを押したときのゲーム時間の変更</color>
 ModUi/&FeatGroups=<color=#F0DAA0>特技グループ</color>
 ModUi/&FeatGroupsHelp=• 各グループは、類似の <color=#D89555>特技</color> <i><color=#F0DAA0>[例: 信条、戦闘スタイル、メタマジックなど]</color></i> を統合したものです\n• これらのグループの特技は、熟練度選択ステージで直接表示されなくなります\n• グループを選択すると、ゲーム画面を整理するためにドロップダウンリストに表示されます

@@ -59,6 +59,7 @@ internal static class BootContext
         DungeonMakerContext.Load();
         CampaignsContext.Load();
         InputContext.Load();
+        MultiplayerTurnSpeedContext.Load();
 
         // only bootstrap for now
         FeatsContext.Load();

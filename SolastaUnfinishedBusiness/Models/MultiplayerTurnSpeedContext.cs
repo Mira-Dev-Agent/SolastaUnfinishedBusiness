@@ -15,6 +15,8 @@ namespace SolastaUnfinishedBusiness.Models;
 // network tick: the game's lockstep runs commands on numbered ticks, not on frames or game time, so playing faster
 // doesn't change what happens, only how quickly it plays. Only non-party turns are sped up (the game's own rule in
 // single player), and the speed-up ends when a party member's turn starts, so nobody's choosing time is ever rushed.
+// In single player the same button can be turned on in the settings: the game only speeds up while the key is held
+// (CameraMode.ApplyFasterTurn, every frame), and a click keeps it sped up until clicked again or a party turn starts.
 internal static class MultiplayerTurnSpeedContext
 {
     private const byte EventCode = 173;
@@ -37,6 +39,13 @@ internal static class MultiplayerTurnSpeedContext
 
     private static bool IsOnlineRoom => PhotonNetwork.InRoom && !PhotonNetwork.OfflineMode;
 
+    private static bool IsSinglePlayerButton => !Global.IsMultiplayer && Main.Settings.FasterTimeEnemyTurnButton;
+
+    internal static void Load()
+    {
+        EnsureInput();
+    }
+
     internal static void OnJoinedRoom()
     {
         Reset();
@@ -47,12 +56,25 @@ internal static class MultiplayerTurnSpeedContext
             _eventHandlerRegistered = true;
         }
 
-        if (!_input)
+        EnsureInput();
+    }
+
+    private static void EnsureInput()
+    {
+        if (_input)
         {
-            _input = new GameObject("FbTurnSpeedInput");
-            Object.DontDestroyOnLoad(_input);
-            _input.AddComponent<TurnSpeedInput>();
+            return;
         }
+
+        _input = new GameObject("FbTurnSpeedInput");
+        Object.DontDestroyOnLoad(_input);
+        _input.AddComponent<TurnSpeedInput>();
+    }
+
+    // single player: while the button's speed-up is on, it replaces the game's per-frame faster-turn check
+    internal static bool KeepsFasterTurn()
+    {
+        return _speedUp && IsSinglePlayerButton && IsEnemyTurn();
     }
 
     internal static void OnLeftRoom()
@@ -127,10 +149,18 @@ internal static class MultiplayerTurnSpeedContext
         }
     }
 
-    // a tap of the key or a click of the button: the host decides at once, a client asks the host
+    // a tap of the key or a click of the button: the host decides at once, a client asks the host; in single player
+    // only the button, which switches at once
     private static void RequestToggle()
     {
         var wanted = !_speedUp;
+
+        if (!Global.IsMultiplayer)
+        {
+            _speedUp = wanted && IsEnemyTurn();
+            Modifier = Main.Settings.FasterTimeModifier;
+            return;
+        }
 
         if (PhotonNetwork.IsMasterClient)
         {
@@ -221,6 +251,13 @@ internal static class MultiplayerTurnSpeedContext
             var start = MultiplayerPerfContext.Start();
 
             HandleKey();
+
+            // single player has no network tick, so the speed-up ends here when the enemy turns do
+            if (_speedUp && !Global.IsMultiplayer && (!IsSinglePlayerButton || !IsEnemyTurn()))
+            {
+                _speedUp = false;
+            }
+
             RefreshControls();
             MultiplayerPerfContext.Lap(MultiplayerPerfContext.Hook.Drawing, ref start);
         }
@@ -241,7 +278,8 @@ internal static class MultiplayerTurnSpeedContext
 
         private void RefreshControls()
         {
-            var show = IsOnlineRoom && Main.Settings.MultiplayerEnemyTurnSpeedUp && IsEnemyTurn() && EnsureControls();
+            var enabled = IsOnlineRoom ? Main.Settings.MultiplayerEnemyTurnSpeedUp : IsSinglePlayerButton;
+            var show = enabled && IsEnemyTurn() && EnsureControls();
 
             if (!show)
             {

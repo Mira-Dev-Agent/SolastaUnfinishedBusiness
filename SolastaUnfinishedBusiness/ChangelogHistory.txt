@@ -1,3 +1,7 @@
+1.8.0:
+- Campaigns: new setting to show the enemy-turn speed-up button in single player too (off by default). A click keeps enemy turns sped up, at the game time modifier, until it's clicked again or a party member's turn starts; the game's own speed-up still works while space is held
+- Not tested in game: this change
+
 1.7.5:
 - Multiplayer: fixed the enemy-turn speed-up button logging a NullReferenceException (from the game's GuiImageHighlighter) every time its colour changed, such as on hover or while waiting for the host. The copy deleted the button's hidden gamepad-hint object, whose image the button's highlighter colours; now only the gamepad binding itself is removed
 - Not tested in game: this fix (the button only shows during enemy turns in an online game with at least two players)

@@ -288,6 +288,7 @@ ModUi/&EvocationSculptSpellNoPerception=Make <b>Evoker</b> <color=#D89555>Sculpt
 ModUi/&ExpandAll=Expand All
 ModUi/&FactionHelp=<color=#C04040E0>Load an official campaign game to modify faction relations...</color>
 ModUi/&FactionRelations=<color=#F0DAA0>Factions:</color>
+ModUi/&FasterTimeEnemyTurnButton=Show a button during enemy turns in single player that keeps them sped up until it's clicked again <i><color=#F0DAA0>[it ends when a party member's turn starts; the speed is the game time modifier below; holding space still works as before]</color></i>
 ModUi/&FasterTimeModifier=<color=white>Game time modifier when pressing space bar</color>
 ModUi/&FeatGroups=<color=#F0DAA0>Feat Groups</color>
 ModUi/&FeatGroupsHelp=• Each group is a consolidation of similar <color=#D89555>feats</color> <i><color=#F0DAA0>[i.e.: creeds, fighting styles, metamagic, etc]</color></i>\n• Feats in these groups won't be directly visible anymore on the proficiency selection stage\n• The group, when selected, offers them on a dropdown list to de-clutter the game screen

@@ -285,6 +285,7 @@ ModUi/&EvocationSculptSpellNoPerception=Hacer que <b>Evocador</b> <color=#D89555
 ModUi/&ExpandAll=Expandir todo
 ModUi/&FactionHelp=<color=#C04040E0>Cargue un juego de campaña oficial para modificar las relaciones entre facciones...</color>
 ModUi/&FactionRelations=<color=#F0DAA0>Facciones:</color>
+ModUi/&FasterTimeEnemyTurnButton=Muestra un botón durante los turnos enemigos en un jugador que los mantiene acelerados hasta volver a pulsarlo <i><color=#F0DAA0>[termina cuando empieza el turno de un miembro del grupo; la velocidad es el modificador del tiempo de juego de abajo; mantener pulsado espacio sigue funcionando como antes]</color></i>
 ModUi/&FasterTimeModifier=<color=white>Modificador del tiempo de juego al presionar la barra espaciadora</color>
 ModUi/&FeatGroups=<color=#F0DAA0>Grupos de dotes</color>
 ModUi/&FeatGroupsHelp=• Cada grupo es una consolidación de <color=#D89555>dotes</color> similares <i><color=#F0DAA0>[es decir: credos, estilos de lucha, metamagia, etc.]</color></i>\n• Los dotes en estos grupos ya no serán visibles directamente en la etapa de selección de competencia\n• El grupo, cuando se selecciona, los ofrece en una lista desplegable para despejar la pantalla del juego.
