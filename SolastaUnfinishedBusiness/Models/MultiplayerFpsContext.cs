@@ -184,7 +184,14 @@ internal static class MultiplayerFpsContext
                 x.NickName, CanSee(x) ? DescribeFps(x) : null,
                 canSeePings ? MultiplayerSessionContext.DescribePing(x) : null
             }).ToList();
-            var columns = Enumerable.Range(0, 3).Where(c => rows.Any(r => r[c] != null)).ToList();
+
+            // with only your own values there's no name, and each value gets a line of its own
+            if (players.Count == 1 && players[0].IsLocal)
+            {
+                rows = rows[0].Skip(1).Where(x => x != null).Select(x => new[] { x }).ToList();
+            }
+
+            var columns = Enumerable.Range(0, rows[0].Length).Where(c => rows.Any(r => r[c] != null)).ToList();
             var widths = columns.Select(c => rows.Max(r => _cellStyle.CalcSize(new GUIContent(r[c] ?? "")).x))
                 .ToList();
             var rowHeight = _cellStyle.CalcSize(new GUIContent("Ag")).y;

@@ -1,3 +1,7 @@
+1.6.15.3:
+- Multiplayer overlay: when you only see your own values, it shows just "FPS: 58" and "Ping: 18 ms" on separate lines, without your name
+- Not tested in game: this change and 1.6.15.2 (the overlay table only shows in a multiplayer session), the 1.6.15.1 wrapping fix and 1.6.15.0 (feature details panel, translations)
+
 1.6.15.2:
 - Multiplayer: ping and frame rate now read "Ping: 85 ms" and "FPS: 58" in the overlay, on player plates and in the Multiplayer tab, in every language
 - The top-left overlay is now a borderless table: one row per player, with the name, FPS and ping in aligned columns
