@@ -723,11 +723,7 @@ internal static class MultiplayerContext
     }
 
     // official scenes author 4 player placement markers, so heroes 5 and 6 would stay wherever they were standing.
-    // Place them one step behind the front row, each in a different gap between two neighbouring heroes, facing the
-    // way the row faces. The markers are ordered by where they stand across the row, not by their authored index:
-    // scenes don't number them left to right (FactionDialog_Antiquarians_02 numbers both outer ends 2 and 3), and
-    // pairing them by index put the 6th hero straight behind the widest hero in the middle. The step back follows the
-    // row's average facing, as single markers can be angled and would push a hero sideways behind another.
+    // Place them one step behind the front row, between the heroes in front of them, facing the same way.
     internal static void PlaceExtraHeroes(NarrativeDirectionManager manager, NarrativeSequence sequence)
     {
         var markers = sequence.PlayerPlacementMarkers;
@@ -745,23 +741,6 @@ internal static class MultiplayerContext
         var isTopDown = sequence.NarrativeTreeDefinition.IsTopDownNarrativeSequence;
         var positioningService = ServiceRepository.GetService<IGameLocationPositioningService>();
 
-        var rowForward = Vector3.ProjectOnPlane(
-            markers.Aggregate(Vector3.zero, (sum, marker) => sum + marker.forward), Vector3.up);
-
-        if (rowForward.sqrMagnitude < 0.0001f)
-        {
-            rowForward = Vector3.ProjectOnPlane(markers[0].forward, Vector3.up);
-        }
-
-        rowForward.Normalize();
-
-        var rowAxis = Vector3.Cross(Vector3.up, rowForward);
-        var ordered = markers.OrderBy(marker => Vector3.Dot(marker.position, rowAxis)).ToArray();
-        var gaps = Mathf.Max(1, ordered.Length - 1);
-        var extras = actors.Count - markers.Length;
-        var perRow = Mathf.Min(extras, gaps);
-        var rotation = Quaternion.LookRotation(rowForward, Vector3.up);
-
         for (var i = markers.Length; i < actors.Count; i++)
         {
             var actor = actors[i];
@@ -771,19 +750,14 @@ internal static class MultiplayerContext
                 continue;
             }
 
-            // spread the extra heroes over the gaps (1 extra: the middle gap; 2 of 3 gaps: the two outer ones); more
-            // extras than gaps start another row further back
             var extraIndex = i - markers.Length;
-            var depth = (extraIndex / perRow) + 1;
-            var slot = extraIndex % perRow;
-            var gap = Mathf.Clamp(Mathf.RoundToInt(((slot + 0.5f) * gaps / perRow) - 0.5f), 0, gaps - 1);
-            var left = ordered[gap];
-            var right = ordered[Mathf.Min(gap + 1, ordered.Length - 1)];
-            var position = ((left.position + right.position) * 0.5f) -
-                           (rowForward * (ExtraPlacementBackOffset * depth));
+            var first = markers[(extraIndex * 2) % markers.Length];
+            var second = markers[((extraIndex * 2) + 1) % markers.Length];
+            var position = ((first.position + second.position) * 0.5f) -
+                           (first.forward * ExtraPlacementBackOffset);
             var placement = new GameObject($"UB_ExtraHeroPlacement{i}").transform;
 
-            placement.SetPositionAndRotation(position, rotation);
+            placement.SetPositionAndRotation(position, first.rotation);
 
             if (!isTopDown)
             {

@@ -1,3 +1,8 @@
+1.6.17.3:
+- Cutscenes with 5 or 6 heroes: back to the 1.6.17.1 positioning (the extra heroes stand one step behind, between spots 1-2 and 3-4); the 1.6.17.2 gap positioning is withdrawn
+- The temporary cutscene log lines from 1.6.17.1 are still in
+- Not tested in game: this release (same positioning as 1.6.17.1, which was tested)
+
 1.6.17.2:
 - Cutscenes with 5 or 6 heroes: the extra heroes now stand in separate gaps of the front row, one step behind, facing the way the row faces. Scenes don't number their party spots left to right, so pairing spots by number put the 6th hero straight behind the widest hero in the middle (seen in the Antiquarians conversation in Caer Cyflen)
 - In-game test of 1.6.17.1: all 6 heroes are in that conversation; the 6th was hidden behind the 5th's neighbour, not missing
