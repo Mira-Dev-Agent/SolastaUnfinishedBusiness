@@ -6,7 +6,7 @@
 - Enemy-turn speed-up button: it now sits just under the initiative bar, with the "Enemy turns sped up" label below it
 - Lore-friendly names ("Unlock additional lore friendly names"): the extra names load again in builds from GitHub. The list was split on Windows line endings only, but the release workflow builds from a Linux checkout, whose copy has Unix line endings, so the whole list was read as one line and its names were lost
 - Lore-friendly names: fixed the High Elf surname "Frostbloom", whose line had a space instead of a tab and didn't load
-- Not tested in game: this change
+- Not tested in game: multiplayer (the button changes and the host's speed-up by default), and holding space while the button is shown
 
 1.8.1:
 - Campaigns: the enemy-turn speed-up button in single player is now on by default (it can still be turned off in the Campaigns settings)
