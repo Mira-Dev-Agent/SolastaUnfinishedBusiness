@@ -208,6 +208,13 @@ internal static class MultiplayerTurnSpeedContext
         ];
 
         private bool _wasActive;
+        private string _startLabel;
+        private string _stopLabel;
+        private string _pendingLabel;
+        private string _indicatorText;
+        private float _indicatorModifier = -1f;
+        private int _indicatorFontSize;
+        private Vector2 _indicatorSize;
         private GUIStyle _buttonStyle;
         private GUIStyle _labelStyle;
         private GUIStyle _outlineStyle;
@@ -232,11 +239,12 @@ internal static class MultiplayerTurnSpeedContext
             _buttonStyle ??= new GUIStyle(GUI.skin.button);
             _buttonStyle.fontSize = Mathf.RoundToInt(ButtonFontSize * scale);
 
-            var label = Gui.Localize(_pending
-                ? "ModUi/&MultiplayerTurnSpeedUpPending"
-                : _speedUp
-                    ? "ModUi/&MultiplayerTurnSpeedUpStop"
-                    : "ModUi/&MultiplayerTurnSpeedUpStart");
+            // texts are looked up once and the indicator measured only when it changes, so drawing makes no garbage
+            _startLabel ??= Gui.Localize("ModUi/&MultiplayerTurnSpeedUpStart");
+            _stopLabel ??= Gui.Localize("ModUi/&MultiplayerTurnSpeedUpStop");
+            _pendingLabel ??= Gui.Localize("ModUi/&MultiplayerTurnSpeedUpPending");
+
+            var label = _pending ? _pendingLabel : _speedUp ? _stopLabel : _startLabel;
             var top = Top * scale;
             var buttonRect = new Rect((Screen.width - (ButtonWidth * scale)) / 2f, top + (LabelHeight * scale),
                 ButtonWidth * scale, ButtonHeight * scale);
@@ -261,16 +269,26 @@ internal static class MultiplayerTurnSpeedContext
                 normal = { textColor = new Color(0.94f, 0.85f, 0.63f) }
             };
             _outlineStyle ??= new GUIStyle(_labelStyle) { normal = { textColor = new Color(0f, 0f, 0f, 0.85f) } };
-            _labelStyle.fontSize = _outlineStyle.fontSize = Mathf.RoundToInt(LabelFontSize * scale);
+            var fontSize = Mathf.RoundToInt(LabelFontSize * scale);
 
-            var text = Gui.Format("ModUi/&MultiplayerTurnSpeedUpIndicator", Modifier.ToString("0.#"));
-            var size = _labelStyle.CalcSize(new GUIContent(text));
+            if (_indicatorText == null || !Mathf.Approximately(_indicatorModifier, Modifier) ||
+                _indicatorFontSize != fontSize)
+            {
+                _labelStyle.fontSize = _outlineStyle.fontSize = fontSize;
+                _indicatorModifier = Modifier;
+                _indicatorFontSize = fontSize;
+                _indicatorText = Gui.Format("ModUi/&MultiplayerTurnSpeedUpIndicator", Modifier.ToString("0.#"));
+                _indicatorSize = _labelStyle.CalcSize(new GUIContent(_indicatorText));
+            }
+
+            var text = _indicatorText;
+            var size = _indicatorSize;
             var rect = new Rect((Screen.width - size.x) / 2f, top + (((LabelHeight * scale) - size.y) / 2f), size.x,
                 size.y);
 
-            foreach (var offset in OutlineOffsets)
+            for (var o = 0; o < OutlineOffsets.Length; o++)
             {
-                GUI.Label(new Rect(rect.position + offset, rect.size), text, _outlineStyle);
+                GUI.Label(new Rect(rect.position + OutlineOffsets[o], rect.size), text, _outlineStyle);
             }
 
             GUI.Label(rect, text, _labelStyle);
