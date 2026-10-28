@@ -1,3 +1,9 @@
+1.6.17.2:
+- Cutscenes with 5 or 6 heroes: the extra heroes now stand in separate gaps of the front row, one step behind, facing the way the row faces. Scenes don't number their party spots left to right, so pairing spots by number put the 6th hero straight behind the widest hero in the middle (seen in the Antiquarians conversation in Caer Cyflen)
+- In-game test of 1.6.17.1: all 6 heroes are in that conversation; the 6th was hidden behind the 5th's neighbour, not missing
+- The temporary cutscene log lines from 1.6.17.1 stay in to confirm the new positions
+- Not tested in game: this placement change
+
 1.6.17.1:
 - Temporary diagnostics: for the first 6 cutscene set-ups of each launch, the mod log lists the scene's player markers, each hero in the scene with their position, and any party member not in the scene, to find why a 6th hero was missing from a cutscene
 - In-game test: in a 6-hero party conversation (Halman Summer, Caer Cyflen) the 5th hero shows behind the front row, but the 6th appears in no frame; the alert in battle sits at y 93-173 of 1440 and fades in place, clear of the speed-up controls
