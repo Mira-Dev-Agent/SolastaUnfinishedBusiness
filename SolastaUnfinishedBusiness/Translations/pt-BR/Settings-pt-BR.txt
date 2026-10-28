@@ -514,6 +514,11 @@ ModUi/&MultiplayerCurrentDelay=<color=white>Atraso de ação atual:</color> {0} 
 ModUi/&MultiplayerDescription=Correções e mudanças para o multijogador. Todos os jogadores devem usar a mesma versão do mod e as mesmas configurações, pois o jogo roda a mesma simulação em cada computador.
 ModUi/&MultiplayerDesyncTitle=<color=#F0DAA0>Dessincronização:</color>
 ModUi/&MultiplayerDeterministicHitCounting=Contar reações a golpes uma vez por tick de jogo em vez de uma vez por quadro desenhado <i><color=#F0DAA0>[corrige uma dessincronização quando um quadro de um jogador demora mais de 50 ms (menos de 20 FPS ou um engasgo) enquanto um alvo é atingido duas vezes seguidas; só partidas multijogador]</color></i>
+ModUi/&MultiplayerEnemyTurnSpeedUp=Permite que qualquer jogador acelere os turnos inimigos com o botão exibido durante os turnos inimigos ou a tecla de aceleração <i><color=#F0DAA0>[a tecla do jogo "Reproduzir/Pausar/Acelerar turno de batalha", espaço por padrão; todos os computadores mudam no mesmo momento, e termina quando começa o turno de um membro do grupo; a velocidade é o modificador de tempo do anfitrião]</color></i>
+ModUi/&MultiplayerTurnSpeedUpIndicator=Turnos inimigos acelerados (×{0})
+ModUi/&MultiplayerTurnSpeedUpStart=Acelerar turnos inimigos
+ModUi/&MultiplayerTurnSpeedUpStop=Voltar à velocidade normal
+ModUi/&MultiplayerTurnSpeedUpPending=Aguardando o anfitrião…
 ModUi/&MultiplayerDeterministicStandAgainstTheTide=Usar os dados sincronizados para escolher o alvo de redirecionamento de <color=#D89555>Stand Against the Tide</color> <i><color=#F0DAA0>[só partidas multijogador]</color></i>
 ModUi/&MultiplayerEnableDesyncDetection=Detectar dessincronizações e mostrar um alerta para o grupo poder recarregar <i><color=#F0DAA0>[compara o contador de entidades entre os computadores a cada 5 segundos]</color></i>
 ModUi/&MultiplayerEnableStateFingerprint=Comparar também, a cada 5 segundos, PV, posição, condições, espaços de magia de cada personagem e a sequência de dados, e dizer qual personagem difere <i><color=#F0DAA0>[só verificado quando nada está se movendo ou agindo]</color></i>

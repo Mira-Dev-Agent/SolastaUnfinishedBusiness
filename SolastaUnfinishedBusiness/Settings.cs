@@ -183,6 +183,7 @@ public class Settings : UnityModManager.ModSettings
     // only fixes for vanilla behavior are toggles; fixes for bugs that come from this mod are always applied
     public bool MultiplayerDeterministicStandAgainstTheTide { get; set; } = true;
     public bool MultiplayerDeterministicHitCounting { get; set; } = true;
+    public bool MultiplayerEnemyTurnSpeedUp { get; set; } = true;
     public bool MultiplayerEnableDesyncDetection { get; set; } = true;
     public bool MultiplayerEnableStateFingerprint { get; set; } = true;
     public bool MultiplayerQuickCorrectDesync { get; set; } = true;

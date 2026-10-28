@@ -217,6 +217,7 @@ public static class MultiplayerPatcher
             MultiplayerSessionContext.PublishPingIfNeeded();
             MultiplayerFpsContext.MeasureAndPublishIfNeeded();
             MultiplayerApprovalContext.Update();
+            MultiplayerTurnSpeedContext.Update(__instance);
         }
     }
 
@@ -347,6 +348,7 @@ public static class MultiplayerPatcher
         {
             MultiplayerSessionContext.OnJoinedRoom();
             MultiplayerApprovalContext.OnJoinedRoom();
+            MultiplayerTurnSpeedContext.OnJoinedRoom();
         }
     }
 
@@ -387,6 +389,7 @@ public static class MultiplayerPatcher
         {
             MultiplayerSessionContext.OnLeftRoom();
             MultiplayerApprovalContext.Reset();
+            MultiplayerTurnSpeedContext.OnLeftRoom();
         }
     }
 

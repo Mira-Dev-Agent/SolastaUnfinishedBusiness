@@ -514,6 +514,11 @@ ModUi/&MultiplayerCurrentDelay=<color=white>Ritardo d'azione attuale:</color> {0
 ModUi/&MultiplayerDescription=Correzioni e modifiche per il multigiocatore. Ogni giocatore deve usare la stessa build della mod e le stesse impostazioni, perché il gioco esegue la stessa simulazione su ogni computer.
 ModUi/&MultiplayerDesyncTitle=<color=#F0DAA0>Desincronizzazione:</color>
 ModUi/&MultiplayerDeterministicHitCounting=Conta le reazioni ai colpi una volta per tick di gioco invece che una volta per fotogramma disegnato <i><color=#F0DAA0>[corregge una desincronizzazione quando un fotogramma di un giocatore dura più di 50 ms (sotto i 20 FPS o uno scatto) mentre un bersaglio viene colpito due volte di seguito; solo partite multigiocatore]</color></i>
+ModUi/&MultiplayerEnemyTurnSpeedUp=Permetti a qualsiasi giocatore di velocizzare i turni nemici con il pulsante mostrato durante i turni nemici o il tasto di accelerazione <i><color=#F0DAA0>[il tasto del gioco «Riproduci/Pausa/Accelera turno di battaglia», spazio per impostazione predefinita; tutti i computer cambiano nello stesso momento e finisce quando inizia il turno di un membro del gruppo; la velocità è il modificatore di tempo dell'host]</color></i>
+ModUi/&MultiplayerTurnSpeedUpIndicator=Turni nemici velocizzati (×{0})
+ModUi/&MultiplayerTurnSpeedUpStart=Velocizza i turni nemici
+ModUi/&MultiplayerTurnSpeedUpStop=Torna alla velocità normale
+ModUi/&MultiplayerTurnSpeedUpPending=In attesa dell'host…
 ModUi/&MultiplayerDeterministicStandAgainstTheTide=Usa i dadi sincronizzati per scegliere il bersaglio di reindirizzamento di <color=#D89555>Stand Against the Tide</color> <i><color=#F0DAA0>[solo partite multigiocatore]</color></i>
 ModUi/&MultiplayerEnableDesyncDetection=Rileva le desincronizzazioni e mostra un avviso perché il gruppo possa ricaricare <i><color=#F0DAA0>[confronta il contatore delle entità tra i computer ogni 5 secondi]</color></i>
 ModUi/&MultiplayerEnableStateFingerprint=Confronta anche ogni 5 secondi PF, posizione, condizioni, slot incantesimo di ogni personaggio e la sequenza dei dadi, e indica quale personaggio differisce <i><color=#F0DAA0>[controllato solo quando nulla si muove o agisce]</color></i>

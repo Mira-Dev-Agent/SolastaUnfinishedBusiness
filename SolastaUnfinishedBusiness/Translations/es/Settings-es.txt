@@ -514,6 +514,11 @@ ModUi/&MultiplayerCurrentDelay=<color=white>Retraso de acción actual:</color> {
 ModUi/&MultiplayerDescription=Correcciones y cambios para multijugador. Todos los jugadores deben usar la misma versión del mod y los mismos ajustes, ya que el juego ejecuta la misma simulación en cada ordenador.
 ModUi/&MultiplayerDesyncTitle=<color=#F0DAA0>Desincronización:</color>
 ModUi/&MultiplayerDeterministicHitCounting=Contar las reacciones a los golpes una vez por tick de juego en lugar de una vez por fotograma dibujado <i><color=#F0DAA0>[corrige una desincronización cuando un fotograma de un jugador dura más de 50 ms (menos de 20 FPS o un tirón) mientras un objetivo recibe dos golpes seguidos; solo partidas multijugador]</color></i>
+ModUi/&MultiplayerEnemyTurnSpeedUp=Permite que cualquier jugador acelere los turnos enemigos con el botón que aparece durante los turnos enemigos o la tecla de aceleración <i><color=#F0DAA0>[la tecla del juego «Reproducir/Pausa/Acelerar turno de combate», espacio por defecto; todos los ordenadores cambian a la vez y termina cuando empieza el turno de un miembro del grupo; la velocidad es el modificador de tiempo del anfitrión]</color></i>
+ModUi/&MultiplayerTurnSpeedUpIndicator=Turnos enemigos acelerados (×{0})
+ModUi/&MultiplayerTurnSpeedUpStart=Acelerar turnos enemigos
+ModUi/&MultiplayerTurnSpeedUpStop=Volver a la velocidad normal
+ModUi/&MultiplayerTurnSpeedUpPending=Esperando al anfitrión…
 ModUi/&MultiplayerDeterministicStandAgainstTheTide=Usar los dados sincronizados para elegir el objetivo de redirección de <color=#D89555>Stand Against the Tide</color> <i><color=#F0DAA0>[solo partidas multijugador]</color></i>
 ModUi/&MultiplayerEnableDesyncDetection=Detectar desincronizaciones y mostrar una alerta para que el grupo pueda recargar <i><color=#F0DAA0>[compara el contador de entidades entre ordenadores cada 5 segundos]</color></i>
 ModUi/&MultiplayerEnableStateFingerprint=Comparar también cada 5 segundos los PG, la posición, las condiciones, los espacios de conjuro de cada personaje y la secuencia de dados, e indicar qué personaje difiere <i><color=#F0DAA0>[solo se comprueba cuando nada se mueve ni actúa]</color></i>

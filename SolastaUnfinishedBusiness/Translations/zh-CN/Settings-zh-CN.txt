@@ -514,6 +514,11 @@ ModUi/&MultiplayerCurrentDelay=<color=white>当前行动延迟：</color>{0}帧�
 ModUi/&MultiplayerDescription=多人游戏的修复和改动。每位玩家必须使用相同的模组版本和相同的设置，因为游戏在每台电脑上运行相同的模拟。
 ModUi/&MultiplayerDesyncTitle=<color=#F0DAA0>不同步：</color>
 ModUi/&MultiplayerDeterministicHitCounting=按每个游戏帧刻而非每个绘制帧计算受击反应 <i><color=#F0DAA0>[修复某位玩家的一帧超过50毫秒（低于20 FPS或卡顿）且目标连续两次被击中时的不同步；仅限多人游戏]</color></i>
+ModUi/&MultiplayerEnemyTurnSpeedUp=允许任何玩家通过敌人回合时显示的按钮或加速键加快敌人回合 <i><color=#F0DAA0>[游戏的“播放/暂停/加速战斗回合”键，默认为空格；所有电脑同时切换，队伍成员的回合开始时结束；速度为主机的时间倍率]</color></i>
+ModUi/&MultiplayerTurnSpeedUpIndicator=敌人回合加速中（×{0}）
+ModUi/&MultiplayerTurnSpeedUpStart=加速敌人回合
+ModUi/&MultiplayerTurnSpeedUpStop=恢复正常速度
+ModUi/&MultiplayerTurnSpeedUpPending=正在等待主机…
 ModUi/&MultiplayerDeterministicStandAgainstTheTide=使用同步骰子选择<color=#D89555>Stand Against the Tide</color>的转移目标 <i><color=#F0DAA0>[仅限多人游戏]</color></i>
 ModUi/&MultiplayerEnableDesyncDetection=检测不同步并显示提醒，以便队伍重新加载 <i><color=#F0DAA0>[每5秒比较各电脑之间的实体计数器]</color></i>
 ModUi/&MultiplayerEnableStateFingerprint=每5秒还比较每个角色的生命值、位置、状态、法术位和骰子序列，并指出哪个角色不同 <i><color=#F0DAA0>[只在没有任何东西移动或行动时检查]</color></i>

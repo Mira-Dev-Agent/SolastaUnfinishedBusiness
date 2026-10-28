@@ -514,6 +514,11 @@ ModUi/&MultiplayerCurrentDelay=<color=white>Aktuelle Aktionsverzögerung:</color
 ModUi/&MultiplayerDescription=Korrekturen und Änderungen für den Mehrspielermodus. Jeder Spieler muss denselben Mod-Build und dieselben Einstellungen verwenden, da das Spiel auf jedem Computer dieselbe Simulation ausführt.
 ModUi/&MultiplayerDesyncTitle=<color=#F0DAA0>Desync:</color>
 ModUi/&MultiplayerDeterministicHitCounting=Trefferreaktionen einmal pro Spieltick statt einmal pro gezeichnetem Bild zählen <i><color=#F0DAA0>[behebt einen Desync, wenn ein Bild eines Spielers länger als 50 ms dauert (unter 20 FPS oder ein Ruckler), während ein Ziel zweimal hintereinander getroffen wird; nur Mehrspielerpartien]</color></i>
+ModUi/&MultiplayerEnemyTurnSpeedUp=Jeder Spieler kann die Gegnerzüge mit der Schaltfläche, die während der Gegnerzüge erscheint, oder der Beschleunigungstaste beschleunigen <i><color=#F0DAA0>[die Spieltaste „Abspielen/Pause/Kampfzug beschleunigen“, standardmäßig Leertaste; alle Computer wechseln im selben Moment, und es endet, sobald ein Gruppenmitglied am Zug ist; das Tempo ist der Zeitmodifikator des Hosts]</color></i>
+ModUi/&MultiplayerTurnSpeedUpIndicator=Gegnerzüge beschleunigt (×{0})
+ModUi/&MultiplayerTurnSpeedUpStart=Gegnerzüge beschleunigen
+ModUi/&MultiplayerTurnSpeedUpStop=Zurück zur normalen Geschwindigkeit
+ModUi/&MultiplayerTurnSpeedUpPending=Warte auf den Host …
 ModUi/&MultiplayerDeterministicStandAgainstTheTide=Die synchronisierten Würfel verwenden, um das Umleitungsziel von <color=#D89555>Stand Against the Tide</color> zu wählen <i><color=#F0DAA0>[nur Mehrspielerpartien]</color></i>
 ModUi/&MultiplayerEnableDesyncDetection=Desyncs erkennen und eine Warnung anzeigen, damit die Gruppe neu laden kann <i><color=#F0DAA0>[vergleicht alle 5 Sekunden den Entitätenzähler zwischen den Computern]</color></i>
 ModUi/&MultiplayerEnableStateFingerprint=Zusätzlich alle 5 Sekunden TP, Position, Zustände, Zauberplätze jedes Charakters und die Würfelfolge vergleichen und sagen, welcher Charakter abweicht <i><color=#F0DAA0>[nur geprüft, wenn sich nichts bewegt oder handelt]</color></i>

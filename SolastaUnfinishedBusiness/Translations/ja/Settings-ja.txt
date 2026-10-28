@@ -514,6 +514,11 @@ ModUi/&MultiplayerCurrentDelay=<color=white>現在の行動遅延：</color>{0}�
 ModUi/&MultiplayerDescription=マルチプレイ用の修正と変更。ゲームは各コンピューターで同じシミュレーションを実行するため、全プレイヤーが同じMODビルドと同じ設定を使う必要がある。
 ModUi/&MultiplayerDesyncTitle=<color=#F0DAA0>同期ずれ：</color>
 ModUi/&MultiplayerDeterministicHitCounting=被弾リアクションを描画フレームごとではなくゲームのティックごとに1回数える <i><color=#F0DAA0>[標的が2回連続で命中を受ける間に、あるプレイヤーの1フレームが50ミリ秒を超える（20 FPS未満やカクつき）と起こる同期ずれを修正。マルチプレイのみ]</color></i>
+ModUi/&MultiplayerEnemyTurnSpeedUp=どのプレイヤーでも敵のターン中に表示されるボタンか加速キーで敵のターンを加速できるようにする <i><color=#F0DAA0>[ゲームの「再生/一時停止/戦闘ターン加速」キー、デフォルトはスペース。すべてのコンピューターが同時に切り替わり、パーティーメンバーのターンが始まると終了します。速度はホストの時間倍率です]</color></i>
+ModUi/&MultiplayerTurnSpeedUpIndicator=敵のターン加速中（×{0}）
+ModUi/&MultiplayerTurnSpeedUpStart=敵のターンを加速
+ModUi/&MultiplayerTurnSpeedUpStop=通常の速度に戻す
+ModUi/&MultiplayerTurnSpeedUpPending=ホストを待っています…
 ModUi/&MultiplayerDeterministicStandAgainstTheTide=<color=#D89555>Stand Against the Tide</color>のリダイレクト先を同期ダイスで選ぶ <i><color=#F0DAA0>[マルチプレイのみ]</color></i>
 ModUi/&MultiplayerEnableDesyncDetection=同期ずれを検出して警告を表示し、パーティーがロードし直せるようにする <i><color=#F0DAA0>[5秒ごとにコンピューター間でエンティティカウンターを比較]</color></i>
 ModUi/&MultiplayerEnableStateFingerprint=さらに5秒ごとに各キャラクターのHP、位置、状態、呪文スロットとダイス列を比較し、どのキャラクターが異なるか表示する <i><color=#F0DAA0>[何も移動・行動していないときのみ確認]</color></i>

@@ -84,6 +84,12 @@ internal static class MultiplayerDisplay
             Main.Settings.MultiplayerDeterministicHitCounting = toggle;
         }
 
+        toggle = Main.Settings.MultiplayerEnemyTurnSpeedUp;
+        if (UI.Toggle(Gui.Localize("ModUi/&MultiplayerEnemyTurnSpeedUp"), ref toggle, UI.AutoWidth()))
+        {
+            Main.Settings.MultiplayerEnemyTurnSpeedUp = toggle;
+        }
+
         toggle = Main.Settings.MultiplayerEnableDesyncDetection;
         if (UI.Toggle(Gui.Localize("ModUi/&MultiplayerEnableDesyncDetection"), ref toggle, UI.AutoWidth()))
         {

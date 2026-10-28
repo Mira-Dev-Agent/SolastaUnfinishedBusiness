@@ -514,6 +514,11 @@ ModUi/&MultiplayerCurrentDelay=<color=white>Délai d'action actuel :</color> {0}
 ModUi/&MultiplayerDescription=Correctifs et changements pour le multijoueur. Chaque joueur doit utiliser la même version du mod et les mêmes paramètres, car le jeu exécute la même simulation sur chaque ordinateur.
 ModUi/&MultiplayerDesyncTitle=<color=#F0DAA0>Désynchronisation :</color>
 ModUi/&MultiplayerDeterministicHitCounting=Compter les réactions aux coups une fois par tick de jeu au lieu d'une fois par image affichée <i><color=#F0DAA0>[corrige une désynchronisation quand une image d'un joueur dure plus de 50 ms (moins de 20 FPS ou un à-coup) pendant qu'une cible est touchée deux fois de suite ; parties multijoueur uniquement]</color></i>
+ModUi/&MultiplayerEnemyTurnSpeedUp=Permet à tout joueur d'accélérer les tours ennemis avec le bouton affiché pendant les tours ennemis ou la touche d'accélération <i><color=#F0DAA0>[la touche du jeu « Lecture/Pause/Accélérer le tour de combat », Espace par défaut ; tous les ordinateurs basculent au même moment, et cela s'arrête quand commence le tour d'un membre du groupe ; la vitesse est le modificateur de temps de l'hôte]</color></i>
+ModUi/&MultiplayerTurnSpeedUpIndicator=Tours ennemis accélérés (×{0})
+ModUi/&MultiplayerTurnSpeedUpStart=Accélérer les tours ennemis
+ModUi/&MultiplayerTurnSpeedUpStop=Revenir à la vitesse normale
+ModUi/&MultiplayerTurnSpeedUpPending=En attente de l'hôte…
 ModUi/&MultiplayerDeterministicStandAgainstTheTide=Utiliser les dés synchronisés pour choisir la cible de redirection de <color=#D89555>Stand Against the Tide</color> <i><color=#F0DAA0>[parties multijoueur uniquement]</color></i>
 ModUi/&MultiplayerEnableDesyncDetection=Détecter les désynchronisations et afficher une alerte pour que le groupe puisse recharger <i><color=#F0DAA0>[compare le compteur d'entités entre les ordinateurs toutes les 5 secondes]</color></i>
 ModUi/&MultiplayerEnableStateFingerprint=Comparer aussi toutes les 5 secondes les PV, la position, les états, les emplacements de sort de chaque personnage et la séquence de dés, et indiquer quel personnage diffère <i><color=#F0DAA0>[vérifié seulement quand rien ne bouge ni n'agit]</color></i>

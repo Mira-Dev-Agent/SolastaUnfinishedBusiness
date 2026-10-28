@@ -554,3 +554,8 @@ ModUi/&MultiplayerFps=FPS: {0}
 ModUi/&MultiplayerNoFps=FPS: not reported
 ModUi/&MultiplayerFpsHostSeesAllOthersOwn=Host sees everyone, others their own
 ModUi/&MultiplayerDeterministicHitCounting=Count hit reactions once per game tick instead of once per drawn frame <i><color=#F0DAA0>[fixes a desync when a player's frame takes longer than 50 ms (under 20 FPS or a stutter) while a target is hit twice in a row; multiplayer games only]</color></i>
+ModUi/&MultiplayerEnemyTurnSpeedUp=Let any player speed up enemy turns with the button shown during enemy turns or the speed-up key <i><color=#F0DAA0>[the game's "Play/Pause/Speed Up Battle Turn" key, space by default; every computer switches at the same moment, and it ends when a party member's turn starts; the speed is the host's game time modifier]</color></i>
+ModUi/&MultiplayerTurnSpeedUpIndicator=Enemy turns sped up (×{0})
+ModUi/&MultiplayerTurnSpeedUpStart=Speed up enemy turns
+ModUi/&MultiplayerTurnSpeedUpStop=Back to normal speed
+ModUi/&MultiplayerTurnSpeedUpPending=Waiting for the host…

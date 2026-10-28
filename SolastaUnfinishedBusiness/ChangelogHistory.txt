@@ -1,3 +1,10 @@
+1.6.16.0:
+- Multiplayer: any player can speed up enemy turns, with a button shown at the top of the screen during enemy turns or by tapping the game's "Play/Pause/Speed Up Battle Turn" key (space by default); doing it again sets them back to normal
+- The host picks a network tick and every computer switches speed on that same tick, at the host's game time modifier; it only runs in battle during non-party turns and ends when a party member's turn starts
+- A notice says who changed it, and "Enemy turns sped up (×1.5)" shows above the button while it's on; setting in Gameplay › Multiplayer, on by default, with texts in all languages
+- In-game test of 1.6.15.13: Grappler stays enabled through a German launch and quit, shows without "[Str]", and German sub-feats appear only inside their groups
+- Not tested in game: the speed-up needs a session with at least two players (a lone host can't start an adventure)
+
 1.6.15.13:
 - Feats: playing in another language no longer removes Grappler from the enabled feats. Group sub-feats ("[Ability]" titles) were picked out by the translated title, and 8 translations had added "[Str]" to Grappler, so it was dropped from the feat list and then from the settings; the check now reads the English title
 - Feats: in Chinese, Japanese and German, sub-feats whose translated title uses full-width or no brackets no longer show up as separate feats
