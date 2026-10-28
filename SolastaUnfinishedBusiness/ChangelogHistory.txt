@@ -1,3 +1,7 @@
+1.6.15.12:
+- README: Unity Mod Manager must be 0.24.0 to 0.27.10 (newer versions aren't compatible); it recommends 0.27.10 from Nexus Mods, plus the original mod's macOS build
+- Not tested in game: 1.6.15.8 and 1.6.15.9 (mod name from the display name, "FB" label, version without the hash); this release changes no code
+
 1.6.15.11:
 - README: the install steps name the Unity Mod Manager version: 0.24.0 or later (the mod's declared minimum), built against 0.24.2 and tested in game with 0.27.10
 - Not tested in game: 1.6.15.8 and 1.6.15.9 (mod name from the display name, "FB" label, version without the hash); this release changes no code
