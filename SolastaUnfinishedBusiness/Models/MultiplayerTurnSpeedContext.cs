@@ -90,6 +90,8 @@ internal static partial class MultiplayerTurnSpeedContext
     {
         ClearBarrier();
         _lastProposal = 0;
+        _reportedBarrier = null;
+        _automaticPaused = false;
         _speedUp = false;
         _wasEnemyTurn = false;
         _pending = false;
@@ -152,7 +154,7 @@ internal static partial class MultiplayerTurnSpeedContext
         }
 
         if (EnemyTurnsBegan() && PhotonNetwork.IsMasterClient && Main.Settings.EnemyTurnSpeedUpByDefault &&
-            Main.Settings.MultiplayerEnemyTurnSpeedUp)
+            Main.Settings.MultiplayerEnemyTurnSpeedUp && !_automaticPaused)
         {
             Decide(true, null);
         }
@@ -321,8 +323,10 @@ internal static partial class MultiplayerTurnSpeedContext
         private void RefreshControls()
         {
             var enabled = IsOnlineRoom ? Main.Settings.MultiplayerEnemyTurnSpeedUp : IsSinglePlayerButton;
+            // a change held at its tick names who it waits for, in place of the sped-up label
+            var status = IsOnlineRoom ? BarrierStatus() : null;
             // Shown turns false as soon as the bar starts hiding, e.g. in ContextualSequenceStart for a close-up
-            var show = enabled && IsEnemyTurn() && EnsureControls() && _screen.initiativeTable &&
+            var show = enabled && (IsEnemyTurn() || status != null) && EnsureControls() && _screen.initiativeTable &&
                        _screen.initiativeTable.Shown;
 
             if (!show)
@@ -349,9 +353,17 @@ internal static partial class MultiplayerTurnSpeedContext
                 _buttonComponent.interactable = !_pending;
             }
 
-            SetActive(_indicator.gameObject, _speedUp);
+            SetActive(_indicator.gameObject, _speedUp || status != null);
 
-            if (_speedUp && !Mathf.Approximately(_indicatorModifier, Modifier))
+            if (status != null)
+            {
+                if (_indicator.text != status)
+                {
+                    _indicator.text = status;
+                    _indicatorModifier = -1f;
+                }
+            }
+            else if (_speedUp && !Mathf.Approximately(_indicatorModifier, Modifier))
             {
                 _indicatorModifier = Modifier;
                 _indicator.text = Gui.Format("ModUi/&MultiplayerTurnSpeedUpIndicator", Modifier.ToString("0.#"));

@@ -467,6 +467,16 @@ ModUi/&UnityExplorer=<b><color=#D89555>Unity エクスプローラー UI</color>
 ModUi/&UnleashEnemyAsNpc=NPCガジェットでモンスターを選択できるようにする
 ModUi/&UnleashNpcAsEnemy=モンスター選択のロックを解除
 ModUi/&Update=<b><color=#D89555>更新</color></b>
+ModUi/&CheckForUpdates=<b><color=#D89555>更新を確認</color></b>
+ModUi/&UpdateStatusChecking=更新を確認しています…
+ModUi/&UpdateStatusUpToDate=最新です：バージョン {0} が最新版です
+ModUi/&UpdateStatusCheckFailed=更新を確認できませんでした：{0}
+ModUi/&UpdateStatusAvailable=バージョン {0} が利用可能です
+ModUi/&UpdateStatusDownloading=バージョン {0} をダウンロード中：{1}%
+ModUi/&UpdateStatusVerifying=バージョン {0} のダウンロードを検証しています…
+ModUi/&UpdateStatusQueued=バージョン {0} はダウンロードと検証が済みました。ゲーム終了時にインストールされます
+ModUi/&UpdateStatusInstalled=バージョン {0} をインストールしました。使うにはゲームを再起動してください
+ModUi/&UpdateStatusFailed=更新に失敗しました：{0}
 ModUi/&UseAlternateSpellPointsSystem=<color=#D89555>バリアント スペル ポイント</color> ルールを有効にする <i><color=#F0DAA0>[術者レベルに応じて増加するスペル ポイントのプールがあります]</color></i>
 ModUi/&UseAlternateSpellPointsSystemHelp=<i><color=#F0DAA0>[L01: <color=white>04</color> L02: <color=white>06</color> L03: <color=white>14</color> L04: <color=white>17</color> L05: <color=white>27</color> L06: <color=white>32</color> L07: <color=white>38</color> L08: <color=white>44</color> L09: <color=white>57</color> L10: <color=white>64</color>\nL11: <color=white>73</color> L12: <color=white>73</color> L13: <color=white>83</color> L14: <color=white>83</color> L15: <color=white>94</color> L16: <color=white>94</color> L17: <color=white>107</color> L18: <color=white>114</color> L19: <color=white>123</color> L20: <color=white>133</color>\n呪文を唱えるコストは SL1: <color=white>2</color> SL2: <color=white>3</color> SL3: <color=white>5</color> SL4: <color=white>6</color> SL5: <color=white>7</color> SL6: <color=white>9</color> SL7: <color=white>10</color> SL8: <color=white>11</color> SL9: <color=white>13</color>\nこのシステムでは、短い休憩スロットの回復機能はトリガーされません]</color></i>
 ModUi/&UseElfFaceModelsOnTieflings=<color=#D89555>エルフ</color>の顔モデルを<color=#D89555>ティフリング</color>に使用します
@@ -522,6 +532,8 @@ ModUi/&MultiplayerTurnSpeedUpStart=敵のターンを加速
 ModUi/&MultiplayerTurnSpeedUpStop=通常の速度に戻す
 ModUi/&MultiplayerTurnSpeedUpTooltip=もう一度クリックするか、パーティーメンバーのターンが始まるまで、敵のターンを速く進めます。
 ModUi/&MultiplayerTurnSpeedUpPending=ホストを待っています…
+ModUi/&MultiplayerTurnSpeedUpWaiting={0} を待っています。ホストが変更を確定するまで速度は変わりません
+ModUi/&MultiplayerTurnSpeedUpWaitingOthers=他のプレイヤーを待っています。ホストが変更を確定するまで速度は変わりません
 ModUi/&MultiplayerDeterministicStandAgainstTheTide=<color=#D89555>Stand Against the Tide</color>のリダイレクト先を同期ダイスで選ぶ <i><color=#F0DAA0>[マルチプレイのみ]</color></i>
 ModUi/&MultiplayerEnableDesyncDetection=同期ずれを検出して警告を表示し、パーティーがロードし直せるようにする <i><color=#F0DAA0>[5秒ごとにコンピューター間でエンティティカウンターを比較]</color></i>
 ModUi/&MultiplayerEnableStateFingerprint=さらに5秒ごとに各キャラクターのHP、位置、状態、呪文スロットとダイス列を比較し、どのキャラクターが異なるか表示する <i><color=#F0DAA0>[何も移動・行動していないときのみ確認]</color></i>

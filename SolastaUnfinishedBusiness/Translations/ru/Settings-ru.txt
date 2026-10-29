@@ -467,6 +467,16 @@ ModUi/&UnityExplorer=<b><color=#D89555>Интерфейс Unity Explorer</color>
 ModUi/&UnleashEnemyAsNpc=Позволить выбирать монстров в качестве НИП-предметов
 ModUi/&UnleashNpcAsEnemy=Разблокировать выбор монстров
 ModUi/&Update=<b><color=#D89555>Обновить</color></b>
+ModUi/&CheckForUpdates=<b><color=#D89555>Проверить обновления</color></b>
+ModUi/&UpdateStatusChecking=Проверка обновлений…
+ModUi/&UpdateStatusUpToDate=Обновлений нет: версия {0} последняя
+ModUi/&UpdateStatusCheckFailed=Не удалось проверить обновления: {0}
+ModUi/&UpdateStatusAvailable=Доступна версия {0}
+ModUi/&UpdateStatusDownloading=Загрузка версии {0}: {1}%
+ModUi/&UpdateStatusVerifying=Проверка загрузки версии {0}…
+ModUi/&UpdateStatusQueued=Версия {0} загружена и проверена; она установится при выходе из игры
+ModUi/&UpdateStatusInstalled=Версия {0} установлена; перезапустите игру, чтобы её использовать
+ModUi/&UpdateStatusFailed=Обновление не удалось: {0}
 ModUi/&UseAlternateSpellPointsSystem=Включить альтернативную систему <color=#D89555>Очков заклинаний</color> <i><color=#F0DAA0>[вы обладаете запасом очков заклинаний, который увеличивается с уровнем заклинателя]</color></i>
 ModUi/&UseAlternateSpellPointsSystemHelp=<i><color=#F0DAA0>[Ур1: <color=white>04</color> Ур2: <color=white>06</color> Ур3: <color=white>14</color> Ур4: <color=white>17</color> Ур5: <color=white>27</color> Ур6: <color=white>32</color> Ур7: <color=white>38</color> Ур8: <color=white>44</color> Ур9: <color=white>57</color> Ур10: <color=white>64</color>\nУр11: <color=white>73</color> Ур12: <color=white>73</color> Ур13: <color=white>83</color> Ур14: <color=white>83</color> Ур15: <color =white>94</color> Ур16: <color=white>94</color> Ур17: <color=white>107</color> Ур18: <color=white>114</color> Ур19: <color=white>123</color> Ур20: <color=white>133</color>\nСтоимость наложения заклинаний следующая УЗ1: <color=white>2</color> УЗ2: <color=white>3</color> УЗ3: <color=white>5</color> УЗ4: <color=white>6</color> УЗ5: <color=white>7</color> УЗ6: <color=white>9</color> УЗ7: <color=white>10</color> УЗ8: <color=white>11</color> УЗ9: <color=white>13</color>\nСпособности восстановления ячеек заклинаний после короткого отдыха не будут работать в этой системе]</color></i>
 ModUi/&UseElfFaceModelsOnTieflings=Использовать <color=#D89555>Эльфийские</color> лица на <color=#D89555>Тифлингах</color>
@@ -522,6 +532,8 @@ ModUi/&MultiplayerTurnSpeedUpStart=Ускорить ходы врагов
 ModUi/&MultiplayerTurnSpeedUpStop=Вернуть обычную скорость
 ModUi/&MultiplayerTurnSpeedUpTooltip=Ускоряет ходы врагов, пока кнопку не нажмут снова или не начнётся ход члена отряда.
 ModUi/&MultiplayerTurnSpeedUpPending=Ожидание хоста…
+ModUi/&MultiplayerTurnSpeedUpWaiting=Ожидание: {0}; скорость не изменится, пока хост не подтвердит смену
+ModUi/&MultiplayerTurnSpeedUpWaitingOthers=Ожидание других игроков; скорость не изменится, пока хост не подтвердит смену
 ModUi/&MultiplayerDeterministicStandAgainstTheTide=Использовать синхронизированные кости для выбора цели перенаправления <color=#D89555>Stand Against the Tide</color> <i><color=#F0DAA0>[только сетевые игры]</color></i>
 ModUi/&MultiplayerEnableDesyncDetection=Обнаруживать рассинхронизацию и показывать предупреждение, чтобы отряд мог перезагрузиться <i><color=#F0DAA0>[сравнивает счётчик сущностей между компьютерами каждые 5 секунд]</color></i>
 ModUi/&MultiplayerEnableStateFingerprint=Также каждые 5 секунд сравнивать ОЗ, позицию, состояния, ячейки заклинаний каждого персонажа и последовательность бросков и сообщать, какой персонаж отличается <i><color=#F0DAA0>[проверяется, только когда ничего не двигается и не действует]</color></i>

@@ -117,6 +117,20 @@ internal static class CharacterInspectionScreenEnhancement
         return false;
     }
 
+    // the subclass of the class whose levels unlock this subclass choice
+    private static bool TryFindChosenSubclass(
+        CharacterInformationPanel panel,
+        FeatureDefinition subclassChoice,
+        out CharacterSubclassDefinition subclass)
+    {
+        subclass = (panel.InspectedCharacter?.RulesetCharacter as RulesetCharacterHero)?.ClassesAndSubclasses
+            .Where(x => x.Key.FeatureUnlocks.Any(unlock => unlock.FeatureDefinition == subclassChoice))
+            .Select(x => x.Value)
+            .FirstOrDefault(x => x);
+
+        return subclass;
+    }
+
     internal static bool TryFindChoiceFeature(FeatureDefinition subFeature, IEnumerable<FeatureDefinition> features,
         out FeatureDefinition choiceFeature)
     {
@@ -220,7 +234,7 @@ internal static class CharacterInspectionScreenEnhancement
 
             var tooltip = child.GetComponent<GuiTooltip>();
             var provider = new CustomTooltipProvider(feature.FeatureDefinition, null);
-            FeatureDefinition chosen = null;
+            BaseDefinition chosen = null;
 
             if (feature.FeatureDefinition is FeatureDefinitionPower)
             {
@@ -245,6 +259,16 @@ internal static class CharacterInspectionScreenEnhancement
                 {
                     provider.SetSubtitle(choiceFeature.GuiPresentation.Title);
                 }
+            }
+            // a subclass choice (Otherworldly Patrons, Divine Domain...) is chosen as the class's subclass, not as a
+            // member of an exclusive feature set
+            else if (feature.FeatureDefinition is FeatureDefinitionSubclassChoice &&
+                     TryFindChosenSubclass(panel, feature.FeatureDefinition, out var subclass))
+            {
+                chosen = subclass;
+                label.Text = Gui.Format("{1} ({0})", feature.FeatureDefinition.FormatTitle(), subclass.FormatTitle());
+                tooltip.Content = feature.FeatureDefinition.FormatDescription();
+                provider.SetSubtitle(subclass.GuiPresentation.Title);
             }
             else
             {

@@ -467,6 +467,16 @@ ModUi/&UnityExplorer=<b><color=#D89555>Interfaz de usuario de Unity Explorer</co
 ModUi/&UnleashEnemyAsNpc=Permitir que se seleccionen monstruos en los dispositivos NPC
 ModUi/&UnleashNpcAsEnemy=Desbloquea la selección de monstruos
 ModUi/&Update=<b><color=#D89555>Actualización</color></b>
+ModUi/&CheckForUpdates=<b><color=#D89555>Buscar actualizaciones</color></b>
+ModUi/&UpdateStatusChecking=Buscando actualizaciones…
+ModUi/&UpdateStatusUpToDate=Al día: la versión {0} es la más reciente
+ModUi/&UpdateStatusCheckFailed=No se pudieron buscar actualizaciones: {0}
+ModUi/&UpdateStatusAvailable=La versión {0} está disponible
+ModUi/&UpdateStatusDownloading=Descargando la versión {0}: {1}%
+ModUi/&UpdateStatusVerifying=Comprobando la descarga de la versión {0}…
+ModUi/&UpdateStatusQueued=La versión {0} está descargada y verificada; se instalará al salir del juego
+ModUi/&UpdateStatusInstalled=La versión {0} está instalada; reinicia el juego para usarla
+ModUi/&UpdateStatusFailed=La actualización falló: {0}
 ModUi/&UseAlternateSpellPointsSystem=Habilitar las reglas de <color=#D89555>puntos de hechizo variantes</color> <i><color=#F0DAA0>[tienes un grupo de puntos de hechizo que aumenta con el nivel del lanzador]</color></i>
 ModUi/&UseAlternateSpellPointsSystemHelp=<i><color=#F0DAA0>[L01: <color=blanco>04</color> L02: <color=blanco>06</color> L03: <color=blanco>14</color> L04: <color=blanco>17</color> L05: <color=blanco>27</color> L06: <color=blanco>32</color> L07: <color=blanco>38</color> L08: <color=blanco>44</color> L09: <color=blanco>57</color> L10: <color=blanco>64</color>\nL11: <color=blanco>73</color> L12: <color=blanco>73</color> L13: <color=blanco>83</color> L14: <color=blanco>83</color> L15: <color=blanco>94</color> L16: <color=blanco>94</color> L17: <color=white>107</color> L18: <color=white>114</color> L19: <color=white>123</color> L20: <color=white>133</color>\nEl costo para lanzar hechizos es SL1: <color=white>2</color> SL2: <color=white>3</color> SL3: <color=white>5</color> SL4: <color=white>6</color> SL5: <color=white>7</color> SL6: <color=white>9</color> SL7: <color=white>10</color> SL8: <color=white>11</color> SL9: <color=white>13</color>\nLas funciones de recuperación de espacios de descanso cortos no se activarán con este sistema.]</color></i>
 ModUi/&UseElfFaceModelsOnTieflings=Utilice modelos de caras de <color=#D89555>Elfo</color> en <color=#D89555>Tieflings</color>
@@ -522,6 +532,8 @@ ModUi/&MultiplayerTurnSpeedUpStart=Acelerar turnos enemigos
 ModUi/&MultiplayerTurnSpeedUpStop=Volver a la velocidad normal
 ModUi/&MultiplayerTurnSpeedUpTooltip=Reproduce los turnos enemigos más rápido hasta que se vuelva a pulsar o empiece el turno de un miembro del grupo.
 ModUi/&MultiplayerTurnSpeedUpPending=Esperando al anfitrión…
+ModUi/&MultiplayerTurnSpeedUpWaiting=Esperando a {0}; la velocidad no cambia hasta que el anfitrión confirme el cambio
+ModUi/&MultiplayerTurnSpeedUpWaitingOthers=Esperando a los demás jugadores; la velocidad no cambia hasta que el anfitrión confirme el cambio
 ModUi/&MultiplayerDeterministicStandAgainstTheTide=Usar los dados sincronizados para elegir el objetivo de redirección de <color=#D89555>Stand Against the Tide</color> <i><color=#F0DAA0>[solo partidas multijugador]</color></i>
 ModUi/&MultiplayerEnableDesyncDetection=Detectar desincronizaciones y mostrar una alerta para que el grupo pueda recargar <i><color=#F0DAA0>[compara el contador de entidades entre ordenadores cada 5 segundos]</color></i>
 ModUi/&MultiplayerEnableStateFingerprint=Comparar también cada 5 segundos los PG, la posición, las condiciones, los espacios de conjuro de cada personaje y la secuencia de dados, e indicar qué personaje difiere <i><color=#F0DAA0>[solo se comprueba cuando nada se mueve ni actúa]</color></i>

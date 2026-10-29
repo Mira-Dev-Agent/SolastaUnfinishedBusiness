@@ -467,6 +467,16 @@ ModUi/&UnityExplorer=<b><color=#D89555>IU do Unity Explorer</color></b>
 ModUi/&UnleashEnemyAsNpc=Permitir que monstros sejam selecionados em gadgets de NPC
 ModUi/&UnleashNpcAsEnemy=Desbloquear seleção de monstros
 ModUi/&Update=<b><color=#D89555>Atualizar</color></b>
+ModUi/&CheckForUpdates=<b><color=#D89555>Procurar atualizações</color></b>
+ModUi/&UpdateStatusChecking=Procurando atualizações…
+ModUi/&UpdateStatusUpToDate=Atualizado: a versão {0} é a mais recente
+ModUi/&UpdateStatusCheckFailed=Não foi possível procurar atualizações: {0}
+ModUi/&UpdateStatusAvailable=A versão {0} está disponível
+ModUi/&UpdateStatusDownloading=Baixando a versão {0}: {1}%
+ModUi/&UpdateStatusVerifying=Verificando o download da versão {0}…
+ModUi/&UpdateStatusQueued=A versão {0} foi baixada e verificada; será instalada quando você sair do jogo
+ModUi/&UpdateStatusInstalled=A versão {0} está instalada; reinicie o jogo para usá-la
+ModUi/&UpdateStatusFailed=A atualização falhou: {0}
 ModUi/&UseAlternateSpellPointsSystem=Habilitar regras de <color=#D89555>pontos de magia variantes</color> <i><color=#F0DAA0>[você tem um conjunto de pontos de magia que aumenta com o nível do conjurador]</color></i>
 ModUi/&UseAlternateSpellPointsSystemHelp=<i><color=#F0DAA0>[L01: <color=branco>04</color> L02: <color=branco>06</color> L03: <color=branco>14</color> L04: <color=branco>17</color> L05: <color=branco>27</color> L06: <color=branco>32</color> L07: <color=branco>38</color> L08: <color=branco>44</color> L09: <color=branco>57</color> L10: <color=branco>64</color>\nL11: <color=branco>73</color> L12: <color=branco>73</color> L13: <color=branco>83</color> L14: <color=branco>83</color> L15: <color=branco>94</color> L16: <color=branco>94</color> L17: <color=white>107</color> L18: <color=white>114</color> L19: <color=white>123</color> L20: <color=white>133</color>\nO custo para conjurar magias é SL1: <color=white>2</color> SL2: <color=white>3</color> SL3: <color=white>5</color> SL4: <color=white>6</color> SL5: <color=white>7</color> SL6: <color=white>9</color> SL7: <color=white>10</color> SL8: <color=white>11</color> SL9: <color=white>13</color>\nOs recursos de recuperação de intervalos de descanso curto não serão acionados neste sistema]</color></i>
 ModUi/&UseElfFaceModelsOnTieflings=Use modelos de rosto de <color=#D89555>elfos</color> em <color=#D89555>tieflings</color>
@@ -522,6 +532,8 @@ ModUi/&MultiplayerTurnSpeedUpStart=Acelerar turnos inimigos
 ModUi/&MultiplayerTurnSpeedUpStop=Voltar à velocidade normal
 ModUi/&MultiplayerTurnSpeedUpTooltip=Reproduz os turnos inimigos mais rápido até clicar de novo ou começar o turno de um membro do grupo.
 ModUi/&MultiplayerTurnSpeedUpPending=Aguardando o anfitrião…
+ModUi/&MultiplayerTurnSpeedUpWaiting=Aguardando {0}; a velocidade não muda até o anfitrião confirmar a mudança
+ModUi/&MultiplayerTurnSpeedUpWaitingOthers=Aguardando os outros jogadores; a velocidade não muda até o anfitrião confirmar a mudança
 ModUi/&MultiplayerDeterministicStandAgainstTheTide=Usar os dados sincronizados para escolher o alvo de redirecionamento de <color=#D89555>Stand Against the Tide</color> <i><color=#F0DAA0>[só partidas multijogador]</color></i>
 ModUi/&MultiplayerEnableDesyncDetection=Detectar dessincronizações e mostrar um alerta para o grupo poder recarregar <i><color=#F0DAA0>[compara o contador de entidades entre os computadores a cada 5 segundos]</color></i>
 ModUi/&MultiplayerEnableStateFingerprint=Comparar também, a cada 5 segundos, PV, posição, condições, espaços de magia de cada personagem e a sequência de dados, e dizer qual personagem difere <i><color=#F0DAA0>[só verificado quando nada está se movendo ou agindo]</color></i>

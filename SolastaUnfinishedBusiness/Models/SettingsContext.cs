@@ -66,6 +66,11 @@ public static class SettingsContext
         [UsedImplicitly]
         bool UpdateMod { get; set; }
 
+        // ticking it checks now and reports the result; it never stays ticked
+        [SettingTypeToggle("CheckForUpdates", SortOrder = 1002, DisplayFooter = true)]
+        [UsedImplicitly]
+        bool CheckForUpdates { get; set; }
+
         [SettingTypeToggle("EnableCharacterChecker", SortOrder = 1011, DisplayFooter = true)]
         [UsedImplicitly]
         bool EnableCharacterChecker { get; set; }
@@ -204,6 +209,19 @@ public static class SettingsContext
                 if (value)
                 {
                     UpdateContext.DisplayUpdateConfirmation();
+                }
+            }
+        }
+
+        // the game's settings menu has no buttons, so this toggle acts as one
+        public bool CheckForUpdates
+        {
+            get => false;
+            set
+            {
+                if (value)
+                {
+                    UpdateContext.CheckForUpdates(true);
                 }
             }
         }

@@ -467,6 +467,16 @@ ModUi/&UnityExplorer=<b><color=#D89555>Interface utilisateur d'Unity Explorer</c
 ModUi/&UnleashEnemyAsNpc=Autoriser la sélection des monstres sur les gadgets PNJ
 ModUi/&UnleashNpcAsEnemy=Débloquer la sélection de monstres
 ModUi/&Update=<b><color=#D89555>Mise à jour</color></b>
+ModUi/&CheckForUpdates=<b><color=#D89555>Rechercher des mises à jour</color></b>
+ModUi/&UpdateStatusChecking=Recherche de mises à jour…
+ModUi/&UpdateStatusUpToDate=À jour : la version {0} est la plus récente
+ModUi/&UpdateStatusCheckFailed=Impossible de rechercher des mises à jour : {0}
+ModUi/&UpdateStatusAvailable=La version {0} est disponible
+ModUi/&UpdateStatusDownloading=Téléchargement de la version {0} : {1} %
+ModUi/&UpdateStatusVerifying=Vérification du téléchargement de la version {0}…
+ModUi/&UpdateStatusQueued=La version {0} est téléchargée et vérifiée ; elle sera installée quand vous quitterez le jeu
+ModUi/&UpdateStatusInstalled=La version {0} est installée ; redémarrez le jeu pour l'utiliser
+ModUi/&UpdateStatusFailed=La mise à jour a échoué : {0}
 ModUi/&UseAlternateSpellPointsSystem=Activer les règles de <color=#D89555>points de sorts variants</color> <i><color=#F0DAA0>[vous disposez d'une réserve de points de sorts qui augmente avec le niveau du lanceur de sorts]</color></i>
 ModUi/&UseAlternateSpellPointsSystemHelp=<i><color=#F0DAA0>[L01 : 04 L02 : 06 L03 : 14 L04 : 17 L05 : 27 L06 : 32 L07 : 38 L08 : 44 L09 : 57 L10 : 64 \nL11 : 73 L12 : 73 L13 : 83 L14 : 83 L15 : 94 L16 : 94 L17 : <color=white>107</color> L18 : <color=white>114</color> L19 : <color=white>123</color> L20 : <color=white>133</color>\nLe coût de lancement des sorts est SL1 : <color=white>2</color> SL2 : <color=white>3</color> SL3 : <color=white>5</color> SL4 : <color=white>6</color> SL5 : <color=white>7</color> SL6 : <color=white>9</color> SL7 : <color=white>10</color> SL8 : <color=white>11</color> SL9 : <color=white>13</color>\nLes fonctionnalités de récupération des emplacements de repos courts ne seront pas déclenchées dans ce système]</color></i>
 ModUi/&UseElfFaceModelsOnTieflings=Utilisez les modèles de visage <color=#D89555>Elfe</color> sur les <color=#D89555>Tieflings</color>
@@ -522,6 +532,8 @@ ModUi/&MultiplayerTurnSpeedUpStart=Accélérer les tours ennemis
 ModUi/&MultiplayerTurnSpeedUpStop=Revenir à la vitesse normale
 ModUi/&MultiplayerTurnSpeedUpTooltip=Joue les tours ennemis plus vite jusqu'à un nouveau clic ou jusqu'au tour d'un membre du groupe.
 ModUi/&MultiplayerTurnSpeedUpPending=En attente de l'hôte…
+ModUi/&MultiplayerTurnSpeedUpWaiting=En attente de {0} ; la vitesse reste la même jusqu'à ce que l'hôte confirme le changement
+ModUi/&MultiplayerTurnSpeedUpWaitingOthers=En attente des autres joueurs ; la vitesse reste la même jusqu'à ce que l'hôte confirme le changement
 ModUi/&MultiplayerDeterministicStandAgainstTheTide=Utiliser les dés synchronisés pour choisir la cible de redirection de <color=#D89555>Stand Against the Tide</color> <i><color=#F0DAA0>[parties multijoueur uniquement]</color></i>
 ModUi/&MultiplayerEnableDesyncDetection=Détecter les désynchronisations et afficher une alerte pour que le groupe puisse recharger <i><color=#F0DAA0>[compare le compteur d'entités entre les ordinateurs toutes les 5 secondes]</color></i>
 ModUi/&MultiplayerEnableStateFingerprint=Comparer aussi toutes les 5 secondes les PV, la position, les états, les emplacements de sort de chaque personnage et la séquence de dés, et indiquer quel personnage diffère <i><color=#F0DAA0>[vérifié seulement quand rien ne bouge ni n'agit]</color></i>

@@ -28,6 +28,7 @@ internal sealed class CoordinatedTickBarrier
     }
 
     internal bool RosterMatches(int[] roster) => roster.Length == _roster.Count && _roster.SetEquals(roster);
+    internal int[] Missing() => _roster.Except(_arrived).OrderBy(x => x).ToArray();
     internal bool Holds(long tick) => !Released && tick >= Tick;
     internal bool Release(string id, long localTick)
     {

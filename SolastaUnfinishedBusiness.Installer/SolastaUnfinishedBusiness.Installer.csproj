@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- The updater's helper: applies a verified update after the game exits (see Program.cs). It is built into the
+       mod's folder, so every release zip carries it. -->
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net481</TargetFramework>
+    <LangVersion>13</LangVersion>
+    <AssemblyName>FinishingBusinessInstaller</AssemblyName>
+    <RootNamespace>SolastaUnfinishedBusiness.Installer</RootNamespace>
+    <Configurations>Debug Install;Release Install;Release Workflow</Configurations>
+    <Platforms>AnyCPU</Platforms>
+    <IsPackable>false</IsPackable>
+    <OutputPath>$(SolastaInstallDir)/Mods/SolastaUnfinishedBusiness/</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Xml.Linq" />
+    <Compile Include="../SolastaUnfinishedBusiness/Models/ModInstallTransaction.cs" Link="ModInstallTransaction.cs" />
+  </ItemGroup>
+
+</Project>

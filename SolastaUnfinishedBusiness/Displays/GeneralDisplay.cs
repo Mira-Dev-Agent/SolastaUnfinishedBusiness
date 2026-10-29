@@ -143,7 +143,7 @@ internal static class ToolsDisplay
 
         using (UI.HorizontalScope())
         {
-            // Update only when a newer version is out, Rollback only to a version an in-game update archived
+            // Update only when a newer version is out, Rollback only while the last update's backup is complete
             if (UpdateContext.InProgress)
             {
                 UI.ActionButton($"{UpdateContext.Progress}%", () => { }, width);
@@ -151,6 +151,12 @@ internal static class ToolsDisplay
             else if (UpdateContext.IsUpdateAvailable)
             {
                 UI.ActionButton(Gui.Localize("ModUi/&Update"), UpdateContext.UpdateMod, width);
+            }
+
+            if (UpdateContext.CanCheck)
+            {
+                UI.ActionButton(Gui.Localize("ModUi/&CheckForUpdates"), () => UpdateContext.CheckForUpdates(true),
+                    width);
             }
 
             if (UpdateContext.CanRollback)
@@ -166,6 +172,14 @@ internal static class ToolsDisplay
                 UI.ActionButton(Gui.Localize("ModUi/&UnityExplorer"), EnableUnityExplorerUi, UI.Width(145f));
             }
 #endif
+        }
+
+        // what the last check, download or install did
+        var updateStatus = UpdateContext.StatusText;
+
+        if (updateStatus.Length > 0)
+        {
+            UI.Label(updateStatus);
         }
 
         UI.Label();

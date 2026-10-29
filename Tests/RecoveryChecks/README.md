@@ -3,8 +3,10 @@
 Run with .NET 9:
 
 ```powershell
-dotnet run --project Tests/RecoveryChecks -- <absolute-project-local-fixture-directory>
+dotnet run --project Tests/RecoveryChecks -- <absolute-project-local-fixture-directory> [<path to FinishingBusinessInstaller.exe>]
 ```
+
+With the installer's path (Windows, built with the mod), the suite also runs the update helper on fixture folders: an install, a rollback, and an install that a locked file fails on every attempt (about 15 seconds of retries), checking the result file it writes and that the previous files stay in place.
 
 The checks exercise bounded early-report retention, duplicates, out-of-window ticks, integer overflow, file replacement, restoration, repeated recovery, existing-archive refusal, locked files and recovery after an interrupted replacement. Fixture data stays in the supplied directory for inspection. No game, sockets or discovery executable is started.
 

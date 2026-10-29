@@ -95,4 +95,51 @@ for (var delay = 0; delay < 50; delay++)
     }
     Check(hostBarrier.Released && clientBarrier.Released, "eventual release with finite delay");
 }
+var waiting = new CoordinatedTickBarrier("waiting", 5, new[] { 3, 1, 2 });
+Check(string.Join(",", waiting.Missing()) == "1,2,3", "everyone is missing before arriving");
+waiting.Arrive("waiting", 2, 5);
+Check(string.Join(",", waiting.Missing()) == "1,3", "an arrived player is no longer missing");
+
+// the update helper, when its path is given: install, roll back, and a locked file that fails every attempt
+if (args.Length > 1)
+{
+    var helper = Path.GetFullPath(args[1]);
+    var mod = Path.Combine(fixture, "helper-mod");
+    var staged = Path.Combine(fixture, "helper-staged");
+    var backups = Path.Combine(fixture, "helper-transaction");
+    var result = Path.Combine(fixture, "helper-result.txt");
+    var log = Path.Combine(fixture, "helper.log");
+    Directory.CreateDirectory(mod);
+    Directory.CreateDirectory(staged);
+    File.WriteAllText(Path.Combine(mod, "Info.json"), "1");
+    File.WriteAllText(Path.Combine(staged, "Info.json"), "2");
+    File.WriteAllText(Path.Combine(staged, "new.dll"), "new");
+    int Run(string mode, string folder)
+    {
+        var arguments = new[]
+        {
+            "--mode", mode, "--version", "2", "--target", mod, "--transaction", folder, "--source", staged,
+            "--result", result, "--log", log
+        };
+        using var process = System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(helper,
+            string.Join(" ", Array.ConvertAll(arguments, x => "\"" + x + "\""))) { UseShellExecute = false })!;
+        process.WaitForExit();
+        return process.ExitCode;
+    }
+    string Value(string key) => Array.Find(File.ReadAllLines(result), x => x.StartsWith(key + "="))![(key.Length + 1)..];
+    Check(Run("install", backups) == 0 && Value("status") == "installed", "helper installs");
+    Check(File.ReadAllText(Path.Combine(mod, "Info.json")) == "2" && File.Exists(Path.Combine(mod, "new.dll")),
+        "helper replaces and adds files");
+    Check(Run("rollback", backups) == 0 && Value("status") == "rolledback", "helper rolls back");
+    Check(File.ReadAllText(Path.Combine(mod, "Info.json")) == "1" && !File.Exists(Path.Combine(mod, "new.dll")),
+        "rollback restores the previous files");
+    using (new FileStream(Path.Combine(mod, "Info.json"), FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+    {
+        Check(Run("install", backups + "-locked") == 1 && Value("status") == "failed", "helper reports a failed install");
+    }
+    Check(Value("restored") == "yes", "a failed install says the previous files are in place");
+    Check(File.ReadAllText(Path.Combine(mod, "Info.json")) == "1" && !File.Exists(Path.Combine(mod, "new.dll")),
+        "a failed install leaves the previous files");
+}
+
 Console.WriteLine($"Passed {count} backend checks. Fixtures: {fixture}");

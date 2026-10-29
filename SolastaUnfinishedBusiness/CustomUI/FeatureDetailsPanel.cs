@@ -15,7 +15,7 @@ namespace SolastaUnfinishedBusiness.CustomUI;
 // release on to its parents, so the panel's sounds play as before.
 internal sealed class FeatureDetailsPanel : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler
 {
-    private FeatureDefinition _choice;
+    private BaseDefinition _choice;
     private FeatureDefinition _feature;
     private RulesetCharacter _character;
     private string _levelRequirement;
@@ -50,7 +50,7 @@ internal sealed class FeatureDetailsPanel : MonoBehaviour, IPointerDownHandler, 
     internal static void Bind(
         GameObject row,
         FeatureDefinition feature,
-        FeatureDefinition choice,
+        BaseDefinition choice,
         RulesetCharacter character,
         string levelRequirement)
     {
@@ -63,7 +63,7 @@ internal sealed class FeatureDetailsPanel : MonoBehaviour, IPointerDownHandler, 
     }
 
     private static void Show(
-        FeatureDefinition feature, FeatureDefinition choice, RulesetCharacter character, string levelRequirement)
+        FeatureDefinition feature, BaseDefinition choice, RulesetCharacter character, string levelRequirement)
     {
         var lines = new List<string>();
         var title = choice ? $"{choice.FormatTitle()} ({feature.FormatTitle()})" : feature.FormatTitle();
@@ -85,8 +85,11 @@ internal sealed class FeatureDetailsPanel : MonoBehaviour, IPointerDownHandler, 
 
         if (!choice && feature is FeatureDefinitionFeatureSet featureSet)
         {
+            // members presented with the set's own title and text (Chaos Channeling's powers) would only repeat it
             var members = featureSet.FeatureSet
                 .Where(x => x && !x.GuiPresentation.Hidden && x.GuiPresentation.Title != Gui.NoLocalization)
+                .Where(x => x.GuiPresentation.Title != feature.GuiPresentation.Title ||
+                            x.GuiPresentation.Description != feature.GuiPresentation.Description)
                 .ToList();
 
             if (members.Count > 0)
