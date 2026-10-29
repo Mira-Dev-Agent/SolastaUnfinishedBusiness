@@ -5,6 +5,7 @@
     <LangVersion>13</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="../../SolastaUnfinishedBusiness/Models/CoordinatedTickBarrier.cs" Link="CoordinatedTickBarrier.cs" />
     <Compile Include="../../SolastaUnfinishedBusiness/Models/BoundedTickReports.cs" Link="BoundedTickReports.cs" />
     <Compile Include="../../SolastaUnfinishedBusiness/Models/ModInstallTransaction.cs" Link="ModInstallTransaction.cs" />
   </ItemGroup>

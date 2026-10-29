@@ -63,4 +63,36 @@ Check(File.ReadAllText(Path.Combine(target, "existing")) == "old", "retry restor
 Check(File.ReadAllText(Path.Combine(target, "added")) == "previous-added", "retry preserves locked-file backup");
 try { ModInstallTransaction.Apply(source, source, Path.Combine(fixture, "overlap")); throw new Exception("overlap accepted"); }
 catch (IOException) { count++; }
-Console.WriteLine($"Passed {count} recovery backend checks. Fixtures: {fixture}");
+var barrier = new CoordinatedTickBarrier("attempt-a", 120, new[] { 1, 2, 3, 4, 5, 6 });
+Check(!barrier.Holds(119) && barrier.Holds(120), "hold at exact boundary");
+Check(!barrier.Arrive("old-attempt", 1, 120), "reject stale arrival");
+Check(!barrier.Arrive("attempt-a", 1, 119), "reject wrong arrival tick");
+Check(!barrier.Arrive("attempt-a", 7, 120), "reject outsider arrival");
+for (var actor = 1; actor <= 5; actor++) { barrier.Arrive("attempt-a", actor, 120); }
+Check(!barrier.AllArrived && barrier.Holds(120), "wait for sixth slow player");
+Check(!barrier.Arrive("attempt-a", 5, 120) && !barrier.AllArrived, "duplicate is not extra player");
+Check(barrier.Arrive("attempt-a", 6, 120) && barrier.AllArrived, "complete captured roster");
+Check(!barrier.Release("attempt-a", 121), "never apply late");
+Check(!barrier.Release("old-attempt", 120), "never release different attempt");
+Check(!barrier.RosterMatches(new[] { 1, 2, 3, 4, 5 }), "detect departed player");
+Check(!barrier.RosterMatches(new[] { 1, 2, 3, 4, 5, 6, 7 }), "detect joined player");
+Check(barrier.Release("attempt-a", 120) && !barrier.Holds(120), "release at agreed tick");
+for (var delay = 0; delay < 50; delay++)
+{
+    var hostBarrier = new CoordinatedTickBarrier("run", 20, new[] { 1, 2 });
+    var clientBarrier = new CoordinatedTickBarrier("run", 20, new[] { 1, 2 });
+    long hostTick = 0, clientTick = 0;
+    for (var frame = 0; frame < 200; frame++)
+    {
+        if (!hostBarrier.Holds(hostTick)) { hostTick++; }
+        if (frame >= delay && frame % 3 == 0 && !clientBarrier.Holds(clientTick)) { clientTick++; }
+        hostBarrier.Arrive("run", 1, hostTick);
+        hostBarrier.Arrive("run", 2, clientTick);
+        if (!hostBarrier.AllArrived) { continue; }
+        Check(hostTick == 20 && clientTick == 20, "slow peer reaches same boundary without fast peer crossing");
+        Check(hostBarrier.Release("run", hostTick) && clientBarrier.Release("run", clientTick), "shared release tick");
+        break;
+    }
+    Check(hostBarrier.Released && clientBarrier.Released, "eventual release with finite delay");
+}
+Console.WriteLine($"Passed {count} backend checks. Fixtures: {fixture}");
