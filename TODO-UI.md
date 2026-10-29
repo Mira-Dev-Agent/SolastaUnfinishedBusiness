@@ -1,6 +1,6 @@
 # Deferred UI work
 
-Recorded 2026-10-29. Implemented on `develop` for 1.10.0 the same day, at the user's explicit request ("Perform the TODOs in the TODO-UI"), together with the backends the items needed (recovery saves before corrections, correction IDs and verification, the install-after-exit helper). A ticked item is built and covered by compilation and, where noted, by `Tests/RecoveryChecks`; **none of it is tested in game or in a multiplayer session yet**. The acceptance checks below stay open until it is.
+Recorded 2026-10-29. Implemented on `develop` for 1.10.0 the same day, together with the backends the items needed (recovery saves before corrections, correction IDs and verification, the install-after-exit helper). A ticked item is built and covered by compilation and, where noted, by `Tests/RecoveryChecks`; **none of it is tested in game or in a multiplayer session yet**. The acceptance checks below stay open until it is.
 
 ## Multiplayer correction and recovery (`Models/MultiplayerDesyncContext.cs`)
 
@@ -27,12 +27,12 @@ Recorded 2026-10-29. Implemented on `develop` for 1.10.0 the same day, at the us
 - [x] Explain rollback/recovery failures and where the preserved backup/log can be found. Do not offer a rollback target unless its backup is usable.
 - [x] Keep launch and gameplay responsive; prompt at a suitable menu boundary, without silently restarting or interrupting active play. *Background thread; prompts wait for the main menu with no other message open. "Quit now" is the player's choice.*
 
-## Acceptance checks after authorization
+## Acceptance checks
 
-- [ ] Localize new text using the existing translation system and check long translations, readability and controller navigation. *Texts are in all 10 languages (machine translations, `scripts/add_recovery_update_terms.py`); not yet read in game.*
+- [ ] Localize new text using the existing translation system and check long translations, readability and controller navigation. *Texts are in all 10 languages (machine translations); not yet read in game.*
 - [ ] Test host and client views with multiple affected players, slow loading, delayed packets, disconnects, host changes, save refusal/failure, cancellation and installer rollback failure.
 - [ ] Verify alerts do not repeat every frame, steal focus unnecessarily, or announce success before backend completion.
 - [ ] Verify that cancelling/dismissing UI does not silently release a synchronization barrier or bypass save/integrity checks.
 - [x] Record which changes were actually tested in-game. Backend tests and successful compilation alone do not establish UI behavior. *Recorded in the 1.10.0 changelog entry: nothing of this is tested in game yet.*
 
-The installer is only exercised against test folders (`Tests/RecoveryChecks` with the helper's path); a real update needs a newer release than the installed one. This TODO is not evidence that these features are released. Hosting destination/upload approval is also separate from UI authorization.
+The installer is only exercised against test folders (`Tests/RecoveryChecks` with the helper's path); a real update needs a newer release than the installed one. This list is not evidence that these features are released.
