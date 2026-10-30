@@ -1,5 +1,5 @@
 ModUI/&EnableChanceToPerceiveCloseRange=<i>+ Würfelt auf Wahrnehmung, um nicht wahrgenommene Ziele innerhalb von 10 Feldern zu bemerken</i>
-ModUi/&SyncAiPerceptionChecks=<i>+ Bevor die KI handelt, wartet sie, bis diese Wahrnehmungswürfe mit allen Spielern geteilt sind (aus: sie würfelt sie wie bisher auf dem eigenen Rechner)</i>
+ModUi/&SyncAiPerceptionChecks=KI wartet vor ihrer Entscheidung auf gemeinsame Wahrnehmungswürfe <i><color=#F0DAA0>[mit der Regeloption, die auf Wahrnehmung für nicht wahrgenommene Ziele würfelt; aus: die KI würfelt sie wie bisher auf dem Rechner, auf dem sie läuft; nur Mehrspielerpartien]</color></i>
 ModUI/&EnableCriticalHitsMissesAt10=Ermöglichen
 ModUI/&EnableDamageOnFailedJumpCheck=Wendet 1W4 -Schäden bei fehlgeschlagenen Sprungprüfungen an
 ModUI/&ModVersionControl=-%ModName%-Mod-Versionseinstellungen-

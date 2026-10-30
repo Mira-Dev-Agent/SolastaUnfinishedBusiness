@@ -1507,15 +1507,6 @@ internal static class ToolsDisplay
                 Main.Settings.EnableChanceToPerceiveCloseRange = toggle;
             }
 
-            if (Main.Settings.EnableChanceToPerceiveCloseRange)
-            {
-                toggle = Main.Settings.SyncAiPerceptionChecks;
-                if (UI.Toggle(Gui.Localize("ModUi/&SyncAiPerceptionChecks"), ref toggle, UI.AutoWidth()))
-                {
-                    Main.Settings.SyncAiPerceptionChecks = toggle;
-                }
-            }
-
             if (Main.Settings.OfficialObscurementRulesTweakMonsters)
             {
                 UI.Label(Gui.Localize("ModUi/&OfficialObscurementRulesTweakMonstersHelp"));

@@ -1,5 +1,5 @@
 ModUI/&EnableChanceToPerceiveCloseRange=<i>+ 若目标在 10 格内且当前未被察觉，则进行一次感知检定</i>
-ModUi/&SyncAiPerceptionChecks=<i>+ AI 在决定行动前，会等待这些感知检定同步给所有玩家（关闭：像以前一样在其自身的电脑上检定）</i>
+ModUi/&SyncAiPerceptionChecks=AI 在决定行动前等待共享的感知检定 <i><color=#F0DAA0>[需开启对未察觉目标进行感知检定的规则选项；关闭：像以前一样在运行 AI 的电脑上检定；仅限多人游戏]</color></i>
 ModUI/&EnableCriticalHitsMissesAt10=当护甲等级与修正后的攻击检定结果的差值大于等于 10 时，启用致命命中与严重失手判定
 ModUI/&EnableDamageOnFailedJumpCheck=在跳跃检定失败时造成 1d4 点伤害
 ModUI/&ModVersionControl=- %ModName% 模组版本设置 -
