@@ -679,6 +679,52 @@ internal static class PerceptionContext
         }
     }
 
+    // TEMPORARY [PerceptionRule] diagnostic (issues #1 and #2, 2026-10-30): why the 10-cell roll was or wasn't
+    // reached between foes, and why the game's attack check rejected a target. Each sensor, target and reason is logged
+    // once per launch, at most RuleDiagnosticLimit lines. Remove once the question is answered.
+    private const int RuleDiagnosticLimit = 96;
+    private static readonly HashSet<(ulong, ulong, string)> RuleDiagnosticsSeen = [];
+
+    internal static bool TracesRule(GameLocationCharacter sensor, GameLocationCharacter target)
+    {
+        return Main.Settings.EnableChanceToPerceiveCloseRange && sensor != null && target != null &&
+               sensor.IsOppositeSide(target.Side) && RuleDiagnosticsSeen.Count < RuleDiagnosticLimit;
+    }
+
+    internal static void TraceRule(
+        GameLocationCharacter sensor, GameLocationCharacter target, string reason, string detail)
+    {
+        if (!TracesRule(sensor, target) || !RuleDiagnosticsSeen.Add((sensor.Guid, target.Guid, reason)))
+        {
+            return;
+        }
+
+        var conditions = string.Join(",",
+            sensor.RulesetActor?.AllConditions.Select(x => x.ConditionDefinition?.Name) ?? []);
+
+        Main.Info($"[PerceptionRule] {reason} sensor={sensor.Name}#{sensor.Guid}@{sensor.LocationPosition} " +
+                  $"target={target.Name}#{target.Guid}@{target.LocationPosition} {detail} sensorConditions=[{conditions}]");
+    }
+
+    // the game's attack check rejected the target (the mod's lighting rules and the 10-cell roll then never run)
+    internal static void TraceAttackRejected(BattleDefinitions.AttackEvaluationParams attackParams)
+    {
+        var attacker = attackParams.attacker;
+        var defender = attackParams.defender;
+
+        if (!TracesRule(attacker, defender))
+        {
+            return;
+        }
+
+        var failures = string.Join(",", attackParams.attackModifier?.FailureFlags ?? []);
+
+        TraceRule(attacker, defender, $"attack-rejected[{failures}]",
+            $"distance={int3.Distance(attacker.LocationPosition, defender.LocationPosition):0.0} " +
+            $"inPerceivedFoes={attacker.PerceivedFoes.Contains(defender)} " +
+            $"lineOfSight={attacker.LineOfSightRatio.ContainsKey(defender)}");
+    }
+
     internal static string[] RecentDiagnostics()
     {
         return Diagnostics.ToArray();

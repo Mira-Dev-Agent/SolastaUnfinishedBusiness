@@ -427,6 +427,8 @@ internal static class LightingAndObscurementContext
         if ((requireLineOfSight || !Main.Settings.UseOfficialLightingObscurementAndVisionRules)
             && !instance.IsCellPerceivedByCharacter(cellPosition, sensor))
         {
+            PerceptionContext.TraceRule(sensor, target, "no-line-of-sight", $"requireLineOfSight={requireLineOfSight}");
+
             return false;
         }
 
@@ -559,11 +561,30 @@ internal static class LightingAndObscurementContext
             if (Main.Settings.EnableChanceToPerceiveCloseRange && sensor != null && target != null)
             {
                 PerceptionContext.RecordVisible(sensor, target);
+
+                if (distance < 11)
+                {
+                    PerceptionContext.TraceRule(sensor, target, "seen",
+                        $"distance={distance:0.0} lighting={targetLightingState} sense={senseType}");
+                }
             }
 
             // Silhouette Step is the only one using additionalBlockedLightingState as it requires to block BRIGHT
             return additionalBlockedLightingState == LightingState.Darkness ||
                    targetLightingState != additionalBlockedLightingState;
+        }
+
+        if (PerceptionContext.TracesRule(sensor, target))
+        {
+            var reason = distance >= 11 ? "no-roll-too-far"
+                : targetIsInvisible ? "no-roll-invisible"
+                : sourceIsBlindFromDarkness ? "no-roll-blind-from-darkness"
+                : "roll-reached";
+
+            PerceptionContext.TraceRule(sensor, target, reason,
+                $"distance={distance:0.0} lighting={targetLightingState} " +
+                $"blindNotFromDarkness={sourceIsBlindNotFromDarkness} " +
+                $"senses=[{string.Join(",", sensorCharacter.SenseModes.Select(x => $"{x.SenseType}:{x.SenseRange}"))}]");
         }
 
         if (Main.Settings.EnableChanceToPerceiveCloseRange

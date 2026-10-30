@@ -564,6 +564,9 @@ public static class GameLocationBattleManagerPatcher
 
             if (!__result)
             {
+                // TEMPORARY diagnostic (issues #1 and #2): why a target was rejected before the 10-cell roll
+                PerceptionContext.TraceAttackRejected(attackParams);
+
                 return;
             }
 
