@@ -1,5 +1,5 @@
 ModUI/&EnableChanceToPerceiveCloseRange=<i>+ Lance un jet de Perception pour remarquer les cibles non perçues à 10 cases ou moins</i>
-ModUi/&SyncAiPerceptionChecks=L'IA attend des jets de Perception partagés avant de choisir son action <i><color=#F0DAA0>[avec l'option de Règles qui lance la Perception pour les cibles non perçues ; désactivé : l'IA les lance sur l'ordinateur qui l'exécute, comme avant ; parties multijoueur uniquement]</color></i>
+ModUi/&SyncAiPerceptionChecks=L'IA attend des jets de Perception partagés avant de choisir son action <i><color=#F0DAA0>[avec l'option de Règles qui lance la Perception pour les cibles non perçues ; désactivé : l'IA les lance sur l'ordinateur qui l'exécute, comme avant, et les désynchronisations sont très probables sauf si tous les joueurs ont la même option de graine aléatoire dans les paramètres de jeu (et restent possibles même alors) ; parties multijoueur uniquement]</color></i>
 ModUI/&EnableCriticalHitsMissesAt10=Activer les coups et les manques critiques lorsque la différence entre le résultat AC et le résultat du rouleau d'attaque modifié est de 10 ou plus
 ModUI/&EnableDamageOnFailedJumpCheck=Applique 1d4 dégâts sur les contrôles de saut défaillants
 ModUI/&ModVersionControl=-Paramètres de version du mod %ModName%-
