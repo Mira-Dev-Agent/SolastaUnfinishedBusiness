@@ -44,19 +44,52 @@ static class Program
         ordered.TryResolve(1, 2, 0, () => 1, out _);
         Check(ordered.Capture().SequenceEqual(snapshot), "canonical snapshot order");
 
-        // phases: outside combat carries into round 1; a previous fight's results don't; later rounds start fresh
+        // phases: outside combat carries into round 1 (as round 1); an earlier fight's results don't; later rounds fresh
         var phases = new PerceptionLedger();
         phases.TryResolve(10, 11, 0, () => 1, out _);   // rolled outside combat
         phases.TryResolve(12, 13, 3, () => 1, out _);   // left over from an earlier fight's round 3
-        phases.KeepOnlyOutOfCombat();                   // round 1 starts
+        phases.CarryIntoRound1();                       // round 1 starts
         Check(phases.TryGet(10, 11, out _) && !phases.TryGet(12, 13, out _) && phases.Count == 1,
             "round 1 keeps only out-of-combat checks");
+        Check(phases.Capture().Last() == 1, "carried checks become round 1 checks");
         phases.TryResolve(10, 11, 1, () => throw new Exception("rerolled in round 1"), out _);
-        phases.TryResolve(14, 15, 1, () => 1, out _);   // rolled in round 1
+        phases.CarryIntoRound1();                       // another fight's round 1 (this one ended in round 1)
+        Check(phases.Count == 0, "a later fight never inherits carried checks");
+        phases.TryResolve(14, 15, 1, () => 1, out _);
         phases.Clear();                                 // round 2 starts
         Check(phases.Count == 0, "round 2 starts fresh");
         phases.TryResolve(10, 11, 2, () => 3, out var fresh);
         Check(fresh == 3, "a new round rolls once again");
+
+        // validate before change
+        Check(PerceptionLedger.Parse(snapshot, Valid) != null, "parse a valid snapshot");
+        Check(PerceptionLedger.Parse(new long[] { 2, 1, 2, 99, 0 }, Valid) == null, "parse rejects without change");
+
+        // request bookkeeping: generations, stale commands, the round 1 exception, cooldowns, bounds
+        Check(PerceptionRequests.Applies(4, 2, 4, 2), "same generation applies");
+        Check(!PerceptionRequests.Applies(3, 2, 4, 3), "older generation in combat is stale");
+        Check(PerceptionRequests.Applies(3, 0, 4, 1), "outside-combat request applies in the next round 1");
+        Check(!PerceptionRequests.Applies(3, 0, 4, 2), "but not in round 2");
+        Check(!PerceptionRequests.Applies(2, 0, 4, 1), "nor two generations later");
+        Check(!PerceptionRequests.Applies(5, 1, 4, 1), "a future generation never applies");
+        var requests = new PerceptionRequests();
+        Check(requests.TryMarkPending((1, 2), 7, 0f) && requests.IsPending((1, 2)), "mark pending");
+        Check(!requests.TryMarkPending((1, 2), 7, 0f), "no duplicate request");
+        requests.Complete((1, 2), 6, true, 0.5f);
+        Check(requests.IsPending((1, 2)), "a stale command can't clear a newer request");
+        requests.Complete((1, 2), 7, false, 1f);
+        Check(!requests.IsPending((1, 2)), "its own command clears it");
+        Check(!requests.TryMarkPending((1, 2), 7, 2f), "unresolved pair cools down");
+        Check(requests.TryMarkPending((1, 2), 7, 3.1f), "and can be requested again after the cooldown");
+        requests.Complete((1, 2), 7, true, 3.2f);
+        Check(requests.TryMarkPending((1, 2), 8, 3.3f), "a resolved pair has no cooldown");
+        requests.Prune(3.3f + PerceptionRequests.MaxPendingSeconds + 0.1f);
+        Check(!requests.IsPending((1, 2)), "a marker whose command never came expires");
+        var bounded = new PerceptionRequests();
+        for (ulong i = 1; i <= PerceptionRequests.MaxPending + 10; i++) bounded.TryMarkPending((i, i + 1), 0, 0f);
+        Check(bounded.PendingCount == PerceptionRequests.MaxPending, "pending markers are bounded");
+        bounded.Clear();
+        Check(bounded.PendingCount == 0 && bounded.TryMarkPending((1, 2), 0, 0f), "clear forgets everything");
 
         // re-entrancy and failures
         var loaded = new PerceptionLedger();

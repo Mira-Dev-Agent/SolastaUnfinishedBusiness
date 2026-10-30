@@ -14,27 +14,29 @@ namespace SolastaUnfinishedBusiness.Models;
 
 // The 10-cell perception roll (EnableChanceToPerceiveCloseRange) in multiplayer: every computer must roll the same
 // checks in the same order. A check is rolled only at a synchronized point: an action step, or a perception command sent
-// through the class level command (same queue and tick as actions). Previews, the UI and AI planning only read results;
-// a missing one is requested and reads as not perceived until the command arrives. Single player rolls as before.
+// through the class level command. In multiplayer both run only in fixed steps (NetworkingDefinitions.CanUpdate is
+// Time.inFixedTimeStep; NetworkingManager.FixedUpdate runs the delayed commands), so they interleave the same way on
+// every computer. Previews, the UI and AI planning only read results; a missing one is requested and reads as not
+// perceived until its command runs. Single player rolls as before.
 internal static class PerceptionContext
 {
     private const string CommandMarker = "FBPerception:";
     private const int PairsPerCommand = 64;
     private const int DiagnosticLimit = 128;
-    private const int AiMaxRetries = 2;
-    private const float AiMaxWaitSeconds = 5f;
-    private const float RetryCooldownSeconds = 2f;
+    private const int AiMaxDecisions = 3;
+    private const float AiMaxWaitSeconds = 8f;
+    private const float AiBatchSeconds = 0.1f;
+    private const float PruneSeconds = 1f;
+
+    // the cursor's hover runs with this deterministic lock (CursorManager.ProcessPointerPosition)
+    private const DeterministicRandom.DeterministicLockFlag CursorLock = (DeterministicRandom.DeterministicLockFlag)1;
 
     private static readonly PerceptionLedger Ledger = new();
+    private static readonly PerceptionRequests Requests = new();
 
     // host only, AI sync off: the AI's local planning rolls, never read by real actions
     private static readonly Dictionary<(ulong, ulong), RollOutcome> LegacyAiCache = [];
 
-    // local bookkeeping, never part of the shared state
-    private static readonly HashSet<(ulong, ulong)> Pending = [];
-    // when a command last handled a pair that stayed unresolved (not eligible at that moment): not requested again
-    // for a moment, so a hypothetical position in a preview can't send a request every frame
-    private static readonly Dictionary<(ulong, ulong), float> RecentlyAttemptedPairs = [];
     private static readonly List<(ulong, ulong)> PlayerQueue = [];
     private static readonly List<(ulong, ulong)> AiQueue = [];
     private static readonly Queue<string> Diagnostics = new();
@@ -47,18 +49,22 @@ internal static class PerceptionContext
     private static int _emitted;
     private static int _syncDepth;
     private static string _syncContext;
-    private static int _aiDepth;
-    private static HashSet<(ulong, ulong)> _aiDependencies;
+    private static AiScope _ai;
+    private static float _aiQueuedAt;
+    private static float _nextPrune;
     private static int _hoverPendingFrame = -1;
+
+    // changes only at synchronized points (a load, a location change, a round start), so it is equal on every computer
+    private static int _generation;
 
     // set while the AI wrapper asks the brain for another decision, so that call isn't wrapped twice
     internal static bool CreatingAiRerun { get; private set; }
 
-    // goes up whenever a check is requested, resolved or dropped
-    internal static int Revision { get; private set; }
-
-    // UI: true while the hover evaluated this frame (or the last) touched a check that is still pending
+    // UI: true while the cursor's hover this frame (or the last) touched a check that is still pending
     internal static bool HoverPending => _hoverPendingFrame >= Time.frameCount - 1;
+
+    // nothing requested and nothing waiting: a desync correction can be captured or applied safely
+    internal static bool IsIdle => Requests.PendingCount == 0 && PlayerQueue.Count == 0 && AiQueue.Count == 0;
 
     private static int CurrentPhase =>
         ServiceRepository.GetService<IGameLocationBattleService>()?.Battle?.CurrentRound ?? 0;
@@ -82,13 +88,15 @@ internal static class PerceptionContext
 
     internal static bool IsPending(GameLocationCharacter sensor, GameLocationCharacter target)
     {
-        return sensor != null && target != null && Pending.Contains((sensor.Guid, target.Guid));
+        return sensor != null && target != null && Requests.IsPending((sensor.Guid, target.Guid));
     }
 
-    // ordinary senses saw the target: kept as a success, as before (only at synchronized points in multiplayer)
+    // ordinary senses saw the target: kept as a success, as before (in multiplayer only at synchronized points, and never
+    // from AI planning, which runs on the host alone)
     internal static void RecordVisible(GameLocationCharacter sensor, GameLocationCharacter target)
     {
-        if (sensor == null || target == null || (Global.IsMultiplayer && _syncDepth == 0))
+        if (sensor == null || target == null ||
+            (Global.IsMultiplayer && (_ai != null || _syncDepth == 0)))
         {
             return;
         }
@@ -107,9 +115,7 @@ internal static class PerceptionContext
             return (RollOutcome)cached;
         }
 
-        var multiplayer = Global.IsMultiplayer;
-
-        if (!multiplayer)
+        if (!Global.IsMultiplayer)
         {
             return Ledger.TryResolve(key.Item1, key.Item2, CurrentPhase,
                 () => Roll(sensor, target, dc, advantage, "single player", false), out var local)
@@ -118,9 +124,9 @@ internal static class PerceptionContext
         }
 
         // AI planning runs on the host alone, so it never rolls a shared check, even nested in an action step
-        if (_aiDepth > 0)
+        if (_ai != null)
         {
-            if (!Main.Settings.SyncAiPerceptionChecks)
+            if (!_ai.Synchronized)
             {
                 if (!LegacyAiCache.TryGetValue(key, out var legacy))
                 {
@@ -131,10 +137,9 @@ internal static class PerceptionContext
                 return legacy;
             }
 
-            if (!RecentlyAttempted(key))
+            if (Requests.IsPending(key) || Request(key, false))
             {
-                _aiDependencies?.Add(key);
-                Request(key, false);
+                _ai.Dependencies.Add(key);
             }
 
             return RollOutcome.Failure;
@@ -148,19 +153,13 @@ internal static class PerceptionContext
                 : RollOutcome.Failure;
         }
 
-        if (!RecentlyAttempted(key))
+        // previews and the UI: request it; only the cursor's own hover shows the pending note
+        if ((Requests.IsPending(key) || Request(key, true)) && DeterministicRandom.lockFlags.Contains(CursorLock))
         {
             _hoverPendingFrame = Time.frameCount;
-            Request(key, true);
         }
 
         return RollOutcome.Failure;
-    }
-
-    private static bool RecentlyAttempted((ulong, ulong) key)
-    {
-        return RecentlyAttemptedPairs.TryGetValue(key, out var time) &&
-               Time.realtimeSinceStartup - time < RetryCooldownSeconds;
     }
 
     #endregion
@@ -232,27 +231,56 @@ internal static class PerceptionContext
 
     #region Requests and the perception command
 
-    private static void Request((ulong, ulong) key, bool player)
+    // true if the pair was queued now (not already waiting, not handled moments ago without a result)
+    private static bool Request((ulong, ulong) key, bool player)
     {
-        if (Pending.Add(key))
+        if (!Requests.TryMarkPending(key, _generation, Time.realtimeSinceStartup))
         {
-            (player ? PlayerQueue : AiQueue).Add(key);
-            Revision++;
+            // a player now needs a check the AI queued: it goes out with the player's requests
+            if (player && AiQueue.Remove(key))
+            {
+                PlayerQueue.Add(key);
+            }
 
-            return;
+            return false;
         }
 
-        // a player now needs a check the AI queued: it goes out with the player's requests
-        if (player && AiQueue.Remove(key))
+        if (player)
         {
             PlayerQueue.Add(key);
         }
+        else
+        {
+            if (AiQueue.Count == 0)
+            {
+                _aiQueuedAt = Time.realtimeSinceStartup;
+            }
+
+            AiQueue.Add(key);
+        }
+
+        return true;
     }
 
-    // every frame: player requests go out at once
-    internal static void FlushPlayerRequests()
+    // every frame: player requests go out at once; the AI's go out in windows of about 100 ms (and when a decision ends)
+    internal static void FlushRequests()
     {
+        var now = Time.realtimeSinceStartup;
+
         Send(PlayerQueue, "player");
+
+        if (AiQueue.Count > 0 && now - _aiQueuedAt >= AiBatchSeconds)
+        {
+            Send(AiQueue, "ai");
+        }
+
+        if (now < _nextPrune)
+        {
+            return;
+        }
+
+        _nextPrune = now + PruneSeconds;
+        Requests.Prune(now);
     }
 
     private static void Send(List<(ulong, ulong)> queue, string origin)
@@ -265,9 +293,8 @@ internal static class PerceptionContext
         if (ServiceRepository.GetService<INetworkingService>() is not NetworkingManager { view: not null } networking)
         {
             // no network to send through: forget the requests rather than wait for an answer that cannot come
-            queue.ForEach(x => Pending.Remove(x));
+            queue.ForEach(x => Requests.Complete(x, _generation, false, Time.realtimeSinceStartup));
             queue.Clear();
-            Revision++;
 
             return;
         }
@@ -279,8 +306,8 @@ internal static class PerceptionContext
             var pairs = string.Join(";", queue.Skip(i).Take(PairsPerCommand).Select(x => $"{x.Item1}-{x.Item2}"));
 
             networking.view.RPC(nameof(NetworkingManager.AssignClassLevelRPC), RpcTarget.AllViaServer,
-                networking.CommandTick, 0L, $"{CommandMarker}{phase}:{pairs}", false);
-            Trace($"request origin={origin} phase={phase} pairs={pairs}");
+                networking.CommandTick, 0L, $"{CommandMarker}{_generation}:{phase}:{pairs}", false);
+            Trace($"request origin={origin} generation={_generation} phase={phase} pairs={pairs}");
         }
 
         PhotonNetwork.SendAllOutgoingCommands();
@@ -307,27 +334,28 @@ internal static class PerceptionContext
         yield break;
     }
 
-    // runs on every computer at the same tick: same state in, same rolls out
+    // runs on every computer in the same fixed step: same state in, same rolls out
     private static void ExecuteCommand(string payload)
     {
-        var separator = payload.IndexOf(':');
+        var parts = payload.Split([':'], 3);
 
-        if (separator < 0 || !int.TryParse(payload.Substring(0, separator), NumberStyles.Integer,
-                CultureInfo.InvariantCulture, out var phase))
+        if (parts.Length != 3 ||
+            !int.TryParse(parts[0], NumberStyles.Integer, CultureInfo.InvariantCulture, out var generation) ||
+            !int.TryParse(parts[1], NumberStyles.Integer, CultureInfo.InvariantCulture, out var phase))
         {
             Trace($"dropped malformed command {payload}");
 
             return;
         }
 
-        var current = CurrentPhase;
-        // a request from outside combat still applies in round 1 (its results carry into the fight)
-        var applies = phase == current || (phase == 0 && current == 1);
+        var currentPhase = CurrentPhase;
+        var applies = PerceptionRequests.Applies(generation, phase, _generation, currentPhase);
         var entities = ServiceRepository.GetService<IRulesetEntityService>();
+        var now = Time.realtimeSinceStartup;
 
         using (new SyncScope("perception command"))
         {
-            foreach (var pair in payload.Substring(separator + 1).Split(';'))
+            foreach (var pair in parts[2].Split(';'))
             {
                 var dash = pair.IndexOf('-');
 
@@ -340,26 +368,22 @@ internal static class PerceptionContext
                     continue;
                 }
 
-                var key = (sensorGuid, targetGuid);
-
                 if (applies && !Ledger.TryGet(sensorGuid, targetGuid, out _) &&
                     Find(entities, sensorGuid) is { } sensor && Find(entities, targetGuid) is { } target)
                 {
-                    // rolls the check if the pair is still eligible here and now, exactly like an action would
+                    // rolls the check if the pair is still eligible in this step, exactly like an action would
                     sensor.CanPerceiveTarget(target);
                 }
 
-                if (!Ledger.TryGet(sensorGuid, targetGuid, out _))
-                {
-                    RecentlyAttemptedPairs[key] = Time.realtimeSinceStartup;
-                }
-
-                Pending.Remove(key);
+                // only clears the marker this command was sent for; a newer request for the pair keeps waiting. A pair
+                // tried here without a result (not eligible in this step) isn't requested again for a moment.
+                Requests.Complete((sensorGuid, targetGuid), generation,
+                    !applies || Ledger.TryGet(sensorGuid, targetGuid, out _), now);
             }
         }
 
-        Revision++;
-        Trace($"command phase={phase} current={current} applied={applies} pairs={payload.Substring(separator + 1)}");
+        Trace($"command generation={generation}/{_generation} phase={phase}/{currentPhase} applied={applies} " +
+              $"pairs={parts[2]}");
     }
 
     private static GameLocationCharacter Find(IRulesetEntityService entities, ulong guid)
@@ -373,7 +397,10 @@ internal static class PerceptionContext
 
     #region AI planning
 
-    // host, multiplayer, AI sync on: decide; if the decision needed missing checks, request them, wait, decide again
+    // host, multiplayer, AI sync on: decide; if the decision needed missing checks, send them, wait until every one has
+    // its command, and decide again with the results. The mode is fixed for the whole decision, so changing the setting
+    // mid-way can't strand anything; pending AI requests are always sent. Bounded so a lost command can't stall the AI:
+    // after about 8 s or three decisions it keeps the last one, logging the checks it still lacked.
     internal static IEnumerator WrapAiDecision(IEnumerator first, Func<IEnumerator> decideAgain)
     {
         if (first == null)
@@ -381,39 +408,40 @@ internal static class PerceptionContext
             yield break;
         }
 
+        var synchronized = Global.IsMultiplayer && Main.Settings.SyncAiPerceptionChecks;
+        var deadline = Time.realtimeSinceStartup + AiMaxWaitSeconds;
         var inner = first;
-        var dependencies = new HashSet<(ulong, ulong)>();
 
-        for (var attempt = 0;; attempt++)
+        for (var decision = 1;; decision++)
         {
-            dependencies.Clear();
+            var scope = new AiScope(synchronized);
 
-            yield return new ScopedEnumerator(inner,
-                () => new AiScope(dependencies),
-                child => child is not CustomYieldInstruction);
+            yield return new ScopedEnumerator(inner, () => scope.Enter(), child => child is not CustomYieldInstruction);
 
-            if (!Global.IsMultiplayer || !Main.Settings.SyncAiPerceptionChecks || dependencies.Count == 0)
+            if (scope.Dependencies.Count == 0)
             {
-                yield break;
-            }
-
-            if (attempt >= AiMaxRetries)
-            {
-                Trace($"ai decision kept after {attempt} retries with {dependencies.Count} checks unresolved");
-
                 yield break;
             }
 
             Send(AiQueue, "ai");
 
-            var deadline = Time.realtimeSinceStartup + AiMaxWaitSeconds;
-
-            while (dependencies.Any(Pending.Contains) && Time.realtimeSinceStartup < deadline)
+            while (scope.Dependencies.Any(Requests.IsPending) && Time.realtimeSinceStartup < deadline)
             {
                 yield return null;
             }
 
-            Trace($"ai decision waited for {dependencies.Count} checks, deciding again (attempt {attempt + 1})");
+            var unresolved = scope.Dependencies.Count(x => !Ledger.TryGet(x.Item1, x.Item2, out _));
+
+            if (decision >= AiMaxDecisions || Time.realtimeSinceStartup >= deadline)
+            {
+                Trace($"ai decision kept after {decision} decisions; {unresolved} of " +
+                      $"{scope.Dependencies.Count} checks still without a result");
+
+                yield break;
+            }
+
+            Trace($"ai decision waited for {scope.Dependencies.Count} checks ({unresolved} without a result), " +
+                  $"deciding again ({decision + 1})");
 
             CreatingAiRerun = true;
 
@@ -433,21 +461,31 @@ internal static class PerceptionContext
         }
     }
 
-    private sealed class AiScope : IDisposable
+    // marks AI planning for the duration of each step of one decision
+    private sealed class AiScope(bool synchronized)
     {
-        private readonly HashSet<(ulong, ulong)> _previous;
+        internal bool Synchronized { get; } = synchronized;
+        internal HashSet<(ulong, ulong)> Dependencies { get; } = [];
 
-        internal AiScope(HashSet<(ulong, ulong)> dependencies)
+        internal IDisposable Enter()
         {
-            _previous = _aiDependencies;
-            _aiDependencies = dependencies;
-            _aiDepth++;
+            return new Entered(this);
         }
 
-        public void Dispose()
+        private sealed class Entered : IDisposable
         {
-            _aiDepth--;
-            _aiDependencies = _previous;
+            private readonly AiScope _previous;
+
+            internal Entered(AiScope scope)
+            {
+                _previous = _ai;
+                _ai = scope;
+            }
+
+            public void Dispose()
+            {
+                _ai = _previous;
+            }
         }
     }
 
@@ -455,22 +493,22 @@ internal static class PerceptionContext
 
     #region Phases, resets and recovery
 
-    // round 1 keeps the checks rolled outside combat; later rounds start fresh
+    // round 1 keeps the checks rolled outside combat (as round 1 checks); later rounds start fresh
     internal static void OnRoundStart(int round)
     {
         if (round <= 1)
         {
-            Ledger.KeepOnlyOutOfCombat();
+            Ledger.CarryIntoRound1();
         }
         else
         {
             Ledger.Clear();
         }
 
+        _generation++;
         LegacyAiCache.Clear();
-        RecentlyAttemptedPairs.Clear();
-        Revision++;
-        Trace($"round start round={round} kept={Ledger.Count}");
+        Requests.ClearCooldowns();
+        Trace($"round start round={round} generation={_generation} kept={Ledger.Count}");
     }
 
     // a load or a location change: every computer starts empty together
@@ -478,11 +516,10 @@ internal static class PerceptionContext
     {
         Ledger.Clear();
         LegacyAiCache.Clear();
-        Pending.Clear();
-        RecentlyAttemptedPairs.Clear();
+        Requests.Clear();
         PlayerQueue.Clear();
         AiQueue.Clear();
-        Revision++;
+        _generation = 0;
         Trace($"reset reason={reason}");
     }
 
@@ -491,17 +528,29 @@ internal static class PerceptionContext
         return Ledger.Capture();
     }
 
-    internal static bool Restore(long[] snapshot)
+    // a correction validates everything before changing anything: this only checks the snapshot
+    internal static bool CanRestore(long[] snapshot)
     {
-        var restored = Ledger.Restore(snapshot, value => Enum.IsDefined(typeof(RollOutcome), value));
+        return Ledger.CanReplace &&
+               PerceptionLedger.Parse(snapshot, value => Enum.IsDefined(typeof(RollOutcome), value)) != null;
+    }
 
-        if (restored)
+    // then replaces the results and forgets local work tied to the old ones
+    internal static void Restore(long[] snapshot)
+    {
+        var replacement = PerceptionLedger.Parse(snapshot, value => Enum.IsDefined(typeof(RollOutcome), value));
+
+        if (replacement == null || !Ledger.CanReplace)
         {
-            LegacyAiCache.Clear();
-            Revision++;
+            return;
         }
 
-        return restored;
+        Ledger.Replace(replacement);
+        LegacyAiCache.Clear();
+        Requests.Clear();
+        PlayerQueue.Clear();
+        AiQueue.Clear();
+        Trace($"restored by a desync correction entries={Ledger.Count}");
     }
 
     internal static long Digest()

@@ -53,12 +53,20 @@ internal sealed class PerceptionLedger
         _entries.Clear();
     }
 
-    // keeps only the checks rolled outside combat (carried into round 1 of a fight)
-    internal void KeepOnlyOutOfCombat()
+    // round 1 of a fight: keeps the checks rolled outside combat, now as round 1 checks, so a later fight (even one
+    // that ends in round 1) can't inherit them; drops everything left over from an earlier fight
+    internal void CarryIntoRound1()
     {
-        foreach (var key in _entries.Where(x => x.Value.phase != 0).Select(x => x.Key).ToList())
+        foreach (var entry in _entries.ToList())
         {
-            _entries.Remove(key);
+            if (entry.Value.phase == 0)
+            {
+                _entries[entry.Key] = (entry.Value.outcome, 1);
+            }
+            else
+            {
+                _entries.Remove(entry.Key);
+            }
         }
     }
 
@@ -77,13 +85,14 @@ internal sealed class PerceptionLedger
         return values.ToArray();
     }
 
-    // validates the whole snapshot before replacing anything
-    internal bool Restore(long[] values, Func<int, bool> validOutcome)
+    // validates a whole snapshot without changing anything; null if it is invalid
+    internal static Dictionary<(ulong sensor, ulong target), (int outcome, int phase)> Parse(
+        long[] values, Func<int, bool> validOutcome)
     {
         if (values == null || values.Length < 1 || values[0] != SnapshotVersion || (values.Length - 1) % 4 != 0 ||
-            values.Length > 1 + (4 * 65536) || _resolving.Count != 0)
+            values.Length > 1 + (4 * 65536))
         {
-            return false;
+            return null;
         }
 
         var replacement = new Dictionary<(ulong sensor, ulong target), (int outcome, int phase)>();
@@ -96,18 +105,38 @@ internal sealed class PerceptionLedger
                 values[i + 2] is < int.MinValue or > int.MaxValue || !validOutcome((int)values[i + 2]) ||
                 values[i + 3] is < 0 or > int.MaxValue || replacement.ContainsKey(key))
             {
-                return false;
+                return null;
             }
 
             replacement.Add(key, ((int)values[i + 2], (int)values[i + 3]));
         }
 
+        return replacement;
+    }
+
+    internal bool CanReplace => _resolving.Count == 0;
+
+    internal void Replace(Dictionary<(ulong sensor, ulong target), (int outcome, int phase)> replacement)
+    {
         _entries.Clear();
 
         foreach (var entry in replacement)
         {
             _entries.Add(entry.Key, entry.Value);
         }
+    }
+
+    // validates the whole snapshot before replacing anything
+    internal bool Restore(long[] values, Func<int, bool> validOutcome)
+    {
+        var replacement = CanReplace ? Parse(values, validOutcome) : null;
+
+        if (replacement == null)
+        {
+            return false;
+        }
+
+        Replace(replacement);
 
         return true;
     }

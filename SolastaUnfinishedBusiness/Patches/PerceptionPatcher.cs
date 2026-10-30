@@ -89,7 +89,7 @@ public static class PerceptionPatcher
         }
     }
 
-    //PATCH: player requests go out the frame they are made (after this frame's hover)
+    //PATCH: player requests go out the frame they are made (after this frame's hover); the AI's in short windows
     [HarmonyPatch(typeof(ViewManager), nameof(ViewManager.Update))]
     [SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Patch")]
     [UsedImplicitly]
@@ -98,7 +98,7 @@ public static class PerceptionPatcher
         [UsedImplicitly]
         public static void Postfix()
         {
-            PerceptionContext.FlushPlayerRequests();
+            PerceptionContext.FlushRequests();
 
             // the cursor note for a pending check is created the first time one is needed
             if (PerceptionContext.HoverPending)

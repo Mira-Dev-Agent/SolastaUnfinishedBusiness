@@ -506,10 +506,18 @@ internal static class MultiplayerDesyncContext
 
     private static IEnumerator ApplyCorrection(object[] data)
     {
-        // Cache and dice must describe the same completed checks. Reject incomplete snapshots before mutation.
-        if (data.Length < 10 || data[9] is not long[] perception || !PerceptionContext.Restore(perception))
+        // the perception results and the dice describe the same completed checks: the whole correction is validated
+        // before anything changes, and a rejection is reported to the host like any other incomplete correction
+        if (data.Length < 10 || data[9] is not long[] perception || !PerceptionContext.CanRestore(perception))
         {
-            Main.Error("Multiplayer correction rejected: missing or invalid perception ledger");
+            Main.Error("Multiplayer correction rejected: missing or invalid perception results");
+
+            if (IsForThisComputer(data, out var rejectedId))
+            {
+                PhotonNetwork.RaiseEvent(EventCode, new object[] { AppliedKind, rejectedId, false },
+                    new RaiseEventOptions { Receivers = ReceiverGroup.MasterClient }, SendOptions.SendReliable);
+            }
+
             yield break;
         }
 
@@ -562,6 +570,7 @@ internal static class MultiplayerDesyncContext
         }
 
         RestoreRandomState(randomState);
+        PerceptionContext.Restore(perception);
         Main.Info($"Multiplayer quick correct applied for {guids.Length} character(s), complete: {applied}");
 
         // the corrected player tells the host whether every value found its character; applied isn't verified yet
@@ -937,7 +946,9 @@ internal static class MultiplayerDesyncContext
                 Dice = Hash(CaptureRandomState()),
                 Perception = PerceptionContext.Digest(),
                 InBattle = ServiceRepository.GetService<IGameLocationBattleService>() is { IsBattleInProgress: true },
-                Quiet = characters.All(x => !x.MoveInProgress && actions?.IsCharacterActing(x) != true)
+                // nothing moving or acting, and no perception check requested or waiting for its command
+                Quiet = characters.All(x => !x.MoveInProgress && actions?.IsCharacterActing(x) != true) &&
+                        PerceptionContext.IsIdle
             };
 
             foreach (var character in characters.Where(x => x.RulesetCharacter != null).OrderBy(x => x.Guid))
