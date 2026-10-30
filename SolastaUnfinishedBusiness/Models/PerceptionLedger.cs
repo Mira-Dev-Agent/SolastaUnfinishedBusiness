@@ -14,6 +14,9 @@ internal sealed class PerceptionLedger
 
     internal int Count => _entries.Count;
 
+    // changes with every change to the results (equal on every computer: changes happen only at synchronized points)
+    internal long Revision { get; private set; }
+
     internal bool TryGet(ulong sensor, ulong target, out int outcome)
     {
         var found = _entries.TryGetValue((sensor, target), out var entry);
@@ -40,6 +43,7 @@ internal sealed class PerceptionLedger
         {
             outcome = roll();
             _entries[key] = (outcome, phase);
+            Revision++;
             return true;
         }
         finally
@@ -51,12 +55,15 @@ internal sealed class PerceptionLedger
     internal void Clear()
     {
         _entries.Clear();
+        Revision++;
     }
 
     // round 1 of a fight: keeps the checks rolled outside combat, now as round 1 checks, so a later fight (even one
     // that ends in round 1) can't inherit them; drops everything left over from an earlier fight
     internal void CarryIntoRound1()
     {
+        Revision++;
+
         foreach (var entry in _entries.ToList())
         {
             if (entry.Value.phase == 0)
@@ -124,6 +131,8 @@ internal sealed class PerceptionLedger
         {
             _entries.Add(entry.Key, entry.Value);
         }
+
+        Revision++;
     }
 
     // validates the whole snapshot before replacing anything

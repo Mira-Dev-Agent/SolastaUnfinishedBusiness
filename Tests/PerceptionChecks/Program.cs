@@ -73,23 +73,47 @@ static class Program
         Check(!PerceptionRequests.Applies(2, 0, 4, 1), "nor two generations later");
         Check(!PerceptionRequests.Applies(5, 1, 4, 1), "a future generation never applies");
         var requests = new PerceptionRequests();
-        Check(requests.TryMarkPending((1, 2), 7, 0f) && requests.IsPending((1, 2)), "mark pending");
-        Check(!requests.TryMarkPending((1, 2), 7, 0f), "no duplicate request");
-        requests.Complete((1, 2), 6, true, 0.5f);
-        Check(requests.IsPending((1, 2)), "a stale command can't clear a newer request");
-        requests.Complete((1, 2), 7, false, 1f);
-        Check(!requests.IsPending((1, 2)), "its own command clears it");
-        Check(!requests.TryMarkPending((1, 2), 7, 2f), "unresolved pair cools down");
-        Check(requests.TryMarkPending((1, 2), 7, 3.1f), "and can be requested again after the cooldown");
-        requests.Complete((1, 2), 7, true, 3.2f);
-        Check(requests.TryMarkPending((1, 2), 8, 3.3f), "a resolved pair has no cooldown");
-        requests.Prune(3.3f + PerceptionRequests.MaxPendingSeconds + 0.1f);
-        Check(!requests.IsPending((1, 2)), "a marker whose command never came expires");
+        Check(requests.TryMarkPending((1, 2), 7, 0, 0f, out var first) && requests.IsPending((1, 2)), "mark pending");
+        Check(first.Generation == 7 && first.Phase == 0, "a request remembers its own generation and phase");
+        Check(!requests.TryMarkPending((1, 2), 8, 1, 0f, out _), "no duplicate request");
+        // Codex re-review repro 2: queued in generation 7, a round starts, its command runs later: it still clears it,
+        // because completion matches the request id, not the current generation
+        requests.CompleteOwn((1, 2), first.Id + 99, true, 0.5f);
+        Check(requests.IsPending((1, 2)), "another request's command can't clear it");
+        requests.CompleteOwn((1, 2), first.Id, false, 1f);
+        Check(!requests.IsPending((1, 2)), "its own command clears it across a round start");
+        Check(!requests.TryMarkPending((1, 2), 8, 1, 2f, out _), "unresolved pair cools down");
+        Check(requests.TryMarkPending((1, 2), 8, 1, 3.1f, out var retry), "and can be requested again after the cooldown");
+        Check(retry.Id > first.Id, "request ids only increase");
+        // Codex re-review repro 5b: a retry in the same generation is not cleared by the earlier request's late command
+        requests.Prune(3.1f + PerceptionRequests.MaxPendingSeconds + 0.1f);
+        Check(!requests.IsPending((1, 2)), "a request whose command never came expires");
+        Check(requests.TryMarkPending((1, 2), 8, 1, 20f, out var again), "and the pair can be requested again");
+        requests.CompleteOwn((1, 2), retry.Id, true, 20.5f);
+        Check(requests.IsPending((1, 2)), "the expired request's late command can't clear the new one");
+        requests.Resolved((1, 2));
+        Check(!requests.IsPending((1, 2)), "a result from anyone settles the pair");
+        Check(requests.TryMarkPending((1, 2), 9, 2, 21f, out var afterResult), "a resolved pair has no cooldown");
+        requests.Clear();
+        Check(requests.TryMarkPending((1, 2), 0, 0, 22f, out var afterClear) && afterClear.Id > afterResult.Id && afterResult.Id > again.Id,
+            "ids keep increasing across a load (reset)");
         var bounded = new PerceptionRequests();
-        for (ulong i = 1; i <= PerceptionRequests.MaxPending + 10; i++) bounded.TryMarkPending((i, i + 1), 0, 0f);
-        Check(bounded.PendingCount == PerceptionRequests.MaxPending, "pending markers are bounded");
+        for (ulong i = 1; i <= PerceptionRequests.MaxPending + 10; i++) bounded.TryMarkPending((i, i + 1), 0, 0, 0f, out _);
+        Check(bounded.PendingCount == PerceptionRequests.MaxPending, "pending requests are bounded");
         bounded.Clear();
-        Check(bounded.PendingCount == 0 && bounded.TryMarkPending((1, 2), 0, 0f), "clear forgets everything");
+        Check(bounded.PendingCount == 0 && bounded.TryMarkPending((1, 2), 0, 0, 0f, out _), "clear forgets everything");
+
+        // the ledger revision changes with every change (a correction compares it between receipt and apply)
+        var revisions = new PerceptionLedger();
+        var r0 = revisions.Revision;
+        revisions.TryResolve(1, 2, 0, () => 1, out _);
+        var r1 = revisions.Revision;
+        revisions.TryResolve(1, 2, 0, () => 2, out _);
+        Check(r1 > r0 && revisions.Revision == r1, "a roll changes the revision, a read doesn't");
+        revisions.CarryIntoRound1();
+        var r2 = revisions.Revision;
+        revisions.Clear();
+        Check(r2 > r1 && revisions.Revision > r2, "round starts change the revision");
 
         // re-entrancy and failures
         var loaded = new PerceptionLedger();

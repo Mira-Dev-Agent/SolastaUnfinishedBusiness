@@ -3,23 +3,26 @@ using System.Linq;
 
 namespace SolastaUnfinishedBusiness.Models;
 
-// Local bookkeeping for 10-cell perception requests: which pairs are waiting for their command, for which generation,
-// and which were handled recently without a result. Pure state with explicit times, so it can be tested outside the
-// game. Never part of the shared state: only the ledger is.
+// Local bookkeeping for 10-cell perception requests: which pairs are waiting for their command, under which request
+// (an id unique on this computer, never reused), generation and phase, and which were tried recently without a result.
+// Pure state with explicit times, so it can be tested outside the game. Never part of the shared state: only the ledger
+// is. Commands queued before a load or a location start can't arrive after it: the game empties its delayed command
+// list then (NetworkingManager.ResetTick, from StartLocationRPC and GameStateChanged).
 internal sealed class PerceptionRequests
 {
     internal const int MaxPending = 1024;
     internal const float MaxPendingSeconds = 15f;
     internal const float RetryCooldownSeconds = 2f;
 
-    private readonly Dictionary<(ulong, ulong), (int generation, float time)> _pending = [];
+    private readonly Dictionary<(ulong, ulong), Entry> _pending = [];
     private readonly Dictionary<(ulong, ulong), float> _attempted = [];
+    private long _lastId;
 
     internal int PendingCount => _pending.Count;
 
-    // A command applies only in the generation it was sent in, or, if it was sent outside combat, in the generation
-    // that started round 1 right after (outside-combat checks carry into round 1). Every computer reaches the same
-    // answer: generation and phase only change at synchronized points.
+    // A command applies only in the generation its request was made in, or, if it was made outside combat, in the
+    // generation that started round 1 right after (outside-combat checks carry into round 1). Every computer reaches
+    // the same answer: generation and phase only change at synchronized points.
     internal static bool Applies(int requestGeneration, int requestPhase, int currentGeneration, int currentPhase)
     {
         return requestGeneration == currentGeneration ||
@@ -31,26 +34,37 @@ internal sealed class PerceptionRequests
         return _pending.ContainsKey(key);
     }
 
-    // true if the pair should be sent now: not already waiting, not handled moments ago without a result, room left
-    internal bool TryMarkPending((ulong, ulong) key, int generation, float now)
+    internal bool TryGetPending((ulong, ulong) key, out Entry entry)
     {
+        return _pending.TryGetValue(key, out entry);
+    }
+
+    // a new request for the pair, unless it is already waiting, was tried moments ago without a result, or there is no
+    // room; the entry remembers its own id, generation and phase, which its command carries
+    internal bool TryMarkPending((ulong, ulong) key, int generation, int phase, float now, out Entry entry)
+    {
+        entry = default;
+
         if (_pending.ContainsKey(key) || RecentlyAttempted(key, now) || _pending.Count >= MaxPending)
         {
             return false;
         }
 
-        _pending[key] = (generation, now);
+        entry = new Entry(++_lastId, generation, phase, now);
+        _pending[key] = entry;
 
         return true;
     }
 
-    // a command for this pair ran: only clears the marker it was sent for, never a newer request's
-    internal void Complete((ulong, ulong) key, int generation, bool resolved, float now)
+    // this computer's command for the request ran: clears only that request, never a later one for the same pair
+    internal void CompleteOwn((ulong, ulong) key, long id, bool resolved, float now)
     {
-        if (_pending.TryGetValue(key, out var entry) && entry.generation == generation)
+        if (!_pending.TryGetValue(key, out var entry) || entry.Id != id)
         {
-            _pending.Remove(key);
+            return;
         }
+
+        _pending.Remove(key);
 
         if (!resolved)
         {
@@ -58,15 +72,21 @@ internal sealed class PerceptionRequests
         }
     }
 
+    // the pair has a result (from any computer's command or an action): nothing left to wait for
+    internal void Resolved((ulong, ulong) key)
+    {
+        _pending.Remove(key);
+    }
+
     internal bool RecentlyAttempted((ulong, ulong) key, float now)
     {
         return _attempted.TryGetValue(key, out var time) && now - time < RetryCooldownSeconds;
     }
 
-    // drops markers whose command never came and expired cooldowns, so nothing grows or blocks forever
+    // drops requests whose command never came and expired cooldowns, so nothing grows or blocks forever
     internal void Prune(float now)
     {
-        foreach (var key in _pending.Where(x => now - x.Value.time >= MaxPendingSeconds).Select(x => x.Key).ToList())
+        foreach (var key in _pending.Where(x => now - x.Value.Time >= MaxPendingSeconds).Select(x => x.Key).ToList())
         {
             _pending.Remove(key);
         }
@@ -77,6 +97,7 @@ internal sealed class PerceptionRequests
         }
     }
 
+    // ids keep increasing across clears, so a request is never confused with an earlier one
     internal void Clear()
     {
         _pending.Clear();
@@ -86,5 +107,13 @@ internal sealed class PerceptionRequests
     internal void ClearCooldowns()
     {
         _attempted.Clear();
+    }
+
+    internal readonly struct Entry(long id, int generation, int phase, float time)
+    {
+        internal long Id { get; } = id;
+        internal int Generation { get; } = generation;
+        internal int Phase { get; } = phase;
+        internal float Time { get; } = time;
     }
 }

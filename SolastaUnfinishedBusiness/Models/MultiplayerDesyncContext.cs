@@ -491,7 +491,8 @@ internal static class MultiplayerDesyncContext
                 Gui.ColorAlert, 8f);
         }
 
-        networking.AddDelayedCommand(ApplyCorrection(data), (long)data[1]);
+        // the perception results as received: if any change before the correction applies, it is rejected
+        networking.AddDelayedCommand(ApplyCorrection(data, PerceptionContext.Revision), (long)data[1]);
     }
 
     private static bool IsForThisComputer(object[] data, out string id)
@@ -504,13 +505,22 @@ internal static class MultiplayerDesyncContext
         return id != null;
     }
 
-    private static IEnumerator ApplyCorrection(object[] data)
+    private static IEnumerator ApplyCorrection(object[] data, long perceptionRevisionAtReceipt)
     {
-        // the perception results and the dice describe the same completed checks: the whole correction is validated
-        // before anything changes, and a rejection is reported to the host like any other incomplete correction
-        if (data.Length < 10 || data[9] is not long[] perception || !PerceptionContext.CanRestore(perception))
+        // the whole correction is validated before anything changes, and a rejection is reported to the host like any
+        // other incomplete correction (the host then offers its resync). The perception results and the dice describe
+        // the same completed checks, so a check rolled between this correction's capture and now (its result and the
+        // conditions it ended can't be taken back) rejects it too; one rolled before it arrived differs from the host's
+        // and fails the next verification.
+        if (data.Length < 10 ||
+            data[2] is not int[] ||
+            data[3] is not long[] correctionGuids ||
+            data[4] is not int[] correctionValues || correctionValues.Length != correctionGuids.Length * 5 ||
+            data[5] is not int[] correctionSlots || correctionSlots.Length % 4 != 0 ||
+            data[9] is not long[] perception || !PerceptionContext.CanRestore(perception) ||
+            PerceptionContext.Revision != perceptionRevisionAtReceipt)
         {
-            Main.Error("Multiplayer correction rejected: missing or invalid perception results");
+            Main.Error("Multiplayer correction rejected: invalid data, or a perception check changed before it applied");
 
             if (IsForThisComputer(data, out var rejectedId))
             {
