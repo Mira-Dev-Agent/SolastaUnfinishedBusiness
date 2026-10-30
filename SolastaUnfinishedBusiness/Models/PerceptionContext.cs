@@ -551,25 +551,51 @@ internal static class PerceptionContext
 
     #region Phases, resets and recovery
 
-    // user direction, 2026-10-30: a creature that becomes blinded rolls its Perception checks again instead of keeping
-    // what it saw earlier this round. Conditions are added in synchronized steps, at the same point on every computer.
+    // user direction, 2026-10-30: a creature that becomes blinded (any condition of the Blinded type, the same test the
+    // 10-cell rule uses) rolls its Perception checks again instead of keeping what it saw earlier this round. Conditions
+    // are added and removed in synchronized steps, at the same point on every computer.
     internal static void OnConditionAdded(RulesetActor actor, ConditionDefinition condition)
     {
-        if (condition == null || !condition.IsSubtypeOf(ConditionBlinded) ||
-            ServiceRepository.GetService<IGameLocationCharacterService>() == null ||
+        if (condition != null && condition.IsSubtypeOf(ConditionBlinded))
+        {
+            ForgetSensor(actor, null, $"blinded by {condition.Name}: its results are dropped, checks roll again");
+        }
+    }
+
+    // when its last Blinded-type condition ends, a creature keeps the creatures it perceived, and checks again only
+    // those it failed to perceive (its senses come first, so it rolls only for those it still can't see)
+    internal static void OnConditionRemoved(RulesetActor actor, RulesetCondition removed)
+    {
+        if (removed?.ConditionDefinition is not { } condition || !condition.IsSubtypeOf(ConditionBlinded) ||
+            actor.ConditionsByCategory.SelectMany(x => x.Value)
+                .Any(x => x != removed && x.ConditionDefinition && x.ConditionDefinition.IsSubtypeOf(ConditionBlinded)))
+        {
+            return;
+        }
+
+        ForgetSensor(actor, x => x is not ((int)RollOutcome.Success or (int)RollOutcome.CriticalSuccess),
+            $"no longer blinded ({condition.Name} ended): its failed checks roll again");
+    }
+
+    private static void ForgetSensor(RulesetActor actor, Func<int, bool> outcomes, string reason)
+    {
+        if (ServiceRepository.GetService<IGameLocationCharacterService>() == null ||
             GameLocationCharacter.GetFromActor(actor) is not { } sensor)
         {
             return;
         }
 
-        foreach (var key in LegacyAiCache.Keys.Where(x => x.Item1 == sensor.Guid).ToList())
+        foreach (var key in LegacyAiCache
+                     .Where(x => x.Key.Item1 == sensor.Guid && (outcomes == null || outcomes((int)x.Value)))
+                     .Select(x => x.Key)
+                     .ToList())
         {
             LegacyAiCache.Remove(key);
         }
 
-        if (Ledger.ForgetSensor(sensor.Guid))
+        if (Ledger.ForgetSensor(sensor.Guid, outcomes))
         {
-            Trace($"blinded sensor={sensor.Guid} condition={condition.Name}: its results are dropped, checks roll again");
+            Trace($"sensor={sensor.Guid} {reason}");
         }
     }
 

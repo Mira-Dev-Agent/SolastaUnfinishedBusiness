@@ -159,6 +159,14 @@ static class Program
         blinded.TryResolve(1, 2, 3, () => { rerolled++; return 2; }, out var rerolledOutcome);
         Check(rerolled == 1 && rerolledOutcome == 2, "the next check rolls again");
 
+        // blindness ends: only the failed checks are dropped (outcome 1 stands for a success here)
+        var unblinded = new PerceptionLedger { Clock = () => now };
+        unblinded.TryResolve(1, 2, 3, () => 1, out _);
+        unblinded.TryResolve(1, 4, 3, () => 0, out _);
+        Check(unblinded.ForgetSensor(1, x => x != 1) && unblinded.TryGet(1, 2, out _) && !unblinded.TryGet(1, 4, out _),
+            "blindness ending keeps what it perceived and drops what it failed");
+        Check(!unblinded.ForgetSensor(1, x => x != 1), "no failures left: no change");
+
         // re-entrancy and failures
         var loaded = new PerceptionLedger();
         int recursiveRolls = 0;

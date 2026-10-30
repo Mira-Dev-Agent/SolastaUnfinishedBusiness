@@ -488,6 +488,9 @@ public static class RulesetCharacterPatcher
             //PATCH: support 'EnableCharactersOnFireToEmitLight'
             RulesContext.RemoveLightSourceIfNeeded(__instance, activeCondition);
 
+            //PATCH: a creature no longer blinded rolls again the 10-cell Perception checks it failed
+            PerceptionContext.OnConditionRemoved(__instance, activeCondition);
+
             //PATCH: notifies custom condition features that condition is removed 
             var definition = activeCondition.ConditionDefinition;
 

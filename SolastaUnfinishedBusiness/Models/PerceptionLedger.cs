@@ -75,10 +75,14 @@ internal sealed class PerceptionLedger
     }
 
     // the sensor was blinded: its results (rolled, or seen with its senses) no longer hold, so its next checks roll
-    // again; true if anything was dropped
-    internal bool ForgetSensor(ulong sensor)
+    // again; with a filter, only the results it matches (blindness ending drops only the failures). True if anything
+    // was dropped.
+    internal bool ForgetSensor(ulong sensor, Func<int, bool> outcomes = null)
     {
-        var keys = _entries.Keys.Where(x => x.sensor == sensor).ToList();
+        var keys = _entries
+            .Where(x => x.Key.sensor == sensor && (outcomes == null || outcomes(x.Value.outcome)))
+            .Select(x => x.Key)
+            .ToList();
 
         if (keys.Count == 0)
         {
