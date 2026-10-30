@@ -142,6 +142,23 @@ static class Program
         restored.ResetForLoad();
         Check(restored.LastChangeTick == 0 && restored.Count == 0, "a load starts with no change and no results");
 
+        // a blinded sensor's results are dropped (user direction): its checks roll again; other sensors keep theirs
+        now = 30;
+        var blinded = new PerceptionLedger { Clock = () => now };
+        blinded.TryResolve(1, 2, 3, () => 1, out _);
+        blinded.TryResolve(1, 4, 3, () => 1, out _);
+        blinded.TryResolve(5, 2, 3, () => 1, out _);
+        now = 31;
+        Check(blinded.ForgetSensor(1) && !blinded.TryGet(1, 2, out _) && !blinded.TryGet(1, 4, out _),
+            "a blinded sensor loses all its results");
+        Check(blinded.TryGet(5, 2, out _) && blinded.Count == 1, "other sensors keep theirs");
+        Check(blinded.LastChangeTick == 31, "dropping them is a change at that tick");
+        now = 32;
+        Check(!blinded.ForgetSensor(1) && blinded.LastChangeTick == 31, "nothing to drop: no change");
+        var rerolled = 0;
+        blinded.TryResolve(1, 2, 3, () => { rerolled++; return 2; }, out var rerolledOutcome);
+        Check(rerolled == 1 && rerolledOutcome == 2, "the next check rolls again");
+
         // re-entrancy and failures
         var loaded = new PerceptionLedger();
         int recursiveRolls = 0;

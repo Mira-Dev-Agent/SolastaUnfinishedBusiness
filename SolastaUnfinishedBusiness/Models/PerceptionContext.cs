@@ -551,6 +551,28 @@ internal static class PerceptionContext
 
     #region Phases, resets and recovery
 
+    // user direction, 2026-10-30: a creature that becomes blinded rolls its Perception checks again instead of keeping
+    // what it saw earlier this round. Conditions are added in synchronized steps, at the same point on every computer.
+    internal static void OnConditionAdded(RulesetActor actor, ConditionDefinition condition)
+    {
+        if (condition == null || !condition.IsSubtypeOf(ConditionBlinded) ||
+            ServiceRepository.GetService<IGameLocationCharacterService>() == null ||
+            GameLocationCharacter.GetFromActor(actor) is not { } sensor)
+        {
+            return;
+        }
+
+        foreach (var key in LegacyAiCache.Keys.Where(x => x.Item1 == sensor.Guid).ToList())
+        {
+            LegacyAiCache.Remove(key);
+        }
+
+        if (Ledger.ForgetSensor(sensor.Guid))
+        {
+            Trace($"blinded sensor={sensor.Guid} condition={condition.Name}: its results are dropped, checks roll again");
+        }
+    }
+
     // round 1 keeps the checks rolled outside combat (as round 1 checks); later rounds start fresh
     internal static void OnRoundStart(int round)
     {

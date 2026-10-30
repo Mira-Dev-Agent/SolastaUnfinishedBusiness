@@ -140,6 +140,9 @@ public static class RulesetActorPatcher
 
             var definition = newCondition.ConditionDefinition;
 
+            //PATCH: a blinded creature rolls its 10-cell Perception checks again
+            PerceptionContext.OnConditionAdded(__instance, definition);
+
             if (__instance is not RulesetCharacter rulesetCharacter)
             {
                 return;

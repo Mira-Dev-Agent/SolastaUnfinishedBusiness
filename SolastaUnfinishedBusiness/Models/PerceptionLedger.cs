@@ -74,6 +74,23 @@ internal sealed class PerceptionLedger
         LastChangeTick = Clock();
     }
 
+    // the sensor was blinded: its results (rolled, or seen with its senses) no longer hold, so its next checks roll
+    // again; true if anything was dropped
+    internal bool ForgetSensor(ulong sensor)
+    {
+        var keys = _entries.Keys.Where(x => x.sensor == sensor).ToList();
+
+        if (keys.Count == 0)
+        {
+            return false;
+        }
+
+        keys.ForEach(x => _entries.Remove(x));
+        Changed();
+
+        return true;
+    }
+
     // round 1 of a fight: keeps the checks rolled outside combat, now as round 1 checks, so a later fight (even one
     // that ends in round 1) can't inherit them; drops everything left over from an earlier fight
     internal void CarryIntoRound1()
