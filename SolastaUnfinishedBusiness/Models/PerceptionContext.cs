@@ -134,11 +134,11 @@ internal static class PerceptionContext
         }
 
         // AI planning runs on the host alone, so it never rolls a shared check, even nested in an action step. With
-        // sync off, and in a synchronized decision's last pass (user direction), it rolls missing checks locally as
-        // before: those rolls happen on the host alone, so they can desync.
+        // sync off, and in the last pass after the wait's time limit (user direction), it rolls missing checks locally
+        // as before: those rolls happen on the host alone, so they can desync.
         if (_ai != null)
         {
-            if (!_ai.Synchronized || !_ai.Collecting)
+            if (!_ai.Synchronized || _ai.LocalRolls)
             {
                 // sync off: a shared check requested before the setting changed is still coming, don't also roll it
                 if (!_ai.Synchronized && Requests.IsPending(key))
@@ -155,7 +155,7 @@ internal static class PerceptionContext
                 return legacy;
             }
 
-            if (Requests.IsPending(key) || Request(key, false))
+            if (_ai.Collecting && (Requests.IsPending(key) || Request(key, false)))
             {
                 _ai.Dependencies.Add(key);
             }
@@ -451,10 +451,11 @@ internal static class PerceptionContext
     #region AI planning
 
     // host, multiplayer, AI sync on: decide; if the decision needed missing checks, send them, wait until every one has
-    // its command, and decide again with the results. After three decisions that each found new missing checks, or
-    // after 3 s of waiting (a lost command can't stall the enemy turn), one last decision rolls any check still missing
-    // on the host alone, as with sync off (user direction): those rolls can desync. The mode is fixed for the whole
-    // decision.
+    // its command, and decide again with the results. After three decisions that each found new missing checks, one
+    // last decision uses the results that arrived without asking for more (a check still missing counts as failed).
+    // After 3 s of waiting (a lost command can't stall the enemy turn), the last decision instead rolls any check still
+    // missing on the host alone, as with sync off (user direction): those rolls can desync. The mode is fixed for the
+    // whole decision.
     internal static IEnumerator WrapAiDecision(IEnumerator first, Func<IEnumerator> decideAgain)
     {
         if (first == null)
@@ -467,10 +468,11 @@ internal static class PerceptionContext
         var inner = first;
         var passesWithNewChecks = 0;
         var finalPass = false;
+        var localRolls = false;
 
         while (true)
         {
-            var scope = new AiScope(synchronized, !finalPass);
+            var scope = new AiScope(synchronized, !finalPass, localRolls);
 
             yield return new ScopedEnumerator(inner, () => scope.Enter(), child => child is not CustomYieldInstruction);
 
@@ -489,12 +491,13 @@ internal static class PerceptionContext
 
             var waiting = scope.Dependencies.Count(Requests.IsPending);
 
-            finalPass = waiting > 0 || passesWithNewChecks >= AiMaxDecisions;
-            Trace(waiting > 0
+            localRolls = waiting > 0;
+            finalPass = localRolls || passesWithNewChecks >= AiMaxDecisions;
+            Trace(localRolls
                 ? $"ai wait reached the time limit with {waiting} of {scope.Dependencies.Count} checks still waiting " +
                   "for their command, deciding again with local rolls (last pass)"
                 : $"ai decision has the results of {scope.Dependencies.Count} checks, deciding again" +
-                  (finalPass ? " with local rolls for any still missing (last pass)" : string.Empty));
+                  (finalPass ? " (last pass)" : string.Empty));
 
             CreatingAiRerun = true;
 
@@ -515,10 +518,11 @@ internal static class PerceptionContext
     }
 
     // marks AI planning for the duration of each step of one decision
-    private sealed class AiScope(bool synchronized, bool collecting)
+    private sealed class AiScope(bool synchronized, bool collecting, bool localRolls = false)
     {
         internal bool Synchronized { get; } = synchronized;
         internal bool Collecting { get; } = collecting;
+        internal bool LocalRolls { get; } = localRolls;
         internal HashSet<(ulong, ulong)> Dependencies { get; } = [];
 
         internal IDisposable Enter()
