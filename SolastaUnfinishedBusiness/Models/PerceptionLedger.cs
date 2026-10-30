@@ -75,8 +75,9 @@ internal sealed class PerceptionLedger
     }
 
     // the sensor was blinded: its results (rolled, or seen with its senses) no longer hold, so its next checks roll
-    // again; with a filter, only the results it matches (blindness ending drops only the failures). True if anything
-    // was dropped.
+    // again; with a filter, only the results it matches (blindness ending drops only the failures). The event is a
+    // change at this tick even when nothing matches here: computers whose results already differ must still agree on
+    // the last change tick (a desync correction compares it). True if anything was dropped.
     internal bool ForgetSensor(ulong sensor, Func<int, bool> outcomes = null)
     {
         var keys = _entries
@@ -84,15 +85,10 @@ internal sealed class PerceptionLedger
             .Select(x => x.Key)
             .ToList();
 
-        if (keys.Count == 0)
-        {
-            return false;
-        }
-
         keys.ForEach(x => _entries.Remove(x));
         Changed();
 
-        return true;
+        return keys.Count > 0;
     }
 
     // round 1 of a fight: keeps the checks rolled outside combat, now as round 1 checks, so a later fight (even one

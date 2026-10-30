@@ -154,7 +154,8 @@ static class Program
         Check(blinded.TryGet(5, 2, out _) && blinded.Count == 1, "other sensors keep theirs");
         Check(blinded.LastChangeTick == 31, "dropping them is a change at that tick");
         now = 32;
-        Check(!blinded.ForgetSensor(1) && blinded.LastChangeTick == 31, "nothing to drop: no change");
+        Check(!blinded.ForgetSensor(1) && blinded.LastChangeTick == 32,
+            "nothing to drop here: still a change at that tick (Codex review of 410803bf)");
         var rerolled = 0;
         blinded.TryResolve(1, 2, 3, () => { rerolled++; return 2; }, out var rerolledOutcome);
         Check(rerolled == 1 && rerolledOutcome == 2, "the next check rolls again");
@@ -165,7 +166,22 @@ static class Program
         unblinded.TryResolve(1, 4, 3, () => 0, out _);
         Check(unblinded.ForgetSensor(1, x => x != 1) && unblinded.TryGet(1, 2, out _) && !unblinded.TryGet(1, 4, out _),
             "blindness ending keeps what it perceived and drops what it failed");
-        Check(!unblinded.ForgetSensor(1, x => x != 1), "no failures left: no change");
+        Check(!unblinded.ForgetSensor(1, x => x != 1), "no failures left: nothing dropped");
+
+        // Codex review of 410803bf: host success and client failure at tick 5, correction captured at 10, blindness ends
+        // everywhere at 12. Both must reject the correction (the same last change tick), not only the client.
+        now = 5;
+        var host = new PerceptionLedger { Clock = () => now };
+        var client = new PerceptionLedger { Clock = () => now };
+        host.TryResolve(1, 2, 3, () => 1, out _);
+        client.TryResolve(1, 2, 3, () => 0, out _);
+        now = 12;
+        host.ForgetSensor(1, x => x != 1);
+        client.ForgetSensor(1, x => x != 1);
+        Check(host.LastChangeTick == 12 && client.LastChangeTick == 12, "divergent results: both stamp the event");
+        var missing = new PerceptionLedger { Clock = () => now };
+        missing.ForgetSensor(1);
+        Check(missing.LastChangeTick == 12, "a computer missing the entries stamps it too");
 
         // re-entrancy and failures
         var loaded = new PerceptionLedger();

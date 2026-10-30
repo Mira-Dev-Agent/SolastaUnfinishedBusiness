@@ -593,10 +593,9 @@ internal static class PerceptionContext
             LegacyAiCache.Remove(key);
         }
 
-        if (Ledger.ForgetSensor(sensor.Guid, outcomes))
-        {
-            Trace($"sensor={sensor.Guid} {reason}");
-        }
+        var dropped = Ledger.ForgetSensor(sensor.Guid, outcomes);
+
+        Trace($"sensor={sensor.Guid} {reason}{(dropped ? string.Empty : " (none here)")}");
     }
 
     // round 1 keeps the checks rolled outside combat (as round 1 checks); later rounds start fresh
