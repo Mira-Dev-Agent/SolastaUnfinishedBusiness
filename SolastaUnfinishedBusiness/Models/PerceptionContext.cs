@@ -682,7 +682,7 @@ internal static class PerceptionContext
     // TEMPORARY [PerceptionRule] diagnostic (issues #1 and #2, 2026-10-30): why the 10-cell roll was or wasn't
     // reached between foes, and why the game's attack check rejected a target. Each sensor, target and reason is logged
     // once per launch, at most RuleDiagnosticLimit lines. Remove once the question is answered.
-    private const int RuleDiagnosticLimit = 96;
+    private const int RuleDiagnosticLimit = 300;
     private static readonly HashSet<(ulong, ulong, string)> RuleDiagnosticsSeen = [];
 
     internal static bool TracesRule(GameLocationCharacter sensor, GameLocationCharacter target)
