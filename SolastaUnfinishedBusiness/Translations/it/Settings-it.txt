@@ -1,4 +1,5 @@
 ModUI/&EnableChanceToPerceiveCloseRange=<i>+ Tira Percezione per notare i bersagli non percepiti entro 10 caselle</i>
+ModUi/&SyncAiPerceptionChecks=<i>+ Prima di decidere cosa fare, l'IA attende che questi tiri di Percezione siano condivisi con tutti i giocatori (disattivato: li tira sul proprio computer, come prima)</i>
 ModUI/&EnableCriticalHitsMissesAt10=Abilita colpi e mancati critici quando la differenza tra l'AC e il risultato del tiro di attacco modificato è 10 o superiore
 ModUI/&EnableDamageOnFailedJumpCheck=Applica danni 1d4 ai controlli di salto non riusciti
 ModUI/&ModVersionControl=-Impostazioni della versione della mod %ModName%-

@@ -1,4 +1,5 @@
 ModUI/&EnableChanceToPerceiveCloseRange=<i>+ 知覚されていない10マス以内の対象に気付くため、知覚判定を行う</i>
+ModUi/&SyncAiPerceptionChecks=<i>+ AIは行動を決める前に、これらの知覚判定が全プレイヤーで共有されるのを待つ（オフ：従来どおり自分のコンピューターで判定する）</i>
 ModUI/&EnableCriticalHitsMissesAt10=ACと変更された攻撃ロール結果の違いが10以上の場合、クリティカルヒットとミスを有効にします
 ModUI/&EnableDamageOnFailedJumpCheck=失敗したジャンプチェックに1D4ダメージを適用します
 ModUI/&ModVersionControl=- %ModName% MODバージョン設定 -

@@ -134,6 +134,7 @@ public class Settings : UnityModManager.ModSettings
     [Tag(Type = TagType.T2014)] public bool BlindedConditionDontAllowAttackOfOpportunity { get; set; }
     [Tag(Type = TagType.T2014)] public bool UseOfficialLightingObscurementAndVisionRules { get; set; }
     [Tag(Type = TagType.T2014)] public bool EnableChanceToPerceiveCloseRange { get; set; }
+    public bool SyncAiPerceptionChecks { get; set; } = true;
     [Tag(Type = TagType.T2014)] public bool OfficialObscurementRulesInvisibleCreaturesCanBeTarget { get; set; }
     [Tag(Type = TagType.T2014)] public bool OfficialObscurementRulesCancelAdvDisPairs { get; set; }
     public bool OfficialObscurementRulesHeavilyObscuredAsProjectileBlocker { get; set; }

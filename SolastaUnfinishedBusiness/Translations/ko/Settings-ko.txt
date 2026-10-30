@@ -1,4 +1,5 @@
 ModUI/&EnableChanceToPerceiveCloseRange=<i>+ 인지되지 않은 10칸 이내의 대상을 알아차리기 위해 지각 판정을 굴림</i>
+ModUi/&SyncAiPerceptionChecks=<i>+ AI는 행동을 정하기 전에 이 지각 판정이 모든 플레이어와 공유될 때까지 기다림 (끄면: 이전처럼 자기 컴퓨터에서 판정함)</i>
 ModUI/&EnableCriticalHitsMissesAt10=AC와 수정 된 공격 롤 결과의 차이가 10 이상인 경우 임계 적중 및 누락을 활성화합니다.
 ModUI/&EnableDamageOnFailedJumpCheck=실패한 점프 점검에 1d4 피해를 적용합니다
 ModUI/&ModVersionControl=-%ModName% 모드 버전 설정-

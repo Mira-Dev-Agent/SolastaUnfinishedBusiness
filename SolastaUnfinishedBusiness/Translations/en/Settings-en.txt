@@ -349,6 +349,7 @@ ModUi/&OfficialObscurementRulesMagicalDarknessAsProjectileBlocker=<i>+ Change <c
 ModUi/&OfficialObscurementRulesTweakMonsters=<i>+ Add <color=#D89555>Darkvision</color>, <color=#D89555>BlindSight</color>, and <color=#D89555>TrueSight</color> to monsters and NPCs whenever appropriate</i>
 ModUi/&OfficialObscurementRulesTweakMonstersHelp=<i><color=#F0DAA0>[settings' collections <b>MonstersThatShouldHaveDarkvision</b>, <b>MonstersThatShouldHaveTrueSight</b>, <b>MonstersThatShouldHaveBlindSight</b>]</color></i>
 ModUI/&EnableChanceToPerceiveCloseRange=<i>+ Will roll Perception to notice non-perceived targets within 10 cells (50 ft)</i>
+ModUi/&SyncAiPerceptionChecks=<i>+ Before choosing what to do, the AI waits for these Perception rolls to be shared with every player (off: it rolls them on its own computer, as before)</i>
 ModUi/&OneDnd=<color=#F0DAA0>Tabletop <i>[5e 2024]</i>:</color>
 ModUi/&OnlyShowMostPowerfulUpcastConjuredElementalOrFey=<i>+ Only show the most powerful creatures in the conjuration list</i>
 ModUi/&OutlineGridWidthModifier=<color=white>Multiply the outline grid width by</color> <color=#C04040E0>[%]</color>
