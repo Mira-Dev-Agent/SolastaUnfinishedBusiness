@@ -9,7 +9,7 @@
 - Translations: German and Chinese use the game's words for primed items ("präpariert", "制备好的") instead of the English "Primed"/"Prime" and mixed terms (a primed pike was a "Hecht", the fish). Removed 7 Divine Strike texts in 8 languages that no feature uses. The new texts are machine translations
 - The mod's links (repository, in-game update check, changelog and release downloads) and the README's releases link point to the repository's new home, SolastaFinishingBusiness/SolastaUnfinishedBusiness. The old Mira-Dev-Agent address still redirects there
 - 1.9.0's note was wrong about holding space: it was tested in game before the release (it changes nothing while the button's speed-up is on)
-- Settings text: the close-range perception option (Rules, with the official lighting and obscurement rules) now says it rolls for targets within 10 cells (50 ft), which is what it does; it said 10 feet. The German text, which was cut off, and the other translations are rewritten. Nothing about the rule itself changes
+- Settings text: the option that rolls Perception for non-perceived targets (Rules, under the official lighting and obscurement rules) now says it covers targets within 10 cells (50 ft), which is what it does; it said 10 feet. The German text, which was cut off, and the other translations are rewritten. Nothing about the rule itself changes
 - Not tested in game or in a multiplayer session: everything above. The backend checks (Tests/RecoveryChecks) cover the barrier's state, the install transaction and the helper's install, rollback and failed install on test folders, not the game's UI, a real update or a real network
 
 1.8.1:
