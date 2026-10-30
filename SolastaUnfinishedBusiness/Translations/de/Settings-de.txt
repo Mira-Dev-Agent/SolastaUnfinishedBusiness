@@ -1,5 +1,5 @@
 ModUI/&EnableChanceToPerceiveCloseRange=<i>+ Würfelt auf Wahrnehmung, um nicht wahrgenommene Ziele innerhalb von 10 Feldern zu bemerken</i>
-ModUi/&SyncAiPerceptionChecks=KI wartet vor ihrer Entscheidung auf gemeinsame Wahrnehmungswürfe <i><color=#F0DAA0>[mit der Regeloption, die auf Wahrnehmung für nicht wahrgenommene Ziele würfelt; aus: die KI würfelt sie wie bisher auf dem Rechner, auf dem sie läuft, und Desyncs sind sehr wahrscheinlich, außer alle Spieler haben dieselbe Zufallsstartwert-Option in den Gameplay-Einstellungen des Spiels (und auch dann noch möglich); nur Mehrspielerpartien]</color></i>
+ModUi/&SyncAiPerceptionChecks=KI wartet vor ihrer Entscheidung bis zu 3 Sekunden auf gemeinsame Wahrnehmungswürfe und würfelt danach noch fehlende auf dem Computer, auf dem sie läuft <i><color=#F0DAA0>[mit der Regeloption, die auf Wahrnehmung für nicht wahrgenommene Ziele würfelt; aus: die KI würfelt sie wie bisher auf dem Rechner, auf dem sie läuft, und Desyncs sind sehr wahrscheinlich, außer alle Spieler haben dieselbe Zufallsstartwert-Option in den Gameplay-Einstellungen des Spiels (und auch dann noch möglich); nur Mehrspielerpartien]</color></i>
 ModUI/&EnableCriticalHitsMissesAt10=Ermöglichen
 ModUI/&EnableDamageOnFailedJumpCheck=Wendet 1W4 -Schäden bei fehlgeschlagenen Sprungprüfungen an
 ModUI/&ModVersionControl=-%ModName%-Mod-Versionseinstellungen-

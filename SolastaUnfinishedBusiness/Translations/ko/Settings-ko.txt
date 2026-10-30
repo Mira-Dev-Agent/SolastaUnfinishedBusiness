@@ -1,5 +1,5 @@
 ModUI/&EnableChanceToPerceiveCloseRange=<i>+ 인지되지 않은 10칸 이내의 대상을 알아차리기 위해 지각 판정을 굴림</i>
-ModUi/&SyncAiPerceptionChecks=AI가 행동을 정하기 전에 공유된 지각 판정을 기다림 <i><color=#F0DAA0>[인지되지 않은 대상에게 지각 판정을 굴리는 규칙 옵션이 켜져 있을 때; 끄면: 이전처럼 AI를 실행하는 컴퓨터에서 판정하며, 모든 플레이어가 게임의 게임플레이 설정에서 같은 랜덤 시드 옵션을 쓰지 않으면 비동기화가 일어날 가능성이 매우 높음 (같아도 일어날 수 있음); 멀티플레이 전용]</color></i>
+ModUi/&SyncAiPerceptionChecks=AI가 행동을 정하기 전에 공유된 지각 판정을 최대 3초 기다리고, 그때까지 없는 판정은 AI를 실행하는 컴퓨터에서 굴림 <i><color=#F0DAA0>[인지되지 않은 대상에게 지각 판정을 굴리는 규칙 옵션이 켜져 있을 때; 끄면: 이전처럼 AI를 실행하는 컴퓨터에서 판정하며, 모든 플레이어가 게임의 게임플레이 설정에서 같은 랜덤 시드 옵션을 쓰지 않으면 비동기화가 일어날 가능성이 매우 높음 (같아도 일어날 수 있음); 멀티플레이 전용]</color></i>
 ModUI/&EnableCriticalHitsMissesAt10=AC와 수정 된 공격 롤 결과의 차이가 10 이상인 경우 임계 적중 및 누락을 활성화합니다.
 ModUI/&EnableDamageOnFailedJumpCheck=실패한 점프 점검에 1d4 피해를 적용합니다
 ModUI/&ModVersionControl=-%ModName% 모드 버전 설정-

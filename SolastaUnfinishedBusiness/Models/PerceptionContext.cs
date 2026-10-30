@@ -24,7 +24,7 @@ internal static class PerceptionContext
     private const int PairsPerCommand = 64;
     private const int DiagnosticLimit = 128;
     private const int AiMaxDecisions = 3; // decisions that may ask for new checks, before a last one that uses them
-    private const float AiMaxWaitSeconds = 8f;
+    private const float AiMaxWaitSeconds = 3f; // user direction: then the host rolls what is still missing itself
     private const ulong AiBatchTicks = 2; // network ticks of 50 ms: the AI's requests go out in windows of about 100 ms
     private const float PruneSeconds = 1f;
     private const float HoldMaxSeconds = 10f; // a correction that never applies can't hold requests for longer
@@ -35,7 +35,7 @@ internal static class PerceptionContext
     private static readonly PerceptionLedger Ledger = new() { Clock = () => CurrentTick };
     private static readonly PerceptionRequests Requests = new();
 
-    // host only, AI sync off: the AI's local planning rolls, never read by real actions
+    // host only: the AI's local planning rolls (sync off, or a decision's last pass), never read by real actions
     private static readonly Dictionary<(ulong, ulong), RollOutcome> LegacyAiCache = [];
 
     private static readonly List<((ulong, ulong) key, PerceptionRequests.Entry entry)> PlayerQueue = [];
@@ -133,13 +133,15 @@ internal static class PerceptionContext
                 : RollOutcome.Failure;
         }
 
-        // AI planning runs on the host alone, so it never rolls a shared check, even nested in an action step
+        // AI planning runs on the host alone, so it never rolls a shared check, even nested in an action step. With
+        // sync off, and in a synchronized decision's last pass (user direction), it rolls missing checks locally as
+        // before: those rolls happen on the host alone, so they can desync.
         if (_ai != null)
         {
-            if (!_ai.Synchronized)
+            if (!_ai.Synchronized || !_ai.Collecting)
             {
-                // a shared check requested before the setting changed is still coming: don't also roll it here
-                if (Requests.IsPending(key))
+                // sync off: a shared check requested before the setting changed is still coming, don't also roll it
+                if (!_ai.Synchronized && Requests.IsPending(key))
                 {
                     return RollOutcome.Failure;
                 }
@@ -153,7 +155,7 @@ internal static class PerceptionContext
                 return legacy;
             }
 
-            if (_ai.Collecting && (Requests.IsPending(key) || Request(key, false)))
+            if (Requests.IsPending(key) || Request(key, false))
             {
                 _ai.Dependencies.Add(key);
             }
@@ -449,10 +451,10 @@ internal static class PerceptionContext
     #region AI planning
 
     // host, multiplayer, AI sync on: decide; if the decision needed missing checks, send them, wait until every one has
-    // its command, and decide again with the results. After three decisions that each found new missing checks, one
-    // last decision uses the results that arrived without asking for more. The mode is fixed for the whole decision.
-    // A lost command can't stall the enemy turn: after about 8 s it keeps the last decision. That only affects how good
-    // the choice is, never sync: the host alone decides, and the chosen action rolls any missing check in step everywhere.
+    // its command, and decide again with the results. After three decisions that each found new missing checks, or
+    // after 3 s of waiting (a lost command can't stall the enemy turn), one last decision rolls any check still missing
+    // on the host alone, as with sync off (user direction): those rolls can desync. The mode is fixed for the whole
+    // decision.
     internal static IEnumerator WrapAiDecision(IEnumerator first, Func<IEnumerator> decideAgain)
     {
         if (first == null)
@@ -487,17 +489,12 @@ internal static class PerceptionContext
 
             var waiting = scope.Dependencies.Count(Requests.IsPending);
 
-            if (waiting > 0)
-            {
-                Trace($"ai decision kept at the time limit; {waiting} of {scope.Dependencies.Count} checks " +
-                      "still waiting for their command");
-
-                yield break;
-            }
-
-            finalPass = passesWithNewChecks >= AiMaxDecisions;
-            Trace($"ai decision has the results of {scope.Dependencies.Count} checks, deciding again" +
-                  (finalPass ? " (last pass)" : string.Empty));
+            finalPass = waiting > 0 || passesWithNewChecks >= AiMaxDecisions;
+            Trace(waiting > 0
+                ? $"ai wait reached the time limit with {waiting} of {scope.Dependencies.Count} checks still waiting " +
+                  "for their command, deciding again with local rolls (last pass)"
+                : $"ai decision has the results of {scope.Dependencies.Count} checks, deciding again" +
+                  (finalPass ? " with local rolls for any still missing (last pass)" : string.Empty));
 
             CreatingAiRerun = true;
 
