@@ -2,11 +2,15 @@
 # The tag must match Info.json's Version and must not have been released before; the release notes are that
 # version's entry in ChangelogHistory.txt, and the title is the version plus the Solasta version it was built for.
 # A failed release can be re-run by hand from the Actions tab by choosing the version tag as the ref.
+# A push to the develop branch (or a run by hand on a branch) only builds: the zip is kept as the run's artifact
+# "SolastaUnfinishedBusiness-<version>-<commit>" for testing, and nothing is released.
 
 name: .NET
 
 on:
   push:
+      branches:
+        - develop
       tags:
         - '*'
   workflow_dispatch:
@@ -22,6 +26,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Check version
+        if: github.ref_type == 'tag'
         run: |
           version=$(jq -r .Version SolastaUnfinishedBusiness/Info.json)
           if [ "$version" != "$GITHUB_REF_NAME" ]; then
@@ -29,6 +34,7 @@ jobs:
             exit 1
           fi
       - name: Check the version wasn't released before
+        if: github.ref_type == 'tag'
         # every numbered release must be a unique build: the mod shows the version alone, so a moved tag must not
         # publish different files under a number players already have
         env:
@@ -52,7 +58,18 @@ jobs:
         run: |
           cd SolastaFiles/Mods
           zip -r -q "$GITHUB_WORKSPACE/SolastaUnfinishedBusiness.zip" SolastaUnfinishedBusiness
+      - name: Name the test build
+        if: github.ref_type != 'tag'
+        run: echo "ARTIFACT=SolastaUnfinishedBusiness-$(jq -r .Version SolastaUnfinishedBusiness/Info.json)-${GITHUB_SHA::8}" >> "$GITHUB_ENV"
+      - name: Keep the test build
+        if: github.ref_type != 'tag'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.ARTIFACT }}
+          path: SolastaUnfinishedBusiness.zip
+          retention-days: 30
       - name: Release Notes
+        if: github.ref_type == 'tag'
         # the version's changelog entry: the lines after "<version>:" up to the next blank line
         run: |
           tr -d '\r' < SolastaUnfinishedBusiness/ChangelogHistory.txt |
@@ -63,6 +80,7 @@ jobs:
             exit 1
           fi
       - name: Publish Release
+        if: github.ref_type == 'tag'
         env:
           GH_TOKEN: ${{ github.token }}
         # titled with the version and the Solasta version it was built for (Info.json GameVersion)

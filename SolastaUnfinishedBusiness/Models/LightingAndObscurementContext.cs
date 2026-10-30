@@ -558,11 +558,7 @@ internal static class LightingAndObscurementContext
             //consider this a successful perception roll as the sensor has skills to perceive
             if (Main.Settings.EnableChanceToPerceiveCloseRange && sensor != null && target != null)
             {
-                if (!Global.RolledPerceptionThisTurn.ContainsKey(sensor))
-                    Global.RolledPerceptionThisTurn.Add(sensor, []);
-
-                if (!Global.RolledPerceptionThisTurn[sensor].ContainsKey(target))
-                    Global.RolledPerceptionThisTurn[sensor].Add(target, RuleDefinitions.RollOutcome.Success);
+                PerceptionContext.RecordVisible(sensor, target);
             }
 
             // Silhouette Step is the only one using additionalBlockedLightingState as it requires to block BRIGHT
@@ -577,35 +573,13 @@ internal static class LightingAndObscurementContext
             && !targetIsInvisible
             && !sourceIsBlindFromDarkness)
         {
-            var sensorAllowedToRoll = false;
             var advantage = RuleDefinitions.AdvantageType.None;
             if (targetLightingState is LightingState.Darkness
                 || targetLightingState is (LightingState)MyLightingState.HeavilyObscured
                 || sourceIsBlindNotFromDarkness) advantage = RuleDefinitions.AdvantageType.Disadvantage;
 
-            if (!Global.RolledPerceptionThisTurn.TryGetValue(sensor, out var targets))
-            {
-                targets = [];
-                Global.RolledPerceptionThisTurn[sensor] = targets;
-                sensorAllowedToRoll = true;
-            } else if (!targets.ContainsKey(target))
-            {
-                sensorAllowedToRoll = true;
-            }
-
-            RuleDefinitions.RollOutcome sensorOutcome;
-            if (sensorAllowedToRoll)
-            {
-                sensor.RollAbilityCheck(AttributeDefinitions.Wisdom, SkillDefinitions.Perception, (int)distance + 10,
-                    advantage, new ActionModifier(), false, 0, out _, out _, out _, out _, out sensorOutcome, out _,
-                    true);
-
-                 targets[target] = sensorOutcome;
-            }
-            else if (!targets.TryGetValue(target, out sensorOutcome))
-            {
-                sensorOutcome = RuleDefinitions.RollOutcome.Failure;
-            }
+            // rolled once per pair and kept by PerceptionContext; in multiplayer only at synchronized points
+            var sensorOutcome = PerceptionContext.Resolve(sensor, target, (int)distance + 10, advantage);
 
             if (sensorOutcome == RuleDefinitions.RollOutcome.Success)
             {

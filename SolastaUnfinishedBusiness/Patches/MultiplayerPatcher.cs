@@ -178,7 +178,8 @@ public static class MultiplayerPatcher
         {
             return !LevelDownContext.TryHandleLevelDownCommand(__instance, heroGuid, classDefinitionName, ref __result) &&
                    !InfusionTrackingContext.TryHandleEndInfusionCommand(
-                       __instance, heroGuid, classDefinitionName, ref __result);
+                       __instance, heroGuid, classDefinitionName, ref __result) &&
+                   !PerceptionContext.TryHandleCommand(classDefinitionName, ref __result);
         }
     }
 

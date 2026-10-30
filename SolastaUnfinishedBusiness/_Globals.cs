@@ -17,8 +17,6 @@ internal static class Global
     // last level up hero name to allow an easier level up on characters pool with less mouse clicks
     internal static string LastLevelUpHeroName { get; set; }
 
-    internal static readonly Dictionary<GameLocationCharacter, Dictionary<GameLocationCharacter, RuleDefinitions.RollOutcome>> RolledPerceptionThisTurn = [];
-
     // level up hero
     [CanBeNull]
     internal static RulesetCharacterHero LevelUpHero =>

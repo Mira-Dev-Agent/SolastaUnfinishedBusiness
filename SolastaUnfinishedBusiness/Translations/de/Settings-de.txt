@@ -1,4 +1,5 @@
-ModUI/&EnableChanceToPerceiveCloseRange=<i>+ roll
+ModUI/&EnableChanceToPerceiveCloseRange=<i>+ Würfelt auf Wahrnehmung, um nicht wahrgenommene Ziele innerhalb von 10 Feldern zu bemerken</i>
+ModUi/&SyncAiPerceptionChecks=KI wartet vor ihrer Entscheidung bis zu 3 Sekunden auf gemeinsame Wahrnehmungswürfe und würfelt danach noch fehlende auf dem Computer, auf dem sie läuft <i><color=#F0DAA0>[mit der Regeloption, die auf Wahrnehmung für nicht wahrgenommene Ziele würfelt; aus: die KI würfelt sie wie bisher auf dem Rechner, auf dem sie läuft, und Desyncs sind sehr wahrscheinlich, außer alle Spieler haben die Spieloption Spiel > Gameplay > Zufällige Samen erhalten gleich eingestellt (und auch dann noch möglich); nur Mehrspielerpartien]</color></i>
 ModUI/&EnableCriticalHitsMissesAt10=Ermöglichen
 ModUI/&EnableDamageOnFailedJumpCheck=Wendet 1W4 -Schäden bei fehlgeschlagenen Sprungprüfungen an
 ModUI/&ModVersionControl=-%ModName%-Mod-Versionseinstellungen-
@@ -340,7 +341,7 @@ ModUi/&MulticlassKeyHelp=Ein <color=#1E81B0>SHIFT</color>-Klick auf einen Zauber
 ModUi/&Multiplayer=<color=#F0DAA0>Mehrspieler:</color>
 ModUi/&MultiplyTheExperienceGainedBy=<color=white>Multipliziere die gewonnene Erfahrung um</color> <color=#C04040E0>[%]</color>
 ModUi/&NeverMoveCameraOnEnemyTurn=<i>+ Die Kamera bewegt sich nie während der Züge des Gegners</i>
-ModUi/&NewWeaponsAndRecipesBaseInsteadOfPrimed=<i>+ Basiswaffen und -rüstung statt Primed-Versionen als Zutaten verwenden</i> <b><i><color=#C04040E0>[Neustart erforderlich]</color></i></b>
+ModUi/&NewWeaponsAndRecipesBaseInsteadOfPrimed=<i>+ Basiswaffen und -rüstung statt präparierter Versionen als Zutaten verwenden</i> <b><i><color=#C04040E0>[Neustart erforderlich]</color></i></b>
 ModUi/&NewWeaponsAndRecipesSimplified=<i>+ Verwende einfache All-in-One-Rezepte <color=#F0DAA0>[nur Basiszutaten, betrifft keine benutzerdefinierten Gegenstände aus Kampagnen]</color></i> <b><i><color=#C04040E0>[Neustart erforderlich]</color></i></b>
 ModUi/&NoExperienceOnLevelUp=Für den Levelaufstieg ist keine Erfahrung erforderlich
 ModUi/&OfficialObscurementRulesCancelAdvDisPairs=<i>+ Aufheben von <color=#D89555>Vorteil / Nachteil</color> geblendeten, unsichtbaren und wahrgenommenen Paaren <color=#F0DAA0>[nützlich in Verbindung mit offiziellen <color=#D89555>Vorteil / Nachteil</color>-Regeln]</color></i>
@@ -369,7 +370,7 @@ ModUi/&OverridePartySize=<color=white>Gruppengröße überschreiben</color>
 ModUi/&Patches=<color=#F0DAA0>Patches:</color>
 ModUi/&Pause=Pause
 ModUi/&PortraitsOpenFolder=Ordner „Portraits“ öffnen
-ModUi/&PrimedItems=Grundierte Gegenstände
+ModUi/&PrimedItems=Präparierte Gegenstände
 ModUi/&QuickCastLightCantripOnWornItemsFirst=Aktivieren Sie den Schnellzauber <color=#D89555>Light Cantrip</color>, um zuerst am Kopf, Hals oder Rumpf getragene Gegenstände zu verwenden.
 ModUi/&RaceLightSensitivityApplyOutdoorsOnly=Aktivieren Sie <color=#D89555>Lichtempfindlichkeit</color> bei <color=#D89555>Dunkelelf</color>, <color=#D89555>Dunkelkobold</color> und <color=#D89555>Grauer Zwerg</color>, damit diese nur im Freien ausgelöst wird\n<i><color=#F0DAA0>[Innenbereiche an Außenbereichen, die ohne Ladebildschirm zugänglich sind, werden von der Spiel-Engine als Außenbereiche betrachtet]</color></i>
 ModUi/&Races=<color=#F0DAA0>Rennen</color>
@@ -467,6 +468,16 @@ ModUi/&UnityExplorer=<b><color=#D89555>Unity Explorer-Benutzeroberfläche</color
 ModUi/&UnleashEnemyAsNpc=Erlaube die Auswahl von Monstern auf NPC-Geräten
 ModUi/&UnleashNpcAsEnemy=Monsterauswahl freischalten
 ModUi/&Update=<b><color=#D89555>Aktualisieren</color></b>
+ModUi/&CheckForUpdates=<b><color=#D89555>Nach Updates suchen</color></b>
+ModUi/&UpdateStatusChecking=Suche nach Updates…
+ModUi/&UpdateStatusUpToDate=Aktuell: Version {0} ist die neueste
+ModUi/&UpdateStatusCheckFailed=Suche nach Updates fehlgeschlagen: {0}
+ModUi/&UpdateStatusAvailable=Version {0} ist verfügbar
+ModUi/&UpdateStatusDownloading=Version {0} wird heruntergeladen: {1}%
+ModUi/&UpdateStatusVerifying=Download von Version {0} wird geprüft…
+ModUi/&UpdateStatusQueued=Version {0} ist heruntergeladen und geprüft; sie wird beim Beenden des Spiels installiert
+ModUi/&UpdateStatusInstalled=Version {0} ist installiert; starte das Spiel neu, um sie zu verwenden
+ModUi/&UpdateStatusFailed=Das Update ist fehlgeschlagen: {0}
 ModUi/&UseAlternateSpellPointsSystem=Aktivieren Sie die Regeln für <color=#D89555>abweichende Zauberpunkte</color> <i><color=#F0DAA0>[Sie verfügen über einen Pool an Zauberpunkten, der mit der Zauberstufe ansteigt]</color></i>
 ModUi/&UseAlternateSpellPointsSystemHelp=<i><color=#F0DAA0>[L01: <color=white>04</color> L02: <color=white>06</color> L03: <color=white>14</color> L04: <color=white>17</color> L05: <color=white>27</color> L06: <color=white>32</color> L07: <color=white>38</color> L08: <color=white>44</color> L09: <color=white>57</color> L10: <color=white>64</color>\nL11: <color=white>73</color> L12: <color=white>73</color> L13: <color=white>83</color> L14: <color=white>83</color> L15: <color=white>94</color> L16: <color=white>94</color> L17: <color=white>107</color> L18: <color=white>114</color> L19: <color=white>123</color> L20: <color=white>133</color>\nKosten zum Wirken von Zaubersprüchen sind SL1: <color=white>2</color> SL2: <color=white>3</color> SL3: <color=white>5</color> SL4: <color=white>6</color> SL5: <color=white>7</color> SL6: <color=white>9</color> SL7: <color=white>10</color> SL8: <color=white>11</color> SL9: <color=white>13</color>\nDie Wiederherstellungsfunktionen für kurze Ruheslots werden unter diesem System nicht ausgelöst]</color></i>
 ModUi/&UseElfFaceModelsOnTieflings=Verwenden Sie <color=#D89555>Elfen</color>-Gesichtsmodelle bei <color=#D89555>Tieflingen</color>
@@ -522,6 +533,8 @@ ModUi/&MultiplayerTurnSpeedUpStart=Gegnerzüge beschleunigen
 ModUi/&MultiplayerTurnSpeedUpStop=Zurück zur normalen Geschwindigkeit
 ModUi/&MultiplayerTurnSpeedUpTooltip=Spielt die Gegnerzüge schneller ab, bis erneut geklickt wird oder ein Gruppenmitglied am Zug ist.
 ModUi/&MultiplayerTurnSpeedUpPending=Warte auf den Host …
+ModUi/&MultiplayerTurnSpeedUpWaiting=Warte auf {0}; die Geschwindigkeit bleibt, bis der Host die Änderung bestätigt
+ModUi/&MultiplayerTurnSpeedUpWaitingOthers=Warte auf die anderen Spieler; die Geschwindigkeit bleibt, bis der Host die Änderung bestätigt
 ModUi/&MultiplayerDeterministicStandAgainstTheTide=Die synchronisierten Würfel verwenden, um das Umleitungsziel von <color=#D89555>Stand Against the Tide</color> zu wählen <i><color=#F0DAA0>[nur Mehrspielerpartien]</color></i>
 ModUi/&MultiplayerEnableDesyncDetection=Desyncs erkennen und eine Warnung anzeigen, damit die Gruppe neu laden kann <i><color=#F0DAA0>[vergleicht alle 5 Sekunden den Entitätenzähler zwischen den Computern]</color></i>
 ModUi/&MultiplayerEnableStateFingerprint=Zusätzlich alle 5 Sekunden TP, Position, Zustände, Zauberplätze jedes Charakters und die Würfelfolge vergleichen und sagen, welcher Charakter abweicht <i><color=#F0DAA0>[nur geprüft, wenn sich nichts bewegt oder handelt]</color></i>

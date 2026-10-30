@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using ExitGames.Client.Photon;
@@ -13,22 +15,43 @@ namespace SolastaUnfinishedBusiness.Models;
 // Game-state fingerprint for multiplayer desyncs. Every few seconds each computer sends, for the same tick, each
 // character's HP, temporary HP, position, conditions and spell slots plus the position in the shared dice stream.
 // Every computer compares itself with the host. A difference seen twice in a row is a desync: it names the character
-// and what differs. Out of combat the host can quick-correct simple differences (HP, position, slots, dice) at a
-// lockstep tick; anything else, or a correction that didn't hold, offers the host a resync (quick-save and reload,
-// which brings every client into the same save).
+// and what differs, once per desync rather than at every check. Out of combat the host can quick-correct simple
+// differences (HP, position, slots, dice) at a lockstep tick, one correction per player, each with its own ID: it first
+// makes a recovery save and only corrects once the game confirms that save was written. The corrected player reports
+// whether the correction could be applied, and the next check after it tells whether it held: only then is it called
+// verified. A correction that was refused, didn't hold or couldn't be checked in time offers the host a resync: a new
+// recovery save that every client is brought back into, loaded by its exact file, never an older save in its place.
 internal static class MultiplayerDesyncContext
 {
     private const byte EventCode = 171;
     private const byte FingerprintKind = 1;
     private const byte CorrectionKind = 2;
     private const byte ResyncKind = 3;
+    private const byte StatusKind = 4;
+    private const byte AppliedKind = 5;
+    private const byte ResyncCancelledKind = 6;
     private const ulong FingerprintTickInterval = 100;
     private const int ValuesPerCharacter = 9;
-    private const float ResyncSaveTimeout = 30f;
+
+    // a correction not verified this long after it was sent is reported as unverified
+    private const float CorrectionTimeout = 60f;
+
+    // recovery saves take turns in a few slots of their own, so they never replace a player's save
+    private const string RecoverySavePrefix = "FB Recovery ";
+    private const int RecoverySaveSlots = 3;
 
     private static readonly Dictionary<ulong, Fingerprint> LocalByTick = [];
-    private static readonly Dictionary<ulong, Fingerprint> HostByTick = [];
+
+    // the host's reports on a client: kept by tick within a window around the local tick, however they arrive
+    private static readonly BoundedTickReports<Fingerprint> HostReports = new(8, FingerprintTickInterval * 8);
     private static readonly Dictionary<int, HashSet<string>> PreviousDifferencesByActor = [];
+    private static readonly Dictionary<int, Correction> CorrectionsByActor = [];
+
+    // the desync last reported for each player, so the same one isn't reported (or corrected) again
+    private static readonly Dictionary<int, string> ReportedByActor = [];
+
+    // players whose correction failed: not corrected automatically again until a check finds their game matching
+    private static readonly HashSet<int> FailedActors = [];
     private static readonly FieldInfo[] RandomStateFields =
         typeof(UnityEngine.Random.State).GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)
             .Where(x => x.FieldType == typeof(int))
@@ -37,17 +60,34 @@ internal static class MultiplayerDesyncContext
 
     private static bool _eventHandlerRegistered;
     private static ulong _lastFingerprintTick = ulong.MaxValue;
-    private static bool _correctionPending;
     private static bool _resyncOffered;
+    private static string _lastRecoverySave;
+
+    // on a client: the correction the host is applying to this computer, until its outcome arrives
+    private static string _clientCorrection;
+    private static float _clientCorrectionUntil;
+    private static string _lastStatus;
+
+    private enum CorrectionStatus : byte
+    {
+        Verified = 1,
+        Failed = 2,
+        TimedOut = 3,
+        Rejected = 4,
+        Cancelled = 5
+    }
 
     internal static void Reset()
     {
         LocalByTick.Clear();
-        HostByTick.Clear();
+        HostReports.Prune(ulong.MaxValue);
         PreviousDifferencesByActor.Clear();
+        CorrectionsByActor.Clear();
+        ReportedByActor.Clear();
+        FailedActors.Clear();
         _lastFingerprintTick = ulong.MaxValue;
-        _correctionPending = false;
         _resyncOffered = false;
+        _clientCorrection = null;
     }
 
     #region Sending
@@ -67,6 +107,11 @@ internal static class MultiplayerDesyncContext
 
         RegisterEventHandler();
 
+        if (PhotonNetwork.IsMasterClient)
+        {
+            CheckCorrectionTimeouts();
+        }
+
         var tick = networking.tick.LocalTick;
 
         if (tick == 0 || tick % FingerprintTickInterval != 0 || tick == _lastFingerprintTick)
@@ -81,17 +126,11 @@ internal static class MultiplayerDesyncContext
         LocalByTick[tick] = fingerprint;
         Forget(LocalByTick, tick);
 
-        if (PhotonNetwork.IsMasterClient)
-        {
-            HostByTick[tick] = fingerprint;
-            Forget(HostByTick, tick);
-        }
-
         PhotonNetwork.RaiseEvent(EventCode, fingerprint.ToEvent(),
             new RaiseEventOptions { Receivers = ReceiverGroup.Others }, SendOptions.SendReliable);
 
         // a client compares itself as soon as the host's fingerprint for this tick is known
-        if (!PhotonNetwork.IsMasterClient && HostByTick.TryGetValue(tick, out var host))
+        if (!PhotonNetwork.IsMasterClient && HostReports.Take(tick, out var host))
         {
             Compare(host, fingerprint, PhotonNetwork.MasterClient?.ActorNumber ?? 0);
         }
@@ -122,14 +161,15 @@ internal static class MultiplayerDesyncContext
 
     private static void OnEvent(EventData photonEvent)
     {
-        if (photonEvent.Code != EventCode || photonEvent.CustomData is not object[] { Length: > 0 } data)
+        if (photonEvent.Code != EventCode || photonEvent.CustomData is not object[] { Length: > 0 } data ||
+            data[0] is not byte kind)
         {
             return;
         }
 
         var sender = PhotonNetwork.CurrentRoom?.GetPlayer(photonEvent.Sender);
 
-        switch ((byte)data[0])
+        switch (kind)
         {
             case FingerprintKind:
                 OnFingerprint(Fingerprint.FromEvent(data), sender);
@@ -139,6 +179,17 @@ internal static class MultiplayerDesyncContext
                 break;
             case ResyncKind when sender is { IsMasterClient: true }:
                 Gui.GuiService.ShowAlert("Message/&MultiplayerDesyncHostResyncing", Gui.ColorAlert, 10f);
+                break;
+            case ResyncCancelledKind when sender is { IsMasterClient: true }:
+                Gui.GuiService.ShowAlert("Message/&MultiplayerDesyncHostResyncCancelled", Gui.ColorFailure, 10f);
+                break;
+            case StatusKind when sender is { IsMasterClient: true } && data.Length >= 3 &&
+                                 data[1] is string id && data[2] is byte status:
+                OnStatus(id, (CorrectionStatus)status);
+                break;
+            case AppliedKind when sender != null && PhotonNetwork.IsMasterClient && data.Length >= 3 &&
+                                  data[1] is string id && data[2] is bool applied:
+                OnApplied(sender.ActorNumber, id, applied);
                 break;
         }
     }
@@ -152,12 +203,13 @@ internal static class MultiplayerDesyncContext
 
         if (sender.IsMasterClient)
         {
-            HostByTick[received.Tick] = received;
-            Forget(HostByTick, received.Tick);
-
             if (LocalByTick.TryGetValue(received.Tick, out var local))
             {
                 Compare(received, local, sender.ActorNumber);
+            }
+            else if (ServiceRepository.GetService<INetworkingService>() is NetworkingManager networking)
+            {
+                HostReports.Add(received.Tick, networking.tick.LocalTick, received);
             }
 
             return;
@@ -187,6 +239,33 @@ internal static class MultiplayerDesyncContext
         PreviousDifferencesByActor.TryGetValue(otherActor, out var previous);
         PreviousDifferencesByActor[otherActor] = new HashSet<string>(differences.Select(x => x.Key));
 
+        var playerName = PhotonNetwork.IsMasterClient
+            ? PhotonNetwork.CurrentRoom?.GetPlayer(otherActor)?.NickName ?? "?"
+            : Gui.Localize("ModUi/&MultiplayerHostRole").Trim();
+
+        // the first check after a correction's tick tells whether it held
+        if (PhotonNetwork.IsMasterClient && CorrectionsByActor.TryGetValue(otherActor, out var correction) &&
+            host.Tick > correction.ApplyTick)
+        {
+            CorrectionsByActor.Remove(otherActor);
+
+            if (differences.Count == 0)
+            {
+                ReportedByActor.Remove(otherActor);
+                Gui.GuiService.ShowAlert(
+                    Gui.Format("Message/&MultiplayerDesyncCorrectionVerified", correction.PlayerName),
+                    Gui.ColorAlmostWhite, 6f);
+                SendStatus(correction, CorrectionStatus.Verified);
+            }
+            else
+            {
+                FailCorrection(correction, CorrectionStatus.Failed,
+                    string.Join("\n", differences.Select(x => x.Description).Take(6)));
+            }
+
+            return;
+        }
+
         // a difference must show up in two checks in a row, so a value changing between frames isn't reported
         var confirmed = differences.Where(x => previous != null && previous.Contains(x.Key)).ToList();
 
@@ -194,15 +273,25 @@ internal static class MultiplayerDesyncContext
         {
             if (differences.Count == 0)
             {
-                _correctionPending = false;
+                ReportedByActor.Remove(otherActor);
+                FailedActors.Remove(otherActor);
             }
 
             return;
         }
 
-        var playerName = PhotonNetwork.IsMasterClient
-            ? PhotonNetwork.CurrentRoom?.GetPlayer(otherActor)?.NickName ?? "?"
-            : Gui.Localize("ModUi/&MultiplayerHostRole").Trim();
+        var signature = string.Join("|", confirmed.Select(x => x.Key).OrderBy(x => x));
+
+        // reported once: a correction on its way, or a desync already reported, waits for its outcome
+        if (CorrectionsByActor.ContainsKey(otherActor) ||
+            (!PhotonNetwork.IsMasterClient && ClientCorrectionPending()) ||
+            (ReportedByActor.TryGetValue(otherActor, out var reported) && reported == signature))
+        {
+            return;
+        }
+
+        ReportedByActor[otherActor] = signature;
+
         var details = string.Join("\n", confirmed.Select(x => x.Description).Take(6));
 
         Main.Error($"Multiplayer state desync with {playerName} at tick {host.Tick}:\n{details}");
@@ -215,12 +304,9 @@ internal static class MultiplayerDesyncContext
             return;
         }
 
-        if (!_correctionPending && CanQuickCorrect(host, confirmed))
+        if (CanQuickCorrect(host, confirmed) && !FailedActors.Contains(otherActor))
         {
-            _correctionPending = true;
-            SendCorrection(host, confirmed);
-            Gui.GuiService.ShowAlert(Gui.Format("Message/&MultiplayerDesyncCorrecting", playerName, details),
-                Gui.ColorAlert, 10f);
+            StartCorrection(otherActor, playerName, host, confirmed, details);
 
             return;
         }
@@ -231,6 +317,11 @@ internal static class MultiplayerDesyncContext
     private static List<Difference> Differences(Fingerprint host, Fingerprint other)
     {
         var differences = new List<Difference>();
+        if (host.Perception != other.Perception)
+        {
+            differences.Add(new Difference("perception", DifferenceType.Perception,
+                Gui.Localize("Message/&MultiplayerDesyncPerception")));
+        }
 
         if (host.Dice != other.Dice)
         {
@@ -311,17 +402,39 @@ internal static class MultiplayerDesyncContext
     {
         return Main.Settings.MultiplayerQuickCorrectDesync &&
                !host.InBattle &&
-               differences.All(x => x.Type is DifferenceType.Correctable or DifferenceType.Dice);
+               differences.All(x => x.Type is DifferenceType.Correctable or DifferenceType.Dice or DifferenceType.Perception);
     }
 
-    // the host's values are applied at a lockstep tick on every computer (the host included), like a command
-    private static void SendCorrection(Fingerprint host, List<Difference> differences)
+    // host only: a recovery save first, then the correction; without a confirmed save nothing is corrected
+    private static void StartCorrection(
+        int actor, string playerName, Fingerprint host, List<Difference> confirmed, string details)
     {
-        if (ServiceRepository.GetService<INetworkingService>() is not NetworkingManager networking)
+        var correction = new Correction(Guid.NewGuid().ToString("N"), actor, playerName);
+        var save = MakeRecoverySave(out var reason);
+
+        if (save == null)
         {
+            FailedActors.Add(actor);
+            Main.Error($"Multiplayer quick correct for {playerName} cancelled: no recovery save ({reason})");
+            Gui.GuiService.ShowAlert(Gui.Format("Message/&MultiplayerDesyncCorrectionNoSave", playerName, reason),
+                Gui.ColorFailure, 12f);
+            SendStatus(correction, CorrectionStatus.Cancelled);
+
             return;
         }
 
+        correction.SaveName = save;
+        correction.ApplyTick = SendCorrection(host, confirmed, correction);
+        correction.Deadline = Time.realtimeSinceStartup + CorrectionTimeout;
+        CorrectionsByActor[actor] = correction;
+        Gui.GuiService.ShowAlert(Gui.Format("Message/&MultiplayerDesyncCorrecting", playerName, details, save),
+            Gui.ColorAlert, 10f);
+    }
+
+    // the host's values are applied at a lockstep tick on every computer (the host included), like a command
+    private static ulong SendCorrection(Fingerprint host, List<Difference> differences, Correction correction)
+    {
+        var networking = (NetworkingManager)ServiceRepository.GetService<INetworkingService>();
         var guids = differences
             .Select(x => x.Key.Split(':')[0])
             .Where(x => ulong.TryParse(x, out _))
@@ -342,20 +455,30 @@ internal static class MultiplayerDesyncContext
             }
         }
 
+        var tick = networking.CommandTick;
+
+        PerceptionContext.HoldRequests((ulong)tick);
+
         var data = new object[]
         {
-            CorrectionKind, networking.CommandTick, CaptureRandomState(),
+            CorrectionKind, tick, CaptureRandomState(),
             characters.Select(x => (long)x.Guid).ToArray(),
             characters.SelectMany(x => new[]
             {
                 x.HitPoints, x.TemporaryHitPoints, x.Position.x, x.Position.y, x.Position.z
             }).ToArray(),
-            slots.ToArray()
+            slots.ToArray(),
+            // which correction this is, the player it is for, and the recovery save made before it
+            correction.Id, new[] { correction.Actor }, correction.SaveName, PerceptionContext.Capture(),
+            // the tick it was captured at: a computer whose perception results changed at or after it rejects it
+            (long)networking.tick.LocalTick
         };
 
         PhotonNetwork.RaiseEvent(EventCode, data,
             new RaiseEventOptions { Receivers = ReceiverGroup.All }, SendOptions.SendReliable);
         PhotonNetwork.SendAllOutgoingCommands();
+
+        return (ulong)tick;
     }
 
     private static void OnCorrection(object[] data)
@@ -365,16 +488,89 @@ internal static class MultiplayerDesyncContext
             return;
         }
 
+        if (IsForThisComputer(data, out var id))
+        {
+            _clientCorrection = id;
+            _clientCorrectionUntil = Time.realtimeSinceStartup + CorrectionTimeout + 10f;
+            Gui.GuiService.ShowAlert(Gui.Format("Message/&MultiplayerDesyncBeingCorrected", (string)data[8]),
+                Gui.ColorAlert, 8f);
+        }
+
+        PerceptionContext.HoldRequests((ulong)(long)data[1]);
         networking.AddDelayedCommand(ApplyCorrection(data), (long)data[1]);
+    }
+
+    // slot records are (character index, repertoire index, slot level, used slots); indices must be in range
+    private static bool ValidSlotRecords(int[] slots, int characterCount)
+    {
+        if (slots.Length % 4 != 0)
+        {
+            return false;
+        }
+
+        for (var i = 0; i < slots.Length; i += 4)
+        {
+            if (slots[i] < 0 || slots[i] >= characterCount || slots[i + 1] < 0 || slots[i + 2] < 0)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private static bool IsForThisComputer(object[] data, out string id)
+    {
+        id = data.Length >= 9 && data[6] is string correctionId && data[7] is int[] actors && data[8] is string &&
+             !PhotonNetwork.IsMasterClient && actors.Contains(PhotonNetwork.LocalPlayer?.ActorNumber ?? 0)
+            ? correctionId
+            : null;
+
+        return id != null;
     }
 
     private static IEnumerator ApplyCorrection(object[] data)
     {
+        // The whole correction is validated before anything changes, and a rejection is reported to the host like any
+        // other incomplete correction (the host then offers its resync). Every computer applies it, the host too, so a
+        // perception check rolled after the host captured it would be rolled back everywhere while the conditions it
+        // ended stayed ended, unseen by verification. Results change only at synchronized ticks, so every computer in
+        // step finds the same last change tick and makes the same choice: one that changed at or after the capture tick
+        // rejects it (a change in the capture tick itself may have come before the capture: rejecting is the safe side).
+        if (data.Length < 11 ||
+            data[2] is not int[] correctionRandom || correctionRandom.Length != RandomStateFields.Length ||
+            data[3] is not long[] correctionGuids ||
+            data[4] is not int[] correctionValues || correctionValues.Length != correctionGuids.Length * 5 ||
+            data[5] is not int[] correctionSlots || !ValidSlotRecords(correctionSlots, correctionGuids.Length) ||
+            data[9] is not long[] perception || !PerceptionContext.CanRestore(perception) ||
+            data[10] is not long captureTick || PerceptionContext.LastChangeTick >= (ulong)captureTick)
+        {
+            Main.Error("Multiplayer correction rejected: invalid data, or a perception check changed before it applied");
+
+            if (IsForThisComputer(data, out var rejectedId))
+            {
+                PhotonNetwork.RaiseEvent(EventCode, new object[] { AppliedKind, rejectedId, false },
+                    new RaiseEventOptions { Receivers = ReceiverGroup.MasterClient }, SendOptions.SendReliable);
+            }
+            // the host rejecting its own correction fails it too, whatever the corrected player reports
+            else if (PhotonNetwork.IsMasterClient && data.Length >= 8 && data[6] is string hostId &&
+                     data[7] is int[] hostActors)
+            {
+                foreach (var actor in hostActors)
+                {
+                    OnApplied(actor, hostId, false);
+                }
+            }
+
+            yield break;
+        }
+
         var randomState = (int[])data[2];
         var guids = (long[])data[3];
         var values = (int[])data[4];
         var slots = (int[])data[5];
         var positioning = ServiceRepository.GetService<IGameLocationPositioningService>();
+        var applied = true;
 
         for (var i = 0; i < guids.Length; i++)
         {
@@ -382,6 +578,8 @@ internal static class MultiplayerDesyncContext
 
             if (character?.RulesetCharacter == null)
             {
+                applied = false;
+
                 continue;
             }
 
@@ -407,6 +605,8 @@ internal static class MultiplayerDesyncContext
 
             if (repertoires == null || slots[i + 1] >= repertoires.Count)
             {
+                applied = false;
+
                 continue;
             }
 
@@ -414,9 +614,170 @@ internal static class MultiplayerDesyncContext
         }
 
         RestoreRandomState(randomState);
-        Main.Info($"Multiplayer quick correct applied for {guids.Length} character(s)");
+        PerceptionContext.Restore(perception);
+        Main.Info($"Multiplayer quick correct applied for {guids.Length} character(s), complete: {applied}");
+
+        // the corrected player tells the host whether every value found its character; applied isn't verified yet
+        if (IsForThisComputer(data, out var id))
+        {
+            PhotonNetwork.RaiseEvent(EventCode, new object[] { AppliedKind, id, applied },
+                new RaiseEventOptions { Receivers = ReceiverGroup.MasterClient }, SendOptions.SendReliable);
+        }
 
         yield break;
+    }
+
+    private static void OnApplied(int actor, string id, bool applied)
+    {
+        if (!CorrectionsByActor.TryGetValue(actor, out var correction) || correction.Id != id)
+        {
+            return;
+        }
+
+        if (applied)
+        {
+            correction.Applied = true;
+
+            return;
+        }
+
+        CorrectionsByActor.Remove(actor);
+        FailCorrection(correction, CorrectionStatus.Rejected, null);
+    }
+
+    private static void CheckCorrectionTimeouts()
+    {
+        if (CorrectionsByActor.Count == 0)
+        {
+            return;
+        }
+
+        foreach (var correction in CorrectionsByActor.Values
+                     .Where(x => Time.realtimeSinceStartup >= x.Deadline).ToList())
+        {
+            CorrectionsByActor.Remove(correction.Actor);
+            FailCorrection(correction, CorrectionStatus.TimedOut, null);
+        }
+    }
+
+    // the host is told, the player too, and a host-led reload is offered; the desync stays reported, so the same one
+    // isn't corrected again in a loop
+    private static void FailCorrection(Correction correction, CorrectionStatus status, string details)
+    {
+        FailedActors.Add(correction.Actor);
+        Main.Error($"Multiplayer quick correct {correction.Id} for {correction.PlayerName}: {status}" +
+                   (correction.Applied ? " (applied)" : string.Empty));
+        Gui.GuiService.ShowAlert(
+            Gui.Format($"Message/&MultiplayerDesyncCorrection{status}", correction.PlayerName, correction.SaveName),
+            Gui.ColorFailure, 12f);
+        SendStatus(correction, status);
+        OfferResync(correction.PlayerName, details ?? Gui.Localize($"Message/&MultiplayerDesyncCorrection{status}Short"));
+    }
+
+    private static void SendStatus(Correction correction, CorrectionStatus status)
+    {
+        PhotonNetwork.RaiseEvent(EventCode, new object[] { StatusKind, correction.Id, (byte)status },
+            new RaiseEventOptions { TargetActors = [correction.Actor] }, SendOptions.SendReliable);
+    }
+
+    private static bool ClientCorrectionPending()
+    {
+        return _clientCorrection != null && Time.realtimeSinceStartup < _clientCorrectionUntil;
+    }
+
+    // on the corrected player's computer; a cancelled correction arrives without one being announced first
+    private static void OnStatus(string id, CorrectionStatus status)
+    {
+        if (id == _lastStatus || (status != CorrectionStatus.Cancelled && id != _clientCorrection))
+        {
+            return;
+        }
+
+        _lastStatus = id;
+        _clientCorrection = null;
+        Gui.GuiService.ShowAlert(Gui.Localize($"Message/&MultiplayerDesyncClient{status}"),
+            status == CorrectionStatus.Verified ? Gui.ColorAlmostWhite : Gui.ColorFailure, 10f);
+    }
+
+    // a save in one of the recovery slots, named only once the game confirms it was written; null with the reason
+    // when it can't be made
+    private static string MakeRecoverySave(out string reason)
+    {
+        reason = null;
+
+        if (ServiceRepository.GetService<IGameSerializationService>() is not GameSerializationManager serialization)
+        {
+            reason = Gui.Localize("Message/&MultiplayerDesyncSaveUnavailable");
+
+            return null;
+        }
+
+        if (ServiceRepository.GetService<IGameService>()?.Game?.GameCampaign is { IronManMode: true })
+        {
+            reason = Gui.Localize("Message/&MultiplayerDesyncSaveIronMan");
+
+            return null;
+        }
+
+        if (!serialization.CanSave)
+        {
+            reason = Gui.Localize("Message/&MultiplayerDesyncSaveBusy");
+
+            return null;
+        }
+
+        var name = NextRecoverySlot();
+        var path = Path.Combine(TacticalAdventuresApplication.SaveGameDirectory, name) + ".sav";
+        var saved = false;
+
+        // the game raises GameSaved at the end of SaveGame, after writing; it returns without it when the disk is full
+        serialization.GameSaved += OnSaved;
+
+        try
+        {
+            serialization.SaveGame(path, GameSerializationDefinitions.SaveType.Manual);
+        }
+        catch (Exception e)
+        {
+            // SaveGame clears its saving flag only at its end
+            serialization.saving = false;
+            Main.Error($"Multiplayer recovery save failed: {e.Message}");
+        }
+        finally
+        {
+            serialization.GameSaved -= OnSaved;
+        }
+
+        if (!saved || !File.Exists(path))
+        {
+            reason = Gui.Localize("Message/&MultiplayerDesyncSaveFailed");
+
+            return null;
+        }
+
+        Main.Info($"Multiplayer recovery save written: {path}");
+        _lastRecoverySave = name;
+
+        return name;
+
+        void OnSaved(GameSerializationDefinitions.SaveType saveType, string savedGameName)
+        {
+            saved = true;
+        }
+    }
+
+    // an unused slot first, then the oldest
+    private static string NextRecoverySlot()
+    {
+        return Enumerable.Range(1, RecoverySaveSlots)
+            .Select(x => RecoverySavePrefix + x)
+            .OrderBy(x =>
+            {
+                var path = Path.Combine(TacticalAdventuresApplication.SaveGameDirectory, x) + ".sav";
+
+                return File.Exists(path) ? File.GetLastWriteTimeUtc(path) : DateTime.MinValue;
+            })
+            .First();
     }
 
     private static IEnumerable<(int repertoire, int level, int used)> SpellSlotEntries(GameLocationCharacter character)
@@ -435,6 +796,17 @@ internal static class MultiplayerDesyncContext
                 yield return (r, slot.Key, slot.Value);
             }
         }
+    }
+
+    private sealed class Correction(string id, int actor, string playerName)
+    {
+        internal string Id { get; } = id;
+        internal int Actor { get; } = actor;
+        internal string PlayerName { get; } = playerName;
+        internal string SaveName { get; set; }
+        internal ulong ApplyTick { get; set; }
+        internal float Deadline { get; set; }
+        internal bool Applied { get; set; }
     }
 
     #endregion
@@ -473,32 +845,35 @@ internal static class MultiplayerDesyncContext
         networking.StartCoroutine(Resync(serialization));
     }
 
-    // the host's quick save is the state everyone continues from: loading it as host brings every client in
+    // the host's new recovery save is the state everyone continues from: loading it as host brings every client in.
+    // If it can't be written, nothing is loaded: an older save isn't loaded in its place
     private static IEnumerator Resync(GameSerializationManager serialization)
     {
-        var before = serialization.GetLatestQuickSave()?.Filename;
-        var timeout = Time.unscaledTime + ResyncSaveTimeout;
+        // lets the message box close first
+        yield return null;
 
-        serialization.QuickSaveGame();
+        var previous = _lastRecoverySave;
+        var save = MakeRecoverySave(out var reason);
 
-        while (Time.unscaledTime < timeout &&
-               (serialization.saving || serialization.refreshing ||
-                serialization.GetLatestQuickSave()?.Filename == before))
+        if (save == null)
         {
-            yield return null;
-        }
-
-        if (serialization.saving || serialization.GetLatestQuickSave() == null)
-        {
-            Main.Error("Multiplayer resync: the quick save didn't finish, nothing was loaded");
+            Main.Error($"Multiplayer resync cancelled: no save ({reason}), nothing was loaded");
             _resyncOffered = false;
+            PhotonNetwork.RaiseEvent(EventCode, new object[] { ResyncCancelledKind },
+                new RaiseEventOptions { Receivers = ReceiverGroup.Others }, SendOptions.SendReliable);
+            Gui.GuiService.ShowMessage(MessageModal.Severity.Serious3,
+                "Message/&MultiplayerDesyncResyncTitle",
+                previous == null
+                    ? Gui.Format("Message/&MultiplayerDesyncResyncNoSave", reason)
+                    : Gui.Format("Message/&MultiplayerDesyncResyncNoSaveRecovery", reason, previous),
+                "Message/&MessageOkTitle", string.Empty, null, null);
 
             yield break;
         }
 
-        Main.Info($"Multiplayer resync: loading {serialization.GetLatestQuickSave().Filename}");
+        Main.Info($"Multiplayer resync: loading {save}");
         Reset();
-        serialization.QuickLoadGame();
+        serialization.LoadGame(Path.Combine(TacticalAdventuresApplication.SaveGameDirectory, save) + ".sav");
     }
 
     #endregion
@@ -563,6 +938,7 @@ internal static class MultiplayerDesyncContext
     {
         Correctable,
         Dice,
+        Perception,
         Other
     }
 
@@ -588,6 +964,7 @@ internal static class MultiplayerDesyncContext
         private readonly Dictionary<ulong, CharacterPrint> _byGuid = [];
         internal readonly List<CharacterPrint> Characters = [];
         internal long Dice;
+        internal long Perception;
         internal bool InBattle;
         internal bool Quiet;
         internal ulong Tick;
@@ -611,8 +988,11 @@ internal static class MultiplayerDesyncContext
             {
                 Tick = tick,
                 Dice = Hash(CaptureRandomState()),
+                Perception = PerceptionContext.Digest(),
                 InBattle = ServiceRepository.GetService<IGameLocationBattleService>() is { IsBattleInProgress: true },
-                Quiet = characters.All(x => !x.MoveInProgress && actions?.IsCharacterActing(x) != true)
+                // nothing moving or acting, and no perception check requested or waiting for its command
+                Quiet = characters.All(x => !x.MoveInProgress && actions?.IsCharacterActing(x) != true) &&
+                        PerceptionContext.IsIdle
             };
 
             foreach (var character in characters.Where(x => x.RulesetCharacter != null).OrderBy(x => x.Guid))
@@ -662,13 +1042,13 @@ internal static class MultiplayerDesyncContext
             return
             [
                 FingerprintKind, (long)Tick, Dice, InBattle, Quiet,
-                Characters.Select(x => (long)x.Guid).ToArray(), values
+                Characters.Select(x => (long)x.Guid).ToArray(), values, Perception
             ];
         }
 
         internal static Fingerprint FromEvent(object[] data)
         {
-            if (data.Length < 7 || data[5] is not long[] guids || data[6] is not int[] values ||
+            if (data.Length < 8 || data[7] is not long || data[5] is not long[] guids || data[6] is not int[] values ||
                 values.Length != guids.Length * ValuesPerCharacter)
             {
                 return null;
@@ -676,7 +1056,7 @@ internal static class MultiplayerDesyncContext
 
             var fingerprint = new Fingerprint
             {
-                Tick = (ulong)(long)data[1], Dice = (long)data[2], InBattle = (bool)data[3], Quiet = (bool)data[4]
+                Tick = (ulong)(long)data[1], Dice = (long)data[2], Perception = (long)data[7], InBattle = (bool)data[3], Quiet = (bool)data[4]
             };
 
             for (var i = 0; i < guids.Length; i++)

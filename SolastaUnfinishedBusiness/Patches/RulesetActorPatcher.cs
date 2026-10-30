@@ -134,11 +134,18 @@ public static class RulesetActorPatcher
         }
 
         [UsedImplicitly]
-        public static void Postfix(RulesetActor __instance, RulesetCondition newCondition)
+        public static void Postfix(RulesetActor __instance, RulesetCondition newCondition, RulesetCondition __result)
         {
             RulesContext.AddLightSourceIfNeeded(__instance, newCondition);
 
             var definition = newCondition.ConditionDefinition;
+
+            //PATCH: a blinded creature rolls its 10-cell Perception checks again; only for a condition actually added
+            //(the game returns null when it only refreshes an existing one's duration or doesn't add it)
+            if (__result != null)
+            {
+                PerceptionContext.OnConditionAdded(__instance, __result.ConditionDefinition);
+            }
 
             if (__instance is not RulesetCharacter rulesetCharacter)
             {

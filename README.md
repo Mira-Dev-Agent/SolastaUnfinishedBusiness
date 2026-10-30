@@ -10,7 +10,7 @@ Finishing Business is a fork of the Solasta mod [Unfinished Business](https://gi
    - **Only UMM 0.24.0 to 0.27.10 work.** Newer UMM versions aren't compatible with Solasta mods, and the original mod's [installation guide](https://github.com/EnderWiggin/SolastaUnfinishedBusiness/wiki/Install) warns that other versions break your heroes and saves. Versions before 0.24.0 refuse to load the mod (its minimum, `ManagerVersion` in `Info.json`).
    - The releases are built against UMM 0.24.2 and tested in game with UMM 0.27.10.
    - On macOS, use the original mod's [macOS UMM build](https://github.com/EnderWiggin/SolastaUnfinishedBusiness/blob/dev/MacOS/SolastaUnfinishedBusiness-UMM-MACOS.zip).
-2. Download `SolastaUnfinishedBusiness.zip` from the latest of this fork's [releases](https://github.com/Mira-Dev-Agent/SolastaUnfinishedBusiness/releases).
+2. Download `SolastaUnfinishedBusiness.zip` from the latest of this fork's [releases](https://github.com/SolastaFinishingBusiness/SolastaUnfinishedBusiness/releases).
 3. Extract it into Solasta's `Mods` folder, so you get `Mods\SolastaUnfinishedBusiness\` with `Info.json` and `SolastaUnfinishedBusiness.dll` inside. Keep that folder name.
 4. Start Solasta and press <kbd>Ctrl</kbd>+<kbd>F10</kbd> to open Unity Mod Manager. The mod is listed as **Finishing Business**.
 

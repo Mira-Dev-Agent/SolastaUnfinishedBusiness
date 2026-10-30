@@ -19,7 +19,7 @@ namespace SolastaUnfinishedBusiness.Models;
 // (CameraMode.ApplyFasterTurn, every frame), and a click keeps it sped up until clicked again or a party turn starts.
 // With "speed up enemy turns by default", every run of enemy turns starts sped up as if the button had been clicked
 // (in multiplayer the host's setting decides, through the same tick-scheduled state, with no alert).
-internal static class MultiplayerTurnSpeedContext
+internal static partial class MultiplayerTurnSpeedContext
 {
     private const byte EventCode = 173;
     private const byte RequestKind = 1;
@@ -88,6 +88,10 @@ internal static class MultiplayerTurnSpeedContext
 
     private static void Reset()
     {
+        ClearBarrier();
+        _lastProposal = 0;
+        _reportedBarrier = null;
+        _automaticPaused = false;
         _speedUp = false;
         _wasEnemyTurn = false;
         _pending = false;
@@ -129,7 +133,7 @@ internal static class MultiplayerTurnSpeedContext
             return;
         }
 
-        if (_pending && (long)networking.tick.LocalTick >= _pendingTick)
+        if (_pending && _barrier is { Released: true } && (long)networking.tick.LocalTick == _pendingTick)
         {
             _pending = false;
 
@@ -150,7 +154,7 @@ internal static class MultiplayerTurnSpeedContext
         }
 
         if (EnemyTurnsBegan() && PhotonNetwork.IsMasterClient && Main.Settings.EnemyTurnSpeedUpByDefault &&
-            Main.Settings.MultiplayerEnemyTurnSpeedUp)
+            Main.Settings.MultiplayerEnemyTurnSpeedUp && !_automaticPaused)
         {
             Decide(true, null);
         }
@@ -162,6 +166,7 @@ internal static class MultiplayerTurnSpeedContext
         }
 
         ApplyToGameTime(_speedUp && Main.Settings.MultiplayerEnemyTurnSpeedUp);
+        PumpBarrier(networking);
     }
 
     private static void ApplyToGameTime(bool faster)
@@ -208,12 +213,10 @@ internal static class MultiplayerTurnSpeedContext
             return;
         }
 
-        var tick = (long)networking.tick.LocalTick + MultiplayerContext.CurrentTickBuffer + ExtraTicks;
+        var tick = (long)networking.tick.MaxTick + MultiplayerContext.CurrentTickBuffer + ExtraTicks;
         var modifier = Main.Settings.FasterTimeModifier;
 
-        PhotonNetwork.RaiseEvent(EventCode, new object[] { StateKind, on, tick, nickname ?? string.Empty, modifier },
-            new RaiseEventOptions { Receivers = ReceiverGroup.Others }, SendOptions.SendReliable);
-        Schedule(on, tick, nickname, modifier);
+        BeginBarrier(on, tick, nickname, modifier);
     }
 
     private static void Schedule(bool on, long tick, string nickname, float modifier)
@@ -222,7 +225,7 @@ internal static class MultiplayerTurnSpeedContext
         _pendingOn = on;
         _pendingTick = tick;
         _pendingNickname = nickname;
-        Modifier = modifier;
+        _barrierModifier = modifier;
     }
 
     private static void OnEvent(EventData photonEvent)
@@ -234,15 +237,15 @@ internal static class MultiplayerTurnSpeedContext
 
         var sender = PhotonNetwork.CurrentRoom?.GetPlayer(photonEvent.Sender);
 
-        switch ((byte)data[0])
+        if (HandleBarrierEvent(photonEvent, data)) { return; }
+
+        switch (data[0] is byte kind ? kind : (byte)0)
         {
-            case RequestKind when PhotonNetwork.IsMasterClient:
+            case RequestKind when PhotonNetwork.IsMasterClient && sender != null && data[1] is bool:
                 Decide((bool)data[1], sender?.NickName);
                 break;
             // only the host's state counts
-            case StateKind when data.Length >= 5 && sender is { IsMasterClient: true }:
-                Schedule((bool)data[1], (long)data[2], (string)data[3], (float)data[4]);
-                break;
+            // Older peers cannot bypass the readiness barrier with a legacy StateKind message.
         }
     }
 
@@ -320,8 +323,10 @@ internal static class MultiplayerTurnSpeedContext
         private void RefreshControls()
         {
             var enabled = IsOnlineRoom ? Main.Settings.MultiplayerEnemyTurnSpeedUp : IsSinglePlayerButton;
+            // a change held at its tick names who it waits for, in place of the sped-up label
+            var status = IsOnlineRoom ? BarrierStatus() : null;
             // Shown turns false as soon as the bar starts hiding, e.g. in ContextualSequenceStart for a close-up
-            var show = enabled && IsEnemyTurn() && EnsureControls() && _screen.initiativeTable &&
+            var show = enabled && (IsEnemyTurn() || status != null) && EnsureControls() && _screen.initiativeTable &&
                        _screen.initiativeTable.Shown;
 
             if (!show)
@@ -348,9 +353,17 @@ internal static class MultiplayerTurnSpeedContext
                 _buttonComponent.interactable = !_pending;
             }
 
-            SetActive(_indicator.gameObject, _speedUp);
+            SetActive(_indicator.gameObject, _speedUp || status != null);
 
-            if (_speedUp && !Mathf.Approximately(_indicatorModifier, Modifier))
+            if (status != null)
+            {
+                if (_indicator.text != status)
+                {
+                    _indicator.text = status;
+                    _indicatorModifier = -1f;
+                }
+            }
+            else if (_speedUp && !Mathf.Approximately(_indicatorModifier, Modifier))
             {
                 _indicatorModifier = Modifier;
                 _indicator.text = Gui.Format("ModUi/&MultiplayerTurnSpeedUpIndicator", Modifier.ToString("0.#"));

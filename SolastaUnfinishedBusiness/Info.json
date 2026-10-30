@@ -1,13 +1,13 @@
 {
   "Id": "SolastaUnfinishedBusiness",
   "DisplayName": "<color=Orange>Finishing Business</color>",
-  "Version": "1.9.0",
+  "Version": "1.10.0",
   "GameVersion": "1.5.97",
   "ManagerVersion": "0.24.0",
   "AssemblyName": "SolastaUnfinishedBusiness.dll",
   "EntryMethod": "SolastaUnfinishedBusiness.Main.Load",
   "HomePage": "https://github.com/EnderWiggin/SolastaUnfinishedBusiness/wiki",
-  "Repository": "https://github.com/Mira-Dev-Agent/SolastaUnfinishedBusiness",
-  "VersionURL": "https://raw.githubusercontent.com/Mira-Dev-Agent/SolastaUnfinishedBusiness/refs/heads/release/SolastaUnfinishedBusiness/Info.json",
-  "Changelog": "https://raw.githubusercontent.com/Mira-Dev-Agent/SolastaUnfinishedBusiness/refs/heads/release/SolastaUnfinishedBusiness/ChangelogHistory.txt"
+  "Repository": "https://github.com/SolastaFinishingBusiness/SolastaUnfinishedBusiness",
+  "VersionURL": "https://raw.githubusercontent.com/SolastaFinishingBusiness/SolastaUnfinishedBusiness/refs/heads/release/SolastaUnfinishedBusiness/Info.json",
+  "Changelog": "https://raw.githubusercontent.com/SolastaFinishingBusiness/SolastaUnfinishedBusiness/refs/heads/release/SolastaUnfinishedBusiness/ChangelogHistory.txt"
 }
