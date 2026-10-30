@@ -456,6 +456,9 @@ internal static class MultiplayerDesyncContext
         }
 
         var tick = networking.CommandTick;
+
+        PerceptionContext.HoldRequests((ulong)tick);
+
         var data = new object[]
         {
             CorrectionKind, tick, CaptureRandomState(),
@@ -466,7 +469,9 @@ internal static class MultiplayerDesyncContext
             }).ToArray(),
             slots.ToArray(),
             // which correction this is, the player it is for, and the recovery save made before it
-            correction.Id, new[] { correction.Actor }, correction.SaveName, PerceptionContext.Capture()
+            correction.Id, new[] { correction.Actor }, correction.SaveName, PerceptionContext.Capture(),
+            // the tick it was captured at: a computer whose perception results changed at or after it rejects it
+            (long)networking.tick.LocalTick
         };
 
         PhotonNetwork.RaiseEvent(EventCode, data,
@@ -491,8 +496,27 @@ internal static class MultiplayerDesyncContext
                 Gui.ColorAlert, 8f);
         }
 
-        // the perception results as received: if any change before the correction applies, it is rejected
-        networking.AddDelayedCommand(ApplyCorrection(data, PerceptionContext.Revision), (long)data[1]);
+        PerceptionContext.HoldRequests((ulong)(long)data[1]);
+        networking.AddDelayedCommand(ApplyCorrection(data), (long)data[1]);
+    }
+
+    // slot records are (character index, repertoire index, slot level, used slots); indices must be in range
+    private static bool ValidSlotRecords(int[] slots, int characterCount)
+    {
+        if (slots.Length % 4 != 0)
+        {
+            return false;
+        }
+
+        for (var i = 0; i < slots.Length; i += 4)
+        {
+            if (slots[i] < 0 || slots[i] >= characterCount || slots[i + 1] < 0 || slots[i + 2] < 0)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private static bool IsForThisComputer(object[] data, out string id)
@@ -505,20 +529,21 @@ internal static class MultiplayerDesyncContext
         return id != null;
     }
 
-    private static IEnumerator ApplyCorrection(object[] data, long perceptionRevisionAtReceipt)
+    private static IEnumerator ApplyCorrection(object[] data)
     {
-        // the whole correction is validated before anything changes, and a rejection is reported to the host like any
-        // other incomplete correction (the host then offers its resync). The perception results and the dice describe
-        // the same completed checks, so a check rolled between this correction's capture and now (its result and the
-        // conditions it ended can't be taken back) rejects it too; one rolled before it arrived differs from the host's
-        // and fails the next verification.
-        if (data.Length < 10 ||
-            data[2] is not int[] ||
+        // The whole correction is validated before anything changes, and a rejection is reported to the host like any
+        // other incomplete correction (the host then offers its resync). Every computer applies it, the host too, so a
+        // perception check rolled after the host captured it would be rolled back everywhere while the conditions it
+        // ended stayed ended, unseen by verification. Results change only at synchronized ticks, so every computer in
+        // step finds the same last change tick and makes the same choice: one that changed at or after the capture tick
+        // rejects it (a change in the capture tick itself may have come before the capture: rejecting is the safe side).
+        if (data.Length < 11 ||
+            data[2] is not int[] correctionRandom || correctionRandom.Length != RandomStateFields.Length ||
             data[3] is not long[] correctionGuids ||
             data[4] is not int[] correctionValues || correctionValues.Length != correctionGuids.Length * 5 ||
-            data[5] is not int[] correctionSlots || correctionSlots.Length % 4 != 0 ||
+            data[5] is not int[] correctionSlots || !ValidSlotRecords(correctionSlots, correctionGuids.Length) ||
             data[9] is not long[] perception || !PerceptionContext.CanRestore(perception) ||
-            PerceptionContext.Revision != perceptionRevisionAtReceipt)
+            data[10] is not long captureTick || PerceptionContext.LastChangeTick >= (ulong)captureTick)
         {
             Main.Error("Multiplayer correction rejected: invalid data, or a perception check changed before it applied");
 
@@ -526,6 +551,15 @@ internal static class MultiplayerDesyncContext
             {
                 PhotonNetwork.RaiseEvent(EventCode, new object[] { AppliedKind, rejectedId, false },
                     new RaiseEventOptions { Receivers = ReceiverGroup.MasterClient }, SendOptions.SendReliable);
+            }
+            // the host rejecting its own correction fails it too, whatever the corrected player reports
+            else if (PhotonNetwork.IsMasterClient && data.Length >= 8 && data[6] is string hostId &&
+                     data[7] is int[] hostActors)
+            {
+                foreach (var actor in hostActors)
+                {
+                    OnApplied(actor, hostId, false);
+                }
             }
 
             yield break;

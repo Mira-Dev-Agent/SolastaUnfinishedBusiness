@@ -14,8 +14,12 @@ internal sealed class PerceptionLedger
 
     internal int Count => _entries.Count;
 
-    // changes with every change to the results (equal on every computer: changes happen only at synchronized points)
-    internal long Revision { get; private set; }
+    // the network tick of the last change to the results; changes happen only at synchronized points, so it is equal
+    // on every computer in step
+    internal ulong LastChangeTick { get; private set; }
+
+    // the current network tick
+    internal Func<ulong> Clock { get; set; } = () => 0;
 
     internal bool TryGet(ulong sensor, ulong target, out int outcome)
     {
@@ -43,7 +47,7 @@ internal sealed class PerceptionLedger
         {
             outcome = roll();
             _entries[key] = (outcome, phase);
-            Revision++;
+            Changed();
             return true;
         }
         finally
@@ -55,14 +59,26 @@ internal sealed class PerceptionLedger
     internal void Clear()
     {
         _entries.Clear();
-        Revision++;
+        Changed();
+    }
+
+    // a load: every computer starts from the same empty results, with no change since (network ticks restart)
+    internal void ResetForLoad()
+    {
+        _entries.Clear();
+        LastChangeTick = 0;
+    }
+
+    private void Changed()
+    {
+        LastChangeTick = Clock();
     }
 
     // round 1 of a fight: keeps the checks rolled outside combat, now as round 1 checks, so a later fight (even one
     // that ends in round 1) can't inherit them; drops everything left over from an earlier fight
     internal void CarryIntoRound1()
     {
-        Revision++;
+        Changed();
 
         foreach (var entry in _entries.ToList())
         {
@@ -132,7 +148,7 @@ internal sealed class PerceptionLedger
             _entries.Add(entry.Key, entry.Value);
         }
 
-        Revision++;
+        Changed();
     }
 
     // validates the whole snapshot before replacing anything

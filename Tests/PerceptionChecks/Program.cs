@@ -103,17 +103,44 @@ static class Program
         bounded.Clear();
         Check(bounded.PendingCount == 0 && bounded.TryMarkPending((1, 2), 0, 0, 0f, out _), "clear forgets everything");
 
-        // the ledger revision changes with every change (a correction compares it between receipt and apply)
-        var revisions = new PerceptionLedger();
-        var r0 = revisions.Revision;
-        revisions.TryResolve(1, 2, 0, () => 1, out _);
-        var r1 = revisions.Revision;
-        revisions.TryResolve(1, 2, 0, () => 2, out _);
-        Check(r1 > r0 && revisions.Revision == r1, "a roll changes the revision, a read doesn't");
-        revisions.CarryIntoRound1();
-        var r2 = revisions.Revision;
-        revisions.Clear();
-        Check(r2 > r1 && revisions.Revision > r2, "round starts change the revision");
+        // the last change tick (a correction applies only where no result changed at or after its capture tick)
+        ulong now = 5;
+        var ticks = new PerceptionLedger { Clock = () => now };
+        Check(ticks.LastChangeTick == 0, "no change yet");
+        ticks.TryResolve(1, 2, 0, () => 1, out _);
+        Check(ticks.LastChangeTick == 5, "a roll records its tick");
+        now = 7;
+        ticks.TryResolve(1, 2, 0, () => 2, out _);
+        Check(ticks.LastChangeTick == 5, "a read doesn't");
+        ticks.CarryIntoRound1();
+        Check(ticks.LastChangeTick == 7, "round 1 records its tick");
+        now = 9;
+        ticks.Clear();
+        Check(ticks.LastChangeTick == 9, "a later round start records its tick");
+        // Codex third-review repro: two computers in step, a correction captured at tick 10, a check rolled at tick 12
+        // before it applies: both see the change after the capture and both reject it
+        var peerA = new PerceptionLedger { Clock = () => now };
+        var peerB = new PerceptionLedger { Clock = () => now };
+        now = 3;
+        peerA.TryResolve(1, 2, 0, () => 1, out _);
+        peerB.TryResolve(1, 2, 0, () => 1, out _);
+        const ulong captureTick = 10;
+        Check(peerA.LastChangeTick < captureTick && peerB.LastChangeTick < captureTick,
+            "no change after the capture: both apply");
+        now = 12;
+        peerA.TryResolve(3, 4, 0, () => 1, out _);
+        peerB.TryResolve(3, 4, 0, () => 2, out _);
+        Check(peerA.LastChangeTick >= captureTick && peerB.LastChangeTick >= captureTick,
+            "a check rolled after the capture: both reject, whatever its result");
+        var inCaptureTick = new PerceptionLedger { Clock = () => captureTick };
+        inCaptureTick.TryResolve(1, 2, 0, () => 1, out _);
+        Check(inCaptureTick.LastChangeTick >= captureTick, "a change in the capture tick itself rejects (safe side)");
+        var restored = new PerceptionLedger { Clock = () => now };
+        now = 20;
+        restored.Replace(new System.Collections.Generic.Dictionary<(ulong sensor, ulong target), (int outcome, int phase)> { [(1, 2)] = (1, 0) });
+        Check(restored.LastChangeTick == 20, "a restore records its tick");
+        restored.ResetForLoad();
+        Check(restored.LastChangeTick == 0 && restored.Count == 0, "a load starts with no change and no results");
 
         // re-entrancy and failures
         var loaded = new PerceptionLedger();
