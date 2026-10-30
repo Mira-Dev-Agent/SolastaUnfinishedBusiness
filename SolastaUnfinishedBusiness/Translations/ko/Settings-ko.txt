@@ -1,4 +1,4 @@
-ModUI/&EnableChanceToPerceiveCloseRange=<i>+는 비 지적 된 경우 10 피트 이내에 목표에 대한 인식을 위해 롤링됩니다 </i>
+ModUI/&EnableChanceToPerceiveCloseRange=<i>+ 인지되지 않은 10칸 이내의 대상을 알아차리기 위해 지각 판정을 굴림</i>
 ModUI/&EnableCriticalHitsMissesAt10=AC와 수정 된 공격 롤 결과의 차이가 10 이상인 경우 임계 적중 및 누락을 활성화합니다.
 ModUI/&EnableDamageOnFailedJumpCheck=실패한 점프 점검에 1d4 피해를 적용합니다
 ModUI/&ModVersionControl=-%ModName% 모드 버전 설정-

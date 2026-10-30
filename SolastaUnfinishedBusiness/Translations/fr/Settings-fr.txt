@@ -1,4 +1,4 @@
-ModUI/&EnableChanceToPerceiveCloseRange=<i> + roulera pour la perception des cibles à moins de 10 pieds lorsqu'il est non perçu </i>
+ModUI/&EnableChanceToPerceiveCloseRange=<i>+ Lance un jet de Perception pour remarquer les cibles non perçues à 10 cases ou moins</i>
 ModUI/&EnableCriticalHitsMissesAt10=Activer les coups et les manques critiques lorsque la différence entre le résultat AC et le résultat du rouleau d'attaque modifié est de 10 ou plus
 ModUI/&EnableDamageOnFailedJumpCheck=Applique 1d4 dégâts sur les contrôles de saut défaillants
 ModUI/&ModVersionControl=-Paramètres de version du mod %ModName%-

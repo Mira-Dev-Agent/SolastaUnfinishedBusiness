@@ -1,4 +1,4 @@
-ModUI/&EnableChanceToPerceiveCloseRange=<i>+ roll
+ModUI/&EnableChanceToPerceiveCloseRange=<i>+ Würfelt auf Wahrnehmung, um nicht wahrgenommene Ziele innerhalb von 10 Feldern zu bemerken</i>
 ModUI/&EnableCriticalHitsMissesAt10=Ermöglichen
 ModUI/&EnableDamageOnFailedJumpCheck=Wendet 1W4 -Schäden bei fehlgeschlagenen Sprungprüfungen an
 ModUI/&ModVersionControl=-%ModName%-Mod-Versionseinstellungen-

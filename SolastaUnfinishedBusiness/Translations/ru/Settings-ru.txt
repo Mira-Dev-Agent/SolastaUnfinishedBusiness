@@ -1,4 +1,4 @@
-ModUI/&EnableChanceToPerceiveCloseRange=<i>+ будет катиться для восприятия для целей в пределах 10 футов, когда не воспринимается </i>
+ModUI/&EnableChanceToPerceiveCloseRange=<i>+ Бросок Восприятия, чтобы заметить невоспринимаемые цели в пределах 10 клеток</i>
 ModUI/&EnableCriticalHitsMissesAt10=Включить критические удары и промахи, когда разница между переменным и модифицированным результатом атаки составляет 10 или более
 ModUI/&EnableDamageOnFailedJumpCheck=Применяется 1d4 повреждения при неудавшихся проверках прыжков
 ModUI/&ModVersionControl=-Настройки версии мода %ModName%-
