@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <LangVersion>13</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../SolastaUnfinishedBusiness/Models/PerceptionLedger.cs" Link="PerceptionLedger.cs" />
+    <Compile Include="../../SolastaUnfinishedBusiness/Models/ScopedEnumerator.cs" Link="ScopedEnumerator.cs" />
+  </ItemGroup>
+</Project>

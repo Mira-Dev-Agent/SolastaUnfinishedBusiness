@@ -8,6 +8,7 @@ using SolastaUnfinishedBusiness.Api;
 using SolastaUnfinishedBusiness.Api.GameExtensions;
 using SolastaUnfinishedBusiness.Api.LanguageExtensions;
 using SolastaUnfinishedBusiness.Interfaces;
+using SolastaUnfinishedBusiness.Models;
 
 namespace SolastaUnfinishedBusiness.Patches;
 
@@ -166,7 +167,8 @@ public static class GameLocationBattlePatcher
         [UsedImplicitly]
         public static void Prefix()
         {
-            Global.RolledPerceptionThisTurn.Clear();
+            //PATCH: 10-cell perception checks: round 1 keeps those rolled outside combat, later rounds roll fresh
+            PerceptionContext.OnRoundStart(Gui.Battle?.CurrentRound ?? 0);
             if (!Main.Settings.EnableInitiativeRollOnEveryRoundStart ||
                 Gui.Battle == null ||
                 Gui.Battle.CurrentRound < 2)

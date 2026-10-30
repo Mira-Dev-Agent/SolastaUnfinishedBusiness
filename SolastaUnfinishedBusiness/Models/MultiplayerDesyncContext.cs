@@ -317,6 +317,11 @@ internal static class MultiplayerDesyncContext
     private static List<Difference> Differences(Fingerprint host, Fingerprint other)
     {
         var differences = new List<Difference>();
+        if (host.Perception != other.Perception)
+        {
+            differences.Add(new Difference("perception", DifferenceType.Perception,
+                Gui.Localize("Message/&MultiplayerDesyncPerception")));
+        }
 
         if (host.Dice != other.Dice)
         {
@@ -397,7 +402,7 @@ internal static class MultiplayerDesyncContext
     {
         return Main.Settings.MultiplayerQuickCorrectDesync &&
                !host.InBattle &&
-               differences.All(x => x.Type is DifferenceType.Correctable or DifferenceType.Dice);
+               differences.All(x => x.Type is DifferenceType.Correctable or DifferenceType.Dice or DifferenceType.Perception);
     }
 
     // host only: a recovery save first, then the correction; without a confirmed save nothing is corrected
@@ -461,7 +466,7 @@ internal static class MultiplayerDesyncContext
             }).ToArray(),
             slots.ToArray(),
             // which correction this is, the player it is for, and the recovery save made before it
-            correction.Id, new[] { correction.Actor }, correction.SaveName
+            correction.Id, new[] { correction.Actor }, correction.SaveName, PerceptionContext.Capture()
         };
 
         PhotonNetwork.RaiseEvent(EventCode, data,
@@ -501,6 +506,13 @@ internal static class MultiplayerDesyncContext
 
     private static IEnumerator ApplyCorrection(object[] data)
     {
+        // Cache and dice must describe the same completed checks. Reject incomplete snapshots before mutation.
+        if (data.Length < 10 || data[9] is not long[] perception || !PerceptionContext.Restore(perception))
+        {
+            Main.Error("Multiplayer correction rejected: missing or invalid perception ledger");
+            yield break;
+        }
+
         var randomState = (int[])data[2];
         var guids = (long[])data[3];
         var values = (int[])data[4];
@@ -873,6 +885,7 @@ internal static class MultiplayerDesyncContext
     {
         Correctable,
         Dice,
+        Perception,
         Other
     }
 
@@ -898,6 +911,7 @@ internal static class MultiplayerDesyncContext
         private readonly Dictionary<ulong, CharacterPrint> _byGuid = [];
         internal readonly List<CharacterPrint> Characters = [];
         internal long Dice;
+        internal long Perception;
         internal bool InBattle;
         internal bool Quiet;
         internal ulong Tick;
@@ -921,6 +935,7 @@ internal static class MultiplayerDesyncContext
             {
                 Tick = tick,
                 Dice = Hash(CaptureRandomState()),
+                Perception = PerceptionContext.Digest(),
                 InBattle = ServiceRepository.GetService<IGameLocationBattleService>() is { IsBattleInProgress: true },
                 Quiet = characters.All(x => !x.MoveInProgress && actions?.IsCharacterActing(x) != true)
             };
@@ -972,13 +987,13 @@ internal static class MultiplayerDesyncContext
             return
             [
                 FingerprintKind, (long)Tick, Dice, InBattle, Quiet,
-                Characters.Select(x => (long)x.Guid).ToArray(), values
+                Characters.Select(x => (long)x.Guid).ToArray(), values, Perception
             ];
         }
 
         internal static Fingerprint FromEvent(object[] data)
         {
-            if (data.Length < 7 || data[5] is not long[] guids || data[6] is not int[] values ||
+            if (data.Length < 8 || data[7] is not long || data[5] is not long[] guids || data[6] is not int[] values ||
                 values.Length != guids.Length * ValuesPerCharacter)
             {
                 return null;
@@ -986,7 +1001,7 @@ internal static class MultiplayerDesyncContext
 
             var fingerprint = new Fingerprint
             {
-                Tick = (ulong)(long)data[1], Dice = (long)data[2], InBattle = (bool)data[3], Quiet = (bool)data[4]
+                Tick = (ulong)(long)data[1], Dice = (long)data[2], Perception = (long)data[7], InBattle = (bool)data[3], Quiet = (bool)data[4]
             };
 
             for (var i = 0; i < guids.Length; i++)
