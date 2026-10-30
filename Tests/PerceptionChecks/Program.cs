@@ -230,6 +230,43 @@ static class Program
         using var fault = new ScopedEnumerator(Fault(), enter, _ => true);
         try { fault.MoveNext(); } catch (InvalidOperationException) { }
         Check(depth == 0 && !fault.MoveNext(), "exception releases scope and disposes");
+
+        // the AI's 3 s count only time spent waiting, added up over the passes; deciding doesn't use them
+        var realTime = 0f;
+        var budget = new AiWaitBudget(3f, () => realTime);
+        realTime = 5f; // a slow first decision
+        budget.Start();
+        Check(budget.HasTimeLeft, "deciding time doesn't count");
+        realTime = 6f;
+        budget.Stop();
+        realTime = 20f; // a slow second decision
+        budget.Start();
+        realTime = 21.9f;
+        Check(budget.HasTimeLeft, "waits add up: 1 + 1.9 s");
+        realTime = 22f;
+        Check(!budget.HasTimeLeft, "3 s of waiting in total");
+        budget.Stop();
+        realTime = 40f;
+        budget.Start();
+        Check(!budget.HasTimeLeft, "nothing left for a later pass");
+        budget.Stop();
+
+        // a legendary package's retry starts from the earlier packages' scores and up-to-date contexts
+        var scores = new System.Collections.Generic.List<int> { 9, 4 };
+        var upToDate = new System.Collections.Generic.Dictionary<int, bool> { [1] = true };
+        var restoreScores = AiRetryState.Keep(scores);
+        var restoreUpToDate = AiRetryState.Keep(upToDate);
+        scores.Add(12); // the discarded pass scores with a check still missing, then sorts and cuts the list
+        scores.Sort((x, y) => y.CompareTo(x));
+        scores.RemoveAt(scores.Count - 1);
+        upToDate[2] = true;
+        restoreScores();
+        restoreUpToDate();
+        Check(scores.SequenceEqual(new[] { 9, 4 }), "earlier packages' scores kept, the discarded pass's gone");
+        Check(upToDate.Count == 1 && upToDate[1], "contexts the discarded pass built are built again");
+        scores.Add(7);
+        restoreScores();
+        Check(scores.SequenceEqual(new[] { 9, 4 }), "each retry starts from the same state");
         Console.WriteLine($"{checks} checks passed");
     }
     sealed class Cleanup(Action action) : IDisposable { public void Dispose() => action(); }

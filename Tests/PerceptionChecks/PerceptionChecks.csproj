@@ -8,5 +8,6 @@
     <Compile Include="../../SolastaUnfinishedBusiness/Models/PerceptionLedger.cs" Link="PerceptionLedger.cs" />
     <Compile Include="../../SolastaUnfinishedBusiness/Models/ScopedEnumerator.cs" Link="ScopedEnumerator.cs" />
     <Compile Include="../../SolastaUnfinishedBusiness/Models/PerceptionRequests.cs" Link="PerceptionRequests.cs" />
+    <Compile Include="../../SolastaUnfinishedBusiness/Models/AiDecisionRetry.cs" Link="AiDecisionRetry.cs" />
   </ItemGroup>
 </Project>

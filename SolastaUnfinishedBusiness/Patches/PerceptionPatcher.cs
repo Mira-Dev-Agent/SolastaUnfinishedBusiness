@@ -48,7 +48,30 @@ public static class PerceptionPatcher
             }
 
             return PerceptionContext.WrapAiDecision(values, () => __instance.DecideNextActivity(
-                currentBestDecisionScore, neededScoreFactorOverride, resetBetweenAcitivities, forceLocalComputation));
+                    currentBestDecisionScore, neededScoreFactorOverride, resetBetweenAcitivities, forceLocalComputation),
+                resetBetweenAcitivities ? null : () => KeepPackageState(__instance));
+        }
+
+        // a legendary creature decides each legendary action's package in turn, and only the first decision resets
+        // the brain: the later ones keep the earlier packages' scores and the contexts already built, so the best of
+        // all packages wins. A new decision for the same package must start from that state, not from the scores and
+        // up-to-date contexts the discarded decision added with checks still missing (its scores are sorted and cut
+        // in place, so they can't be told apart afterwards). Contexts not up to date at that point are built again;
+        // they are new objects, so the kept scores still point at the contexts they were scored with. The situational
+        // caches kept between packages (threat, relevant enemies, AoE positions) read the game's own perception
+        // (PerceivedFoes, CanSenseTarget), not the 10-cell rule, so they stay.
+        private static Action KeepPackageState(Brain brain)
+        {
+            var scoredResults = AiRetryState.Keep(brain.scoredResults);
+            var contextUpToDateStatus = AiRetryState.Keep(brain.contextUpToDateStatus);
+            var selectedDecision = brain.selectedDecision;
+
+            return () =>
+            {
+                scoredResults();
+                contextUpToDateStatus();
+                brain.selectedDecision = selectedDecision;
+            };
         }
     }
 

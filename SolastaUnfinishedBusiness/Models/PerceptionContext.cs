@@ -454,9 +454,12 @@ internal static class PerceptionContext
     // its command, and decide again with the results. After three decisions that each found new missing checks, one
     // last decision uses the results that arrived without asking for more (a check still missing counts as failed).
     // After 3 s of waiting (a lost command can't stall the enemy turn), the last decision instead rolls any check still
-    // missing on the host alone, as with sync off (user direction): those rolls can desync. The mode is fixed for the
-    // whole decision.
-    internal static IEnumerator WrapAiDecision(IEnumerator first, Func<IEnumerator> decideAgain)
+    // missing on the host alone, as with sync off (user direction): those rolls can desync. The 3 s count only the time
+    // spent waiting, added up over the decision's passes, not the time spent deciding. The mode is fixed for the whole
+    // decision. keepState, if given, is called before the first decision and returns what puts the AI's state back
+    // before each new decision (see the legendary actions in PerceptionPatcher).
+    internal static IEnumerator WrapAiDecision(
+        IEnumerator first, Func<IEnumerator> decideAgain, Func<Action> keepState = null)
     {
         if (first == null)
         {
@@ -464,7 +467,8 @@ internal static class PerceptionContext
         }
 
         var synchronized = Global.IsMultiplayer && Main.Settings.SyncAiPerceptionChecks;
-        var deadline = Time.realtimeSinceStartup + AiMaxWaitSeconds;
+        var budget = new AiWaitBudget(AiMaxWaitSeconds, () => Time.realtimeSinceStartup);
+        var restoreState = keepState?.Invoke();
         var inner = first;
         var passesWithNewChecks = 0;
         var finalPass = false;
@@ -484,10 +488,14 @@ internal static class PerceptionContext
             passesWithNewChecks++;
             Send(AiQueue, "ai");
 
-            while (scope.Dependencies.Any(Requests.IsPending) && Time.realtimeSinceStartup < deadline)
+            budget.Start();
+
+            while (scope.Dependencies.Any(Requests.IsPending) && budget.HasTimeLeft)
             {
                 yield return null;
             }
+
+            budget.Stop();
 
             var waiting = scope.Dependencies.Count(Requests.IsPending);
 
@@ -499,6 +507,7 @@ internal static class PerceptionContext
                 : $"ai decision has the results of {scope.Dependencies.Count} checks, deciding again" +
                   (finalPass ? " (last pass)" : string.Empty));
 
+            restoreState?.Invoke();
             CreatingAiRerun = true;
 
             try
