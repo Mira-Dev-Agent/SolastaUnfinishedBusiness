@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
@@ -623,6 +623,8 @@ internal static partial class SpellBuilders
         {
             if (outcome == RollOutcome.Success)
             {
+                // Ammunition saves also reach this hook. An actor without a location character has no
+                // per-location feature state to mark; leave it alone instead of throwing after the save.
                 GameLocationCharacter.GetFromActor(rulesetActorDefender)?.UsedSpecialFeatures
                     .TryAdd(CircleOfMagicalNegationSavedTag, 0);
             }

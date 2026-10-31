@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
@@ -46,6 +46,8 @@ public static class CharacterActionAttackPatcher
             var rulesetCharacter = actingCharacter.RulesetCharacter;
             var actionParams = __instance.ActionParams;
             var attackMode = actionParams.AttackMode;
+            // Capture the selected ammunition before this action consumes it, including the last item in a stack.
+            // Its definition supplies save metadata missing from generated weapon attack modes.
             var ammunitionEffectDescription = GetAmmunitionEffectDescription(rulesetCharacter, attackMode);
             var locationPositioningService = ServiceRepository.GetService<IGameLocationPositioningService>();
             var locationEntityFactoryService = ServiceRepository.GetService<IWorldLocationEntityFactoryService>();
@@ -527,9 +529,11 @@ public static class CharacterActionAttackPatcher
 
                     // Poisoned ammunition keeps its saving throw metadata outside the generated attack mode.
                     // Temporarily borrow only that save metadata so the attack pipeline rolls and applies it.
+                    // Preserve an existing weapon save: this patch does not resolve two independent saves.
                     if (!attackEffectDescription.HasSavingThrow &&
                         ammunitionEffectDescription?.HasSavingThrow == true)
                     {
+                        // Snapshot for restoration after save reactions. See the ownership warning in finally below.
                         originalEffectDescription = new EffectDescription();
                         originalEffectDescription.Copy(attackEffectDescription);
 
@@ -544,6 +548,9 @@ public static class CharacterActionAttackPatcher
                         attackEffectDescription.fixedSavingThrowDifficultyClass =
                             ammunitionEffectDescription.fixedSavingThrowDifficultyClass;
                         attackEffectDescription.advantageForEnemies = ammunitionEffectDescription.advantageForEnemies;
+                        // TODO (#3): these borrowed descriptors/list are owned by the ammunition definition.
+                        // Whole-description restoration returns the descriptors to pools and clears the shared
+                        // family list. Give this temporary state its own lifetime before merging this fix.
                         attackEffectDescription.savingThrowAffinitiesBySense.Clear();
                         attackEffectDescription.savingThrowAffinitiesBySense.AddRange(
                             ammunitionEffectDescription.savingThrowAffinitiesBySense);
@@ -581,6 +588,8 @@ public static class CharacterActionAttackPatcher
                                 Action = __instance
                             };
 
+                            // Keep the save metadata available across reactions: reroll handlers read the
+                            // action's attack mode again (e.g. Indomitable and Borrow Luck).
                             yield return TryAlterOutcomeSavingThrow.Handler(
                                 battleManager,
                                 actingCharacter,
@@ -594,6 +603,9 @@ public static class CharacterActionAttackPatcher
                     {
                         if (originalEffectDescription != null)
                         {
+                            // TODO (#3): Copy first clears/pools the live description's effect forms, but
+                            // actualEffectForms still references them for damage application below. Restore
+                            // only save metadata, or isolate the save context; this is not a safe rollback yet.
                             attackEffectDescription.Copy(originalEffectDescription);
                         }
                     }
@@ -993,6 +1005,8 @@ public static class CharacterActionAttackPatcher
                 __instance, actingCharacter);
         }
 
+        // Hero inventory selects the active ammo slot for this weapon type. Monsters keep their native attack
+        // saves; missing slots/items provide no override. Do not infer save rules from the weapon's damage forms.
         private static EffectDescription GetAmmunitionEffectDescription(
             RulesetCharacter rulesetCharacter,
             RulesetAttackMode attackMode)
