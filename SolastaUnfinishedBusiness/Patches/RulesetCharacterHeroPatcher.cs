@@ -730,6 +730,9 @@ public static class RulesetCharacterHeroPatcher
             bool canAddAbilityDamageBonus,
             RulesetItem weapon)
         {
+            // Observe native construction separately from the mod modifiers below.
+            AmmunitionDiagnosticsContext.Trace("refresh-native", __instance, __result);
+
             //PATCH: Allows changing damage and other stats of an attack mode
             var weaponAttackModeModifiers = __instance.GetSubFeaturesByType<IModifyWeaponAttackMode>();
 
@@ -742,6 +745,8 @@ public static class RulesetCharacterHeroPatcher
             {
                 modifier.ModifyWeaponAttackMode(__instance, __result, weapon, canAddAbilityDamageBonus);
             }
+
+            AmmunitionDiagnosticsContext.Trace("refresh-modified", __instance, __result);
         }
     }
 

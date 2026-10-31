@@ -6,6 +6,7 @@ using JetBrains.Annotations;
 using SolastaUnfinishedBusiness.Api.GameExtensions;
 using SolastaUnfinishedBusiness.Behaviors.Specific;
 using SolastaUnfinishedBusiness.Interfaces;
+using SolastaUnfinishedBusiness.Models;
 using SolastaUnfinishedBusiness.Spells;
 using SolastaUnfinishedBusiness.Subclasses;
 using SolastaUnfinishedBusiness.Validators;
@@ -46,6 +47,7 @@ public static class CharacterActionAttackPatcher
             var rulesetCharacter = actingCharacter.RulesetCharacter;
             var actionParams = __instance.ActionParams;
             var attackMode = actionParams.AttackMode;
+            AmmunitionDiagnosticsContext.Trace("action-entry", rulesetCharacter, attackMode);
             var locationPositioningService = ServiceRepository.GetService<IGameLocationPositioningService>();
             var locationEntityFactoryService = ServiceRepository.GetService<IWorldLocationEntityFactoryService>();
             var implementationService = ServiceRepository.GetService<IRulesetImplementationService>();
@@ -519,6 +521,10 @@ public static class CharacterActionAttackPatcher
                     // Check if the target was killed by a reaction
                     targetKilledBySideEffect = rulesetDefender.IsDead;
 
+                    // Observe the final hit forms after all hit-confirmed hooks, before any save roll.
+                    AmmunitionDiagnosticsContext.Trace("before-save", rulesetCharacter, attackMode,
+                        __instance.actualEffectForms);
+
                     // Saving throw?
                     var hasBorrowedLuck = rulesetDefender.HasConditionOfTypeOrSubType(ConditionBorrowedLuck);
 
@@ -533,6 +539,8 @@ public static class CharacterActionAttackPatcher
 
                     __instance.SaveOutcome = saveOutcome;
                     __instance.SaveOutcomeDelta = saveOutcomeDelta;
+                    AmmunitionDiagnosticsContext.Trace("after-save", rulesetCharacter, attackMode,
+                        __instance.actualEffectForms, $"rolled={__instance.RolledSaveThrow},outcome={saveOutcome}");
 
                     if (__instance.RolledSaveThrow)
                     {
