@@ -70,6 +70,6 @@ internal static class AmmunitionDiagnosticsContext
         // Include per-form save affinity: HasSavingThrow alone does not establish
         // whether a successful save will suppress the poison's damage/condition.
         return forms == null ? "none" : string.Join(";", forms.Select(form =>
-            form == null ? "null" : $"{form.FormType}:{form.SavingThrowAffinity}"));
+            form == null ? "null" : $"{form.FormType}:save={form.HasSavingThrow}:{form.SavingThrowAffinity}"));
     }
 }
