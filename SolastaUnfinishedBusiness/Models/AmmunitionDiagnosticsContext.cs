@@ -45,7 +45,7 @@ internal static class AmmunitionDiagnosticsContext
             var item = string.IsNullOrEmpty(ammoType) ? null :
                 hero.CharacterInventory.GetCurrentAmmunitionSlot(ammoType)?.EquipedItem;
             var ammo = item?.ItemDefinition?.AmmunitionDescription?.EffectDescription;
-            Main.ModEntry.Logger.Log($"[AmmoDiag] {stage} actor={hero.Guid} mode={RuntimeHelpers.GetHashCode(mode)} " +
+            UnityEngine.Debug.Log($"[AmmoDiag] {stage} actor={hero.Guid} mode={RuntimeHelpers.GetHashCode(mode)} " +
                      $"ammo={item?.ItemDefinition?.Name ?? "none"} type={ammoType} " +
                      $"modeEffect=[{Describe(mode.EffectDescription)}] ammoEffect=[{Describe(ammo)}] " +
                      $"actual=[{Forms(actualForms)}] result={result}");
@@ -53,7 +53,7 @@ internal static class AmmunitionDiagnosticsContext
         catch (Exception ex)
         {
             // A diagnostic failure must never interrupt an attack or consume a roll.
-            Main.ModEntry.Logger.Log($"[AmmoDiag] {stage} observation failed: {ex.GetType().Name}");
+            UnityEngine.Debug.Log($"[AmmoDiag] {stage} observation failed: {ex.GetType().Name}");
         }
     }
 
